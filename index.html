@@ -3,155 +3,221 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PixelDrop Pro | Future Tokyo & Premium Hub</title>
+    <title>PixelDrop Pro | Ultimate Visual Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        /* Animated Dark Matter Background */
         @keyframes gradientMove {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
         .animated-bg {
-            background: linear-gradient(-45deg, #090d16, #111827, #1e1b4b, #020617);
+            background: linear-gradient(-45deg, #050505, #111827, #1e1b4b, #09090b);
             background-size: 400% 400%;
-            animation: gradientMove 12s ease infinite;
+            animation: gradientMove 15s ease infinite;
         }
         .glass-panel {
-            background: rgba(15, 23, 42, 0.7);
+            background: rgba(15, 23, 42, 0.65);
             backdrop-filter: blur(24px);
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
-        .insta-glow {
-            box-shadow: 0 0 25px rgba(236, 72, 153, 0.4);
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #ec4899; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #d946ef; }
+        
+        /* Preloader Animation */
+        #preloader { transition: opacity 0.6s ease-out, visibility 0.6s; }
+        .loader-core { animation: spin 2s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        
+        /* Slide-in Toast */
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
-        .premium-glow {
-            box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
-        }
+        .toast-enter { animation: slideInRight 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; }
     </style>
 </head>
-<body class="animated-bg text-slate-100 min-h-screen font-sans">
+<body class="animated-bg text-slate-100 min-h-screen font-sans selection:bg-pink-500 selection:text-white">
 
-    <nav class="sticky top-0 z-50 glass-panel px-8 py-5 flex justify-between items-center shadow-2xl">
-        <a href="index.html" class="text-2xl font-black tracking-widest text-white uppercase">
-            Pixel<span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-amber-400">Drop</span>
+    <div id="preloader" class="fixed inset-0 z-[200] bg-slate-950 flex flex-col items-center justify-center">
+        <div class="relative w-24 h-24 flex items-center justify-center mb-6">
+            <div class="absolute inset-0 border-t-4 border-pink-500 rounded-full loader-core opacity-70"></div>
+            <div class="absolute inset-2 border-b-4 border-cyan-400 rounded-full loader-core" style="animation-direction: reverse; animation-duration: 1.5s;"></div>
+            <i class="fas fa-fingerprint text-3xl text-amber-400"></i>
+        </div>
+        <h2 class="text-xl font-black tracking-[0.3em] uppercase text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-cyan-400 animate-pulse">Initializing Hub</h2>
+    </div>
+
+    <div id="toastContainer" class="fixed top-24 right-4 z-[150] flex flex-col gap-3 pointer-events-none"></div>
+
+    <nav class="sticky top-0 z-50 glass-panel px-6 md:px-10 py-5 flex justify-between items-center shadow-2xl border-b border-slate-800/50">
+        <a href="index.html" class="text-2xl md:text-3xl font-black tracking-widest text-white uppercase flex items-center gap-2">
+            <i class="fas fa-layer-group text-pink-500 text-xl md:hidden"></i>
+            <span class="hidden md:inline">Pixel</span><span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-amber-400">Drop</span>
         </a>
-        <div class="flex items-center gap-6">
-            <a href="https://instagram.com/i_f_t_uu" target="_blank" class="text-pink-500 hover:text-pink-400 transition flex items-center gap-2 font-bold text-sm">
-                <i class="fab fa-instagram text-2xl"></i> <span class="hidden sm:inline">@i_f_t_uu</span>
+        <div class="flex items-center gap-4 md:gap-8">
+            <a href="https://instagram.com/i_f_t_uu" target="_blank" class="text-slate-400 hover:text-pink-500 transition flex items-center gap-2 font-bold text-sm bg-slate-900/50 px-4 py-2 rounded-full border border-slate-800">
+                <i class="fab fa-instagram text-lg text-pink-500"></i> <span class="hidden sm:inline">@i_f_t_uu</span>
             </a>
             <div id="navAuthArea">
-                <button onclick="openAuthModal()" class="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold px-6 py-2.5 rounded-xl text-sm transition shadow-lg transform hover:scale-105">
-                    <i class="fas fa-user-shield mr-2"></i> Client Login
+                <button onclick="openAuthModal()" class="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold px-6 py-2.5 rounded-full text-sm transition shadow-[0_0_15px_rgba(236,72,153,0.4)] transform hover:-translate-y-0.5">
+                    <i class="fas fa-user-astronaut mr-2"></i> Access Hub
                 </button>
             </div>
         </div>
     </nav>
 
-    <header class="text-center pt-24 pb-12 px-4 max-w-5xl mx-auto relative z-10">
-        <h1 class="text-5xl md:text-8xl font-black text-white mb-6 tracking-tight leading-tight">
-            Tokyo Future <br class="hidden md:block"><span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-pink-500 to-amber-400">Visual Ecosystem</span>
+    <header class="text-center pt-28 pb-16 px-4 max-w-5xl mx-auto relative z-10">
+        <div class="inline-block mb-6 px-4 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 text-xs font-bold tracking-widest uppercase">
+            <i class="fas fa-satellite-dish animate-pulse mr-2"></i> Global Asset Network
+        </div>
+        <h1 class="text-5xl md:text-7xl lg:text-8xl font-black text-white mb-6 tracking-tighter leading-[1.1]">
+            Next-Gen <br class="hidden md:block"><span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-pink-500 to-amber-400">Visual Architecture</span>
         </h1>
-        <p class="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto font-light">
-            Explore premium algorithmic conceptual photography and free high-resolution assets from Neo-Tokyo.
+        <p class="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto font-light leading-relaxed">
+            Download uncompressed Tokyo Future elements or unlock the ultimate premium cyberpunk collections.
         </p>
     </header>
 
-    <section class="max-w-4xl mx-auto px-6 mb-16">
-        <div class="glass-panel rounded-3xl p-8 flex flex-col md:flex-row items-center justify-between gap-6 border border-pink-500/20 insta-glow bg-gradient-to-r from-purple-950/30 via-slate-900/50 to-pink-950/30">
-            <div class="flex items-center gap-5 text-center md:text-left flex-col md:flex-row">
-                <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 flex items-center justify-center shadow-lg">
+    <div class="max-w-2xl mx-auto px-6 mb-12 relative z-20">
+        <div class="relative group">
+            <div class="absolute -inset-1 bg-gradient-to-r from-pink-500 to-cyan-500 rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+            <div class="relative flex items-center bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
+                <i class="fas fa-search text-slate-500 ml-6 text-lg"></i>
+                <input type="text" id="searchInput" oninput="handleSearch(this.value)" placeholder="Search neon, tokyo, abstract..." class="w-full bg-transparent py-4 pl-4 pr-6 text-white placeholder-slate-600 focus:outline-none text-sm font-medium tracking-wide">
+            </div>
+        </div>
+    </div>
+
+    <section class="max-w-7xl mx-auto px-6 mb-16 flex flex-wrap gap-4 justify-center relative z-20">
+        <button onclick="filterCategory('all')" class="bg-slate-900/80 hover:bg-slate-800 border border-slate-700/50 px-6 py-3 rounded-full text-xs font-bold uppercase tracking-wider transition backdrop-blur-sm">Show All</button>
+        <button onclick="filterCategory('tokyo')" class="bg-slate-900/80 hover:bg-slate-800 border border-cyan-500/30 px-6 py-3 rounded-full text-xs font-bold uppercase tracking-wider transition text-cyan-400 backdrop-blur-sm shadow-[0_0_10px_rgba(34,211,238,0.1)]">Tokyo Future</button>
+        <button onclick="filterCategory('cyberpunk')" class="bg-slate-900/80 hover:bg-slate-800 border border-pink-500/30 px-6 py-3 rounded-full text-xs font-bold uppercase tracking-wider transition text-pink-400 backdrop-blur-sm shadow-[0_0_10px_rgba(236,72,153,0.1)]">Premium Cyberpunk</button>
+    </section>
+
+    <main class="max-w-7xl mx-auto px-6 pb-20">
+        <div id="galleryGrid" class="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6">
+            </div>
+    </main>
+
+    <section class="max-w-5xl mx-auto px-6 mb-32 relative">
+        <div class="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 blur-[80px] opacity-20 -z-10 rounded-full"></div>
+        <div class="glass-panel rounded-[2rem] p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 border border-pink-500/30 bg-gradient-to-r from-slate-950 via-slate-900 to-purple-950/50 shadow-2xl">
+            <div class="flex items-center gap-6 text-center md:text-left flex-col md:flex-row">
+                <div class="w-20 h-20 rounded-3xl bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 flex items-center justify-center shadow-[0_0_30px_rgba(236,72,153,0.5)] transform -rotate-6">
                     <i class="fab fa-instagram text-4xl text-white"></i>
                 </div>
                 <div>
-                    <h3 class="text-xl font-black text-white tracking-wide">Connect On Instagram</h3>
-                    <p class="text-sm text-slate-400 mt-1">Follow for exclusive drops, Custom asset orders & continuous system updates.</p>
+                    <h3 class="text-2xl font-black text-white tracking-wide mb-2">Join The Insider Network</h3>
+                    <p class="text-sm text-slate-400 font-light max-w-md">Follow @i_f_t_uu for exclusive behind-the-scenes, unreleased free assets, and custom 3D photography commissions.</p>
                 </div>
             </div>
-            <a href="https://instagram.com/i_f_t_uu" target="_blank" class="bg-white text-slate-950 font-black px-8 py-4 rounded-2xl text-sm tracking-wider hover:bg-pink-500 hover:text-white transition shadow-xl shrink-0 uppercase">
+            <a href="https://instagram.com/i_f_t_uu" target="_blank" class="bg-white text-slate-950 font-black px-8 py-4 rounded-2xl text-sm tracking-widest hover:bg-pink-500 hover:text-white hover:scale-105 transition-all shadow-xl shrink-0 uppercase border-2 border-transparent hover:border-pink-300">
                 Follow @i_f_t_uu
             </a>
         </div>
     </section>
 
-    <div class="max-w-xl mx-auto px-6 mb-12">
-        <div class="relative">
-            <i class="fas fa-search absolute left-4 top-4 text-slate-500"></i>
-            <input type="text" id="searchInput" oninput="handleSearch(this.value)" placeholder="Search cyberpunk, nature, tokyo..." class="w-full bg-slate-950 border border-slate-800 rounded-2xl py-4 pl-12 pr-4 text-white placeholder-slate-600 focus:outline-none focus:border-pink-500 transition shadow-inner text-sm">
-        </div>
-    </div>
-
-    <section class="max-w-7xl mx-auto px-6 mb-12 flex flex-wrap gap-3 justify-center">
-        <button onclick="filterCategory('all')" class="bg-slate-900 hover:bg-slate-800 border border-slate-800 px-6 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition">Show All</button>
-        <button onclick="filterCategory('tokyo')" class="bg-slate-900 hover:bg-slate-800 border border-slate-800 px-6 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition text-cyan-400">Tokyo Future (Free)</button>
-        <button onclick="filterCategory('cyberpunk')" class="bg-slate-900 hover:bg-slate-800 border border-slate-800 px-6 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition text-pink-400">Premium Cyberpunk</button>
-        <button onclick="filterCategory('nature')" class="bg-slate-900 hover:bg-slate-800 border border-slate-800 px-6 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition text-emerald-400">Nature Minimal</button>
-    </section>
-
-    <main class="max-w-7xl mx-auto px-6 pb-32">
-        <div id="galleryGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-            </div>
-    </main>
-
-    <footer class="border-t border-slate-900 py-12 text-center text-slate-600 text-xs tracking-widest uppercase">
-        <p>&copy; 2026 PixelDrop Vault. Supervised by <a href="https://instagram.com/i_f_t_uu" class="text-slate-400 hover:text-pink-500">@i_f_t_uu</a>.</p>
+    <footer class="border-t border-slate-800/50 py-12 text-center text-slate-600 text-xs tracking-widest uppercase bg-slate-950/50">
+        <p>&copy; 2026 PixelDrop Vault. Engineered by <a href="https://instagram.com/i_f_t_uu" class="text-slate-400 hover:text-pink-500 transition">@i_f_t_uu</a>.</p>
     </footer>
 
-    <div id="lightboxModal" class="fixed inset-0 z-50 hidden bg-black/95 backdrop-blur-md flex items-center justify-center p-4 transition-all">
-        <div class="relative max-w-5xl w-full glass-panel rounded-3xl overflow-hidden flex flex-col md:flex-row shadow-2xl border border-slate-800">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-3xl z-10"><i class="fas fa-times-circle"></i></button>
+    <div id="lightboxModal" class="fixed inset-0 z-[100] hidden bg-slate-950/90 backdrop-blur-xl flex items-center justify-center p-4 transition-all">
+        <div class="relative max-w-6xl w-full bg-slate-900 rounded-[2rem] overflow-hidden flex flex-col lg:flex-row shadow-2xl border border-slate-700">
+            <button onclick="closeModal()" class="absolute top-6 right-6 text-slate-400 hover:text-white hover:rotate-90 text-3xl z-10 transition duration-300"><i class="fas fa-times-circle"></i></button>
             
-            <div class="md:w-3/5 bg-black flex items-center justify-center relative">
-                <img id="modalImg" src="" class="w-full h-[45vh] md:h-[70vh] object-cover pointer-events-none select-none">
-                <div id="watermark" class="absolute inset-0 flex items-center justify-center pointer-events-none select-none hidden">
-                    <span class="text-white/10 text-5xl font-black tracking-widest uppercase rotate-[-35deg]">PRO SECURITY LAYER</span>
+            <div class="lg:w-3/5 bg-black flex items-center justify-center relative overflow-hidden group">
+                <img id="modalImg" src="" class="w-full h-[50vh] lg:h-[80vh] object-cover pointer-events-none select-none transition duration-700 group-hover:scale-105">
+                <div id="watermark" class="absolute inset-0 flex items-center justify-center pointer-events-none select-none hidden bg-black/20">
+                    <div class="border-4 border-white/10 p-4 rounded-2xl rotate-[-25deg] backdrop-blur-sm">
+                        <span class="text-white/30 text-5xl font-black tracking-[0.2em] uppercase drop-shadow-2xl">PRO PROTECTED</span>
+                    </div>
                 </div>
             </div>
 
-            <div class="md:w-2/5 p-8 flex flex-col justify-center bg-slate-950/60">
-                <span id="modalCategory" class="text-pink-500 text-xs font-bold tracking-widest uppercase mb-1">Asset Node</span>
-                <h2 id="modalTitle" class="text-3xl font-black text-white mb-6 tracking-tight">Asset Title</h2>
+            <div class="lg:w-2/5 p-10 flex flex-col justify-center bg-gradient-to-b from-slate-900 to-slate-950">
+                <div class="flex items-center gap-3 mb-4">
+                    <span id="modalCategory" class="px-3 py-1 rounded-md bg-slate-800 text-pink-500 text-xs font-bold tracking-widest uppercase">Node</span>
+                    <span class="text-slate-500 text-xs font-bold"><i class="fas fa-eye mr-1"></i> <span id="modalViews">2.4k</span></span>
+                </div>
+                <h2 id="modalTitle" class="text-3xl md:text-4xl font-black text-white mb-8 tracking-tight leading-tight">Asset Title</h2>
                 <div id="actionArea"></div>
             </div>
         </div>
     </div>
 
-    <div id="authModal" class="fixed inset-0 z-[60] hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-        <div class="glass-panel w-full max-w-md p-8 rounded-3xl border border-slate-800/60 shadow-2xl">
-            <h3 class="text-2xl font-bold text-white mb-6"><i class="fas fa-fingerprint text-pink-500 mr-2"></i>Secure Credentials</h3>
+    <div id="authModal" class="fixed inset-0 z-[110] hidden bg-slate-950/80 backdrop-blur-lg flex items-center justify-center p-4">
+        <div class="bg-slate-900 w-full max-w-md p-10 rounded-[2rem] border border-pink-500/20 shadow-[0_0_50px_rgba(236,72,153,0.1)] relative overflow-hidden">
+            <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-cyan-400 via-pink-500 to-amber-400"></div>
+            <h3 class="text-3xl font-black text-white mb-8 tracking-tight"><i class="fas fa-fingerprint text-pink-500 mr-3 animate-pulse"></i>Node Login</h3>
             <form onsubmit="handleLogin(event)">
-                <div class="mb-4">
-                    <label class="block text-xs font-semibold text-slate-400 uppercase mb-2 tracking-wider">Secure Email</label>
-                    <input type="email" required placeholder="user@domain.com" class="w-full bg-slate-900 border border-slate-800 rounded-xl py-3 px-4 text-white focus:outline-none focus:border-pink-500 text-sm">
+                <div class="mb-5 relative">
+                    <i class="fas fa-envelope absolute left-4 top-4 text-slate-500"></i>
+                    <input type="email" required placeholder="user@domain.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl py-3.5 pl-12 pr-4 text-white focus:outline-none focus:border-pink-500 text-sm transition">
                 </div>
-                <div class="mb-6">
-                    <label class="block text-xs font-semibold text-slate-400 uppercase mb-2 tracking-wider">Encryption Password</label>
-                    <input type="password" required placeholder="••••••••" class="w-full bg-slate-900 border border-slate-800 rounded-xl py-3 px-4 text-white focus:outline-none focus:border-pink-500 text-sm">
+                <div class="mb-8 relative">
+                    <i class="fas fa-lock absolute left-4 top-4 text-slate-500"></i>
+                    <input type="password" required placeholder="••••••••" class="w-full bg-slate-950 border border-slate-800 rounded-xl py-3.5 pl-12 pr-4 text-white focus:outline-none focus:border-pink-500 text-sm transition">
                 </div>
-                <button type="submit" class="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold py-3.5 rounded-xl text-sm transition shadow-lg uppercase tracking-wider">Access Node</button>
+                <button type="submit" class="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-400 hover:to-purple-500 text-white font-black py-4 rounded-xl text-sm transition shadow-lg uppercase tracking-widest transform hover:-translate-y-1">Establish Connection</button>
             </form>
         </div>
     </div>
 
     <script>
-        // Extended Expanded Asset Database (Added Tokyo Future Free content)
+        // Fake Stats Added to Database
         const galleryItems = [
-            { id: 1, title: 'Tokyo Neon Future Alpha', category: 'tokyo', url: 'https://images.unsplash.com/photo-1540959733332-eab4deceeaf7?auto=format&fit=crop&w=800&q=80', premium: false },
-            { id: 2, title: 'Cyberpunk Command Center', category: 'cyberpunk', url: 'https://images.unsplash.com/photo-1605806616949-1e87b487cb2a?auto=format&fit=crop&w=800&q=80', premium: true },
-            { id: 3, title: 'Neo Tokyo Alleyways Zero', category: 'tokyo', url: 'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=800&q=80', premium: false },
-            { id: 4, title: 'Misty Mountains Plateau', category: 'nature', url: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80', premium: false },
-            { id: 5, title: 'Deep Space Nebula Core', category: 'cyberpunk', url: 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=800&q=80', premium: true },
-            { id: 6, title: 'Shibuya Quantum Overload', category: 'tokyo', url: 'https://images.unsplash.com/photo-1542051841857-5f90071e7989?auto=format&fit=crop&w=800&q=80', premium: false },
-            { id: 7, title: 'Abstract Fluid Dynamics', category: 'cyberpunk', url: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=800&q=80', premium: true },
-            { id: 8, title: 'Chiyoda Skyline Light-Grid', category: 'tokyo', url: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=800&q=80', premium: false },
-            { id: 9, title: 'Silent Forest Canopy', category: 'nature', url: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=800&q=80', premium: false },
-            { id: 10, title: 'Tokyo Underground Grid', category: 'tokyo', url: 'https://images.unsplash.com/photo-1555680202-c86f0e12f086?auto=format&fit=crop&w=800&q=80', premium: true }
+            { id: 1, height: 'h-[400px]', title: 'Tokyo Neon Future Alpha', category: 'tokyo', url: 'https://images.unsplash.com/photo-1540959733332-eab4deceeaf7', premium: false, views: '14.2k' },
+            { id: 2, height: 'h-[280px]', title: 'Cyberpunk Command Center', category: 'cyberpunk', url: 'https://images.unsplash.com/photo-1605806616949-1e87b487cb2a', premium: true, views: '8.4k' },
+            { id: 3, height: 'h-[350px]', title: 'Neo Tokyo Alleyways Zero', category: 'tokyo', url: 'https://images.unsplash.com/photo-1503899036084-c55cdd92da26', premium: false, views: '22.1k' },
+            { id: 4, height: 'h-[450px]', title: 'Deep Space Nebula Core', category: 'cyberpunk', url: 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564', premium: true, views: '5.9k' },
+            { id: 5, height: 'h-[300px]', title: 'Shibuya Quantum Overload', category: 'tokyo', url: 'https://images.unsplash.com/photo-1542051841857-5f90071e7989', premium: false, views: '19.8k' },
+            { id: 6, height: 'h-[380px]', title: 'Abstract Fluid Dynamics', category: 'cyberpunk', url: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853', premium: true, views: '11.3k' },
+            { id: 7, height: 'h-[250px]', title: 'Chiyoda Skyline Light-Grid', category: 'tokyo', url: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e', premium: false, views: '7.6k' },
+            { id: 8, height: 'h-[420px]', title: 'Tokyo Underground Grid', category: 'tokyo', url: 'https://images.unsplash.com/photo-1555680202-c86f0e12f086', premium: true, views: '33.5k' }
         ];
 
         let currentUser = JSON.parse(localStorage.getItem('userSession')) || null;
         let activeCategory = 'all';
         let searchQuery = '';
 
+        // Preloader Logic
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const preloader = document.getElementById('preloader');
+                preloader.style.opacity = '0';
+                preloader.style.visibility = 'hidden';
+            }, 1200);
+        });
+
+        // Toast System (Slide in Notification)
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            const icon = type === 'success' ? '<i class="fas fa-check-circle text-emerald-400"></i>' : '<i class="fas fa-info-circle text-cyan-400"></i>';
+            toast.className = `glass-panel px-5 py-3 rounded-xl flex items-center gap-3 border-l-4 ${type === 'success' ? 'border-emerald-400' : 'border-cyan-400'} shadow-xl toast-enter text-sm font-bold text-white tracking-wide`;
+            toast.innerHTML = `${icon} ${message}`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(100%)';
+                toast.style.transition = 'all 0.4s';
+                setTimeout(() => toast.remove(), 400);
+            }, 3000);
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast("bKash Number Copied to Clipboard!", "success");
+            });
+        }
+
+        // Masonry Gallery Render
         function renderGallery() {
             const grid = document.getElementById('galleryGrid');
             grid.innerHTML = '';
@@ -164,23 +230,33 @@
 
             filtered.forEach(item => {
                 const card = document.createElement('div');
-                card.className = "group relative cursor-pointer rounded-3xl overflow-hidden bg-slate-900/60 border border-slate-900 hover:border-slate-800 transition-all duration-300 hover:-translate-y-1.5 shadow-xl";
+                // break-inside-avoid prevents items from splitting across columns
+                card.className = "group relative cursor-pointer rounded-2xl overflow-hidden bg-slate-900 border border-slate-800 hover:border-pink-500/50 transition-all duration-500 break-inside-avoid shadow-lg";
                 card.onclick = () => openModal(item);
                 
                 card.innerHTML = `
-                    <div class="h-72 overflow-hidden relative">
-                        <img src="${item.url}" class="w-full h-full object-cover group-hover:scale-105 transition duration-700 opacity-90 group-hover:opacity-100">
+                    <div class="${item.height} w-full overflow-hidden relative">
+                        <img src="${item.url}?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-110 transition duration-1000 opacity-80 group-hover:opacity-100">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-90"></div>
+                        
                         ${item.premium ? `
-                            <div class="absolute top-4 right-4 bg-gradient-to-r from-amber-400 to-orange-500 text-slate-950 text-[10px] font-black px-3 py-1.5 rounded-lg premium-glow flex items-center gap-1.5 tracking-wider uppercase">
-                                <i class="fas fa-crown"></i> Premium
+                            <div class="absolute top-4 right-4 bg-slate-950/80 backdrop-blur text-amber-400 text-[10px] font-black px-3 py-1.5 rounded-lg border border-amber-500/30 flex items-center gap-1.5 uppercase tracking-widest shadow-[0_0_15px_rgba(245,158,11,0.2)]">
+                                <i class="fas fa-crown"></i> Pro
                             </div>
                         ` : `
-                            <div class="absolute top-4 right-4 bg-slate-950/80 text-cyan-400 text-[10px] font-bold px-3 py-1.5 rounded-lg flex items-center gap-1.5 tracking-wider uppercase">
-                                <i class="fas fa-bolt"></i> Free Asset
+                            <div class="absolute top-4 right-4 bg-slate-950/80 backdrop-blur text-cyan-400 text-[10px] font-bold px-3 py-1.5 rounded-lg border border-cyan-500/30 flex items-center gap-1.5 uppercase tracking-widest">
+                                <i class="fas fa-bolt"></i> Free
                             </div>
                         `}
+                        
+                        <div class="absolute bottom-0 inset-x-0 p-5 transform translate-y-2 group-hover:translate-y-0 transition duration-300">
+                            <h3 class="font-black text-lg text-white mb-1 tracking-wide leading-tight">${item.title}</h3>
+                            <div class="flex items-center gap-4 text-xs font-bold text-slate-400">
+                                <span><i class="fas fa-eye mr-1"></i> ${item.views}</span>
+                                <span><i class="fas fa-download mr-1"></i> ${item.premium ? 'Premium' : 'Open'}</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="p-5 bg-slate-900/40 border-t border-slate-900/80"><h3 class="font-bold text-sm text-slate-300 group-hover:text-pink-400 transition truncate tracking-wide">${item.title}</h3></div>
                 `;
                 grid.appendChild(card);
             });
@@ -191,18 +267,22 @@
             const area = document.getElementById('navAuthArea');
             if(currentUser) {
                 area.innerHTML = `
-                    <div class="flex items-center gap-2 bg-slate-900/90 border border-slate-800 rounded-2xl p-2 px-4 shadow-xl">
-                        <span class="text-xs font-bold text-slate-300 tracking-wider uppercase"><i class="fas fa-circle-check text-emerald-400 mr-2"></i>Secured</span>
-                        <button onclick="handleLogout()" class="text-slate-500 hover:text-pink-500 text-sm ml-2 transition"><i class="fas fa-power-off"></i></button>
+                    <div class="flex items-center gap-3 bg-slate-900 border border-emerald-500/30 rounded-full p-1.5 px-4 shadow-[0_0_15px_rgba(16,185,129,0.15)] cursor-default">
+                        <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                        <span class="text-xs font-bold text-emerald-400 tracking-wider uppercase">Connected</span>
+                        <div class="w-px h-4 bg-slate-700 mx-1"></div>
+                        <button onclick="handleLogout()" class="text-slate-500 hover:text-pink-500 text-sm transition" title="Disconnect"><i class="fas fa-power-off"></i></button>
                     </div>`;
             }
         }
 
         function openModal(item) {
             const modal = document.getElementById('lightboxModal');
-            document.getElementById('modalImg').src = item.url;
+            // Show high-res image in modal
+            document.getElementById('modalImg').src = `${item.url}?auto=format&fit=crop&w=1200&q=90`;
             document.getElementById('modalTitle').innerText = item.title;
-            document.getElementById('modalCategory').innerText = item.category;
+            document.getElementById('modalCategory').innerText = item.category === 'tokyo' ? 'Tokyo Open Node' : 'Pro Cyberpunk Node';
+            document.getElementById('modalViews').innerText = item.views;
             
             const action = document.getElementById('actionArea');
             const wm = document.getElementById('watermark');
@@ -211,34 +291,50 @@
                 wm.classList.remove('hidden');
                 if(!currentUser) {
                     action.innerHTML = `
-                        <div class="bg-slate-900/90 border border-slate-800 p-6 rounded-2xl text-center shadow-inner">
-                            <i class="fas fa-lock text-slate-600 text-4xl mb-3"></i>
-                            <h4 class="text-sm font-bold tracking-wide mb-4">Verification Required for Premium Items</h4>
-                            <button onclick="closeModal(); openAuthModal();" class="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold py-3 rounded-xl text-xs uppercase tracking-wider transition">Secure Login</button>
+                        <div class="bg-slate-950 border border-slate-800 p-8 rounded-3xl text-center shadow-inner relative overflow-hidden">
+                            <div class="absolute top-0 inset-x-0 h-1 bg-slate-800"></div>
+                            <i class="fas fa-lock text-slate-600 text-5xl mb-4"></i>
+                            <h4 class="text-base font-bold tracking-wide mb-6 text-slate-300">Access Restricted. Hub Verification Required.</h4>
+                            <button onclick="closeModal(); openAuthModal();" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-black py-4 rounded-xl text-xs uppercase tracking-widest transition">Initiate Login</button>
                         </div>`;
                 } else {
                     action.innerHTML = `
-                        <div id="step1" class="bg-slate-900/90 border border-amber-500/20 p-6 rounded-2xl text-center">
-                            <i class="fas fa-crown text-amber-500 text-4xl mb-3"></i>
-                            <h4 class="text-sm font-bold tracking-wide mb-4">Request Production License</h4>
-                            <button onclick="showPayment()" class="w-full bg-gradient-to-r from-amber-400 to-orange-500 text-slate-950 font-black py-3 rounded-xl text-xs uppercase tracking-wider transition">Unlock Asset</button>
+                        <div id="step1" class="bg-slate-950 border border-amber-500/20 p-8 rounded-3xl text-center relative overflow-hidden">
+                            <div class="absolute inset-0 bg-amber-500/5 blur-xl"></div>
+                            <i class="fas fa-gem text-amber-500 text-5xl mb-4 relative z-10 drop-shadow-[0_0_15px_rgba(245,158,11,0.5)]"></i>
+                            <h4 class="text-base font-bold tracking-wide mb-6 text-slate-200 relative z-10">Premium Protocol Encrypted</h4>
+                            <button onclick="showPayment()" class="w-full relative z-10 bg-gradient-to-r from-amber-400 to-orange-500 hover:from-amber-300 hover:to-orange-400 text-slate-950 font-black py-4 rounded-xl text-xs uppercase tracking-widest transition shadow-lg transform hover:-translate-y-1">Unlock & Download</button>
                         </div>
-                        <div id="step2" class="hidden bg-slate-900/90 border border-pink-500/20 p-6 rounded-2xl text-center">
-                            <i class="fas fa-wallet text-pink-400 text-4xl mb-3"></i>
-                            <h4 class="text-sm font-bold text-slate-300 mb-2">Automated bKash Portal</h4>
-                            <div class="bg-pink-600 text-white font-mono font-bold py-3 px-4 rounded-xl text-base tracking-widest mb-4 shadow-lg"><i class="fas fa-mobile-screen-button mr-2"></i>01774672656</div>
-                            <a href="https://instagram.com/i_f_t_uu" target="_blank" class="block w-full bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold py-3 rounded-xl transition mb-2 uppercase tracking-wider"><i class="fab fa-instagram mr-2"></i>Send Invoice Screenshot</a>
-                            <button onclick="backStep()" class="text-xs text-slate-500 underline hover:text-slate-300">Return</button>
+                        
+                        <div id="step2" class="hidden bg-slate-950 border border-pink-500/20 p-8 rounded-3xl text-center relative">
+                            <h4 class="text-sm font-bold text-slate-400 mb-4 uppercase tracking-widest">Awaiting Payment Sync</h4>
+                            
+                            <div class="bg-slate-900 border border-slate-800 rounded-xl p-2 flex items-center justify-between mb-6 group hover:border-pink-500/50 transition">
+                                <div class="flex items-center pl-3">
+                                    <i class="fas fa-wallet text-pink-500 mr-3"></i>
+                                    <span class="font-mono text-lg font-bold text-white tracking-widest">01774672656</span>
+                                </div>
+                                <button onclick="copyToClipboard('01774672656')" class="bg-slate-800 hover:bg-pink-600 text-white p-3 rounded-lg transition" title="Copy Number">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                            
+                            <a href="https://instagram.com/i_f_t_uu" target="_blank" class="block w-full bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold py-4 rounded-xl transition mb-4 uppercase tracking-widest border border-slate-700 flex items-center justify-center gap-2">
+                                <i class="fab fa-instagram text-lg text-pink-500"></i> Verify via Instagram
+                            </a>
+                            <button onclick="backStep()" class="text-xs font-bold text-slate-500 hover:text-white uppercase tracking-wider transition"><i class="fas fa-arrow-left mr-1"></i> Return</button>
                         </div>`;
                 }
             } else {
                 wm.classList.add('hidden');
-                // ফ্রি ইমেজের জন্য ডিরেক্ট সেফ বাটন অ্যাকশন
                 action.innerHTML = `
-                    <div class="bg-slate-900/90 border border-slate-800 p-6 rounded-2xl text-center">
-                        <i class="fas fa-circle-check text-emerald-400 text-4xl mb-3"></i>
-                        <p class="text-xs text-slate-400 mb-4 font-light">This Tokyo open-source architecture asset is free for global development packages.</p>
-                        <a href="${item.url}" download target="_blank" class="block text-center w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl text-xs uppercase tracking-wider transition shadow-lg"><i class="fas fa-arrow-down-border mr-2"></i>Download Clean File</a>
+                    <div class="bg-slate-950 border border-cyan-500/20 p-8 rounded-3xl text-center relative overflow-hidden">
+                        <div class="absolute inset-0 bg-cyan-500/5 blur-xl"></div>
+                        <i class="fas fa-check-circle text-cyan-400 text-5xl mb-4 relative z-10 drop-shadow-[0_0_15px_rgba(34,211,238,0.4)]"></i>
+                        <p class="text-sm text-slate-400 mb-6 font-medium relative z-10">Open Source Protocol. Ready for integration.</p>
+                        <a href="${item.url}?auto=format&fit=crop&w=2000&q=100" download target="_blank" class="block text-center w-full relative z-10 bg-cyan-600 hover:bg-cyan-500 text-slate-950 font-black py-4 rounded-xl text-xs uppercase tracking-widest transition shadow-[0_0_20px_rgba(8,145,178,0.4)] transform hover:-translate-y-1">
+                            <i class="fas fa-cloud-download-alt mr-2"></i> Pull High-Res Asset
+                        </a>
                     </div>`;
             }
             modal.classList.remove('hidden');
@@ -258,16 +354,20 @@
             localStorage.setItem('userSession', JSON.stringify(currentUser));
             closeAuthModal();
             renderGallery();
+            showToast("System Access Granted.", "success");
         }
 
         function handleLogout() {
             localStorage.removeItem('userSession');
             currentUser = null;
-            location.reload();
+            renderGallery();
+            showToast("Connection Terminated.", "info");
         }
 
-        window.onload = renderGallery;
         document.getElementById('authModal').addEventListener('click', (e) => { if(e.target.id === 'authModal') closeAuthModal(); });
+        
+        // Init
+        renderGallery();
     </script>
 </body>
 </html>
