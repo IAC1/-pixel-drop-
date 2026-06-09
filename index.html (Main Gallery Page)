@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PixelDrop - Colourful Image Gallery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom smooth scroll behavior */
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen font-sans">
+
+    <nav class="sticky top-0 z-50 backdrop-blur-md bg-slate-900/80 border-b border-slate-800 px-6 py-4 flex justify-between items-center">
+        <a href="index.html" class="text-2xl font-extrabold tracking-wider bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent drop-shadow">
+            PixelDrop✨
+        </a>
+        <div class="space-x-6 font-medium">
+            <a href="index.html" class="text-pink-500 border-b-2 border-pink-500 pb-1 transition-all">Home</a>
+            <a href="categories.html" class="text-slate-400 hover:text-pink-400 transition-all">Categories</a>
+        </div>
+    </nav>
+
+    <header class="text-center py-16 px-4 max-w-4xl mx-auto animate-fade-in">
+        <h1 class="text-4xl md:text-6xl font-black mb-4 tracking-tight">
+            A Colourful Universe of 
+            <span class="bg-gradient-to-r from-cyan-400 via-pink-500 to-yellow-400 bg-clip-text text-transparent">
+                Smooth Animations
+            </span>
+        </h1>
+        <p class="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto font-light">
+            Explore premium visuals curated with vivid gradients, high-quality images, and ultra-smooth interface transitions.
+        </p>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 pb-24">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            
+            <div class="group relative overflow-hidden rounded-2xl bg-slate-800 border border-slate-700 shadow-xl hover:shadow-pink-500/10 transition-all duration-500 hover:-translate-y-2">
+                <div class="overflow-hidden aspect-square">
+                    <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?q=80&w=600" alt="Art" class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110 group-hover:rotate-2">
+                </div>
+                <div class="p-5 bg-gradient-to-t from-slate-900 via-slate-900/95 to-transparent">
+                    <h3 class="text-lg font-bold group-hover:text-pink-400 transition-colors">Neon Abstract Art</h3>
+                    <p class="text-xs text-slate-400 mt-1">Category: Digital</p>
+                </div>
+            </div>
+
+            <div class="group relative overflow-hidden rounded-2xl bg-slate-800 border border-slate-700 shadow-xl hover:shadow-purple-500/10 transition-all duration-500 hover:-translate-y-2">
+                <div class="overflow-hidden aspect-square">
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600" alt="Art" class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110 group-hover:rotate-2">
+                </div>
+                <div class="p-5 bg-gradient-to-t from-slate-900 via-slate-900/95 to-transparent">
+                    <h3 class="text-lg font-bold group-hover:text-purple-400 transition-colors">Smooth Fluid Wave</h3>
+                    <p class="text-xs text-slate-400 mt-1">Category: Minimalist</p>
+                </div>
+            </div>
+
+            <div class="group relative overflow-hidden rounded-2xl bg-slate-800 border border-slate-700 shadow-xl hover:shadow-cyan-500/10 transition-all duration-500 hover:-translate-y-2">
+                <div class="overflow-hidden aspect-square">
+                    <img src="https://images.unsplash.com/photo-1533158326339-7f3cf2404354?q=80&w=600" alt="Art" class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110 group-hover:rotate-2">
+                </div>
+                <div class="p-5 bg-gradient-to-t from-slate-900 via-slate-900/95 to-transparent">
+                    <h3 class="text-lg font-bold group-hover:text-cyan-400 transition-colors">Cyberpunk Vibe</h3>
+                    <p class="text-xs text-slate-400 mt-1">Category: Cyber</p>
+                </div>
+            </div>
+
+            <div class="group relative overflow-hidden rounded-2xl bg-slate-800 border border-slate-700 shadow-xl hover:shadow-yellow-500/10 transition-all duration-500 hover:-translate-y-2">
+                <div class="overflow-hidden aspect-square">
+                    <img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=600" alt="Art" class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110 group-hover:rotate-2">
+                </div>
+                <div class="p-5 bg-gradient-to-t from-slate-900 via-slate-900/95 to-transparent">
+                    <h3 class="text-lg font-bold group-hover:text-yellow-400 transition-colors">Cosmic Splash</h3>
+                    <p class="text-xs text-slate-400 mt-1">Category: Abstract</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="border-t border-slate-800 text-center py-6 text-sm text-slate-500">
+        &copy; 2026 PixelDrop. Designed beautifully with Tailwind CSS.
+    </footer>
+
+</body>
+</html>
