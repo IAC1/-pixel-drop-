@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PixelDrop - Categories</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen font-sans">
+
+    <nav class="sticky top-0 z-50 backdrop-blur-md bg-slate-900/80 border-b border-slate-800 px-6 py-4 flex justify-between items-center">
+        <a href="index.html" class="text-2xl font-extrabold tracking-wider bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent">
+            PixelDrop✨
+        </a>
+        <div class="space-x-6 font-medium">
+            <a href="index.html" class="text-slate-400 hover:text-pink-400 transition-all">Home</a>
+            <a href="categories.html" class="text-pink-500 border-b-2 border-pink-500 pb-1 transition-all">Categories</a>
+        </div>
+    </nav>
+
+    <header class="text-center py-12 px-4">
+        <h1 class="text-3xl md:text-5xl font-extrabold mb-6">Browse by <span class="text-pink-500">Category</span></h1>
+        
+        <div class="flex flex-wrap justify-center gap-3 max-w-2xl mx-auto">
+            <button class="px-5 py-2 rounded-full bg-pink-600 text-white font-medium text-sm shadow-lg shadow-pink-600/30 transition-all hover:scale-105">All Works</button>
+            <button class="px-5 py-2 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium text-sm transition-all hover:scale-105 border border-slate-700">Abstract</button>
+            <button class="px-5 py-2 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium text-sm transition-all hover:scale-105 border border-slate-700">Digital</button>
+            <button class="px-5 py-2 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium text-sm transition-all hover:scale-105 border border-slate-700">Minimalist</button>
+            <button class="px-5 py-2 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium text-sm transition-all hover:scale-105 border border-slate-700">Cyber</button>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 pb-24">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+            
+            <div class="group relative overflow-hidden rounded-2xl bg-slate-800 border border-slate-700 shadow-lg hover:shadow-2xl transition-all duration-500">
+                <div class="overflow-hidden h-64">
+                    <img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=600" alt="Abstract" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                </div>
+                <div class="p-6">
+                    <span class="px-3 py-1 text-xs font-semibold tracking-wide text-pink-400 bg-pink-400/10 rounded-full">Abstract</span>
+                    <h3 class="text-xl font-bold mt-3">Cosmic Splash</h3>
+                </div>
+            </div>
+
+            <div class="group relative overflow-hidden rounded-2xl bg-slate-800 border border-slate-700 shadow-lg hover:shadow-2xl transition-all duration-500">
+                <div class="overflow-hidden h-64">
+                    <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?q=80&w=600" alt="Digital" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                </div>
+                <div class="p-6">
+                    <span class="px-3 py-1 text-xs font-semibold tracking-wide text-purple-400 bg-purple-400/10 rounded-full">Digital</span>
+                    <h3 class="text-xl font-bold mt-3">Neon Abstract Art</h3>
+                </div>
+            </div>
+
+            <div class="group relative overflow-hidden rounded-2xl bg-slate-800 border border-slate-700 shadow-lg hover:shadow-2xl transition-all duration-500">
+                <div class="overflow-hidden h-64">
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600" alt="Minimalist" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                </div>
+                <div class="p-6">
+                    <span class="px-3 py-1 text-xs font-semibold tracking-wide text-cyan-400 bg-cyan-400/10 rounded-full">Minimalist</span>
+                    <h3 class="text-xl font-bold mt-3">Smooth Fluid Wave</h3>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+</body>
+</html>
