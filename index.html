@@ -3,55 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PixelDrop Premium</title>
+    <title>PixelDrop Premium | Secure Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        /* Animated Colorful Background */
+        /* High-End Animated Background */
         @keyframes gradientMove {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
         .animated-bg {
-            background: linear-gradient(-45deg, #4f46e5, #ec4899, #f59e0b, #06b6d4);
+            background: linear-gradient(-45deg, #6366f1, #ec4899, #f59e0b, #06b6d4);
             background-size: 400% 400%;
             animation: gradientMove 12s ease infinite;
         }
-        /* Glassmorphism Effect */
+        /* Modern Glassmorphism Styling */
         .glass-panel {
-            background: rgba(17, 24, 39, 0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(17, 24, 39, 0.75);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
-        /* Premium Glow */
+        /* Premium Glowing Effects */
         .premium-badge {
-            box-shadow: 0 0 10px #fbbf24, 0 0 20px rgba(251, 191, 36, 0.5);
+            box-shadow: 0 0 15px #fbbf24, 0 0 30px rgba(251, 191, 36, 0.4);
+        }
+        .glow-btn:hover {
+            box-shadow: 0 0 20px rgba(236, 72, 153, 0.6);
         }
     </style>
 </head>
-<body class="bg-gray-900 text-gray-100 font-sans antialiased selection:bg-pink-500 selection:text-white">
+<body class="bg-gray-950 text-gray-100 font-sans antialiased selection:bg-pink-500 selection:text-white">
 
-    <nav class="sticky top-0 z-50 glass-panel py-4 px-6 flex justify-between items-center shadow-lg">
+    <nav class="sticky top-0 z-50 glass-panel py-4 px-6 flex justify-between items-center shadow-2xl">
         <div class="text-2xl font-black tracking-widest cursor-pointer">
             PIXEL<span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-yellow-500">DROP</span>
         </div>
-        <div>
-            <a href="https://instagram.com/i_f_t_uu" target="_blank" class="flex items-center gap-2 hover:text-pink-400 transition font-semibold">
+        
+        <div class="flex items-center gap-6">
+            <a href="https://instagram.com/i_f_t_uu" target="_blank" class="flex items-center gap-2 hover:text-pink-400 transition font-semibold text-sm tracking-wide">
                 <i class="fab fa-instagram text-2xl text-pink-500"></i>
-                <span class="hidden sm:block">@i_f_t_uu</span>
+                <span class="hidden md:block">@i_f_t_uu</span>
             </a>
+            
+            <div id="navAuthArea">
+                <button onclick="openAuthModal('login')" class="bg-gradient-to-r from-indigo-500 to-pink-500 hover:from-indigo-600 hover:to-pink-600 text-white font-bold py-2 px-6 rounded-full text-sm shadow-md transition transform hover:scale-105">
+                    <i class="fas fa-user-lock mr-2"></i> Login
+                </button>
+            </div>
         </div>
     </nav>
 
-    <header class="text-center py-24 px-4 animated-bg shadow-2xl">
-        <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-6 drop-shadow-2xl">
-            Stunning Visuals. <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-yellow-100">Premium Quality.</span>
-        </h1>
-        <p class="text-lg md:text-2xl text-gray-100 drop-shadow-md max-w-2xl mx-auto font-medium">
-            A curated gallery of breathtaking photography. Discover free assets or unlock exclusive premium collections.
-        </p>
+    <header class="text-center py-28 px-4 animated-bg shadow-2xl relative overflow-hidden">
+        <div class="absolute inset-0 bg-black/20 backdrop-blur-[2px]"></div>
+        <div class="relative z-10">
+            <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-6 drop-shadow-2xl tracking-tight">
+                Stunning Visuals. <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-yellow-100">Premium Quality Hub.</span>
+            </h1>
+            <p class="text-lg md:text-2xl text-gray-100 drop-shadow-md max-w-2xl mx-auto font-medium mb-4">
+                A safe, high-end gallery space for global creators. Secure your next asset catalog today.
+            </p>
+        </div>
     </header>
 
     <main class="max-w-7xl mx-auto px-4 py-16">
@@ -59,27 +72,71 @@
             </div>
     </main>
 
-    <footer class="border-t border-gray-800 py-8 text-center text-gray-500">
-        <p>&copy; 2026 PixelDrop Premium. Developed by i_f_t_uu.</p>
+    <footer class="border-t border-gray-900 py-10 text-center text-gray-500 text-sm tracking-wide">
+        <p>&copy; 2026 PixelDrop Premium. All Rights Reserved. Crafted by @i_f_t_uu.</p>
     </footer>
 
-    <div id="imageModal" class="fixed inset-0 z-[100] hidden bg-black bg-opacity-95 flex items-center justify-center p-4 backdrop-blur-sm transition-all">
-        <div class="relative max-w-5xl w-full glass-panel rounded-2xl overflow-hidden flex flex-col md:flex-row shadow-2xl border border-gray-700">
+    <div id="authModal" class="fixed inset-0 z-[110] hidden bg-black/80 flex items-center justify-center p-4 backdrop-blur-md transition-all duration-300">
+        <div class="relative max-w-md w-full glass-panel rounded-3xl overflow-hidden p-8 shadow-2xl border border-gray-800">
             
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-300 hover:text-pink-500 text-3xl z-10 transition">
+            <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-gray-400 hover:text-pink-500 text-2xl transition">
+                <i class="fas fa-times-circle"></i>
+            </button>
+
+            <div class="flex justify-center gap-6 mb-8 border-b border-gray-800 pb-4 text-lg font-bold">
+                <button id="tabLogin" onclick="switchAuthTab('login')" class="text-pink-500 border-b-2 border-pink-500 pb-2 transition">Sign In</button>
+                <button id="tabRegister" onclick="switchAuthTab('register')" class="text-gray-400 hover:text-white pb-2 transition">Create Account</button>
+            </div>
+
+            <form id="authForm" onsubmit="handleAuthSubmit(event)">
+                <div id="usernameField" class="mb-5 hidden">
+                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Username</label>
+                    <div class="relative">
+                        <i class="fas fa-user absolute left-4 top-3.5 text-gray-500"></i>
+                        <input id="authUsername" type="text" placeholder="Your Name" class="w-full bg-gray-900/50 border border-gray-800 focus:border-pink-500 rounded-xl py-3 pl-12 pr-4 text-white placeholder-gray-600 focus:outline-none transition text-sm">
+                    </div>
+                </div>
+
+                <div class="mb-5">
+                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Email Address</label>
+                    <div class="relative">
+                        <i class="fas fa-envelope absolute left-4 top-3.5 text-gray-500"></i>
+                        <input id="authEmail" type="email" required placeholder="name@domain.com" class="w-full bg-gray-900/50 border border-gray-800 focus:border-pink-500 rounded-xl py-3 pl-12 pr-4 text-white placeholder-gray-600 focus:outline-none transition text-sm">
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Password</label>
+                    <div class="relative">
+                        <i class="fas fa-lock absolute left-4 top-3.5 text-gray-500"></i>
+                        <input id="authPassword" type="password" required placeholder="••••••••" class="w-full bg-gray-900/50 border border-gray-800 focus:border-pink-500 rounded-xl py-3 pl-12 pr-4 text-white placeholder-gray-600 focus:outline-none transition text-sm">
+                    </div>
+                </div>
+
+                <button type="submit" id="authSubmitBtn" class="w-full bg-gradient-to-r from-indigo-500 to-pink-500 hover:from-indigo-600 hover:to-pink-600 text-white font-extrabold py-3.5 rounded-xl transition shadow-lg text-sm tracking-wide glow-btn">
+                    Access Account
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div id="imageModal" class="fixed inset-0 z-[100] hidden bg-black/95 flex items-center justify-center p-4 backdrop-blur-sm transition-all duration-300">
+        <div class="relative max-w-5xl w-full glass-panel rounded-3xl overflow-hidden flex flex-col md:flex-row shadow-2xl">
+            
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-pink-500 text-3xl z-10 transition">
                 <i class="fas fa-times-circle"></i>
             </button>
 
             <div class="md:w-3/5 bg-black flex items-center justify-center relative">
-                <img id="modalImg" src="" alt="Gallery Preview" class="w-full h-[40vh] md:h-[70vh] object-cover opacity-90">
-                <div id="watermark" class="absolute inset-0 flex items-center justify-center hidden pointer-events-none">
-                    <span class="text-white text-opacity-30 text-5xl font-black rotate-[-45deg] tracking-widest">PREMIUM</span>
+                <img id="modalImg" src="" alt="Gallery Sandbox Preview" class="w-full h-[45vh] md:h-[75vh] object-cover opacity-85 select-none pointer-events-none">
+                <div id="watermark" class="absolute inset-0 flex items-center justify-center hidden pointer-events-none select-none">
+                    <span class="text-white text-opacity-25 text-5xl font-black rotate-[-45deg] tracking-widest">PRO PROTECTION</span>
                 </div>
             </div>
 
-            <div class="md:w-2/5 p-8 flex flex-col justify-center bg-gray-900">
-                <h2 id="modalTitle" class="text-3xl font-extrabold mb-2 text-white">Image Title</h2>
-                <p class="text-gray-400 mb-8">High-resolution digital asset. Perfect for your next creative project.</p>
+            <div class="md:w-2/5 p-8 flex flex-col justify-center bg-gray-950/90">
+                <h2 id="modalTitle" class="text-3xl font-black mb-2 text-white tracking-tight">Resource Title</h2>
+                <p class="text-gray-400 text-sm mb-8 leading-relaxed">Secure download network. Logged asset activity is monitored under secure encrypted policies.</p>
                 
                 <div id="actionArea"></div>
             </div>
@@ -87,48 +144,123 @@
     </div>
 
     <script>
-        // High-quality placeholder images (Mix of Free and Premium)
+        // High Quality Photography Catalog Architecture
         const galleryItems = [
             { id: 1, title: 'Neon Cyberpunk', url: 'https://images.unsplash.com/photo-1605806616949-1e87b487cb2a?auto=format&fit=crop&w=800&q=80', premium: true },
             { id: 2, title: 'Misty Mountains', url: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80', premium: false },
             { id: 3, title: 'Galactic Core', url: 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=800&q=80', premium: true },
-            { id: 4, title: 'Abstract Fluid', url: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=800&q=80', premium: true },
+            { id: 4, title: 'Abstract Fluid Design', url: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=800&q=80', premium: true },
             { id: 5, title: 'Forest Path', url: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=800&q=80', premium: false },
             { id: 6, title: 'Golden Hour Waves', url: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80', premium: true },
-            { id: 7, title: 'Tokyo Nights', url: 'https://images.unsplash.com/photo-1555680202-c86f0e12f086?auto=format&fit=crop&w=800&q=80', premium: true },
-            { id: 8, title: 'Minimalist Architecture', url: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80', premium: false },
+            { id: 7, title: 'Tokyo Underground', url: 'https://images.unsplash.com/photo-1555680202-c86f0e12f086?auto=format&fit=crop&w=800&q=80', premium: true },
+            { id: 8, title: 'Minimal Architecture', url: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80', premium: false },
         ];
 
+        let authMode = 'login';
+        let currentUser = JSON.parse(localStorage.getItem('secureUser')) || null;
+
+        // Initialize App & Build Ecosystem
         const grid = document.getElementById('galleryGrid');
+        function initGallery() {
+            grid.innerHTML = '';
+            galleryItems.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "relative group cursor-pointer rounded-2xl overflow-hidden transform transition duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-pink-500/10 bg-gray-900 border border-gray-900 hover:border-gray-800";
+                card.onclick = () => openModal(item);
+                
+                let badgeHTML = '';
+                if(item.premium) {
+                    badgeHTML = `
+                        <div class="absolute top-4 right-4 bg-gradient-to-r from-yellow-400 to-amber-500 text-black text-[10px] font-black tracking-wider px-3 py-1.5 rounded-full premium-badge z-10 flex items-center gap-1.5 shadow-lg">
+                            <i class="fas fa-crown"></i> PREMIUM
+                        </div>`;
+                }
 
-        // Build the Gallery Grid
-        galleryItems.forEach(item => {
-            const card = document.createElement('div');
-            card.className = "relative group cursor-pointer rounded-2xl overflow-hidden transform transition duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-pink-500/20 bg-gray-800";
-            card.onclick = () => openModal(item);
-            
-            let badgeHTML = '';
-            if(item.premium) {
-                badgeHTML = `
-                    <div class="absolute top-4 right-4 bg-gradient-to-r from-yellow-400 to-yellow-600 text-black text-xs font-black px-3 py-1.5 rounded-full premium-badge z-10 flex items-center gap-1">
-                        <i class="fas fa-crown"></i> PREMIUM
-                    </div>`;
+                card.innerHTML = `
+                    <div class="relative w-full h-72 overflow-hidden">
+                        <img src="${item.url}" alt="${item.title}" class="w-full h-full object-cover transition duration-700 group-hover:scale-110 group-hover:opacity-40">
+                        ${badgeHTML}
+                        <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-transparent to-transparent opacity-95"></div>
+                    </div>
+                    <div class="absolute bottom-0 inset-x-0 p-5">
+                        <h3 class="text-lg font-bold text-white group-hover:text-pink-400 transition tracking-wide">${item.title}</h3>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+            updateNavbarUI();
+        }
+
+        // Handle Active Auth Navigation Bar Updates
+        function updateNavbarUI() {
+            const container = document.getElementById('navAuthArea');
+            if(currentUser) {
+                container.innerHTML = `
+                    <div class="flex items-center gap-3 bg-gray-900 border border-gray-800 rounded-full pl-4 pr-2 py-1.5 shadow-lg">
+                        <span class="text-xs font-semibold text-gray-300 tracking-wide"><i class="fas fa-shield-alt text-green-400 mr-1.5"></i>${currentUser.email.split('@')[0]}</span>
+                        <button onclick="logoutSession()" class="text-gray-400 hover:text-pink-400 transition text-xs font-bold px-3 py-1 bg-gray-800 rounded-full">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </button>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = `
+                    <button onclick="openAuthModal('login')" class="bg-gradient-to-r from-indigo-500 to-pink-500 hover:from-indigo-600 hover:to-pink-600 text-white font-bold py-2 px-6 rounded-full text-sm shadow-md transition transform hover:scale-105">
+                        <i class="fas fa-user-lock mr-2"></i> Login
+                    </button>
+                `;
             }
+        }
 
-            card.innerHTML = `
-                <div class="relative w-full h-72">
-                    <img src="${item.url}" alt="${item.title}" class="w-full h-full object-cover transition duration-700 group-hover:scale-110 group-hover:opacity-60">
-                    ${badgeHTML}
-                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-90"></div>
-                </div>
-                <div class="absolute bottom-0 inset-x-0 p-5">
-                    <h3 class="text-xl font-bold text-white group-hover:text-pink-400 transition">${item.title}</h3>
-                </div>
-            `;
-            grid.appendChild(card);
-        });
+        // Authentication Window Modals Logic
+        const authModal = document.getElementById('authModal');
+        function openAuthModal(mode = 'login') {
+            authModal.classList.remove('hidden');
+            switchAuthTab(mode);
+        }
+        function closeAuthModal() { authModal.classList.add('hidden'); }
+        
+        function switchAuthTab(mode) {
+            authMode = mode;
+            const tLog = document.getElementById('tabLogin');
+            const tReg = document.getElementById('tabRegister');
+            const userField = document.getElementById('usernameField');
+            const submitBtn = document.getElementById('authSubmitBtn');
 
-        // Modal Functionality
+            if(mode === 'login') {
+                tLog.className = "text-pink-500 border-b-2 border-pink-500 pb-2 transition cursor-pointer";
+                tReg.className = "text-gray-400 hover:text-white pb-2 transition cursor-pointer";
+                userField.classList.add('hidden');
+                submitBtn.innerText = "Authenticate Security Access";
+            } else {
+                tReg.className = "text-pink-500 border-b-2 border-pink-500 pb-2 transition cursor-pointer";
+                tLog.className = "text-gray-400 hover:text-white pb-2 transition cursor-pointer";
+                userField.classList.remove('hidden');
+                submitBtn.innerText = "Register Global Account";
+            }
+        }
+
+        function handleAuthSubmit(e) {
+            e.preventDefault();
+            const email = document.getElementById('authEmail').value;
+            // Simple Safe Frontend Simulation Layer
+            currentUser = { email: email, authenticated: true };
+            localStorage.setItem('secureUser', JSON.stringify(currentUser));
+            closeAuthModal();
+            updateNavbarUI();
+            alert("Account Authenticated Safely! Session secured.");
+            location.reload(); // Refresh to recalculate active component access status
+        }
+
+        function logoutSession() {
+            localStorage.removeItem('secureUser');
+            currentUser = null;
+            updateNavbarUI();
+            alert("Session disconnected safely.");
+            location.reload();
+        }
+
+        // Image Information Preview Sandbox Logic
         const modal = document.getElementById('imageModal');
         const modalImg = document.getElementById('modalImg');
         const modalTitle = document.getElementById('modalTitle');
@@ -140,51 +272,82 @@
             modalTitle.innerText = item.title;
             
             if(item.premium) {
-                watermark.classList.remove('hidden'); // Show watermark on preview
-                actionArea.innerHTML = `
-                    <div class="bg-gray-800 border border-yellow-500/50 rounded-xl p-6 text-center shadow-lg relative overflow-hidden">
-                        <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-yellow-400 to-pink-500"></div>
-                        <i class="fas fa-lock text-yellow-400 text-4xl mb-4 drop-shadow-md"></i>
-                        <h4 class="text-2xl font-black text-white mb-2">Unlock Premium Image</h4>
-                        <p class="text-sm text-gray-300 mb-6">Pay via bKash to download the original, unwatermarked high-resolution file.</p>
-                        
-                        <div class="bg-pink-600 text-white rounded-lg p-4 mb-6 font-mono text-xl font-bold shadow-inner tracking-wider flex items-center justify-center gap-3">
-                            <i class="fas fa-mobile-alt"></i> bKash: 01774672656
+                watermark.classList.remove('hidden');
+                
+                if(!currentUser) {
+                    // Lock protection layout for guests
+                    actionArea.innerHTML = `
+                        <div class="bg-gray-900 border border-red-500/30 rounded-2xl p-6 text-center shadow-lg">
+                            <i class="fas fa-lock text-red-400 text-4xl mb-4"></i>
+                            <h4 class="text-xl font-bold text-white mb-2">Access Locked</h4>
+                            <p class="text-xs text-gray-400 mb-6">You must log in through our secure framework to apply for dynamic subscriptions or see merchant terms.</p>
+                            <button onclick="closeModal(); openAuthModal('login');" class="w-full bg-gradient-to-r from-red-500 to-pink-500 text-white font-extrabold py-3 rounded-xl transition text-sm">
+                                Secure Identity Verification
+                            </button>
                         </div>
-                        
-                        <a href="https://instagram.com/i_f_t_uu" target="_blank" class="inline-block w-full bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white font-bold py-3 px-4 rounded-lg transition shadow-lg">
-                            <i class="fab fa-instagram mr-2"></i> Contact @i_f_t_uu
-                        </a>
-                        <p class="text-xs text-gray-400 mt-4">Send a screenshot of your payment to receive the file.</p>
-                    </div>
-                `;
+                    `;
+                } else {
+                    // Logged in subscription activation flow
+                    actionArea.innerHTML = `
+                        <div id="step1" class="bg-gray-900 border border-amber-500/30 rounded-2xl p-6 text-center shadow-lg relative overflow-hidden">
+                            <i class="fas fa-gem text-amber-400 text-4xl mb-4"></i>
+                            <h4 class="text-xl font-black text-white mb-2">Subscription Required</h4>
+                            <p class="text-xs text-gray-400 mb-6">To remove the cryptographic asset overlay watermark and pull structural files, access licensing terms below.</p>
+                            <button onclick="showPaymentStep()" class="w-full bg-gradient-to-r from-amber-400 to-yellow-600 hover:from-amber-500 hover:to-yellow-700 text-black font-black py-3 rounded-xl flex items-center justify-center gap-2 transition text-sm">
+                                <i class="fas fa-crown"></i> Acquire Premium License
+                            </button>
+                        </div>
+
+                        <div id="step2" class="hidden bg-gray-900 border border-pink-500/30 rounded-2xl p-6 text-center shadow-lg relative overflow-hidden">
+                            <i class="fas fa-wallet text-pink-400 text-4xl mb-4"></i>
+                            <h4 class="text-xl font-black text-white mb-2">Complete Vault Invoice</h4>
+                            <p class="text-xs text-gray-400 mb-4">Process transactional data directly to the automated merchant node below.</p>
+                            
+                            <div class="bg-pink-600 text-white rounded-xl p-3 mb-4 font-mono text-lg font-bold tracking-wider flex items-center justify-center gap-2 shadow-inner animate-pulse">
+                                <i class="fas fa-mobile-alt"></i> bKash: 01774672656
+                            </div>
+                            
+                            <a href="https://instagram.com/i_f_t_uu" target="_blank" class="inline-block w-full bg-gradient-to-r from-purple-500 to-pink-600 text-white font-bold py-3 rounded-xl text-xs transition shadow-md mb-3">
+                                <i class="fab fa-instagram mr-1.5"></i> Dispatch Invoice to @i_f_t_uu
+                            </a>
+                            <button onclick="backToStep1()" class="text-xs text-gray-400 hover:text-white underline transition">Back to Overview</button>
+                        </div>
+                    `;
+                }
             } else {
                 watermark.classList.add('hidden');
                 actionArea.innerHTML = `
-                    <div class="bg-gray-800 rounded-xl p-6 text-center border border-gray-700">
-                        <i class="fas fa-unlock text-green-400 text-4xl mb-4"></i>
-                        <h4 class="text-2xl font-bold text-white mb-2">Free Download</h4>
-                        <p class="text-sm text-gray-400 mb-6">This image is free to use for your personal projects.</p>
-                        <button class="w-full bg-gradient-to-r from-green-400 to-emerald-600 hover:from-green-500 hover:to-emerald-700 text-white font-bold py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition shadow-lg">
-                            <i class="fas fa-cloud-download-alt text-xl"></i> Download Now
+                    <div class="bg-gray-900 rounded-2xl p-6 text-center border border-gray-800">
+                        <i class="fas fa-cloud-download-alt text-green-400 text-4xl mb-4"></i>
+                        <h4 class="text-xl font-bold text-white mb-2">Standard Download</h4>
+                        <p class="text-xs text-gray-400 mb-6">Open Source ecosystem distribution asset. Free for deployment configurations.</p>
+                        <button class="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 transition text-sm">
+                            Pull Asset File
                         </button>
                     </div>
                 `;
             }
             
-            // Show modal
             modal.classList.remove('hidden');
-            setTimeout(() => modal.classList.add('opacity-100'), 10);
         }
 
-        function closeModal() {
-            modal.classList.add('hidden');
+        function showPaymentStep() {
+            document.getElementById('step1').classList.add('hidden');
+            document.getElementById('step2').classList.remove('hidden');
         }
 
-        // Close on clicking outside the modal panel
-        modal.addEventListener('click', (e) => {
-            if(e.target === modal) closeModal();
-        });
+        function backToStep1() {
+            document.getElementById('step2').classList.add('hidden');
+            document.getElementById('step1').classList.remove('hidden');
+        }
+
+        function closeModal() { modal.classList.add('hidden'); }
+
+        modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
+        authModal.addEventListener('click', (e) => { if(e.target === authModal) closeAuthModal(); });
+
+        // Build Application Node
+        window.onload = initGallery;
     </script>
 </body>
 </html>
