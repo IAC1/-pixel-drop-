@@ -3,116 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Favourites | PixelDrop PRO</title>
+    <title>PixelDrop | Private Vault</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .animated-bg {
+            background: radial-gradient(circle at top right, #1e1b4b, #09090b, #020617);
+            background-size: 200% 200%;
+        }
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(236, 72, 153, 0.1);
+        }
+        .glitch-text {
+            text-shadow: 2px 0 #ec4899, -2px 0 #06b6d4;
+            animation: glitch 2s infinite linear alternate-reverse;
+        }
+        @keyframes glitch {
+            0% { text-shadow: 2px 0 #ec4899, -2px 0 #06b6d4; }
+            50% { text-shadow: -2px 0 #ec4899, 2px 0 #06b6d4; }
+            100% { text-shadow: 2px 0 #ec4899, -2px 0 #06b6d4; }
+        }
+    </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen font-sans">
+<body class="animated-bg text-slate-100 min-h-screen font-sans selection:bg-cyan-500 selection:text-slate-900">
 
-    <nav class="sticky top-0 z-50 backdrop-blur-md bg-slate-950/80 border-b border-slate-800/50 px-6 py-4 flex justify-between items-center">
-        <a href="index.html" class="text-2xl font-black tracking-wider bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
-            PixelDrop<span class="text-xs text-pink-400 font-bold ml-1">FAVS</span>
+    <nav class="sticky top-0 z-50 glass-panel px-6 py-5 flex justify-between items-center border-b border-pink-500/20 shadow-lg">
+        <a href="index.html" class="text-2xl font-black tracking-widest text-white uppercase flex items-center gap-2">
+            <i class="fas fa-arrow-left text-pink-500 text-lg hover:-translate-x-1 transition"></i>
+            <span class="hidden sm:inline">Back to Hub</span>
         </a>
-        <div class="flex items-center space-x-6 font-medium text-sm">
-            <a href="index.html" class="text-slate-400 hover:text-white transition-all">Home</a>
-            <a href="categories.html" class="text-slate-400 hover:text-white transition-all">Categories</a>
-            <a href="favorites.html" class="text-pink-500 border-b-2 border-pink-500 pb-1">My Collection</a>
+        <div class="flex items-center gap-4">
+            <div class="bg-slate-900 border border-cyan-500/30 rounded-full p-2 px-4 shadow-[0_0_15px_rgba(34,211,238,0.15)] flex items-center gap-2 cursor-default">
+                <i class="fas fa-lock text-cyan-400"></i>
+                <span class="text-xs font-bold text-cyan-400 tracking-wider uppercase">Encrypted Vault</span>
+            </div>
         </div>
     </nav>
 
-    <header class="max-w-7xl mx-auto px-6 py-16 flex flex-col md:flex-row justify-between items-center border-b border-slate-900 gap-6">
-        <div>
-            <h1 class="text-4xl md:text-5xl font-black tracking-tight mb-2">Your Curated <span class="text-pink-500">Gallery</span></h1>
-            <p class="text-slate-400 text-sm md:text-base">Artworks you've liked and saved across sessions. Saved locally in your browser.</p>
-        </div>
-        <button onclick="clearAllFavorites()" id="clearBtn" class="hidden bg-slate-900 hover:bg-red-950/40 hover:text-red-400 border border-slate-800 hover:border-red-900/50 px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all">
-            <i class="fas fa-trash-alt mr-2"></i> Clear All Saved
-        </button>
+    <header class="text-center pt-20 pb-12 px-4 max-w-4xl mx-auto relative z-10">
+        <h1 class="text-4xl md:text-6xl font-black text-white mb-4 tracking-tighter leading-tight glitch-text">
+            Personal Database
+        </h1>
+        <p class="text-slate-400 text-sm md:text-base max-w-lg mx-auto font-light">
+            All your bookmarked assets and premium unlocked nodes are safely encrypted here.
+        </p>
     </header>
 
-    <main class="max-w-7xl mx-auto px-6 py-12 pb-32">
-        <div id="favGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-            </div>
+    <main class="max-w-5xl mx-auto px-6 pb-20 text-center" id="vaultContent">
+        
+        <div class="glass-panel p-16 rounded-[2rem] border border-slate-800 flex flex-col items-center justify-center max-w-2xl mx-auto shadow-2xl relative overflow-hidden mt-8">
+            <div class="absolute inset-0 bg-gradient-to-t from-pink-500/5 to-transparent"></div>
+            
+            <i class="fas fa-folder-open text-7xl text-slate-700 mb-6 drop-shadow-lg"></i>
+            <h3 class="text-2xl font-black text-white mb-3 tracking-wide">Vault is Currently Empty</h3>
+            <p class="text-slate-400 text-sm mb-8 font-light max-w-md">You haven't saved any visual assets yet. Browse the Global Asset Network and click the bookmark icon to store nodes here.</p>
+            
+            <a href="index.html" class="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-400 hover:to-purple-500 text-white font-black px-8 py-4 rounded-xl text-xs transition shadow-lg uppercase tracking-widest transform hover:-translate-y-1">
+                <i class="fas fa-radar mr-2"></i> Scan Main Hub
+            </a>
+        </div>
+        
     </main>
 
-    <footer class="border-t border-slate-900 text-center py-6 text-xs text-slate-600">
-        &copy; 2026 PixelDrop. Advanced LocalStorage Architecture.
+    <footer class="fixed bottom-0 inset-x-0 border-t border-slate-800/50 py-6 text-center text-slate-600 text-[10px] tracking-widest uppercase bg-slate-950/80 backdrop-blur-md">
+        <p>Private Node &copy; 2026. Secured by @i_f_t_uu.</p>
     </footer>
 
-    <script>
-        // index.html এর মেইন ডেটাবেজের সাথে হুবহু মিল থাকতে হবে
-        const galleryItems = [
-            { id: 1, title: 'Cosmic Fluids', author: 'Elena Rostova', img: 'https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=800' },
-            { id: 2, title: 'Cyberpunk Alleyways', author: 'Kenji Sato', img: 'https://images.unsplash.com/photo-1533158326339-7f3cf2404354?q=80&w=800' },
-            { id: 3, title: 'Mist Over Mountains', author: 'Marc Dubois', img: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=800' },
-            { id: 4, title: 'Geometric Solitude', author: 'Sarah Jenkins', img: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800' },
-            { id: 5, title: 'Neon Dreamscape', author: 'Elena Rostova', img: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?q=80&w=800' },
-            { id: 6, title: 'Electric Dusk', author: 'Kenji Sato', img: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=800' },
-            { id: 7, title: 'Golden Hour Coast', author: 'Marc Dubois', img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800' },
-            { id: 8, title: 'Monochrome Echo', author: 'Sarah Jenkins', img: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=800' }
-        ];
-
-        function renderFavorites() {
-            const grid = document.getElementById('favGrid');
-            const clearBtn = document.getElementById('clearBtn');
-            grid.innerHTML = '';
-            
-            // লুপ চালিয়ে চেক করা হচ্ছে কোন কোন আইডি ব্রাউজারে 'true' করা আছে
-            const favItems = galleryItems.filter(item => localStorage.getItem(`liked-${item.id}`) === 'true');
-
-            if (favItems.length === 0) {
-                clearBtn.classList.add('hidden');
-                grid.innerHTML = `
-                    <div class="col-span-full text-center py-20 text-slate-600 animate-fade-in">
-                        <i class="far fa-heart text-6xl mb-4 text-slate-800"></i>
-                        <h3 class="text-xl font-bold text-slate-400">Your collection is empty</h3>
-                        <p class="text-sm text-slate-500 mt-1 mb-6">Go to the homepage and click the heart icon on any artwork!</p>
-                        <a href="index.html" class="inline-block bg-white text-slate-950 px-6 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider shadow-lg hover:bg-pink-500 hover:text-white transition-all">Explore Home</a>
-                    </div>
-                `;
-                return;
-            }
-
-            clearBtn.classList.remove('hidden');
-
-            // ফেভারিট কার্ডগুলো জেনারেট করা
-            favItems.forEach(item => {
-                const card = document.createElement('div');
-                card.className = "group overflow-hidden rounded-2xl bg-slate-900/50 border border-slate-800/80 shadow-xl transition-all duration-300";
-                card.innerHTML = `
-                    <div class="overflow-hidden aspect-[4/3]">
-                        <img src="${item.img}" alt="${item.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                    </div>
-                    <div class="p-5 flex justify-between items-center bg-slate-950/40">
-                        <div>
-                            <h3 class="text-sm font-bold text-slate-200 line-clamp-1">${item.title}</h3>
-                            <p class="text-xs text-slate-500">By ${item.author}</p>
-                        </div>
-                        <button onclick="removeFavorite(${item.id})" class="text-slate-500 hover:text-red-500 transition-colors text-sm" title="Remove from Favorites">
-                            <i class="fas fa-heart-broken"></i>
-                        </button>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        // একটা একটা করে রিমুভ করার ফাংশন
-        function removeFavorite(id) {
-            localStorage.removeItem(`liked-${id}`);
-            renderFavorites(); // রিমুভ করার সাথে সাথে পেজ রিলোড ছাড়া গ্যালারি আপডেট হবে
-        }
-
-        // সব একসাথে ক্লিয়ার করার ফাংশন
-        function clearAllFavorites() {
-            if(confirm("Are you sure you want to clear your entire collection?")) {
-                galleryItems.forEach(item => localStorage.removeItem(`liked-${item.id}`));
-                renderFavorites();
-            }
-        }
-
-        // পেজ লোড হলে ফাংশনটি রান করবে
-        window.onload = renderFavorites;
-    </script>
 </body>
 </html>
