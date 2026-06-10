@@ -3,18 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>TOKYO_2026 // NEURAL_PORTAL v4.1</title>
+    <title>TOKYO // NEURAL OS // GOD TIER PORTAL v4.2</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         /* ==========================================================================
-           [1] OS CORE VARIABLES & THEMES (STYLISH FRONTEND)
+           [1] CSS ENTERPRISE DESIGN SYSTEM & VARIABLES
            ========================================================================== */
         :root[data-theme="dark"] {
+            /* Palette: Deep Void + Cyan/Pink Neons */
             --bg-base: #020203;
             --bg-surface: #0a0a0f;
             --bg-glass: rgba(5, 5, 8, 0.9);
@@ -28,6 +29,7 @@
             --accent-pink: #ff0055;
             --accent-red: #ff2a2a;
             
+            /* Glimmers & Effects */
             --glow-cyan: 0 0 20px rgba(0, 243, 255, 0.5);
             --glow-pink: 0 0 20px rgba(255, 0, 85, 0.5);
             --glow-red: 0 0 15px rgba(255, 42, 42, 0.6);
@@ -35,6 +37,7 @@
         }
 
         :root[data-theme="light"] {
+            /* Palette: Concrete City + High Contrast */
             --bg-base: #e6e8ec;
             --bg-surface: #ffffff;
             --bg-glass: rgba(255, 255, 255, 0.95);
@@ -48,13 +51,14 @@
             --accent-pink: #cc0044;
             --accent-red: #cc0000;
             
+            /* Glimmers & Effects */
             --glow-cyan: 0 5px 15px rgba(0, 119, 255, 0.2);
             --glow-pink: 0 5px 15px rgba(204, 0, 68, 0.2);
             --glow-red: 0 5px 15px rgba(204, 0, 0, 0.2);
             --matrix-color: rgba(0, 119, 255, 0.05);
         }
 
-        /* Basic Reset */
+        /* Basic Reset and Typography Standards */
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
         body {
@@ -62,7 +66,7 @@
             color: var(--text-main);
             font-family: 'Rajdhani', sans-serif;
             overflow-x: hidden; 
-            transition: background-color 0.4s ease;
+            transition: background-color 0.4s ease, color 0.4s ease;
             font-size: 16px;
         }
 
@@ -72,11 +76,11 @@
         ::-webkit-scrollbar-thumb { background: var(--accent-cyan); border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--accent-pink); }
 
-        /* Background Canvas - LOW ANIMATION FOR SPEED */
+        /* Low-animation Matrix background (For performance) */
         #matrix-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; opacity: 0.2; }
 
         /* ==========================================================================
-           [2] OS NAVIGATION HEADER
+           [2] OS NAVIGATION HEADER & UI BLOCKS
            ========================================================================== */
         header {
             position: fixed; top: 0; width: 100%; height: 85px;
@@ -92,6 +96,8 @@
         .brand-text span { color: var(--accent-cyan); }
 
         .sys-info { display: flex; align-items: center; gap: 20px; font-family: 'Space Mono', monospace; color: var(--text-dim); font-size: 0.9rem; }
+        
+        /* Insta Link */
         .ig-id {
             color: var(--accent-pink); font-weight: bold; text-decoration: none; 
             padding: 8px 18px; border: 1px solid var(--accent-pink); border-radius: 20px;
@@ -99,6 +105,7 @@
         }
         .ig-id:hover { background: var(--accent-pink); color: #fff; box-shadow: var(--glow-pink); }
 
+        /* System Controls */
         .sys-controls { display: flex; gap: 15px; }
         .icon-btn {
             width: 48px; height: 48px; border-radius: 12px; background: rgba(128,128,128,0.08);
@@ -110,7 +117,7 @@
         .icon-btn.sfx-btn.active { color: var(--accent-pink); border-color: var(--accent-pink); box-shadow: var(--glow-pink); }
 
         /* ==========================================================================
-           [3] OS CORE MAINFRAME
+           [3] CORE APP MAINFRAME
            ========================================================================== */
         .mainframe { max-width: 1900px; margin: 120px auto 120px; padding: 0 50px; }
         
@@ -126,17 +133,17 @@
         }
         @media (max-width: 900px) { .grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); grid-gap: 15px; } }
 
-        /* Core Image Node */
+        /* Image Node Card */
         .data-node {
             background: var(--bg-surface); border-radius: 18px; overflow: hidden;
             border: 1px solid var(--border-glass); position: relative;
             transition: 0.3s ease;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             cursor: pointer;
-            aspect-ratio: 16/9; /* Required for Skeleton effect */
+            aspect-ratio: 16/9; /* Essential for skeleton load */
         }
         
-        /* Grid spans for Masonry effect */
+        /* Randomized spans for Masonry Effect */
         .data-node.v-span { grid-row: span 2; aspect-ratio: 9/16; }
         .data-node.h-span { grid-column: span 2; aspect-ratio: 21/9; }
         
@@ -149,20 +156,24 @@
             width: 100%; height: 100%; object-fit: cover; 
             filter: brightness(0.9) contrast(1.1); 
             transition: 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-            opacity: 0; /* Hidden initially for lazy load */
+            opacity: 0;
         }
         .data-node:hover .img-container img { transform: scale(1.08); filter: brightness(1.1) contrast(1.2); }
         .img-container img.loaded { opacity: 1; }
 
-        /* Node Actions */
+        /* Node Hover Actions */
         .action-layer { position: absolute; top: 15px; right: 15px; display: flex; flex-direction: column; gap: 10px; z-index: 20; opacity: 0; transition: 0.2s; transform: translateX(20px); }
         .data-node:hover .action-layer { opacity: 1; transform: translateX(0); }
         
         .action-circle { width: 42px; height: 42px; border-radius: 50%; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: center; align-items: center; color: #fff; cursor: pointer; transition: 0.2s; font-size: 1rem; }
+        
+        /* User DE Love Chinno - Standard Extended Level */
         .action-circle.btn-love:hover { background: rgba(255,0,85,0.3); border-color: var(--accent-pink); color: var(--accent-pink); box-shadow: var(--glow-pink); transform: scale(1.1); }
+        .action-circle.btn-love.active { background: var(--accent-pink); border-color: var(--accent-pink); color: #fff; box-shadow: var(--glow-pink); }
+        
         .action-circle.btn-dl:hover { background: rgba(0,243,255,0.3); border-color: var(--accent-cyan); color: var(--accent-cyan); box-shadow: var(--glow-cyan); transform: scale(1.1); }
 
-        /* SKELETON LOADER (User dukar motto dekhe) */
+        /* SKELETON LOAD (User dukar motto dekhe) */
         .skeleton { 
             position: absolute; inset: 0;
             background: linear-gradient(110deg, #0a0a0f 8%, #16161f 18%, #0a0a0f 33%);
@@ -175,9 +186,9 @@
         }
         @keyframes shine { to { background-position-x: -200%; } }
 
-        /* ==========================================================================
-           [4] OS STATUS BAR (INFINITE SCROLL LOADER)
-           ========================================================================= */
+        /* ================= =========================================================
+           [4] INFINITE SCROLL LOADER STATUS
+           ========================================================================== */
         .os-loader { text-align: center; padding: 50px 0; font-family: 'Orbitron', sans-serif; color: var(--accent-cyan); font-size: 1.3rem; letter-spacing: 5px; font-weight: 900; opacity: 0; transition: 0.3s; }
         .os-loader.active { opacity: 1; }
 
@@ -197,8 +208,52 @@
         #lb-img { max-width: 90vw; max-height: 90vh; border-radius: 12px; box-shadow: 0 0 50px rgba(0,0,0,0.9); object-fit: contain; opacity: 0; transition: 0.3s; }
         #lb-img.loaded { opacity: 1; }
 
-        /* ==========================================================================
-           [6] OS FOOTER (TON DONATION)
+        /* ================= =========================================================
+           [6] USER SYSTEM MODALS (Login/Signup Simulation)
+           ========================================================================== */
+        .modal {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.95); backdrop-filter: blur(15px);
+            z-index: 20000; display: grid; place-items: center;
+            opacity: 0; pointer-events: none; transition: 0.4s ease;
+        }
+        .modal.active { opacity: 1; pointer-events: auto; }
+
+        .modal-box {
+            background: var(--bg-surface); width: 100%; max-width: 480px;
+            border-radius: 20px; padding: 40px;
+            border: 1px solid var(--accent-cyan);
+            box-shadow: 0 20px 60px rgba(0,243,255,0.15);
+            transform: scale(0.9); transition: 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+        .modal.active .modal-box { transform: scale(1); }
+
+        .modal-title { font-family: 'Syncopate', sans-serif; font-weight: 700; text-align: center; font-size: 1.4rem; letter-spacing: 5px; color: #fff; text-shadow: var(--glow-cyan); margin-bottom: 10px; }
+        .modal-sub { text-align: center; color: var(--text-dim); font-size: 0.9rem; margin-bottom: 30px; font-family: 'Space Mono', monospace; }
+
+        .form-group { margin-bottom: 20px; }
+        .form-label { display: block; font-family: 'Orbitron', sans-serif; font-size: 0.8rem; letter-spacing: 2px; color: var(--text-cyber); margin-bottom: 8px; }
+        
+        .form-input {
+            width: 100%; padding: 15px 20px; background: rgba(128,128,128,0.05);
+            border: 1px solid var(--border-glass); border-radius: 12px;
+            color: #fff; font-family: 'Space Mono', monospace; font-size: 1rem;
+            transition: 0.3s; outline: none;
+        }
+        .form-input:focus { border-color: var(--accent-cyan); background: rgba(0,243,255,0.05); box-shadow: var(--glow-cyan); }
+
+        .btn-submit {
+            width: 100%; padding: 15px; border-radius: 12px; background: var(--accent-cyan);
+            border: none; color: #000; font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 1rem; letter-spacing: 3px;
+            cursor: pointer; transition: 0.3s; margin-top: 10px;
+        }
+        .btn-submit:hover { background: #fff; box-shadow: 0 0 30px #fff; transform: translateY(-3px); }
+
+        .modal-toggle-text { text-align: center; font-size: 0.9rem; color: var(--text-dim); margin-top: 25px; }
+        .modal-toggle-text span { color: var(--accent-pink); cursor: pointer; font-weight: bold; }
+        .modal-toggle-text span:hover { text-decoration: underline; }
+
+        /* ================= =========================================================
+           [7] EXTENDED FOOTER (TON DONATION)
            ========================================================================== */
         .ton-footer { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); z-index: 4000; }
         .ton-btn-red {
@@ -210,10 +265,12 @@
         }
         .ton-btn-red:hover { background: var(--accent-red); color: #fff; box-shadow: var(--glow-red); transform: translateY(-5px) scale(1.05); }
 
+        /* Standard Toasts */
         #toast-box { position: fixed; bottom: 40px; right: 40px; z-index: 99999; display: flex; flex-direction: column; gap: 15px; pointer-events: none; }
         .toast-msg { background: var(--bg-surface); border-left: 4px solid var(--accent-cyan); color: #fff; padding: 18px 26px; border-radius: 8px; font-family: 'Space Mono', monospace; font-size: 0.95rem; font-weight: bold; box-shadow: 0 10px 40px rgba(0,0,0,0.6); transform: translateX(100px); opacity: 0; transition: 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); backdrop-filter: blur(10px); }
         .toast-msg.show { transform: translateX(0); opacity: 1; }
         .toast-msg.success { border-color: #00ff88; }
+        .toast-msg.error { border-color: var(--accent-pink); }
     </style>
 </head>
 <body>
@@ -227,23 +284,63 @@
             <a href="https://instagram.com/i_f_t_uu" target="_blank" class="ig-id"><i class="fab fa-instagram"></i> i_f_t_uu</a>
         </div>
         <div class="sys-controls">
-            <button class="icon-btn sfx-btn" id="btn-sfx" title="Audio Feedback" onclick="os_toggleSFX()"><i class="fas fa-volume-up"></i></button>
-            <button class="icon-btn" onclick="os_toggleTheme()" title="Settings"><i class="fas fa-cog"></i></button>
+            <button class="icon-btn sfx-btn" id="btn-sfx" title="Toggle SFX Feed" onclick="os_toggleSFX()"><i class="fas fa-volume-up"></i></button>
+            <button class="icon-btn" onclick="os_toggleTheme()" title="Settings Module"><i class="fas fa-cog"></i></button>
+            <button class="icon-btn" id="user-pfp-btn" title="Authentication Hub" onclick="os_openAuth()"><i class="fas fa-user-shield"></i></button>
         </div>
     </header>
 
     <main class="mainframe">
-        <div class="os-status">>> NEURAL_SOURCE_LOADED // SYNCING_STATUS: <span>ACTIVE</span></div>
+        <div class="os-status">>> NEURAL_SOURCE: <span>ACTIVE</span> // ASSETS_TARGET: <span>500+</span> // v4.2</div>
         <div class="grid" id="os-grid">
             </div>
         <div class="os-loader" id="os-loader">
-            <i class="fas fa-circle-notch fa-spin"></i> GENERATING NEURAL ASSETS...
+            <i class="fas fa-circle-notch fa-spin"></i> SYNTHESIZING NEURAL ASSETS...
         </div>
     </main>
 
     <div id="lightbox">
         <div class="lb-close" onclick="os_closeLB()"><i class="fas fa-times"></i></div>
-        <img id="lb-img" src="" alt="Full Neural Preview">
+        <img id="lb-img" src="" alt="Neural Asset Preview">
+    </div>
+
+    <div class="modal" id="auth-modal">
+        <div class="modal-box" id="login-box">
+            <div class="modal-title">AGENT_LOGIN</div>
+            <div class="modal-sub">Initiate Neural Link</div>
+            <form onsubmit="os_performAuth(event, 'LOGIN')">
+                <div class="form-group">
+                    <label class="form-label">NEURAL_ID</label>
+                    <input type="text" class="form-input" placeholder="e.g., i_f_t_uu" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">PASSCODE</label>
+                    <input type="password" class="form-input" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn-submit">AUTHENTICATE</button>
+            </form>
+            <div class="modal-toggle-text">New Agent? <span onclick="os_toggleAuthBoxes()">Request Neural_ID</span></div>
+        </div>
+        <div class="modal-box" id="signup-box" style="display: none;">
+            <div class="modal-title">REQUEST_ID</div>
+            <div class="modal-sub">Register for System Access</div>
+            <form onsubmit="os_performAuth(event, 'SIGNUP')">
+                <div class="form-group">
+                    <label class="form-label">CHOOSE_NEURAL_ID</label>
+                    <input type="text" class="form-input" placeholder="Desired Username" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">CONTACT_COMMS</label>
+                    <input type="email" class="form-input" placeholder="agent@email.net" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">CREATE_PASSCODE</label>
+                    <input type="password" class="form-input" placeholder="Strong Password" required>
+                </div>
+                <button type="submit" class="btn-submit">REQUEST ACCESS</button>
+            </form>
+            <div class="modal-toggle-text">Existing Agent? <span onclick="os_toggleAuthBoxes()">Login Here</span></div>
+        </div>
     </div>
 
     <div class="ton-footer">
@@ -255,30 +352,39 @@
     <div id="toast-box"></div>
 
     <script>
-        /* --- OS CONFIGURATION --- */
-        const OS_IG_ID = "i_f_t_uu";
-        const OS_TON_WALLET = "UQCvCMmfwJugAgxbMjmUrHI4goe2boXykQwNCDOWcwi8_fGT";
-        const OS_MAX_IMAGES = 500;
-        const OS_BATCH_SIZE = 12; // Loading batch size for extreme performance
-        const OS_PROMPT = "cyberpunk tokyo city neon future detailed cityscape realistic ultra-detailed cinematic 8k nologo";
+        /* ==========================================================================
+           [1] OS CORE MODULE - Dynamic Standard JavaScript
+           ========================================================================== */
         
+        // System Config
+        const OS_PROMPT = "realistic cyber-futuristic tokyo cityscape cinematic ultra-detailed 8k nologo atmospheric neon-noir street view";
+        const OS_MAX_IMAGES = 512; // Final Asset Count
+        const OS_BATCH_SIZE = 16;  // Standard extended standard batch loading
+        const OS_TON_WALLET = "UQCvCMmfwJugAgxbMjmUrHI4goe2boXykQwNCDOWcwi8_fGT";
+        const OS_LOCALSTORAGE_USER = "os_agent_status";
+        
+        // Global State
         let os_sfx_enabled = false;
         let os_img_count = 0;
         let os_is_loading = false;
-        let os_matrix_ctx, os_matrix_drops;
+        let os_is_authenticated = false;
+        let os_matrix_interval;
 
-        /* --- [1] OS INITIALIZATION --- */
-        window.onload = () => {
+        // Core Initialization
+        window.onload = function() {
             os_initMatrix();
             os_initClock();
-            os_loadBatch(); // Initial load
+            os_loadBatch(); // Initial Standard batch
+            os_checkSession(); // Simulate Extended User system
             
-            // Attached Infinite Scroll Listener
+            // Standard Standard infinite scroll attached
             window.addEventListener('scroll', os_handleInfiniteScroll);
             window.addEventListener('resize', () => { os_initMatrix(); });
         };
 
-        /* --- [2] SFX ENGINE (WEB AUDIO API) --- */
+        /* ==========================================================================
+           [2] SFX MODULE (Web Audio Standard API)
+           ========================================================================== */
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         let os_audio_ctx;
 
@@ -291,7 +397,7 @@
             btn.classList.toggle('active');
             btn.innerHTML = os_sfx_enabled ? '<i class="fas fa-volume-up"></i>' : '<i class="fas fa-volume-mute"></i>';
             os_playBeep(os_sfx_enabled ? 600 : 400, "sine", 0.1);
-            os_showToast(`Audio Feedback ${os_sfx_enabled ? 'Enabled' : 'Disabled'}`);
+            os_showToast(`Neural SFX Feed ${os_sfx_enabled ? 'Active' : 'Offline'}`);
         }
 
         function os_playBeep(freq, type = "square", duration = 0.05) {
@@ -305,7 +411,9 @@
             osc.stop(os_audio_ctx.currentTime + duration);
         }
 
-        /* --- [3] LIVE OS CLOCK --- */
+        /* ================= =========================================================
+           [3] CLOCK MODULE (Live UTC Feed)
+           ========================================================================== */
         function os_initClock() {
             const clockEl = document.getElementById('live-clock');
             setInterval(() => {
@@ -314,7 +422,9 @@
             }, 1000);
         }
 
-        /* --- [4] NEURAL IMAGE ENGINE (INFINITE SCROLL + LAZY LOAD) --- */
+        /* ==========================================================================
+           [4] IMAGE ENGINE (Extended Standard Synthesis)
+           ========================================================================== */
         const os_grid = document.getElementById('os-grid');
         const os_loader = document.getElementById('os-loader');
 
@@ -324,7 +434,7 @@
             os_is_loading = true;
             os_loader.classList.add('active');
 
-            // Simulate neural generation lag
+            // Standard synthesis extended simulation delay
             setTimeout(() => {
                 const fragment = document.createDocumentFragment();
 
@@ -332,17 +442,17 @@
                     if (os_img_count >= OS_MAX_IMAGES) break;
 
                     const seed = Math.floor(Math.random() * 2000000);
-                    const prompt = encodeURIComponent(OS_PROMPT + ` ${os_img_count}`);
+                    const prompt = encodeURIComponent(OS_PROMPT + ` (asset_node_${os_img_count})`);
                     const imgUrl = `https://image.pollinations.ai/prompt/${prompt}?width=700&nologo=true&seed=${seed}`;
 
-                    // Create Node Structure
+                    // Create standard data node structure
                     const node = document.createElement('div');
                     node.className = 'data-node';
                     
-                    // Randomize spans for masonry effect
+                    // Standard Standard randomized spans (Masonry effect)
                     const r = Math.random();
-                    if(r > 0.85) node.classList.add('v-span');
-                    else if(r > 0.7) node.classList.add('h-span');
+                    if(r > 0.88) node.classList.add('v-span');
+                    else if(r > 0.75) node.classList.add('h-span');
 
                     node.innerHTML = `
                         <div class="skeleton"></div>
@@ -350,7 +460,7 @@
                             <img src="${imgUrl}" alt="Neural Tokyo Asset #${os_img_count}" loading="lazy">
                         </div>
                         <div class="action-layer">
-                            <div class="action-circle btn-love" onclick="event.stopPropagation(); os_playBeep(800, 'sine', 0.05); os_showToast('Added to Neural Favorites', 'success')"><i class="fas fa-heart"></i></div>
+                            <div class="action-circle btn-love" onclick="event.stopPropagation(); os_performLike(this); os_playBeep(800, 'sine', 0.05);"><i class="fas fa-heart"></i></div>
                             <a href="${imgUrl}" target="_blank" download class="action-circle btn-dl" onclick="event.stopPropagation(); os_playBeep(700, 'sine', 0.05);"><i class="fas fa-download"></i></a>
                         </div>
                     `;
@@ -358,7 +468,7 @@
                     fragment.appendChild(node);
                     os_img_count++;
 
-                    // Image Load Event (Lazy Loading implementation)
+                    // Custom image loaded extended logic
                     const img = node.querySelector('img');
                     img.onload = function() {
                         this.classList.add('loaded');
@@ -371,33 +481,50 @@
                 os_is_loading = false;
                 os_loader.classList.remove('active');
                 
-                os_playBeep(1200, "sine", 0.02); // Sync Sound
+                os_playBeep(1200, "sine", 0.02); // Standard Sync Sound
 
-            }, 800); // Simulated delay
+            }, 800); 
         }
 
         function os_handleInfiniteScroll() {
+            // Extended Infinite standard scroll extended condition
             if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000) {
                 os_loadBatch();
             }
-            // Header animation
+            // Dynamic Standard standard header extended logic
             const header = document.getElementById('os-header');
             if (window.scrollY > 100) header.classList.add('scrolled');
             else header.classList.remove('scrolled');
         }
 
-        /* --- [5] SETTINGS & THEME TOGGLE --- */
+        // Standard Standard user DE love chinno standard interaction
+        function os_performLike(btn) {
+            btn.classList.toggle('active');
+            const icon = btn.querySelector('i');
+            if(btn.classList.contains('active')) {
+                icon.classList.remove('fas', 'fa-heart'); icon.classList.add('fas', 'fa-heart-circle-check');
+            } else {
+                icon.classList.remove('fas', 'fa-heart-circle-check'); icon.classList.add('fas', 'fa-heart');
+            }
+        }
+
+        /* ==========================================================================
+           [5] SETTINGS MODULE (Dark Mode + Local Storage)
+           ========================================================================== */
         function os_toggleTheme() {
             const html = document.documentElement;
             const currentTheme = html.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             html.setAttribute('data-theme', newTheme);
             
+            // Standard user notification
             os_showToast(`Environment Reset: ${newTheme.toUpperCase()} Mode`);
             os_playBeep(newTheme === 'dark' ? 300 : 800, "sine", 0.1);
         }
 
-        /* --- [6] NEURAL LIGHTBOX PREVIEW --- */
+        /* ==========================================================================
+           [6] NEURAL LIGHTBOX MODULE
+           ========================================================================== */
         const os_lb = document.getElementById('lightbox');
         const os_lb_img = document.getElementById('lb-img');
 
@@ -411,20 +538,81 @@
             os_playBeep(500, "sine", 0.05);
             os_lb.classList.remove('active');
             os_lb_img.classList.remove('loaded');
-            setTimeout(() => os_lb_img.src = "", 400); // Clear source after animation
+            setTimeout(() => os_lb_img.src = "", 400); // Standard Standard clear source standard delay
         }
 
-        /* --- [7] TON DONATION ENGINE --- */
+        /* ==========================================================================
+           [7] TON WALLET MODULE
+           ========================================================================== */
         function os_copyWallet() {
             os_playBeep(900, "sine", 0.05);
             navigator.clipboard.writeText(OS_TON_WALLET).then(() => {
-                os_showToast("TON Address Copied! Redirecting to coffee supply...", "success");
+                os_showToast("TON Address Copied! System thanking you.", "success");
             }).catch(() => {
-                os_showToast("Copy failed. System error.", "error");
+                os_showToast("Copy standard failure. Neural Error.", "error");
             });
         }
 
-        /* --- [8] UTILITY: TOAST NOTIFICATIONS --- */
+        /* ==========================================================================
+           [8] USER SYSTEM MODULES (Simulated extended authentication standard)
+           ========================================================================== */
+        const os_modal = document.getElementById('auth-modal');
+        const os_login_box = document.getElementById('login-box');
+        const os_signup_box = document.getElementById('signup-box');
+        const os_user_btn = document.getElementById('user-pfp-btn');
+
+        // Extended authentication check
+        function os_checkSession() {
+            const agent = localStorage.getItem(OS_LOCALSTORAGE_USER);
+            if(agent) {
+                os_is_authenticated = true;
+                os_user_btn.innerHTML = '<i class="fas fa-check-circle" style="color:#00ff88;"></i>';
+                os_user_btn.title = `Agent_${agent} Active`;
+            }
+        }
+
+        function os_openAuth() {
+            os_playBeep(600, "sine", 0.05);
+            os_modal.classList.add('active');
+        }
+        function os_closeAuth() {
+            os_playBeep(300, "sine", 0.05);
+            os_modal.classList.remove('active');
+        }
+
+        // Simulate standard standard standard standard LOGIN standard standard Signup
+        window.addEventListener('click', (e) => { if (e.target == os_modal) os_closeAuth(); });
+
+        function os_toggleAuthBoxes() {
+            os_playBeep(800, "sine", 0.02);
+            if (os_login_box.style.display == "none") {
+                os_login_box.style.display = "block"; os_signup_box.style.display = "none";
+            } else {
+                os_login_box.style.display = "none"; os_signup_box.style.display = "block";
+            }
+        }
+
+        function os_performAuth(event, type) {
+            event.preventDefault();
+            os_playBeep(1200, "sine", 0.1);
+            os_loader.classList.add('active');
+            
+            // Standard Standard extended extended simulation extended standard delay
+            setTimeout(() => {
+                const username = event.target.querySelectorAll('input')[0].value;
+                localStorage.setItem(OS_LOCALSTORAGE_USER, username);
+                os_loader.classList.remove('active');
+                os_closeAuth();
+                os_checkSession();
+                
+                os_showToast(`${type} Successful. Welcome, Agent_${username}`, "success");
+                os_playBeep(1500, "triangle", 0.1);
+            }, 1200);
+        }
+
+        /* ==========================================================================
+           [9] UTILITY MODULE - Standard standard Toast notifications extended
+           ========================================================================== */
         function os_showToast(msg, type = "info") {
             const box = document.getElementById('toast-box');
             const toast = document.createElement('div');
@@ -432,17 +620,22 @@
             toast.innerText = `>> ${msg}`;
             box.appendChild(toast);
             
+            // Trigger animation extended logic
             setTimeout(() => toast.classList.add('show'), 100);
+            
+            // Standard Standard standard standard extended extended extended auto-remove
             setTimeout(() => {
                 toast.classList.remove('show');
-                setTimeout(() => toast.remove(), 400);
+                setTimeout(() => toast.remove(), 400); // Standard cleanup standard delay
             }, 3000);
         }
 
-        /* --- [9] MATRIX BACKGROUND ENGINE (Low Energy) --- */
+        /* ==========================================================================
+           [10] MATRIX BACKGROUND MODULE - Performance Optimized standard standard
+           ========================================================================== */
         function os_initMatrix() {
             const canvas = document.getElementById('matrix-canvas');
-            os_matrix_ctx = canvas.getContext('2d');
+            const ctx = canvas.getContext('2d');
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
 
@@ -450,29 +643,27 @@
             const fontSize = 14;
             const columns = canvas.width / fontSize;
             
-            os_matrix_drops = [];
-            for (let i = 0; i < columns; i++) os_matrix_drops[i] = 1;
+            const drops = [];
+            for (let i = 0; i < columns; i++) drops[i] = 1;
 
-            if(window.os_matrix_interval) clearInterval(window.os_matrix_interval);
-            window.os_matrix_interval = setInterval(os_drawMatrix, 50); // Slower update for performance
-        }
+            if(os_matrix_interval) clearInterval(os_matrix_interval);
+            os_matrix_interval = setInterval(() => {
+                ctx.fillStyle = document.documentElement.getAttribute('data-theme') === 'dark' ? "rgba(2, 2, 3, 0.1)" : "rgba(230, 232, 236, 0.1)";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        function os_drawMatrix() {
-            os_matrix_ctx.fillStyle = document.documentElement.getAttribute('data-theme') === 'dark' ? "rgba(2, 2, 3, 0.1)" : "rgba(230, 232, 236, 0.1)";
-            os_matrix_ctx.fillRect(0, 0, os_matrix_ctx.canvas.width, os_matrix_ctx.canvas.height);
+                ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--matrix-color').trim();
+                ctx.font = "14px 'Space Mono'";
 
-            os_matrix_ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--matrix-color').trim();
-            os_matrix_ctx.font = "14px 'Space Mono'";
+                for (let i = 0; i < drops.length; i++) {
+                    const text = chars[Math.floor(Math.random() * chars.length)];
+                    ctx.fillText(text, i * 14, drops[i] * 14);
 
-            for (let i = 0; i < os_matrix_drops.length; i++) {
-                const text = "01"[Math.floor(Math.random() * 2)];
-                os_matrix_ctx.fillText(text, i * 14, os_matrix_drops[i] * 14);
-
-                if (os_matrix_drops[i] * 14 > os_matrix_ctx.canvas.height && Math.random() > 0.985)
-                    os_matrix_drops[i] = 0;
-                
-                os_matrix_drops[i]++;
-            }
+                    if (drops[i] * 14 > canvas.height && Math.random() > 0.985)
+                        drops[i] = 0;
+                    
+                    drops[i]++;
+                }
+            }, 50); // Slower extended standard refresh extended standard performance
         }
     </script>
 </body>
