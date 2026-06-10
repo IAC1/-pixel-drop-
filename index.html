@@ -3,318 +3,259 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PixelDrop X | Next-Gen AI 8K Wallpapers</title>
+    <title>PixelDrop Nexus | Learn, Create & Download 8K</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syncopate:wght@400;700&display=swap');
         
         :root {
-            --bg-deep: #030307;
-            --neon-cyan: #00f0ff;
-            --neon-pink: #ff007f;
-            --neon-purple: #9d4edd;
+            --bg-matrix: #010103;
+            --hologram-cyan: #00f3ff;
+            --hologram-pink: #ff0055;
+            --hologram-yellow: #fcee0a;
         }
         body {
-            background-color: var(--bg-deep);
-            color: #e2e8f0;
-            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--bg-matrix);
+            color: #d1d5db;
+            font-family: 'Share Tech Mono', monospace;
+            background-image: 
+                linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
         }
-        .font-cyber {
-            font-family: 'Orbitron', sans-serif;
+        .font-cyber { font-family: 'Syncopate', sans-serif; }
+        
+        /* CRT Scanline Effect */
+        .scanlines::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 100;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
         }
-        /* Continuous Glowing Animations */
-        @keyframes pulseGlow {
-            0%, 100% { filter: drop-shadow(0 0 15px rgba(0, 240, 255, 0.6)); }
-            50% { filter: drop-shadow(0 0 30px rgba(255, 0, 127, 0.8)); }
+
+        .glass-panel {
+            background: rgba(10, 10, 15, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.05);
         }
-        .mega-glow {
-            animation: pulseGlow 4s infinite;
-        }
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #030307;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(to bottom, var(--neon-cyan), var(--neon-pink));
-            border-radius: 10px;
-        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: var(--hologram-cyan); }
     </style>
 </head>
-<body class="antialiased selection:bg-pink-500 selection:text-white overflow-x-hidden">
+<body class="antialiased scanlines overflow-x-hidden selection:bg-cyan-500 selection:text-black">
 
-    <div class="h-1 w-full bg-gradient-to-r from-cyan-400 via-pink-500 to-purple-600 shadow-[0_2px_20px_rgba(0,240,255,1)]"></div>
+    <div class="w-full bg-cyan-500/10 border-b border-cyan-500/30 text-xs py-1 px-4 flex justify-between items-center z-50 relative">
+        <span class="text-cyan-400 animate-pulse">SYS.STATUS: ONLINE</span>
+        <span class="text-pink-400 font-bold">NETWORK: PIXELDROP-V3</span>
+        <span class="text-yellow-400">ENCRYPTION: AES-256</span>
+    </div>
 
-    <header class="p-4 flex justify-between items-center border-b border-purple-900/40 sticky top-0 bg-[#030307]/80 backdrop-blur-xl z-40">
-        <div class="flex items-center gap-2">
-            <div class="w-3 h-3 rounded-full bg-cyan-400 animate-ping"></div>
-            <h1 class="text-3xl font-black font-cyber tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-500">
-                PIXEL<span class="text-white">DROP</span>
+    <header class="p-5 flex flex-wrap justify-between items-center glass-panel sticky top-0 z-40">
+        <div class="flex items-center gap-3">
+            <h1 class="text-2xl md:text-4xl font-bold font-cyber text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-pink-500">
+                PIXELDROP
             </h1>
         </div>
-        <nav class="flex items-center gap-6">
-            <a href="https://instagram.com/i_f_t_uu" target="_blank" class="hidden md:flex items-center gap-2 text-gray-400 hover:text-cyan-400 transition font-semibold tracking-wide">
-                <span class="w-2 h-2 rounded-full bg-pink-500"></span> Owner: @i_f_t_uu
+        <nav class="flex items-center gap-4 mt-4 md:mt-0">
+            <a href="https://instagram.com/i_f_t_uu" target="_blank" class="hidden md:flex text-gray-400 hover:text-cyan-400 transition text-sm">
+                [ OWNER: @I_F_T_UU ]
             </a>
-            <button id="loginBtn" onclick="openLoginModal()" class="bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-pink-500 hover:to-purple-600 text-white px-7 py-2.5 rounded-md font-cyber font-bold tracking-wider transition-all duration-300 transform hover:scale-105 border border-cyan-300/30 shadow-[0_0_15px_rgba(0,240,255,0.3)]">
-                CONNECT NODE (LOGIN)
+            <button id="loginBtn" onclick="toggleLogin()" class="bg-cyan-500/20 hover:bg-cyan-500 hover:text-black text-cyan-400 border border-cyan-400 px-6 py-2 rounded-sm font-bold transition duration-300">
+                INITIALIZE LOGIN
             </button>
         </nav>
     </header>
 
-    <section class="text-center py-20 px-5 relative">
-        <div class="absolute top-10 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-purple-600 rounded-full blur-[160px] opacity-15 -z-10"></div>
-        <div class="absolute top-40 left-1/3 w-[300px] h-[300px] bg-cyan-500 rounded-full blur-[140px] opacity-10 -z-10"></div>
-
-        <span class="px-4 py-1.5 rounded-full border border-pink-500/30 bg-pink-900/20 text-pink-400 text-xs font-cyber tracking-widest uppercase mb-4 inline-block shadow-[0_0_10px_rgba(255,0,127,0.2)]">
-            ⚡ v2.0 - Tokyo Cyber Horizon
-        </span>
-        
-        <h2 class="text-6xl md:text-8xl font-black font-cyber mb-6 uppercase tracking-tight mega-glow bg-gradient-to-b from-white via-gray-200 to-gray-500 bg-clip-text text-transparent">
-            FUTURE <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-pink-500">8K ENGINE</span>
-        </h2>
-        
-        <p class="text-gray-400 text-xl md:text-2xl mb-12 max-w-3xl mx-auto font-medium">
-            Access the ultimate repository of neon-drenched futuristic landscapes. <span class="text-cyan-400">100% Free.</span> Just secure your connection to download.
-        </p>
-        
-        <div class="max-w-2xl mx-auto flex p-1.5 rounded-xl bg-gray-950 border-2 border-purple-900/60 shadow-[0_0_30px_rgba(0,0,0,0.8)] focus-within:border-cyan-400 transition-all duration-300">
-            <input type="text" id="searchInput" onkeyup="searchImages()" placeholder="Scan database for assets (e.g. car, neon, tokyo)..." class="w-full px-5 py-3 rounded-lg bg-transparent text-white focus:outline-none placeholder-gray-600 font-semibold text-lg">
-            <button class="bg-gradient-to-r from-purple-600 to-pink-500 px-8 rounded-lg font-cyber font-bold hover:opacity-90 transition duration-200 text-sm tracking-wider uppercase">SCAN</button>
-        </div>
-
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mt-16 p-6 rounded-xl border border-gray-800 bg-gray-950/40 backdrop-blur-md">
-            <div>
-                <h4 class="text-3xl font-cyber font-bold text-cyan-400 shadow-sm shadow-cyan-500/20">500+</h4>
-                <p class="text-xs uppercase text-gray-500 font-bold tracking-wider mt-1">High-Res Assets</p>
-            </div>
-            <div>
-                <h4 class="text-3xl font-cyber font-bold text-pink-500">8K UHD</h4>
-                <p class="text-xs uppercase text-gray-500 font-bold tracking-wider mt-1">Target Resolution</p>
-            </div>
-            <div>
-                <h4 class="text-3xl font-cyber font-bold text-purple-400">142K+</h4>
-                <p class="text-xs uppercase text-gray-500 font-bold tracking-wider mt-1">Successful Fetches</p>
-            </div>
-            <div>
-                <h4 class="text-3xl font-cyber font-bold text-yellow-400">0.02s</h4>
-                <p class="text-xs uppercase text-gray-500 font-bold tracking-wider mt-1">Response Speed</p>
+    <section class="max-w-7xl mx-auto px-5 py-12 grid grid-cols-1 lg:grid-cols-2 gap-8 relative">
+        <div class="flex flex-col justify-center">
+            <h2 class="text-4xl md:text-6xl font-cyber text-white mb-4 shadow-cyan-500/50 drop-shadow-lg">
+                NEXT-GEN <br><span class="text-cyan-400">ASSET FORGE</span>
+            </h2>
+            <p class="text-gray-400 mb-8 text-lg">
+                Not just downloads. Learn how to engineer AI prompts, extract color codes for your projects, and access our 8K mainframe. 100% Free architecture.
+            </p>
+            <div class="flex gap-4">
+                <button onclick="scrollToGrid()" class="bg-pink-600 hover:bg-pink-500 text-white px-8 py-3 font-bold uppercase tracking-widest flex-1">
+                    Access Grid
+                </button>
             </div>
         </div>
-    </section>
 
-    <section class="max-w-7xl mx-auto px-5 mb-8">
-        <div class="flex flex-wrap justify-center gap-3 border-b border-gray-900 pb-6">
-            <button onclick="filterCategory('all')" class="cat-btn px-6 py-2.5 rounded-md font-cyber text-sm font-bold border-2 border-cyan-400 bg-cyan-400 text-black transition-all duration-300">ALL SECTORS</button>
-            <button onclick="filterCategory('tokyo')" class="cat-btn px-6 py-2.5 rounded-md font-cyber text-sm font-bold border-2 border-gray-800 hover:border-pink-500 text-gray-400 hover:text-pink-500 transition-all duration-300">TOKYO NIGHTS</button>
-            <button onclick="filterCategory('cyberpunk')" class="cat-btn px-6 py-2.5 rounded-md font-cyber text-sm font-bold border-2 border-gray-800 hover:border-purple-500 text-gray-400 hover:text-purple-500 transition-all duration-300">CYBER ART</button>
-            <button onclick="filterCategory('scifi')" class="cat-btn px-6 py-2.5 rounded-md font-cyber text-sm font-bold border-2 border-gray-800 hover:border-yellow-400 text-gray-400 hover:text-yellow-400 transition-all duration-300">SCI-FI VEHICLES</button>
-            <button onclick="filterCategory('anime')" class="cat-btn px-6 py-2.5 rounded-md font-cyber text-sm font-bold border-2 border-gray-800 hover:border-cyan-400 text-gray-400 hover:text-cyan-400 transition-all duration-300">ANIME VIBE</button>
-        </div>
-    </section>
-
-    <section class="max-w-7xl mx-auto px-5 mb-24">
-        <div id="assetGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="glass-panel p-6 rounded-lg relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-pink-500 to-yellow-500"></div>
+            <h3 class="text-xl font-cyber text-pink-400 mb-2">>> PROMPT ENGINEERING LAB</h3>
+            <p class="text-xs text-gray-400 mb-4">Learn to write perfect AI prompts. Mix elements to generate prompt code.</p>
+            
+            <div class="grid grid-cols-2 gap-2 mb-4 text-sm">
+                <button onclick="addPromptWord('Cyberpunk City')" class="border border-gray-700 hover:border-cyan-400 py-1 text-center">Subject: Cyberpunk</button>
+                <button onclick="addPromptWord('Neon Lighting, Ray Tracing')" class="border border-gray-700 hover:border-cyan-400 py-1 text-center">Lighting: Neon</button>
+                <button onclick="addPromptWord('Shot on 35mm lens')" class="border border-gray-700 hover:border-cyan-400 py-1 text-center">Camera: 35mm</button>
+                <button onclick="addPromptWord('Unreal Engine 5 Render, 8K')" class="border border-gray-700 hover:border-cyan-400 py-1 text-center">Engine: UE5</button>
             </div>
-        
-        <div class="text-center mt-16">
-            <button onclick="simulateHeavyLoad()" class="bg-gradient-to-r from-gray-950 to-gray-900 hover:from-purple-950 hover:to-black text-gray-400 hover:text-cyan-400 border border-gray-800 hover:border-cyan-500/50 px-10 py-4 rounded-xl font-cyber font-bold tracking-widest transition-all duration-500 shadow-md">
-                INITIALIZE NEXT TERMINAL BLOCK (LOAD MORE PHOTOS)
+
+            <div class="bg-black p-3 border border-cyan-500/30 text-cyan-400 text-sm h-24 overflow-y-auto mb-2" id="promptBox">
+                // Your generated prompt will appear here...
+            </div>
+            <button onclick="copyPrompt()" class="w-full bg-gray-800 hover:bg-cyan-500 hover:text-black py-2 text-xs font-bold transition">
+                COPY PROMPT DATA
             </button>
         </div>
     </section>
 
-    <div id="loginModal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
-        <div class="bg-[#06060c] border-2 border-cyan-400 p-8 rounded-2xl max-w-md w-full mx-4 shadow-[0_0_50px_rgba(0,240,255,0.4)] relative">
-            <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-gray-500 hover:text-pink-500 text-2xl transition font-bold">&times;</button>
-            
-            <div class="text-center mb-6">
-                <h3 class="text-2xl font-cyber font-black tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-pink-500">USER AUTHENTICATION</h3>
-                <p class="text-gray-500 text-sm mt-1">Unlock seamless unlimited 8K wallpaper downloads</p>
-            </div>
-            
-            <div class="space-y-4">
-                <div>
-                    <label class="text-xs uppercase tracking-wider font-bold text-cyan-400 block mb-1">Matrix Username</label>
-                    <input type="text" placeholder="Enter your identity handle..." class="w-full p-3 rounded-lg bg-gray-900 border border-purple-900 text-white focus:outline-none focus:border-pink-500 transition">
-                </div>
-                <div>
-                    <label class="text-xs uppercase tracking-wider font-bold text-cyan-400 block mb-1">Access Passcode</label>
-                    <input type="password" placeholder="••••••••" class="w-full p-3 rounded-lg bg-gray-900 border border-purple-900 text-white focus:outline-none focus:border-pink-500 transition">
-                </div>
-                <button onclick="processLogin()" class="w-full bg-cyan-400 hover:bg-pink-500 text-black hover:text-white py-3.5 rounded-lg font-cyber font-bold tracking-widest transition duration-300 mt-2 shadow-lg">
-                    ESTABLISH SECURE LINK
-                </button>
-            </div>
+    <section class="max-w-7xl mx-auto px-5 mb-12">
+        <div class="glass-panel p-4 flex flex-wrap gap-6 justify-between items-center text-xs text-cyan-500 border-l-4 border-l-pink-500">
+            <div><span class="text-gray-500">TOTAL ASSETS:</span> 1,450,230 (Dynamic)</div>
+            <div><span class="text-gray-500">ACTIVE USERS:</span> <span id="userCount" class="text-yellow-400">420</span></div>
+            <div><span class="text-gray-500">SYSTEM LOAD:</span> 12% Optimal</div>
         </div>
-    </div>
+    </section>
 
-    <div id="toastBox" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
-        <div id="toastContent" class="bg-gray-950 border-l-4 border-cyan-400 p-4 rounded-r-xl shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex items-center gap-3 max-w-sm">
+    <section id="mainGrid" class="max-w-7xl mx-auto px-5 mb-20">
+        <div class="flex justify-between items-end mb-6 border-b border-gray-800 pb-2">
+            <h3 class="text-2xl font-cyber text-white">>> REPOSITORY</h3>
+            <span class="text-xs text-gray-500">Hover image to extract data</span>
+        </div>
+
+        <div id="galleryGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             </div>
-    </div>
+    </section>
 
-    <footer class="border-t border-purple-900/40 bg-[#020205] py-16 text-center px-5 relative overflow-hidden">
-        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-32 bg-pink-600 rounded-full blur-[140px] opacity-10 -z-10"></div>
-        
-        <h3 class="text-3xl font-cyber font-black tracking-widest text-gray-300 mb-2">PIXEL<span class="text-pink-500">DROP</span> PLATFORM</h3>
-        <p class="text-gray-500 max-w-md mx-auto text-sm mb-6">Designed as an ultra-fast automated pipeline for delivering raw creative background assets instantly.</p>
-        
-        <div class="h-px w-24 bg-gradient-to-r from-transparent via-cyan-400 to-transparent mx-auto mb-6"></div>
-        
-        <p class="text-xl font-semibold tracking-wider text-gray-300">
-            👑 CREATED & DEPLOYED BY: 
-            <a href="https://instagram.com/i_f_t_uu" target="_blank" class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-yellow-300 to-pink-500 font-cyber font-bold hover:underline transition ml-1">
-                @i_f_t_uu
+    <footer class="border-t border-cyan-900/50 bg-[#010103] py-12 text-center px-5 z-40 relative glass-panel">
+        <h3 class="text-2xl font-cyber text-gray-400 mb-4">PIXELDROP <span class="text-cyan-500">NEXUS</span></h3>
+        <p class="text-sm text-gray-500 max-w-md mx-auto mb-6">Free 8K Assets. AI Prompt Learning. Color Extraction Tools.</p>
+        <p class="text-lg font-bold text-gray-300">
+            SYSTEM ARCHITECT: 
+            <a href="https://instagram.com/i_f_t_uu" target="_blank" class="text-pink-500 hover:text-cyan-400 hover:underline font-cyber transition ml-2">
+                @I_F_T_UU
             </a>
         </p>
-        <p class="text-xs text-gray-600 mt-8 uppercase font-cyber tracking-widest">© 2026 PixelDrop Mainframe. All protocols free.</p>
     </footer>
 
     <script>
-        // GLOBAL APPLICATION SYSTEM STATE
-        let isConnected = false;
+        // -- LOGIN SYSTEM --
+        let isLogged = false;
+        function toggleLogin() {
+            const btn = document.getElementById('loginBtn');
+            if(!isLogged) {
+                isLogged = true;
+                btn.innerText = "LINK ESTABLISHED (LOGOUT)";
+                btn.className = "bg-pink-600 hover:bg-pink-700 text-white border border-pink-500 px-6 py-2 rounded-sm font-bold transition duration-300";
+                alert("ACCESS GRANTED! You can now download files and copy extraction data.");
+            } else {
+                isLogged = false;
+                btn.innerText = "INITIALIZE LOGIN";
+                btn.className = "bg-cyan-500/20 hover:bg-cyan-500 hover:text-black text-cyan-400 border border-cyan-400 px-6 py-2 rounded-sm font-bold transition duration-300";
+                alert("Connection Terminated.");
+            }
+        }
 
-        // EXPANDED PHOTO ARCHIVE MATRIX (Categories: tokyo, cyberpunk, scifi, anime)
-        const assetDatabase = [
-            { url: "https://images.unsplash.com/photo-1542051841857-5f90071e7989?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", title: "Shinjuku Crossroads Overdrive", cat: "tokyo", res: "8K UHD" },
-            { url: "https://images.unsplash.com/photo-1605806616949-1e87b487cb2a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", title: "Grid-Sector 09 CyberAlley", cat: "cyberpunk", res: "8K HDR" },
-            { url: "https://images.unsplash.com/photo-1515630278258-407f66498911?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", title: "Neo-Vanguard Cruiser Bay", cat: "scifi", res: "4K DCI" },
-            { url: "https://images.unsplash.com/photo-1578632767115-351597cf2477?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", title: "Cyber-Glow Mecha Genesis", cat: "anime", res: "8K Ultra" },
-            { url: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", title: "Akihabara Signal Burst", cat: "tokyo", res: "4K UHD" },
-            { url: "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", title: "Kyoto Cyber-Temple Gate", cat: "anime", res: "8K Quantum" },
-            { url: "https://images.unsplash.com/photo-1563089145-599997674d42?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", title: "Neural Net Neon Gateway", cat: "cyberpunk", res: "8K RAW" },
-            { url: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", title: "Synthwave Hyperdrive Horizon", cat: "scifi", res: "8K Ultra" },
-            { url: "https://images.unsplash.com/photo-1528164344705-47542687000d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", title: "Chasing Shadows Shibuya", cat: "tokyo", res: "4K Ultra" }
+        function downloadFile(title) {
+            if(isLogged) {
+                alert(`DOWNLOADING SECURE PACKAGE: [ ${title}.zip ]\nQuality: 8K RAW\nThanks for using PixelDrop Nexus!`);
+            } else {
+                alert("ERROR: LOGIN REQUIRED!\nYou must establish a connection to download free 8K assets.");
+            }
+        }
+
+        // -- PROMPT LAB TOOL --
+        let currentPrompt = "";
+        function addPromptWord(word) {
+            const box = document.getElementById('promptBox');
+            if(currentPrompt === "") {
+                currentPrompt = word;
+            } else {
+                currentPrompt += ", " + word;
+            }
+            box.innerText = currentPrompt;
+        }
+
+        function copyPrompt() {
+            if(currentPrompt === "") {
+                alert("Lab is empty! Click the buttons to build a prompt first.");
+            } else {
+                navigator.clipboard.writeText(currentPrompt);
+                alert("Prompt Copied to Clipboard! Use this in Midjourney or Stable Diffusion.");
+            }
+        }
+
+        function copyColor(hex) {
+            navigator.clipboard.writeText(hex);
+            alert(`Color code ${hex} copied! Ready for your CSS/Design software.`);
+        }
+
+        function scrollToGrid() {
+            document.getElementById('mainGrid').scrollIntoView();
+        }
+
+        // -- LIVE TERMINAL SIMULATION --
+        setInterval(() => {
+            const users = document.getElementById('userCount');
+            let current = parseInt(users.innerText);
+            users.innerText = current + Math.floor(Math.random() * 5) - 2; // Random fluctuate
+        }, 3000);
+
+        // -- MASSIVE ASSET GENERATOR (Creates a huge grid seamlessly) --
+        const baseImages = [
+            { url: "https://images.unsplash.com/photo-1542051841857-5f90071e7989?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", title: "Neo-Tokyo Rainy Street", colors: ['#FF0055', '#001133', '#00F3FF'], prompt: "Tokyo street in rain, neon lights reflection, cyberpunk style, 8k resolution" },
+            { url: "https://images.unsplash.com/photo-1605806616949-1e87b487cb2a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", title: "Sector-7 Slums", colors: ['#1A1A1A', '#FF4400', '#555555'], prompt: "Futuristic slums, dark atmospheric, orange glowing signs, cinematic lighting" },
+            { url: "https://images.unsplash.com/photo-1515630278258-407f66498911?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", title: "Orbital Space Station", colors: ['#000000', '#00F3FF', '#FFFFFF'], prompt: "Massive space station orbiting earth, sci-fi, highly detailed, photorealistic" },
+            { url: "https://images.unsplash.com/photo-1555580399-5ee411030e20?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", title: "Vaporwave Grid", colors: ['#FF00FF', '#00FFFF', '#220044'], prompt: "Synthwave sunset grid, retro 80s aesthetic, purple and pink gradient, 4k" },
+            { url: "https://images.unsplash.com/photo-1554629947-334ff61d85dc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", title: "Hover Car Prototype", colors: ['#888888', '#FFCC00', '#111111'], prompt: "Futuristic hover car parked in neon garage, metallic reflections, octane render" }
         ];
 
-        const assetGrid = document.getElementById('assetGrid');
+        const galleryGrid = document.getElementById('galleryGrid');
+        
+        // Loop to generate 50 cards dynamically (giving the feeling of endless scroll)
+        function renderGrid() {
+            let htmlContent = "";
+            for(let i=0; i<30; i++) { // Generated 30 items for speed and scale
+                const imgData = baseImages[i % baseImages.length];
+                
+                // Color Extraction Tool UI built into the card
+                let colorBoxes = "";
+                imgData.colors.forEach(c => {
+                    colorBoxes += `<div onclick="copyColor('${c}')" class="w-6 h-6 rounded-sm cursor-pointer hover:scale-125 transition" style="background-color: ${c};" title="Copy ${c}"></div>`;
+                });
 
-        // INJECT / RENDER CARDS LOGIC
-        function displayAssets(list) {
-            assetGrid.innerHTML = "";
-            if(list.length === 0) {
-                assetGrid.innerHTML = `<div class="col-span-full text-center text-gray-600 font-cyber p-12 text-lg border border-dashed border-gray-900 rounded-xl">⚠️ NO ASSETS FOUND MATCHING YOUR QUERIED SIGNALS</div>`;
-                return;
-            }
-            list.forEach(asset => {
-                const card = `
-                    <div class="relative group rounded-xl overflow-hidden bg-gradient-to-b from-gray-950 to-black border border-purple-900/30 hover:border-cyan-400/60 shadow-xl transition-all duration-500">
-                        <div class="overflow-hidden h-72 w-full relative">
-                            <img src="${asset.url}" alt="${asset.title}" loading="lazy" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700 ease-out opacity-80 group-hover:opacity-100">
-                            <span class="absolute top-4 left-4 bg-black/70 backdrop-blur-md text-cyan-400 border border-cyan-400/30 text-xs font-cyber font-bold px-3 py-1 rounded-md">
-                                ${asset.res}
-                            </span>
+                htmlContent += `
+                    <div class="glass-panel group overflow-hidden flex flex-col justify-between">
+                        <div class="relative h-64 overflow-hidden">
+                            <img src="${imgData.url}" loading="lazy" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-110 transition duration-700">
+                            
+                            <div class="absolute inset-0 bg-black/80 flex flex-col justify-center items-center p-4 opacity-0 group-hover:opacity-100 transition duration-300">
+                                <span class="text-xs text-pink-400 mb-1">LEARNING DATA >></span>
+                                <p class="text-xs text-gray-300 text-center mb-4 italic">" ${imgData.prompt} "</p>
+                                <span class="text-xs text-cyan-400 mb-2">EXTRACTED COLORS:</span>
+                                <div class="flex gap-2">
+                                    ${colorBoxes}
+                                </div>
+                            </div>
                         </div>
-                        <div class="p-5 flex flex-col justify-between">
-                            <h3 class="text-xl font-bold text-white tracking-wide mb-4 line-clamp-1 group-hover:text-cyan-300 transition duration-300">${asset.title}</h3>
-                            <button onclick="triggerSecureDownload('${asset.title}')" class="w-full bg-gray-900 group-hover:bg-gradient-to-r group-hover:from-cyan-500 group-hover:to-pink-500 text-gray-300 group-hover:text-black font-cyber font-black py-3 rounded-lg border border-gray-800 group-hover:border-transparent transition-all duration-300 tracking-widest text-xs uppercase shadow-md">
-                                INITIALIZE FREE DOWNLOAD
+                        
+                        <div class="p-4 bg-gray-950 border-t border-gray-800 flex justify-between items-center">
+                            <div class="w-2/3">
+                                <h4 class="text-cyan-400 font-bold truncate">${imgData.title}</h4>
+                                <span class="text-xs text-gray-500">Size: 8K RAW | Free</span>
+                            </div>
+                            <button onclick="downloadFile('${imgData.title}')" class="bg-gray-800 hover:bg-pink-600 text-white text-xs px-4 py-2 font-bold transition">
+                                DL
                             </button>
                         </div>
                     </div>
                 `;
-                assetGrid.innerHTML += card;
-            });
-        }
-
-        // INITIAL SYSTEM BOOT
-        displayAssets(assetDatabase);
-
-        // ADVANCED REAL-TIME FILTER LOGIC
-        function filterCategory(categoryName) {
-            // Update Tab Active Status Colors
-            const buttons = document.querySelectorAll('.cat-btn');
-            buttons.forEach(btn => {
-                btn.classList.remove('border-cyan-400', 'bg-cyan-400', 'text-black', 'border-pink-500', 'bg-pink-500', 'border-purple-500', 'bg-purple-500', 'border-yellow-400', 'bg-yellow-400');
-                btn.classList.add('border-gray-800', 'text-gray-400');
-            });
-
-            const eventTarget = event.currentTarget;
-            eventTarget.classList.remove('border-gray-800', 'text-gray-400');
-            
-            if(categoryName === 'all') eventTarget.classList.add('border-cyan-400', 'bg-cyan-400', 'text-black');
-            if(categoryName === 'tokyo') eventTarget.classList.add('border-pink-500', 'bg-pink-500', 'text-white');
-            if(categoryName === 'cyberpunk') eventTarget.classList.add('border-purple-500', 'bg-purple-500', 'text-white');
-            if(categoryName === 'scifi') eventTarget.classList.add('border-yellow-400', 'bg-yellow-400', 'text-black');
-            if(categoryName === 'anime') eventTarget.classList.add('border-cyan-400', 'bg-cyan-400', 'text-black');
-
-            if(categoryName === 'all') {
-                displayAssets(assetDatabase);
-            } else {
-                const filtered = assetDatabase.filter(item => item.cat === categoryName);
-                displayAssets(filtered);
             }
+            galleryGrid.innerHTML = htmlContent;
         }
 
-        // INSTANT SEARCH MECHANISM
-        function searchImages() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = assetDatabase.filter(item => 
-                item.title.toLowerCase().includes(query) || 
-                item.cat.toLowerCase().includes(query)
-            );
-            displayAssets(filtered);
-        }
-
-        // CUSTOM CYBER MODAL SYSTEM
-        function openLoginModal() {
-            const modal = document.getElementById('loginModal');
-            modal.classList.remove('hidden');
-            setTimeout(() => { modal.classList.remove('opacity-0'); }, 10);
-        }
-
-        function closeLoginModal() {
-            const modal = document.getElementById('loginModal');
-            modal.classList.add('opacity-0');
-            setTimeout(() => { modal.classList.add('hidden'); }, 300);
-        }
-
-        function processLogin() {
-            isConnected = true;
-            closeLoginModal();
-            
-            const btn = document.getElementById('loginBtn');
-            btn.innerText = "MAINFRAME CONNECTED";
-            btn.classList.remove('from-cyan-500', 'to-purple-600');
-            btn.classList.add('from-pink-600', 'to-purple-800', 'border-pink-400');
-            
-            showToast("🟢 ACCESS GRANTED: Encryption Link Established. Secure downloads unlocked.", "border-cyan-400 text-cyan-400");
-        }
-
-        // SECURE AUTH-CHECKED DOWNLOAD PIPELINE
-        function triggerSecureDownload(assetTitle) {
-            if(isConnected) {
-                showToast(`📥 PIPELINE ACTIVE: Compressing ${assetTitle} into clean 8K package. Fetching started!`, "border-pink-500 text-pink-400");
-            } else {
-                showToast("🔴 DATA STREAM BLOCKED: Identity validation mismatch. Please click CONNECT NODE to authenticate.", "border-yellow-500 text-yellow-400");
-                setTimeout(() => { openLoginModal(); }, 1200);
-            }
-        }
-
-        // PREMIUM CUSTOM TOAST NOTIFICATION 
-        function showToast(message, borderClass) {
-            const toast = document.getElementById('toastBox');
-            const content = document.getElementById('toastContent');
-            
-            content.className = `bg-gray-950 border-l-4 ${borderClass} p-4 rounded-r-xl shadow-2xl text-sm font-bold tracking-wide`;
-            content.innerHTML = message;
-            
-            toast.classList.remove('translate-y-20', 'opacity-0');
-            
-            setTimeout(() => {
-                toast.classList.add('translate-y-20', 'opacity-0');
-            }, 4000);
-        }
-
-        // SIMULATE DATA LOADING (HEAVY BLOCK RENDER)
-        function simulateHeavyLoad() {
-            // Re-inject database array items dynamically to duplicate gallery scale seamlessly
-            displayAssets([...assetDatabase, ...assetDatabase]);
-            showToast("📡 PARSING REPOSITORY: Next grid layer compiled successfully.", "border-purple-400 text-purple-400");
-        }
+        // Initialize grid on load
+        renderGrid();
     </script>
 </body>
 </html>
