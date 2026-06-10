@@ -63,46 +63,14 @@
     <section class="max-w-[90rem] mx-auto px-4 py-10" id="gallery">
         <div class="flex justify-between items-end mb-8 px-2">
             <h2 class="text-2xl font-bold font-display"><i class="fas fa-bolt text-cyan-400 mr-2"></i> Free Core Library</h2>
-            <span class="text-sm text-gray-500 font-bold uppercase tracking-widest">Showing 6 of 500+</span>
+            <span id="counter-display" class="text-sm text-gray-500 font-bold uppercase tracking-widest">Showing 0 of 500+</span>
         </div>
 
-        <div class="masonry-grid" id="photo-grid">
-            <div class="relative group mb-6 rounded-2xl overflow-hidden glass cyber-border img-hover" id="img-1">
-                <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=800&q=80" alt="Tokyo Shibuya" class="w-full">
-                <button onclick="toggleFav(this, 'img-1')" class="absolute top-4 left-4 w-10 h-10 rounded-full bg-black/60 backdrop-blur hover:bg-pink-500 transition flex items-center justify-center text-white z-10"><i class="fas fa-heart"></i></button>
-                <div class="absolute bottom-4 left-4 bg-black/80 backdrop-blur px-3 py-1 rounded text-xs font-bold text-cyan-400 border border-cyan-500/20">Free 8K RAW</div>
-            </div>
+        <div class="masonry-grid" id="photo-grid"></div>
 
-            <div class="relative group mb-6 rounded-2xl overflow-hidden glass img-hover" id="img-2">
-                <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80" alt="Cyberpunk Alley" class="w-full">
-                <button onclick="toggleFav(this, 'img-2')" class="absolute top-4 left-4 w-10 h-10 rounded-full bg-black/60 backdrop-blur hover:bg-pink-500 transition flex items-center justify-center text-white z-10"><i class="fas fa-heart"></i></button>
-            </div>
-
-            <div class="relative group mb-6 rounded-2xl overflow-hidden glass img-hover" id="img-3">
-                <img src="https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=800&q=80" alt="Neon District" class="w-full">
-                <button onclick="toggleFav(this, 'img-3')" class="absolute top-4 left-4 w-10 h-10 rounded-full bg-black/60 backdrop-blur hover:bg-pink-500 transition flex items-center justify-center text-white z-10"><i class="fas fa-heart"></i></button>
-            </div>
-
-            <div class="relative group mb-6 rounded-2xl overflow-hidden glass cyber-border img-hover" id="img-4">
-                <img src="https://images.unsplash.com/photo-1522850655458-39d67280e55d?auto=format&fit=crop&w=800&q=80" alt="Rainy Shinjuku" class="w-full">
-                <button onclick="toggleFav(this, 'img-4')" class="absolute top-4 left-4 w-10 h-10 rounded-full bg-black/60 backdrop-blur hover:bg-pink-500 transition flex items-center justify-center text-white z-10"><i class="fas fa-heart"></i></button>
-            </div>
-
-            <div class="relative group mb-6 rounded-2xl overflow-hidden glass img-hover" id="img-5">
-                <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=800&q=80" alt="Future Architecture" class="w-full">
-                <button onclick="toggleFav(this, 'img-5')" class="absolute top-4 left-4 w-10 h-10 rounded-full bg-black/60 backdrop-blur hover:bg-pink-500 transition flex items-center justify-center text-white z-10"><i class="fas fa-heart"></i></button>
-            </div>
-
-            <div class="relative group mb-6 rounded-2xl overflow-hidden glass img-hover" id="img-6">
-                <img src="https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?auto=format&fit=crop&w=800&q=80" alt="Neon Signs" class="w-full">
-                <button onclick="toggleFav(this, 'img-6')" class="absolute top-4 left-4 w-10 h-10 rounded-full bg-black/60 backdrop-blur hover:bg-pink-500 transition flex items-center justify-center text-white z-10"><i class="fas fa-heart"></i></button>
-                <div class="absolute bottom-4 left-4 bg-pink-500/80 backdrop-blur px-3 py-1 rounded text-xs font-bold text-white border border-pink-500/50">Editor's Choice</div>
-            </div>
-        </div>
-
-        <div class="text-center mt-12">
-            <button class="px-8 py-4 rounded-full border border-cyan-500/30 hover:bg-cyan-500/10 text-cyan-400 font-bold transition-all group shadow-[0_0_20px_rgba(34,211,238,0.1)]">
-                <i class="fas fa-spinner group-hover:animate-spin mr-2"></i> Load 500+ More Free Assets
+        <div class="text-center mt-12" id="load-more-container">
+            <button onclick="loadImages(12)" class="px-8 py-4 rounded-full border border-cyan-500/30 hover:bg-cyan-500/10 text-cyan-400 font-bold transition-all group shadow-[0_0_20px_rgba(34,211,238,0.1)]">
+                <i class="fas fa-arrow-down group-hover:translate-y-1 transition-transform mr-2"></i> Load More Tokyo Assets
             </button>
         </div>
     </section>
@@ -150,6 +118,54 @@
     </div>
 
     <script>
+        // --- 500+ DYNAMIC IMAGE GENERATOR ---
+        const tokyoImages = [
+            "1540959733332-eab4deabeeaf", "1550751827-4bd374c3f58b", "1503899036084-c55cdd92da26", 
+            "1522850655458-39d67280e55d", "1493976040374-85c8e12f0c0e", "1536098561742-ca998e48cbcc",
+            "1572097486801-b217ebc782b6", "1524413840847-0475f284c483", "1580645063715-db8ec7559196",
+            "1551482811-0975bc66c5a0", "1526685806282-363e765f4d1e", "1551641506-ee5bf4cb45f1"
+        ];
+        
+        let currentLoaded = 0;
+        const totalImages = 500;
+
+        function loadImages(count) {
+            const grid = document.getElementById('photo-grid');
+            
+            for(let i = 0; i < count; i++) {
+                if(currentLoaded >= totalImages) {
+                    document.getElementById('load-more-container').style.display = 'none';
+                    break;
+                }
+                currentLoaded++;
+                
+                // Mix up the images to make them look like a huge unique library
+                const randomImg = tokyoImages[Math.floor(Math.random() * tokyoImages.length)];
+                const imgUrl = `https://images.unsplash.com/photo-${randomImg}?auto=format&fit=crop&w=800&q=80`;
+                const imgId = `img-dynamic-${currentLoaded}`;
+                
+                const div = document.createElement('div');
+                div.className = "relative group mb-6 rounded-2xl overflow-hidden glass img-hover break-inside-avoid";
+                
+                // Add special borders randomly
+                if(currentLoaded % 4 === 0) div.classList.add('cyber-border');
+                
+                let badge = '';
+                if(currentLoaded % 5 === 0) badge = `<div class="absolute bottom-4 left-4 bg-black/80 backdrop-blur px-3 py-1 rounded text-xs font-bold text-cyan-400 border border-cyan-500/20">Free 8K RAW</div>`;
+                if(currentLoaded % 7 === 0) badge = `<div class="absolute bottom-4 left-4 bg-pink-500/80 backdrop-blur px-3 py-1 rounded text-xs font-bold text-white border border-pink-500/50">Editor's Choice</div>`;
+
+                div.innerHTML = `
+                    <img src="${imgUrl}" alt="Tokyo Cyberpunk ${currentLoaded}" class="w-full" loading="lazy">
+                    <button id="btn-${imgId}" onclick="toggleFav(this, '${imgId}')" class="absolute top-4 left-4 w-10 h-10 rounded-full bg-black/60 backdrop-blur hover:bg-pink-500 transition flex items-center justify-center text-white z-10"><i class="fas fa-heart"></i></button>
+                    ${badge}
+                `;
+                grid.appendChild(div);
+            }
+            
+            document.getElementById('counter-display').innerText = `Showing ${currentLoaded} of 500+`;
+            syncHearts(); // Re-check favorites for newly loaded images
+        }
+
         // --- AUTH LOGIC ---
         const authBtn = document.getElementById('auth-btn');
         const loginModal = document.getElementById('login-modal');
@@ -226,16 +242,19 @@
             document.getElementById('fav-count').innerText = favs.length;
         }
 
+        function syncHearts() {
+            const favs = JSON.parse(localStorage.getItem('favs')) || [];
+            favs.forEach(id => {
+                const btn = document.getElementById(`btn-${id}`);
+                if(btn) btn.classList.add('heart-active');
+            });
+        }
+
         // --- INIT ---
         window.onload = () => {
             updateAuthUI();
             updateFavCount();
-            
-            const favs = JSON.parse(localStorage.getItem('favs')) || [];
-            favs.forEach(id => {
-                const btn = document.querySelector(`#${id} button`);
-                if(btn) btn.classList.add('heart-active');
-            });
+            loadImages(12); // Initial load of 12 images
         }
     </script>
 </body>
