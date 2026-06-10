@@ -3,28 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PixelDrop // Tokyo Core Edition</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <title>PixelDrop // Tokyo Core V4.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
     <style>
-        /* === Ultimate Tokyo Core Design System === */
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Orbitron:wght@700;900&display=swap');
-
+        /* === Ultimate Tokyo Core CSS Variables === */
         :root {
-            --bg-deep: #020205;
-            --core-glow: #00ffcc;
+            --bg-deep: #0c0b0e;
+            --cyber-glow: #00ffcc;
             --tokyo-pink: #ff007f;
-            --neon-purple: #8a2be2;
-            --panel-bg: rgba(255, 255, 255, 0.03);
+            --neon-purple: #9d00ff;
+            --panel-bg: rgba(20, 18, 24, 0.75);
             --panel-border: rgba(255, 255, 255, 0.08);
             --text-primary: #ffffff;
-            --text-secondary: #a1a1aa;
+            --text-secondary: #a1a1a6;
         }
 
+        /* Reset & Base Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
@@ -32,16 +32,21 @@
             color: var(--text-primary);
             overflow-x: hidden;
             background-image: 
-                radial-gradient(circle at 15% 50%, rgba(0, 255, 204, 0.04), transparent 25%),
-                radial-gradient(circle at 85% 30%, rgba(255, 0, 127, 0.04), transparent 25%);
+                radial-gradient(circle at 50% -20%, rgba(157, 0, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 10% 40%, rgba(0, 255, 204, 0.05) 0%, transparent 40%);
             background-attachment: fixed;
             scroll-behavior: smooth;
         }
 
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--bg-deep); }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-deep);
+        }
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(var(--core-glow), var(--tokyo-pink));
+            background: linear-gradient(var(--tokyo-pink), var(--neon-purple));
             border-radius: 10px;
         }
 
@@ -49,21 +54,28 @@
         #loader {
             position: fixed;
             inset: 0;
-            background: #020205;
+            background: #060507;
             z-index: 10000;
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: opacity 0.4s ease, visibility 0.4s;
+            transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1);
         }
+
         .loader-text {
             font-family: 'Orbitron', sans-serif;
             font-size: 2.5rem;
-            letter-spacing: 4px;
-            background: linear-gradient(90deg, var(--core-glow), var(--tokyo-pink));
+            letter-spacing: 6px;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--cyber-glow), var(--tokyo-pink));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: pulse 1s infinite alternate;
+            animation: pulse 1.5s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.3; transform: scale(0.98); filter: blur(2px); }
+            100% { opacity: 1; transform: scale(1); filter: blur(0px); }
         }
 
         /* === Header & Navigation === */
@@ -75,7 +87,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(2, 2, 5, 0.8);
+            background: rgba(12, 11, 14, 0.7);
             backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--panel-border);
             z-index: 1000;
@@ -84,463 +96,505 @@
         .brand {
             font-family: 'Orbitron', sans-serif;
             font-size: 24px;
-            font-weight: 900;
+            font-weight: 800;
             letter-spacing: 2px;
             color: white;
-            text-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            cursor: pointer;
         }
-        .brand span { color: var(--core-glow); }
+
+        .brand span {
+            color: var(--cyber-glow);
+            text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+        }
 
         .nav-controls {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 20px;
         }
 
         .search-wrapper input {
-            width: 250px;
-            padding: 10px 15px;
-            background: var(--panel-bg);
+            width: 260px;
+            padding: 10px 18px;
+            background: rgba(255, 255, 255, 0.04);
             border: 1px solid var(--panel-border);
-            border-radius: 20px;
+            border-radius: 30px;
             color: white;
             outline: none;
-            transition: 0.3s;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
         }
+
         .search-wrapper input:focus {
-            border-color: var(--core-glow);
-            box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
+            border-color: var(--cyber-glow);
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
+            width: 320px;
         }
 
         .login-btn {
-            background: linear-gradient(45deg, var(--neon-purple), var(--tokyo-pink));
+            background: linear-gradient(135deg, var(--tokyo-pink), var(--neon-purple));
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
+            padding: 10px 24px;
+            border-radius: 30px;
             font-weight: 600;
+            font-size: 0.9rem;
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.3s ease;
             font-family: 'Orbitron', sans-serif;
             letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(255, 0, 127, 0.3);
         }
+
         .login-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(255, 0, 127, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.6);
         }
-
-        /* === Login Modal (Glassmorphism UI) === */
-        #loginModal {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            z-index: 3000;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        #loginModal.active { display: flex; opacity: 1; }
-
-        .login-box {
-            background: rgba(20, 20, 30, 0.9);
-            padding: 40px;
-            border-radius: 20px;
-            width: 90%;
-            max-width: 400px;
-            border: 1px solid var(--tokyo-pink);
-            box-shadow: 0 0 40px rgba(255, 0, 127, 0.2);
-            text-align: center;
-            position: relative;
-        }
-        .close-login {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 24px;
-            color: white;
-            cursor: pointer;
-        }
-        .login-box h2 {
-            font-family: 'Orbitron', sans-serif;
-            margin-bottom: 25px;
-            color: var(--core-glow);
-        }
-        .login-box input {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
-            background: rgba(0,0,0,0.5);
-            border: 1px solid var(--panel-border);
-            border-radius: 8px;
-            color: white;
-            outline: none;
-        }
-        .login-box input:focus { border-color: var(--core-glow); }
-        .auth-btn {
-            width: 100%;
-            padding: 12px;
-            background: var(--core-glow);
-            color: black;
-            border: none;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 16px;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: 0.3s;
-        }
-        .auth-btn:hover { box-shadow: 0 0 20px var(--core-glow); }
 
         /* === Hero Section === */
         .hero-section {
-            min-height: 50vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
             text-align: center;
-            padding-top: 120px;
-        }
-        .hero-section h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 15px;
-        }
-        .hero-section p { color: var(--text-secondary); max-width: 600px; }
-        
-        .storage-status {
-            margin-top: 20px;
-            padding: 8px 20px;
-            background: rgba(0, 255, 204, 0.1);
-            border: 1px solid rgba(0, 255, 204, 0.3);
-            border-radius: 30px;
-            font-size: 12px;
-            color: var(--core-glow);
-            letter-spacing: 2px;
-            font-family: 'Orbitron', sans-serif;
+            padding: 160px 20px 50px;
+            max-width: 850px;
+            margin: 0 auto;
         }
 
-        /* === Advanced Gallery Engine === */
-        .gallery-container {
+        .hero-section h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .hero-section h1 span {
+            color: var(--tokyo-pink);
+            text-shadow: 0 0 25px rgba(255, 0, 127, 0.5);
+        }
+
+        .hero-section p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 35px;
+            font-weight: 300;
+        }
+
+        .active-node-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 255, 204, 0.06);
+            border: 1px solid var(--cyber-glow);
+            color: var(--cyber-glow);
+            padding: 8px 24px;
+            border-radius: 4px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.15);
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--cyber-glow);
+            border-radius: 50%;
+            animation: blink 1s infinite alternate;
+        }
+
+        @keyframes blink {
+            0% { opacity: 0.4; box-shadow: 0 0 0px var(--cyber-glow); }
+            100% { opacity: 1; box-shadow: 0 0 8px var(--cyber-glow); }
+        }
+
+        /* === Expanded Professional Gallery System === */
+        .gallery-wrapper {
             max-width: 1500px;
             margin: 0 auto;
-            padding: 40px 5% 100px 5%;
+            padding: 0 4% 100px;
         }
 
         .masonry-grid {
             column-count: 4;
-            column-gap: 20px;
-        }
-        @media (max-width: 1200px) { .masonry-grid { column-count: 3; } }
-        @media (max-width: 800px) { .masonry-grid { column-count: 2; } }
-        @media (max-width: 500px) { 
-            .masonry-grid { column-count: 1; } 
-            .search-wrapper input { width: 140px; }
-            .hero-section h1 { font-size: 2.2rem; }
+            column-gap: 24px;
         }
 
-        .img-card {
+        .gallery-card {
             break-inside: avoid;
-            margin-bottom: 20px;
-            position: relative;
+            margin-bottom: 24px;
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
             border-radius: 16px;
             overflow: hidden;
-            background: #111;
-            opacity: 0; /* For scroll animation */
-            transform: translateY(30px); /* For scroll animation */
-            transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            position: relative;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        /* Scroll Animation Class */
-        .img-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .img-card img {
+        .gallery-card img {
             width: 100%;
             display: block;
-            border-radius: 16px;
-            transition: transform 0.6s ease, filter 0.4s ease;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), filter 0.4s ease;
         }
 
-        .img-card:hover {
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(255, 0, 127, 0.3);
-            z-index: 10;
-        }
-        .img-card:hover img {
-            transform: scale(1.08);
-            filter: brightness(0.8);
-        }
-
-        .img-overlay {
+        /* Intelligent Hover Overlays */
+        .card-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            background: linear-gradient(to top, rgba(12, 11, 14, 0.95) 0%, rgba(12, 11, 14, 0.4) 50%, transparent 100%);
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            padding: 20px;
+            padding: 24px;
             opacity: 0;
-            transition: 0.4s;
-        }
-        .img-card:hover .img-overlay { opacity: 1; }
-
-        .img-overlay h3 { font-size: 18px; margin-bottom: 10px; color: white; }
-        
-        .card-actions { display: flex; gap: 10px; }
-        .card-actions button {
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: white;
-            padding: 8px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            backdrop-filter: blur(5px);
-            transition: 0.3s;
-        }
-        .card-actions button:hover { background: var(--tokyo-pink); border-color: var(--tokyo-pink); }
-
-        /* === Contact / Contact Footer === */
-        footer {
-            padding: 80px 20px 40px;
-            text-align: center;
-            background: #010103;
-            border-top: 1px solid var(--panel-border);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .contact-box {
-            background: rgba(20, 20, 30, 0.5);
-            border: 1px solid var(--panel-border);
-            max-width: 500px;
-            margin: 0 auto 40px;
-            padding: 30px;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            transition: 0.3s;
-        }
-        .contact-box:hover {
-            border-color: var(--tokyo-pink);
-            box-shadow: 0 0 30px rgba(255, 0, 127, 0.1);
+            transition: opacity 0.4s ease;
+            z-index: 2;
         }
 
-        .ig-link {
-            display: inline-block;
-            font-size: 2.5rem;
-            font-weight: 900;
-            margin-top: 15px;
-            text-decoration: none;
-            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            transition: 0.4s;
-        }
-        .ig-link:hover { transform: scale(1.1) rotate(-3deg); }
-        .ig-id {
+        .card-tag {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem;
-            color: white;
-            display: block;
-            margin-top: 10px;
-            letter-spacing: 2px;
+            color: var(--cyber-glow);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
         }
 
-        /* Lightbox */
-        #lightbox {
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        /* Hover States */
+        .gallery-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(255, 0, 127, 0.4);
+            box-shadow: 0 20px 40px rgba(12, 11, 14, 0.8), 0 0 25px rgba(255, 0, 127, 0.15);
+        }
+
+        .gallery-card:hover img {
+            transform: scale(1.08);
+            filter: saturate(1.2) brightness(1.1);
+        }
+
+        .gallery-card:hover .card-overlay {
+            opacity: 1;
+        }
+
+        /* === Login Modal === */
+        #loginModal {
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.95);
+            background: rgba(6, 5, 7, 0.85);
+            backdrop-filter: blur(20px);
             z-index: 5000;
-            display: none;
+            display: flex;
             justify-content: center;
             align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
         }
-        #lightbox img { max-width: 90%; max-height: 90vh; border-radius: 10px; box-shadow: 0 0 40px rgba(0, 255, 204, 0.2); }
-        .close-lb { position: absolute; top: 20px; right: 30px; font-size: 40px; color: white; cursor: pointer; }
 
-        @keyframes pulse {
-            0% { opacity: 0.6; text-shadow: 0 0 10px var(--core-glow); }
-            100% { opacity: 1; text-shadow: 0 0 30px var(--tokyo-pink); }
+        #loginModal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .login-box {
+            background: #110f14;
+            border: 1px solid var(--panel-border);
+            padding: 45px;
+            border-radius: 24px;
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6), 0 0 40px rgba(157, 0, 255, 0.1);
+        }
+
+        .login-box h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+
+        .login-box h2 span {
+            color: var(--cyber-glow);
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--panel-border);
+            border-radius: 12px;
+            color: white;
+            outline: none;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: var(--tokyo-pink);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--tokyo-pink), var(--neon-purple));
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover {
+            box-shadow: 0 0 20px var(--tokyo-pink);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* === Responsive Adaptation === */
+        @media (max-width: 1200px) {
+            .masonry-grid { column-count: 3; }
+        }
+
+        @media (max-width: 900px) {
+            .masonry-grid { column-count: 2; }
+            .hero-section h1 { font-size: 3rem; }
+        }
+
+        @media (max-width: 600px) {
+            header { padding: 15px 20px; }
+            .search-wrapper { display: none; }
+            .hero-section { padding-top: 130px; }
+            .hero-section h1 { font-size: 2.2rem; }
+            .masonry-grid { column-count: 1; }
+            .login-box { padding: 30px 20px; }
         }
     </style>
 </head>
 <body>
 
     <div id="loader">
-        <div class="loader-text">SYSTEM INITIATING...</div>
-    </div>
-
-    <div id="loginModal">
-        <div class="login-box">
-            <span class="close-login" onclick="toggleLogin()">&times;</span>
-            <h2>SECURE LOGIN</h2>
-            <p style="color: var(--text-secondary); margin-bottom: 20px; font-size: 12px;">Access Premium Creator Node</p>
-            <input type="text" placeholder="Username / IG Handle">
-            <input type="password" placeholder="Passcode">
-            <button class="auth-btn" onclick="alert('Access Granted! Welcome to PixelDrop Premium.')">AUTHENTICATE</button>
-        </div>
+        <div class="loader-text">ACCESSING NODE...</div>
     </div>
 
     <header>
-        <div class="brand">PIXEL<span>DROP</span></div>
+        <div class="brand" onclick="window.scrollTo(0,0)">PIXEL<span>DROP</span></div>
         <div class="nav-controls">
             <div class="search-wrapper">
-                <input type="text" id="searchInput" placeholder="Search Tokyo, Cyberpunk...">
+                <input type="text" placeholder="Search Tokyo, Cyberpunk...">
             </div>
-            <button class="login-btn" onclick="toggleLogin()"><i class="fas fa-user-astronaut"></i> LOGIN</button>
+            <button class="login-btn" id="openLogin">LOGIN</button>
         </div>
     </header>
 
     <section class="hero-section">
-        <h1>Tokyo Core <span style="color: var(--tokyo-pink)">V4.0</span></h1>
+        <h1>Tokyo Core <span>V4.0</span></h1>
         <p>Expanded Storage Online. Showcasing the largest collection of high-res Neo-Tokyo and cyberpunk aesthetics. Powered by advanced scroll rendering.</p>
-        <div class="storage-status"><i class="fas fa-database"></i> STORAGE: 1.2 TB ACTIVE NODE</div>
+        <div class="active-node-badge">
+            <div class="pulse-dot"></div>
+            STORAGE: 1.2 TB ACTIVE NODE
+        </div>
     </section>
 
-    <main class="gallery-container">
-        <div class="masonry-grid" id="galleryGrid">
+    <main class="gallery-wrapper">
+        <div class="masonry-grid">
             
-            <div class="img-card"><img src="https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=800" loading="lazy" alt="Tokyo Street">
-                <div class="img-overlay"><h3>Shibuya Nights</h3><div class="card-actions"><button onclick="viewImage(this)">View</button></div></div>
-            </div>
-            
-            <div class="img-card"><img src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?q=80&w=800" loading="lazy" alt="Tokyo Neon">
-                <div class="img-overlay"><h3>Neon Alley</h3><div class="card-actions"><button onclick="viewImage(this)">View</button></div></div>
-            </div>
-
-            <div class="img-card"><img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?q=80&w=800" loading="lazy" alt="Japan Temple">
-                <div class="img-overlay"><h3>Ancient & Future</h3><div class="card-actions"><button onclick="viewImage(this)">View</button></div></div>
+            <div class="gallery-card">
+                <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=600" alt="Tokyo Neon">
+                <div class="card-overlay">
+                    <span class="card-tag">SHIBUYA // CORE-01</span>
+                    <h3 class="card-title">Neon Flood</h3>
+                </div>
             </div>
 
-            <div class="img-card"><img src="https://images.unsplash.com/photo-1554797589-7241bb691973?q=80&w=800" loading="lazy" alt="Arcade">
-                <div class="img-overlay"><h3>Arcade Core</h3><div class="card-actions"><button onclick="viewImage(this)">View</button></div></div>
+            <div class="gallery-card">
+                <img src="https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=600" alt="Chiyoda">
+                <div class="card-overlay">
+                    <span class="card-tag">CHIYODA // DISTRICT</span>
+                    <h3 class="card-title">Midnight Architecture</h3>
+                </div>
             </div>
 
-            <div class="img-card"><img src="https://images.unsplash.com/photo-1551641506-ee5bf4cb45f1?q=80&w=800" loading="lazy" alt="Cityscape">
-                <div class="img-overlay"><h3>Cyber Metropolis</h3><div class="card-actions"><button onclick="viewImage(this)">View</button></div></div>
+            <div class="gallery-card">
+                <img src="https://images.unsplash.com/photo-1554797589-7241bb691973?q=80&w=600" alt="Alleyways">
+                <div class="card-overlay">
+                    <span class="card-tag">OMOIDE // YOKOCHO</span>
+                    <h3 class="card-title">Cyber Lanterns</h3>
+                </div>
             </div>
 
-            <div class="img-card"><img src="https://images.unsplash.com/photo-1601042879364-f3947d3f9c16?q=80&w=800" loading="lazy" alt="Vending Machine">
-                <div class="img-overlay"><h3>Midnight Snack</h3><div class="card-actions"><button onclick="viewImage(this)">View</button></div></div>
+            <div class="gallery-card">
+                <img src="https://images.unsplash.com/photo-1513407030348-c6e4286bb980?q=80&w=600" alt="Rainy Streets">
+                <div class="card-overlay">
+                    <span class="card-tag">SHINJUKU // RUN-09</span>
+                    <h3 class="card-title">Reflective Matrix</h3>
+                </div>
             </div>
 
-            <div class="img-card"><img src="https://images.unsplash.com/photo-1574786198875-49f5d09fd2d2?q=80&w=800" loading="lazy" alt="Rainy Tokyo">
-                <div class="img-overlay"><h3>Rainy District</h3><div class="card-actions"><button onclick="viewImage(this)">View</button></div></div>
+            <div class="gallery-card">
+                <img src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?q=80&w=600" alt="Tokyo Crosswalk">
+                <div class="card-overlay">
+                    <span class="card-tag">CROSSING // SYNC</span>
+                    <h3 class="card-title">Shibuya Outrun</h3>
+                </div>
             </div>
 
-            <div class="img-card"><img src="https://images.unsplash.com/photo-1580659361815-a41dc5602ce8?q=80&w=800" loading="lazy" alt="Cyber Cars">
-                <div class="img-overlay"><h3>Highway Runner</h3><div class="card-actions"><button onclick="viewImage(this)">View</button></div></div>
-            </div>
-            
-            <div class="img-card"><img src="https://images.unsplash.com/photo-1605806616949-1e87b487bc2a?q=80&w=800" loading="lazy" alt="Neon Sign">
-                <div class="img-overlay"><h3>Kanji Glow</h3><div class="card-actions"><button onclick="viewImage(this)">View</button></div></div>
+            <div class="gallery-card">
+                <img src="https://images.unsplash.com/photo-1514565131-fce0801e5785?q=80&w=600" alt="Cyber Grid">
+                <div class="card-overlay">
+                    <span class="card-tag">GRID // SKYLINE</span>
+                    <h3 class="card-title">Mega Structure V</h3>
+                </div>
             </div>
 
-            <div class="img-card"><img src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?q=80&w=800" loading="lazy" alt="Dark City">
-                <div class="img-overlay"><h3>Sector 7</h3><div class="card-actions"><button onclick="viewImage(this)">View</button></div></div>
+            <div class="gallery-card">
+                <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=600" alt="Cyber Tower">
+                <div class="card-overlay">
+                    <span class="card-tag">MINATO // INFRA</span>
+                    <h3 class="card-title">Tokyo Tower Override</h3>
+                </div>
             </div>
-            
+
+            <div class="gallery-card">
+                <img src="https://images.unsplash.com/photo-1601042879364-f3947d3f9c16?q=80&w=600" alt="Kabukicho Neon">
+                <div class="card-overlay">
+                    <span class="card-tag">KABUKICHO // NODE</span>
+                    <h3 class="card-title">Glow Horizons</h3>
+                </div>
+            </div>
+
+            <div class="gallery-card">
+                <img src="https://images.unsplash.com/photo-1570168007204-dfb528c6958f?q=80&w=600" alt="Cyberpunk Night">
+                <div class="card-overlay">
+                    <span class="card-tag">DOWNTOWN // 404</span>
+                    <h3 class="card-title">Acid Rain District</h3>
+                </div>
+            </div>
+
+            <div class="gallery-card">
+                <img src="https://images.unsplash.com/photo-1524311583145-d5593bd6fa87?q=80&w=600" alt="Tower Glow">
+                <div class="card-overlay">
+                    <span class="card-tag">SATELLITE // OPTICS</span>
+                    <h3 class="card-title">Neon Nexus</h3>
+                </div>
+            </div>
+
+            <div class="gallery-card">
+                <img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?q=80&w=600" alt="Tokyo Expressway">
+                <div class="card-overlay">
+                    <span class="card-tag">HIGHWAY // LOOP</span>
+                    <h3 class="card-title">Light Velocity</h3>
+                </div>
+            </div>
+
+            <div class="gallery-card">
+                <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=600" alt="Retro Tech Arcade">
+                <div class="card-overlay">
+                    <span class="card-tag">AKIHABARA // ARCADE</span>
+                    <h3 class="card-title">Retro Grid Station</h3>
+                </div>
+            </div>
+
+            <div class="gallery-card">
+                <img src="https://images.unsplash.com/photo-1557404763-69708cd8b9ce?q=80&w=600" alt="Store Front">
+                <div class="card-overlay">
+                    <span class="card-tag">VENDOR // CY-22</span>
+                    <h3 class="card-title">Glitch Synth Hub</h3>
+                </div>
+            </div>
+
+            <div class="gallery-card">
+                <img src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?q=80&w=600" alt="Mega City">
+                <div class="card-overlay">
+                    <span class="card-tag">METROPOLIS // ZEN</span>
+                    <h3 class="card-title">The Synthetic Dawn</h3>
+                </div>
+            </div>
+
+            <div class="gallery-card">
+                <img src="https://images.unsplash.com/photo-1496568818309-53d7c7753022?q=80&w=600" alt="Deep Tokyo Side Alley">
+                <div class="card-overlay">
+                    <span class="card-tag">SUBWAY // DEEP</span>
+                    <h3 class="card-title">Underground Signals</h3>
+                </div>
+            </div>
+
+            <div class="gallery-card">
+                <img src="https://images.unsplash.com/photo-1519999482648-25049ddd37b1?q=80&w=600" alt="Futuristic Skyscraper">
+                <div class="card-overlay">
+                    <span class="card-tag">ORBITAL // TOWER</span>
+                    <h3 class="card-title">Quantum Core Overlook</h3>
+                </div>
+            </div>
+
         </div>
     </main>
 
-    <div id="lightbox">
-        <span class="close-lb" onclick="closeImage()">&times;</span>
-        <img id="lb-img" src="" alt="Full View">
+    <div id="loginModal">
+        <div class="login-box">
+            <button class="close-modal" id="closeLogin">&times;</button>
+            <h2>NODE <span>LOGIN</span></h2>
+            <div class="input-group">
+                <input type="text" placeholder="Operator ID / Email">
+            </div>
+            <div class="input-group">
+                <input type="password" placeholder="Passkey Pattern">
+            </div>
+            <button class="submit-btn">INITIALIZE</button>
+        </div>
     </div>
 
-    <footer>
-        <div class="contact-box">
-            <h3 style="color: var(--text-secondary); text-transform: uppercase; font-size: 14px; letter-spacing: 3px;">Connect With The Creator</h3>
-            <a href="https://instagram.com/i_f_t_uu" target="_blank" class="ig-link"><i class="fab fa-instagram"></i></a>
-            <span class="ig-id">@i_f_t_uu</span>
-            <p style="margin-top: 15px; font-size: 14px; color: #888;">Follow for more premium architecture codes and visual drops.</p>
-        </div>
-        
-        <p style="color: #444; font-size: 12px; font-family: 'Orbitron'; letter-spacing: 1px;">PIXELDROP INFRASTRUCTURE &copy; 2026 // TOKYO SERVER ACTIVE</p>
-    </footer>
-
     <script>
-        // 1. Extreme Fast Loader
-        document.addEventListener('DOMContentLoaded', () => {
+        // Smoothly dismiss Loader on Window Load
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
             setTimeout(() => {
-                const loader = document.getElementById('loader');
                 loader.style.opacity = '0';
-                setTimeout(() => loader.style.display = 'none', 400);
-            }, 300); // 0.3s loader to make site feel instantly fast
+                setTimeout(() => loader.style.display = 'none', 600);
+            }, 800);
         });
 
-        // 2. Login Modal Logic
+        // Toggle Login Modal Directly
         const loginModal = document.getElementById('loginModal');
-        function toggleLogin() {
-            if(loginModal.classList.contains('active')) {
-                loginModal.classList.remove('active');
-                setTimeout(() => loginModal.style.display = 'none', 300);
-            } else {
-                loginModal.style.display = 'flex';
-                setTimeout(() => loginModal.classList.add('active'), 10);
-            }
-        }
+        const openBtn = document.getElementById('openLogin');
+        const closeBtn = document.getElementById('closeLogin');
 
-        // Close modal on outside click
-        loginModal.addEventListener('click', (e) => {
-            if(e.target === loginModal) toggleLogin();
-        });
-
-        // 3. Advanced Scroll Animation (Intersection Observer)
-        // This creates the smooth "fade up" effect as you scroll down
-        const cards = document.querySelectorAll('.img-card');
+        openBtn.addEventListener('click', () => loginModal.classList.add('active'));
+        closeBtn.addEventListener('click', () => loginModal.classList.remove('active'));
         
-        const observerOptions = {
-            threshold: 0.1, // Trigger when 10% of card is visible
-            rootMargin: "0px 0px -50px 0px"
-        };
-
-        const cardObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target); // Stop observing once it's visible
-                }
-            });
-        }, observerOptions);
-
-        cards.forEach(card => {
-            cardObserver.observe(card);
-        });
-
-        // 4. Lightbox Logic
-        const lightbox = document.getElementById('lightbox');
-        const lbImg = document.getElementById('lb-img');
-
-        function viewImage(btn) {
-            const imgSrc = btn.closest('.img-card').querySelector('img').src;
-            lbImg.src = imgSrc;
-            lightbox.style.display = 'flex';
-        }
-        function closeImage() {
-            lightbox.style.display = 'none';
-        }
-
-        // 5. Live Search Engine
-        const searchInput = document.getElementById('searchInput');
-        searchInput.addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase();
-            cards.forEach(card => {
-                const title = card.querySelector('h3').textContent.toLowerCase();
-                if(title.includes(query)) {
-                    card.style.display = 'block';
-                    setTimeout(() => card.style.opacity = '1', 10);
-                } else {
-                    card.style.opacity = '0';
-                    setTimeout(() => card.style.display = 'none', 400);
-                }
-            });
+        // Close modal if clicked anywhere outside the input panel
+        window.addEventListener('click', (e) => {
+            if (e.target === loginModal) loginModal.classList.remove('active');
         });
     </script>
 </body>
