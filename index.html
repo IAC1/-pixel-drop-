@@ -3,76 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PixelDrop 2.0 | Premium Gallery</title>
+    <title>PixelDrop // Future Core v3.0</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* === 2026 Premium Variables === */
+        /* === Future Core Design System === */
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Orbitron:wght@700;900&display=swap');
+
         :root {
-            --bg-main: #050505;
-            --primary: #00f0ff;
-            --secondary: #ff003c;
-            --text-main: #e0e0e0;
-            --glass: rgba(255, 255, 255, 0.03);
-            --border-glass: rgba(255, 255, 255, 0.08);
+            --bg-deep: #03030c;
+            --core-glow: #00ffcc;
+            --neon-pink: #ff0055;
+            --panel-bg: rgba(255, 255, 255, 0.02);
+            --panel-border: rgba(255, 255, 255, 0.05);
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', 'Segoe UI', sans-serif;
-            cursor: none; /* Custom cursor */
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
         body {
-            background-color: var(--bg-main);
-            color: var(--text-main);
+            background-color: var(--bg-deep);
+            color: var(--text-primary);
             overflow-x: hidden;
-            scroll-behavior: smooth;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(0, 255, 204, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(255, 0, 85, 0.05) 0px, transparent 50%);
+            background-attachment: fixed;
         }
 
-        /* === Custom Cursor === */
-        .cursor {
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--primary);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-            transition: width 0.2s, height 0.2s, background-color 0.2s;
-        }
-        .cursor.hovered {
-            width: 50px;
-            height: 50px;
-            background-color: rgba(0, 240, 255, 0.2);
-            border-color: transparent;
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-deep); }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--core-glow), var(--neon-pink));
+            border-radius: 10px;
         }
 
         /* === Loading Screen === */
         #loader {
             position: fixed;
-            width: 100%;
-            height: 100vh;
-            background: #000;
+            inset: 0;
+            background: #03030c;
             z-index: 10000;
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.5s ease, visibility 0.5s;
+        }
+        .loader-content {
+            text-align: center;
         }
         .loader-text {
-            font-size: 3rem;
-            font-weight: bold;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            letter-spacing: 4px;
+            background: linear-gradient(90deg, var(--core-glow), var(--neon-pink));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: pulse 1.5s infinite;
         }
 
-        /* === Navigation === */
-        nav {
+        /* === Header / Navigation === */
+        header {
             position: fixed;
             top: 0;
             width: 100%;
@@ -80,381 +78,560 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(5, 5, 5, 0.8);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--border-glass);
+            background: rgba(3, 3, 12, 0.7);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--panel-border);
             z-index: 1000;
         }
-        .logo {
-            font-size: 24px;
+
+        .brand {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 26px;
             font-weight: 900;
-            letter-spacing: 2px;
-            color: #fff;
-        }
-        .logo span { color: var(--primary); }
-        
-        .search-bar {
-            background: var(--glass);
-            border: 1px solid var(--border-glass);
-            padding: 10px 20px;
-            border-radius: 30px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .search-bar input {
-            background: transparent;
-            border: none;
-            color: white;
-            outline: none;
-            width: 200px;
+            letter-spacing: 3px;
+            background: linear-gradient(90deg, var(--core-glow), #00bcff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 255, 204, 0.3);
         }
 
-        /* === Hero Section === */
-        .hero {
-            height: 100vh;
+        .search-wrapper {
+            position: relative;
+            width: 400px;
+        }
+
+        .search-wrapper i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--core-glow);
+        }
+
+        .search-wrapper input {
+            width: 100%;
+            padding: 12px 12px 12px 45px;
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 12px;
+            color: white;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .search-wrapper input:focus {
+            border-color: var(--core-glow);
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
+        }
+
+        /* === Future Core Hero === */
+        .hero-section {
+            min-height: 60vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            background: radial-gradient(circle at center, rgba(0, 240, 255, 0.1) 0%, transparent 60%);
-            padding: 0 20px;
+            padding-top: 120px;
         }
-        .hero h1 {
-            font-size: 5rem;
+
+        .hero-tag {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            color: var(--core-glow);
+            margin-bottom: 20px;
+            background: rgba(0, 255, 204, 0.1);
+            padding: 6px 15px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 255, 204, 0.2);
+        }
+
+        .hero-section h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            letter-spacing: -2px;
             line-height: 1.1;
             margin-bottom: 20px;
-            text-transform: uppercase;
-        }
-        .hero p {
-            font-size: 1.2rem;
-            color: #a0a0a0;
-            max-width: 600px;
-            margin-bottom: 40px;
         }
 
-        /* === Filter Buttons === */
-        .filters {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
-        }
-        .filter-btn {
-            padding: 10px 25px;
-            background: var(--glass);
-            border: 1px solid var(--border-glass);
-            color: white;
-            border-radius: 30px;
-            font-size: 14px;
-            transition: 0.3s;
-        }
-        .filter-btn.active, .filter-btn:hover {
-            background: var(--primary);
-            color: black;
-            box-shadow: 0 0 15px var(--primary);
-            border-color: var(--primary);
+        .hero-section h1 span {
+            background: linear-gradient(90deg, #fff, var(--text-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        /* === Masonry Gallery === */
-        .gallery-container {
-            padding: 50px 5%;
+        /* === Bento Grid Engine === */
+        .grid-wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 5% 100px 5%;
         }
-        .masonry {
-            column-count: 3;
-            column-gap: 20px;
-        }
-        @media (max-width: 900px) { .masonry { column-count: 2; } }
-        @media (max-width: 600px) { .masonry { column-count: 1; } }
 
-        .item {
-            break-inside: avoid;
-            margin-bottom: 20px;
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: 320px;
+            gap: 25px;
+        }
+
+        .bento-item {
             position: relative;
-            border-radius: 15px;
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 24px;
             overflow: hidden;
-            group;
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
-        .item img {
+
+        .bento-item.wide { grid-column: span 2; }
+        .bento-item.tall { grid-row: span 2; }
+        .bento-item.big { grid-column: span 2; grid-row: span 2; }
+
+        .bento-item img {
             width: 100%;
-            display: block;
-            border-radius: 15px;
-            transition: transform 0.5s;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
         }
-        .item:hover img {
-            transform: scale(1.08);
+
+        .bento-item:hover img {
+            transform: scale(1.05);
         }
-        
-        .overlay {
+
+        .bento-item:hover {
+            border-color: rgba(0, 255, 204, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Glass Overlay UI */
+        .core-ui {
             position: absolute;
             inset: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            background: linear-gradient(to top, rgba(3, 3, 12, 0.95) 0%, rgba(3, 3, 12, 0.4) 50%, transparent 100%);
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            padding: 25px;
+            padding: 30px;
             opacity: 0;
-            transition: 0.4s;
+            transition: opacity 0.4s ease;
+            z-index: 2;
         }
-        .item:hover .overlay { opacity: 1; }
-        
-        .overlay h3 { font-size: 22px; margin-bottom: 5px; }
-        .action-btns {
+
+        .bento-item:hover .core-ui { opacity: 1; }
+
+        .core-ui h3 {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            transform: translateY(20px);
+            transition: transform 0.4s ease;
+        }
+
+        .bento-item:hover .core-ui h3 { transform: translateY(0); }
+
+        .meta-tags {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .meta-tags span {
+            font-size: 11px;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 4px 10px;
+            border-radius: 8px;
+            color: var(--text-secondary);
+        }
+
+        .action-hub {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .interact-btns {
             display: flex;
             gap: 10px;
-            margin-top: 15px;
         }
-        .action-btns button {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 8px;
-            background: rgba(255,255,255,0.2);
-            color: white;
-            backdrop-filter: blur(5px);
-            transition: 0.3s;
-        }
-        .action-btns button:hover { background: var(--primary); color: black; }
 
-        /* === Lightbox Modal === */
-        #lightbox {
+        .btn-node {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            border: 1px solid var(--panel-border);
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .btn-node:hover {
+            background: var(--core-glow);
+            color: var(--bg-deep);
+            box-shadow: 0 0 15px var(--core-glow);
+            border-color: var(--core-glow);
+        }
+
+        .view-trigger {
+            padding: 10px 20px;
+            background: white;
+            color: black;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .view-trigger:hover {
+            background: var(--core-glow);
+            box-shadow: 0 0 15px var(--core-glow);
+        }
+
+        /* === Lightbox Hub === */
+        .portal-lightbox {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: rgba(0,0,0,0.95);
+            inset: 0;
+            background: rgba(3, 3, 12, 0.98);
             z-index: 2000;
             display: none;
             justify-content: center;
             align-items: center;
-        }
-        #lightbox img {
-            max-width: 90%;
-            max-height: 90vh;
-            border-radius: 10px;
-            box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
-        }
-        .close-btn {
-            position: absolute;
-            top: 30px;
-            right: 40px;
-            font-size: 40px;
-            color: white;
+            opacity: 0;
+            transition: opacity 0.4s ease;
         }
 
-        /* === Footer === */
+        .portal-lightbox.active { display: flex; opacity: 1; }
+
+        .portal-content {
+            position: relative;
+            max-width: 85vw;
+            max-height: 85vh;
+        }
+
+        .portal-content img {
+            max-width: 100%;
+            max-height: 85vh;
+            border-radius: 20px;
+            box-shadow: 0 0 50px rgba(0, 255, 204, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .portal-close {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            font-size: 30px;
+            color: white;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* === Future Core Footer === */
         footer {
-            padding: 60px 20px;
+            padding: 80px 20px;
             text-align: center;
-            background: #020202;
-            border-top: 1px solid var(--border-glass);
+            background: #010105;
+            border-top: 1px solid var(--panel-border);
         }
-        .creator {
-            font-size: 1.5rem;
-            color: #888;
+
+        .footer-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 20px;
+            letter-spacing: 4px;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
         }
-        .insta {
-            font-size: 2rem;
+
+        .developer-tag {
+            font-size: 18px;
+            color: var(--text-primary);
+        }
+
+        .insta-core-link {
+            font-family: 'Orbitron', sans-serif;
+            color: white;
             font-weight: 900;
-            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 2rem;
             text-decoration: none;
             display: inline-block;
-            margin-top: 10px;
-            transition: transform 0.3s;
+            margin-top: 15px;
+            letter-spacing: 2px;
+            background: linear-gradient(45deg, #00ffcc, #ff0055);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: 0.4s;
         }
-        .insta:hover { transform: scale(1.1); }
+
+        .insta-core-link:hover {
+            text-shadow: 0 0 25px rgba(0, 255, 204, 0.8);
+            transform: scale(1.05);
+        }
 
         @keyframes pulse {
             0% { opacity: 0.5; }
             50% { opacity: 1; }
             100% { opacity: 0.5; }
         }
+
+        /* Responsive Matrix */
+        @media (max-width: 1024px) {
+            .bento-grid { grid-template-columns: repeat(2, 1fr); }
+            .bento-item.wide, .bento-item.big { grid-column: span 2; }
+        }
+        @media (max-width: 650px) {
+            .bento-grid { grid-template-columns: 1fr; grid-auto-rows: 280px; }
+            .bento-item.wide, .bento-item.big { grid-column: span 1; }
+            .hero-section h1 { font-size: 2.8rem; }
+            .search-wrapper { width: 100%; max-width: 250px; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="cursor" id="cursor"></div>
-
     <div id="loader">
-        <div class="loader-text">PixelDrop...</div>
+        <div class="loader-content">
+            <div class="loader-text">PixelDrop...</div>
+        </div>
     </div>
 
-    <nav>
-        <div class="logo">Pixel<span>Drop</span></div>
-        <div class="search-bar">
-            <i class="fas fa-search"></i>
-            <input type="text" placeholder="Search visuals...">
+    <header>
+        <div class="brand">PIXEL//DROP</div>
+        <div class="search-wrapper">
+            <i class="fas fa-cube"></i>
+            <input type="text" id="coreSearch" placeholder="Scan core visuals...">
         </div>
-    </nav>
+    </header>
 
-    <section class="hero">
-        <h1>Welcome to<br>The Future</h1>
-        <p>Experience the next generation of visual galleries. Curated, high-quality, and exclusively designed for creators.</p>
+    <section class="hero-section">
+        <div class="hero-tag">Core Engine v3.0 // Active</div>
+        <h1><span>The Future of</span><br>Visual Infrastructure</h1>
     </section>
 
-    <section class="gallery-container">
-        
-        <div class="filters">
-            <button class="filter-btn active" data-filter="all">All Drops</button>
-            <button class="filter-btn" data-filter="neon">Neon & Cyberpunk</button>
-            <button class="filter-btn" data-filter="nature">Nature</button>
-            <button class="filter-btn" data-filter="3d">3D Renders</button>
-        </div>
-
-        <div class="masonry" id="gallery-grid">
+    <main class="grid-wrapper">
+        <div class="bento-grid" id="bentoMatrix">
             
-            <div class="item" data-category="neon">
-                <img src="https://images.unsplash.com/photo-1555680202-c86f0e12f086?q=80&w=1000&auto=format&fit=crop" alt="Neon">
-                <div class="overlay">
-                    <h3>Neon Streets</h3>
-                    <div class="action-btns">
-                        <button onclick="openLightbox(this)"><i class="fas fa-expand"></i> View</button>
-                        <button><i class="fas fa-download"></i></button>
+            <div class="bento-item big" data-tags="neon cyberpunk futuristic">
+                <img src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=1000" alt="Anime Cyberpunk">
+                <div class="core-ui">
+                    <div class="meta-tags"><span>#Cyberpunk</span><span>#Neon</span></div>
+                    <h3>Neo-Tokyo Core</h3>
+                    <div class="action-hub">
+                        <span class="view-trigger" onclick="launchPortal(this)">Expand Visual</span>
+                        <div class="interact-btns">
+                            <button class="btn-node" onclick="toggleLike(this)"><i class="fas fa-heart"></i></button>
+                            <button class="btn-node"><i class="fas fa-arrow-down-long"></i></button>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="item" data-category="3d">
-                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop" alt="3D">
-                <div class="overlay">
-                    <h3>Liquid Flow</h3>
-                    <div class="action-btns">
-                        <button onclick="openLightbox(this)"><i class="fas fa-expand"></i> View</button>
-                        <button><i class="fas fa-download"></i></button>
+            <div class="bento-item tall" data-tags="abstract 3d liquid">
+                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000" alt="3D Shape">
+                <div class="core-ui">
+                    <div class="meta-tags"><span>#3D</span><span>#Abstract</span></div>
+                    <h3>Liquid Geometry</h3>
+                    <div class="action-hub">
+                        <span class="view-trigger" onclick="launchPortal(this)">Expand Visual</span>
+                        <div class="interact-btns">
+                            <button class="btn-node" onclick="toggleLike(this)"><i class="fas fa-heart"></i></button>
+                            <button class="btn-node"><i class="fas fa-arrow-down-long"></i></button>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="item" data-category="nature">
-                <img src="https://images.unsplash.com/photo-1506744626753-1fa44f4a3112?q=80&w=1000&auto=format&fit=crop" alt="Nature">
-                <div class="overlay">
-                    <h3>Mystic Mountains</h3>
-                    <div class="action-btns">
-                        <button onclick="openLightbox(this)"><i class="fas fa-expand"></i> View</button>
-                        <button><i class="fas fa-download"></i></button>
+            <div class="bento-item" data-tags="nature aesthetic calm">
+                <img src="https://images.unsplash.com/photo-1506744626753-1fa44f4a3112?q=80&w=1000" alt="Nature">
+                <div class="core-ui">
+                    <div class="meta-tags"><span>#Nature</span><span>#Calm</span></div>
+                    <h3>Ethereal Peaks</h3>
+                    <div class="action-hub">
+                        <span class="view-trigger" onclick="launchPortal(this)">Expand Visual</span>
+                        <div class="interact-btns">
+                            <button class="btn-node" onclick="toggleLike(this)"><i class="fas fa-heart"></i></button>
+                            <button class="btn-node"><i class="fas fa-arrow-down-long"></i></button>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="item" data-category="neon">
-                <img src="https://images.unsplash.com/photo-1604871000636-074fa5117945?q=80&w=1000&auto=format&fit=crop" alt="Cyberpunk">
-                <div class="overlay">
-                    <h3>Cyberpunk City</h3>
-                    <div class="action-btns">
-                        <button onclick="openLightbox(this)"><i class="fas fa-expand"></i> View</button>
-                        <button><i class="fas fa-download"></i></button>
+            <div class="bento-item wide" data-tags="sci-fi technology neon">
+                <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000" alt="Space Tech">
+                <div class="core-ui">
+                    <div class="meta-tags"><span>#SciFi</span><span>#Network</span></div>
+                    <h3>Quantum Node</h3>
+                    <div class="action-hub">
+                        <span class="view-trigger" onclick="launchPortal(this)">Expand Visual</span>
+                        <div class="interact-btns">
+                            <button class="btn-node" onclick="toggleLike(this)"><i class="fas fa-heart"></i></button>
+                            <button class="btn-node"><i class="fas fa-arrow-down-long"></i></button>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="item" data-category="3d">
-                <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1000&auto=format&fit=crop" alt="Abstract">
-                <div class="overlay">
-                    <h3>Abstract Shapes</h3>
-                    <div class="action-btns">
-                        <button onclick="openLightbox(this)"><i class="fas fa-expand"></i> View</button>
-                        <button><i class="fas fa-download"></i></button>
+            <div class="bento-item" data-tags="dark urban city">
+                <img src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?q=80&w=1000" alt="City Noir">
+                <div class="core-ui">
+                    <div class="meta-tags"><span>#Urban</span><span>#Noir</span></div>
+                    <h3>Midnight Grid</h3>
+                    <div class="action-hub">
+                        <span class="view-trigger" onclick="launchPortal(this)">Expand Visual</span>
+                        <div class="interact-btns">
+                            <button class="btn-node" onclick="toggleLike(this)"><i class="fas fa-heart"></i></button>
+                            <button class="btn-node"><i class="fas fa-arrow-down-long"></i></button>
+                        </div>
                     </div>
                 </div>
             </div>
-            
-            <div class="item" data-category="nature">
-                <img src="https://images.unsplash.com/photo-1518182170546-076616fd6251?q=80&w=1000&auto=format&fit=crop" alt="Forest">
-                <div class="overlay">
-                    <h3>Dark Forest</h3>
-                    <div class="action-btns">
-                        <button onclick="openLightbox(this)"><i class="fas fa-expand"></i> View</button>
-                        <button><i class="fas fa-download"></i></button>
+
+             <div class="bento-item wide" data-tags="3d render colorful render">
+                <img src="https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?q=80&w=1000" alt="Glass Shape">
+                <div class="core-ui">
+                    <div class="meta-tags"><span>#3D</span><span>#Glassmorphism</span></div>
+                    <h3>Chroma Prism</h3>
+                    <div class="action-hub">
+                        <span class="view-trigger" onclick="launchPortal(this)">Expand Visual</span>
+                        <div class="interact-btns">
+                            <button class="btn-node" onclick="toggleLike(this)"><i class="fas fa-heart"></i></button>
+                            <button class="btn-node"><i class="fas fa-arrow-down-long"></i></button>
+                        </div>
                     </div>
                 </div>
             </div>
 
         </div>
-    </section>
+    </main>
 
-    <div id="lightbox">
-        <span class="close-btn" onclick="closeLightbox()">&times;</span>
-        <img id="lightbox-img" src="" alt="Zoomed Image">
+    <div class="portal-lightbox" id="portalHub">
+        <div class="portal-content">
+            <button class="portal-close" onclick="shutdownPortal()"><i class="fas fa-times"></i></button>
+            <img id="portalImage" src="" alt="Portal Stream">
+        </div>
     </div>
 
     <footer>
-        <div class="creator">Crafted & Engineered by</div>
-        <a href="https://instagram.com/i_f_t_uu" target="_blank" class="insta">@i_f_t_uu</a>
-        <p style="margin-top: 20px; color: #555;">PixelDrop Gallery &copy; 2026. Setting the standard.</p>
+        <div class="footer-logo">// SYSTEM AUTHOR //</div>
+        <div class="developer-tag">Designed & Built by Architecture Node:</div>
+        <a href="https://instagram.com/i_f_t_uu" target="_blank" class="insta-core-link">@i_f_t_uu</a>
+        <p style="margin-top: 30px; color: #333; font-size: 12px; font-family: 'Orbitron'">CORE SYSTEM RESILIENT // 2026</p>
     </footer>
 
     <script>
-        // 1. Remove Loader
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('loader').style.opacity = '0';
+        // 1. Safe Fast Loader Logic (Won't get stuck)
+        function hideLoader() {
+            const loader = document.getElementById('loader');
+            if (loader) {
+                loader.style.opacity = '0';
                 setTimeout(() => {
-                    document.getElementById('loader').style.display = 'none';
+                    loader.style.style.visibility = 'hidden';
+                    loader.style.display = 'none';
                 }, 500);
-            }, 1000);
+            }
+        }
+        
+        // Hide loader instantly when DOM structure is ready, don't wait for heavy images
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(hideLoader, 600); 
         });
 
-        // 2. Custom Cursor Logic
-        const cursor = document.getElementById('cursor');
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        });
+        // Backup safety timeout (Max 2 seconds wait anyway)
+        setTimeout(hideLoader, 2000);
 
-        const hoverElements = document.querySelectorAll('button, a, .item');
-        hoverElements.forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
-            el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
-        });
+        // 2. Real-time Live Core Search Engine
+        const searchInput = document.getElementById('coreSearch');
+        const bentoItems = document.querySelectorAll('.bento-item');
 
-        // 3. Category Filter Logic
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const items = document.querySelectorAll('.item');
-
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Remove active class
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-
-                const filterValue = btn.getAttribute('data-filter');
-
-                items.forEach(item => {
-                    if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
-                        item.style.display = 'block';
-                        setTimeout(() => item.style.opacity = '1', 50);
-                    } else {
-                        item.style.opacity = '0';
-                        setTimeout(() => item.style.display = 'none', 300);
-                    }
-                });
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            
+            bentoItems.forEach(item => {
+                const tags = item.getAttribute('data-tags').toLowerCase();
+                const title = item.querySelector('h3').textContent.toLowerCase();
+                
+                if (tags.includes(query) || title.includes(query)) {
+                    item.style.display = 'block';
+                    setTimeout(() => { item.style.opacity = '1'; item.style.transform = 'scale(1)'; }, 50);
+                } else {
+                    item.style.opacity = '0';
+                    item.style.transform = 'scale(0.8)';
+                    setTimeout(() => { item.style.display = 'none'; }, 300);
+                }
             });
         });
 
-        // 4. Lightbox Logic
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
+        // 3. 3D Card Tilt Matrix Logic
+        bentoItems.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const xc = rect.width / 2;
+                const yc = rect.height / 2;
+                
+                const angleX = (yc - y) / 20;
+                const angleY = (x - xc) / 20;
+                
+                card.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg)`;
+            });
 
-        function openLightbox(button) {
-            // Find the image inside the same item container
-            const imgEl = button.closest('.item').querySelector('img');
-            lightboxImg.src = imgEl.src;
-            lightbox.style.display = 'flex';
-        }
+            card.style.transition = "transform 0.1s ease";
 
-        function closeLightbox() {
-            lightbox.style.display = 'none';
-        }
+            card.addEventListener('mouseleave', () => {
+                card.style.transition = "transform 0.5s ease";
+                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+            });
+        });
 
-        // Close lightbox on clicking outside image
-        lightbox.addEventListener('click', (e) => {
-            if (e.target !== lightboxImg) {
-                closeLightbox();
+        // 4. Interactive State Node (Like Button Simulation)
+        function toggleLike(btn) {
+            btn.classList.toggle('liked');
+            const icon = btn.querySelector('i');
+            if(btn.classList.contains('liked')) {
+                btn.style.background = 'rgba(255, 0, 85, 0.2)';
+                btn.style.borderColor = '#ff0055';
+                icon.style.color = '#ff0055';
+            } else {
+                btn.style.background = 'rgba(255, 255, 255, 0.05)';
+                btn.style.borderColor = 'var(--panel-border)';
+                icon.style.color = 'white';
             }
+        }
+
+        // 5. Portal Lightbox Launch System
+        const portalHub = document.getElementById('portalHub');
+        const portalImg = document.getElementById('portalImage');
+
+        function launchPortal(element) {
+            const parentItem = element.closest('.bento-item');
+            const targetSrc = parentItem.querySelector('img').src;
+            portalImg.src = targetSrc;
+            portalHub.style.display = 'flex';
+            setTimeout(() => {
+                portalHub.classList.add('active');
+            }, 10);
+        }
+
+        function shutdownPortal() {
+            portalHub.classList.remove('active');
+            setTimeout(() => {
+                portalHub.style.display = 'none';
+            }, 400);
+        }
+
+        portalHub.addEventListener('click', (e) => {
+            if(e.target === portalHub) shutdownPortal();
         });
     </script>
 </body>
