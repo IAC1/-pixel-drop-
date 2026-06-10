@@ -3,207 +3,257 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PixelDrop // Enhanced Tokyo V7.0</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>PixelDrop // 2026 Edition V8.0</title>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     
     <style>
-        /* === Ultimate CSS Variables V7 === */
+        /* === 2026 Next-Gen Variables === */
         :root {
-            --primary-color: #0f111a;
-            --secondary-color: #f7f9fc;
-            --accent-color: #ff2a7c; /* Neon Pink Highlight */
-            --heart-color: #ff3366;   /* Vibrant Heart Color */
-            --text-color: #e0e6f1;
-            --bg-color: #0c0d16;
-            --font-family-title: 'Orbitron', sans-serif;
-            --font-family-base: 'Rajdhani', sans-serif;
-            --font-family-mono: 'Share Tech Mono', monospace;
+            --bg-deep: #050507;
+            --neon-cyan: #00f3ff;
+            --neon-pink: #ff007c;
+            --neon-purple: #8a2be2;
+            --glass-bg: rgba(20, 20, 25, 0.45);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-main: #f0f4f8;
+            --text-dim: #9ba4b5;
+            --heart-active: #ff2a5f;
         }
 
         * {
             margin: 0; padding: 0; box-sizing: border-box;
-            cursor: none; /* Custom Neo-Tokyo Cursor */
+            -webkit-tap-highlight-color: transparent; /* Removes blue tap highlight on mobile */
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: var(--font-family-base);
-            margin: 0; padding: 0; display: flex; flex-direction: column;
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: 'Rajdhani', sans-serif;
             overflow-x: hidden;
             scroll-behavior: smooth;
         }
 
-        /* Animated Grid Background */
-        body::before {
-            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: 
-                linear-gradient(rgba(0, 243, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 243, 255, 0.05) 1px, transparent 1px);
-            background-size: 40px 40px; z-index: -1; opacity: 0.3;
+        /* Ambient Glowing Background Effect (2026 Trend) */
+        body::before, body::after {
+            content: ''; position: fixed; width: 300px; height: 300px;
+            border-radius: 50%; filter: blur(150px); z-index: -1; opacity: 0.5;
         }
+        body::before { top: -100px; left: -100px; background: var(--neon-purple); }
+        body::after { bottom: -100px; right: -100px; background: var(--neon-cyan); }
 
-        /* Glowing Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #000; }
-        ::-webkit-scrollbar-thumb { background: var(--accent-color); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--heart-color); }
+        /* Modern Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(var(--neon-cyan), var(--neon-pink)); border-radius: 10px; }
 
-        /* Custom Cursor */
-        .cursor-dot { width: 6px; height: 6px; background: var(--accent-color); position: fixed; border-radius: 50%; pointer-events: none; z-index: 10000; transform: translate(-50%, -50%); }
-        .cursor-outline { width: 35px; height: 35px; border: 2px solid #00f3ff; position: fixed; border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: 0.1s ease; }
-
-        /* === Header === */
+        /* === Header (Glassmorphism) === */
         header {
-            background: rgba(12, 13, 22, 0.95);
-            backdrop-filter: blur(10px);
-            color: var(--secondary-color);
-            padding: 30px 50px; text-align: center;
             position: fixed; top: 0; width: 100%; z-index: 1000;
-            border-bottom: 2px solid var(--accent-color);
-            box-shadow: 0 0 20px rgba(255, 42, 124, 0.3);
+            background: rgba(5, 5, 7, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 20px; text-align: center;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
         }
 
-        header h1 {
-            font-family: var(--font-family-title);
-            font-size: 3.5rem; font-weight: 900; margin: 0;
-            letter-spacing: 3px; text-transform: uppercase;
-            color: #fff; text-shadow: 0 0 15px #fff, 0 0 30px var(--accent-color);
+        .logo {
+            font-family: 'Orbitron', sans-serif; font-size: 2.2rem; font-weight: 900;
+            color: #fff; letter-spacing: 2px; text-transform: uppercase;
         }
-        header h1 span { color: #00f3ff; text-shadow: 0 0 15px #00f3ff, 0 0 30px #00f3ff; }
+        .logo span {
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(255, 0, 124, 0.4);
+        }
 
-        /* === Hero Section with Live Stats === */
+        /* === Hero Section === */
         .hero {
-            padding: 160px 20px 80px; text-align: center; max-width: 900px; margin: 0 auto;
+            padding: 140px 20px 60px; text-align: center; max-width: 800px; margin: 0 auto;
         }
-        .hero h2 { font-family: var(--font-family-mono); color: var(--accent-color); font-size: 1.5rem; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 2px; }
-        .hero p { color: var(--text-color); font-size: 1.2rem; margin-bottom: 40px; }
-        .sys-badge { display: inline-block; padding: 10px 25px; border: 1px dashed #00f3ff; color: #00f3ff; font-family: var(--font-family-mono); background: rgba(0, 243, 255, 0.08); font-size: 0.9rem; letter-spacing: 1.5px; animation: glow 2s infinite alternate; }
+        .hero .version-tag {
+            display: inline-block; padding: 6px 15px; margin-bottom: 20px;
+            border-radius: 50px; background: rgba(0, 243, 255, 0.1);
+            border: 1px solid var(--neon-cyan); color: var(--neon-cyan);
+            font-family: 'Space Mono', monospace; font-size: 0.85rem; letter-spacing: 1px;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+        }
+        .hero h2 { font-size: 1.5rem; font-weight: 600; color: var(--text-dim); margin-bottom: 10px; }
 
-        @keyframes glow { 0% { box-shadow: 0 0 5px rgba(0, 243, 255, 0.1); } 100% { box-shadow: 0 0 20px rgba(0, 243, 255, 0.3); } }
+        /* === 2026 CSS Grid Layout (Perfect for Mobile & Desktop) === */
+        .gallery-container {
+            display: grid;
+            /* Auto-fit creates a responsive grid without breaking cards */
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            padding: 0 30px 100px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
 
-        /* === High-Resolution Gallery V7 === */
-        .gallery-wrapper { max-width: 1500px; margin: 0 auto; padding: 0 50px 100px; column-count: 4; column-gap: 30px; }
-
+        /* === Premium Glass Cards === */
         .card {
-            background-color: var(--primary-color);
-            border-radius: 15px; overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-            position: relative; margin-bottom: 30px; break-inside: avoid;
-            opacity: 0; transform: translateY(50px);
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease;
+            opacity: 0; transform: translateY(40px); /* For scroll animation */
         }
+
         .card.show { opacity: 1; transform: translateY(0); }
+        .card:hover { 
+            transform: translateY(-10px); 
+            border-color: rgba(255, 0, 124, 0.5);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 0, 124, 0.2);
+        }
 
-        .card:hover { transform: translateY(-10px); border-color: var(--accent-color); box-shadow: 0 15px 40px rgba(255, 42, 124, 0.4); }
+        .card-img { position: relative; width: 100%; height: 350px; overflow: hidden; }
+        .card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .card:hover .card-img img { transform: scale(1.08); }
 
-        .card .img-container { height: 280px; position: relative; }
-        .card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        /* Like Button 2026 Style */
+        .like-btn {
+            position: absolute; top: 15px; right: 15px;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            border-radius: 30px; padding: 8px 15px;
+            display: flex; align-items: center; gap: 8px;
+            cursor: pointer; border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease; z-index: 10;
+        }
+        .like-btn:hover { background: rgba(20, 20, 20, 0.8); border-color: rgba(255,255,255,0.3); }
         
-        /* Interactive Heart (Like) Icon */
-        .card .heart-container { position: absolute; bottom: 15px; right: 15px; z-index: 5; }
-        .card .heart-icon { font-size: 1.8rem; color: #fff; cursor: none; transition: color 0.3s, transform 0.3s ease; }
-        .card .heart-icon:hover { color: var(--heart-color); transform: scale(1.3); }
-        .card .heart-icon.liked { color: var(--heart-color); transform: scale(1.3); text-shadow: 0 0 15px var(--heart-color); }
-        
-        .card .like-count { font-size: 1.1rem; color: #fff; margin-left: 8px; font-family: var(--font-family-mono); font-weight: 700; }
+        .heart-icon { color: #fff; font-size: 1.1rem; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s; }
+        .like-count { color: #fff; font-family: 'Space Mono', monospace; font-size: 0.95rem; font-weight: 700; }
 
-        .card-content { padding: 25px; }
-        .card-content h3 { font-family: var(--font-family-title); font-size: 1.4rem; margin: 0 0 10px; color: #fff; text-transform: uppercase; }
-        .card-content p { font-size: 0.95rem; line-height: 1.6; color: #a0a6b1; }
+        /* Active Heart Animation */
+        .like-btn.active { border-color: var(--heart-active); background: rgba(255, 42, 95, 0.1); }
+        .like-btn.active .heart-icon { color: var(--heart-active); transform: scale(1.2); text-shadow: 0 0 10px var(--heart-active); }
+        @keyframes pop { 0% { transform: scale(1); } 50% { transform: scale(1.4); } 100% { transform: scale(1.2); } }
+        .like-btn.active .heart-icon { animation: pop 0.4s forwards; }
 
-        /* Interactive Footer with Live Text */
-        footer { background: #050505; border-top: 2px solid var(--heart-color); padding: 50px 40px; text-align: center; }
-        footer p { font-family: var(--font-family-mono); color: var(--heart-color); text-transform: uppercase; letter-spacing: 2px; }
-        
-        /* Responsive Adaptation */
-        @media (max-width: 1200px) { .gallery-wrapper { column-count: 3; } header h1 { font-size: 2.8rem; } }
-        @media (max-width: 800px) { .gallery-wrapper { column-count: 2; padding: 0 20px 80px; } header { padding: 20px; } header h1 { font-size: 2.2rem; } .hero h2 { font-size: 1.2rem; } }
-        @media (max-width: 500px) { .gallery-wrapper { column-count: 1; } }
+        /* Card Content */
+        .card-info { padding: 25px; }
+        .card-info h3 { font-family: 'Orbitron', sans-serif; font-size: 1.4rem; color: #fff; margin-bottom: 8px; letter-spacing: 1px; }
+        .card-info .sys-data { font-family: 'Space Mono', monospace; font-size: 0.85rem; color: var(--neon-cyan); opacity: 0.8; }
+
+        /* === Footer 2026 === */
+        footer {
+            text-align: center; padding: 40px 20px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            background: rgba(0,0,0,0.5);
+            font-family: 'Space Mono', monospace; color: var(--text-dim);
+        }
+        footer span { color: var(--neon-pink); }
+
+        /* Mobile Fixes */
+        @media (max-width: 768px) {
+            .gallery-container { grid-template-columns: 1fr; padding: 0 20px 80px; }
+            .card-img { height: 280px; } /* Slightly shorter images on mobile */
+            header { padding: 15px; }
+            .logo { font-size: 1.8rem; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="cursor-dot" id="cursorDot"></div>
-    <div class="cursor-outline" id="cursorOutline"></div>
-
     <header>
-        <h1>TOKYO <span>VISUALS</span> V7.0</h1>
+        <div class="logo">TOKYO <span>VISUALS</span></div>
     </header>
 
     <section class="hero">
-        <h2>>> ACCESSING GLOBAL MAIN_FRAME... [OK]</h2>
-        <p>A curated collection of hyper-resolution cityscapes and cyberpunk aesthetics from the central Neo-Tokyo databank.</p>
-        <div class="sys-badge">> ACTIVE NODES: 2077 // SYNC STATUS: SECURE</div>
+        <div class="version-tag">/// SYSTEM BUILD: 2026.V8 ///</div>
+        <h2>NEXT-GEN CYBERPUNK ARCHIVE</h2>
+        <p style="color: var(--text-dim);">Neural-synced high-resolution aesthetic modules. Tap the heart to upload preference to the mainframe.</p>
     </section>
 
-    <main class="gallery-wrapper" id="gallery-container">
+    <main class="gallery-container" id="gallery">
         </main>
 
     <footer>
-        <p>&copy; 2024 NEURON_LINK. ALL RIGHTS RESERVED.</p>
+        <p>&copy; 2026 NEURON_LINK. ALL RIGHTS RESERVED.</p>
+        <p style="font-size: 0.8rem; margin-top: 10px;">SECURE CONNECTION ESTABLISHED <span>●</span></p>
     </footer>
 
     <script>
-        // 1. Custom Cursor Logic V7
-        const dot = document.getElementById('cursorDot');
-        const outline = document.getElementById('cursorOutline');
-        window.addEventListener('mousemove', (e) => {
-            dot.style.left = `${e.clientX}px`; dot.style.top = `${e.clientY}px`;
-            setTimeout(() => {
-                outline.style.left = `${e.clientX}px`; outline.style.top = `${e.clientY}px`;
-            }, 50);
-        });
-
-        // 2. Premium Tokyo Images Array (12 high-res Tokyo cards added)
-        const images = [
-            { src: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800", title: "Shibuya Rain", tag: "SYS_01", likes: "1.2K" },
-            { src: "https://images.unsplash.com/photo-1514565131-fce0801e5785?w=800", title: "Matrix Run", tag: "SYS_02", likes: "980" },
-            { src: "https://images.unsplash.com/photo-1554797589-7241bb691973?w=800", title: "Alley Glow", tag: "SYS_03", likes: "1.5K" },
-            { src: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=800", title: "Sevens Rain", tag: "SYS_04", likes: "1.1K" },
-            { src: "https://images.unsplash.com/photo-1513407030348-c6e4286bb980?w=800", title: "Speed Loop", tag: "SYS_05", likes: "850" },
-            { src: "https://images.unsplash.com/photo-1601042879364-f3947d3f9c16?w=800", title: "Red Lanterns", tag: "SYS_06", likes: "999" },
-            { src: "https://images.unsplash.com/photo-1524311583145-d5593bd6fa87?w=800", title: "Sky Node", tag: "SYS_07", likes: "1.3K" },
-            { src: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=800", title: "Tower Beacon", tag: "SYS_08", likes: "760" },
-            { src: "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=800", title: "Synth Downtown", tag: "SYS_09", likes: "1.8K" },
-            { src: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=800", title: "Transit Grid", tag: "SYS_10", likes: "650" },
-            { src: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=800", title: "Akihabara Tech", tag: "SYS_11", likes: "2.1K" },
-            { src: "https://images.unsplash.com/photo-1557404763-69708cd8b9ce?w=800", title: "Glitch Hub", tag: "SYS_12", likes: "1.2K" }
+        // Elite 2026 Tokyo Image Database
+        const tokyoData = [
+            { id: 1, src: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800", title: "SHIBUYA_OVERRIDE", data: "NODE_77 // UPLINK: STABLE", likes: 2450 },
+            { id: 2, src: "https://images.unsplash.com/photo-1514565131-fce0801e5785?w=800", title: "NIGHT_RUNNER", data: "SECTOR_4 // ENCRYPTED", likes: 1820 },
+            { id: 3, src: "https://images.unsplash.com/photo-1554797589-7241bb691973?w=800", title: "NEON_ALLEY", data: "YOKOCHO // LOW_LATENCY", likes: 3105 },
+            { id: 4, src: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=800", title: "ACID_RAIN", data: "CORE_SYSTEM // SYNCING", likes: 984 },
+            { id: 5, src: "https://images.unsplash.com/photo-1601042879364-f3947d3f9c16?w=800", title: "KABUKICHO_X", data: "DISTRICT_9 // ONLINE", likes: 4200 },
+            { id: 6, src: "https://images.unsplash.com/photo-1524311583145-d5593bd6fa87?w=800", title: "SKY_NODE", data: "ELEVATED // PING: 2ms", likes: 1560 },
+            { id: 7, src: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=800", title: "TOWER_BEACON", data: "TRANSMITTER_01 // LIVE", likes: 2230 },
+            { id: 8, src: "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=800", title: "SYNTH_DOWNTOWN", data: "GRID_ACCESS // GRANTED", likes: 3890 },
+            { id: 9, src: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=800", title: "AKIHABARA_TECH", data: "HARDWARE_HUB // ACTIVE", likes: 5120 },
+            { id: 10, src: "https://images.unsplash.com/photo-1557404763-69708cd8b9ce?w=800", title: "GLITCH_MARKET", data: "BLACK_MARKET // HIDDEN", likes: 2750 }
         ];
 
-        const gallery = document.getElementById('gallery-container');
-        images.forEach(img => {
-            const el = document.createElement('div'); el.className = 'card';
-            el.innerHTML = `
-                <div class="img-container">
-                    <img src="${img.src}" loading="lazy" alt="${img.title}">
-                    <div class="heart-container">
-                        <i class="fas fa-heart heart-icon"></i>
-                        <span class="like-count">${img.likes}</span>
+        const gallery = document.getElementById('gallery');
+
+        // Function to format numbers (e.g., 2450 -> 2.4K)
+        const formatLikes = (num) => {
+            if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+            return num;
+        };
+
+        // Render Cards
+        tokyoData.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <div class="card-img">
+                    <img src="${item.src}" loading="lazy" alt="${item.title}">
+                    <div class="like-btn" onclick="toggleLike(this, ${item.likes})">
+                        <i class="fa-solid fa-heart heart-icon"></i>
+                        <span class="like-count" data-base="${item.likes}">${formatLikes(item.likes)}</span>
                     </div>
                 </div>
-                <div class="card-content">
-                    <h3>${img.title}</h3>
-                    <p>// ${img.tag} // ACCESS STATUS: GRANTED // NEURAL LINK: ESTABLISHED</p>
+                <div class="card-info">
+                    <h3>${item.title}</h3>
+                    <div class="sys-data">> ${item.data}</div>
                 </div>
             `;
-            gallery.appendChild(el);
+            gallery.appendChild(card);
         });
 
-        // 3. Scroll Animation (Fade In V7)
-        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('show'); observer.unobserve(entry.target); } });
-        }, observerOptions);
+        // 2026 Like Button Logic
+        function toggleLike(element, baseLikes) {
+            const isLiked = element.classList.contains('active');
+            const countSpan = element.querySelector('.like-count');
+            
+            if (isLiked) {
+                element.classList.remove('active');
+                countSpan.innerText = formatLikes(baseLikes); // Revert to base
+            } else {
+                element.classList.add('active');
+                countSpan.innerText = formatLikes(baseLikes + 1); // Add 1 like
+            }
+            
+            // Add a tiny haptic feedback simulation for mobile devices
+            if (navigator.vibrate) {
+                navigator.vibrate(50);
+            }
+        }
+
+        // Smooth Scroll Reveal Animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                    observer.unobserve(entry.target); // Play animation only once
+                }
+            });
+        }, { threshold: 0.1 });
+
         document.querySelectorAll('.card').forEach(card => observer.observe(card));
-
-        // 4. Interactive Heart (Like) V7
-        const hearts = document.querySelectorAll('.heart-icon');
-        hearts.forEach(heart => {
-            heart.addEventListener('click', function() { this.classList.toggle('liked'); });
-        });
     </script>
 </body>
 </html>
