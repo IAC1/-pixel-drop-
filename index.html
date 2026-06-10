@@ -3,370 +3,328 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PixelDrop Ultra | Enterprise Design OS</title>
+    <title>PixelDrop | Assets & Tokyo Aesthetics</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
 
     <style>
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #030712; /* Deepest Cyber Black */
+            font-family: 'Outfit', sans-serif;
+            background-color: #050505;
+            color: #f8fafc;
+            overflow-x: hidden;
         }
-        /* Hardware Accelerated Smooth Mesh Glow Animations */
-        @keyframes meshMove {
-            0% { transform: translate(0px, 0px) scale(1); }
-            33% { transform: translate(30px, -50px) scale(1.1); }
-            66% { transform: translate(-20px, 20px) scale(0.95); }
-            100% { transform: translate(0px, 0px) scale(1); }
-        }
-        .mesh-glow-1 { animation: meshMove 10s ease-in-out infinite; }
-        .mesh-glow-2 { animation: meshMove 15s ease-in-out infinite 2s; }
 
-        /* Premium Glassmorphism (Strict Webkit Standards) */
-        .ultra-glass {
-            background: rgba(15, 23, 42, 0.45);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(255, 255, 255, 0.06);
+        /* Neon Tokyo Glow Effects */
+        .glow-pink { text-shadow: 0 0 15px rgba(236, 72, 153, 0.6); }
+        .bg-glow-pink { box-shadow: 0 0 25px rgba(236, 72, 153, 0.3); }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
         }
-        .ultra-glass-hover:hover {
-            background: rgba(15, 23, 42, 0.6);
-            border-color: rgba(99, 102, 241, 0.3);
-            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+        .glass-card:hover {
+            border-color: rgba(236, 72, 153, 0.4);
+            transform: translateY(-5px);
         }
+
+        /* Image Hover Zoom */
+        .img-zoom { transition: transform 0.5s ease; }
+        .group:hover .img-zoom { transform: scale(1.1); }
+        
+        /* Modal Animation */
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.95) translateY(-20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .modal-animate { animation: modalFadeIn 0.3s ease-out forwards; }
     </style>
 </head>
-<body class="text-slate-100 antialiased selection:bg-indigo-500/30 overflow-x-hidden">
+<body class="antialiased selection:bg-pink-500 selection:text-white">
 
-    <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        <div class="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-tr from-indigo-600/10 to-violet-600/10 blur-[140px] mesh-glow-1"></div>
-        <div class="absolute top-[30%] right-[-5%] w-[45vw] h-[45vw] rounded-full bg-gradient-to-br from-purple-600/10 to-pink-600/5 blur-[120px] mesh-glow-2"></div>
-        <div class="absolute bottom-[10%] left-[10%] w-[40vw] h-[40vw] rounded-full bg-gradient-to-tr from-emerald-600/5 to-cyan-600/10 blur-[130px] mesh-glow-1"></div>
-    </div>
+    <div id="toast-container" class="fixed top-20 right-6 z-50 flex flex-col gap-3"></div>
 
-    <div id="toast-holder" class="fixed top-6 right-6 z-50 flex flex-col gap-3"></div>
-
-    <nav class="fixed top-0 inset-x-0 z-40 bg-[#030712]/70 backdrop-blur-md border-b border-white/5 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <a href="#" class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-indigo-500/20">
-                    <i class="fas fa-layer-group text-white text-base"></i>
-                </div>
-                <span class="text-xl font-extrabold tracking-tight text-white">PixelDrop<span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-pink-400">OS</span></span>
+    <nav class="fixed top-0 w-full z-40 bg-black/60 backdrop-blur-lg border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="#" class="text-xl font-extrabold tracking-widest uppercase text-white flex items-center gap-2">
+                <i class="fas fa-camera-retro text-pink-500"></i> PixelDrop
             </a>
-            <div class="hidden lg:flex items-center gap-8 text-sm font-medium text-slate-400">
-                <a href="#features" class="hover:text-white transition-colors">Core Infrastructure</a>
-                <a href="#solutions" class="hover:text-white transition-colors">Solutions Grid</a>
-                <a href="#metrics" class="hover:text-white transition-colors">Live Analytics</a>
-                <a href="#faq" class="hover:text-white transition-colors">Knowledge Base</a>
-                <span class="w-px h-4 bg-white/10"></span>
-                <button onclick="triggerNotification('System Access', 'Secure terminal connection initialized.')" class="px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-all">
-                    Terminal Log
-                </button>
+            
+            <div class="hidden md:flex gap-8 text-sm font-semibold text-gray-400">
+                <a href="#free-assets" class="hover:text-white transition">Free Assets</a>
+                <a href="#tokyo-gallery" class="hover:text-white transition">Tokyo Premium</a>
+                <a href="#pricing" class="hover:text-white transition">Subscription</a>
             </div>
+
+            <a href="https://instagram.com/i_f_t_uu" target="_blank" class="flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-pink-500 to-orange-500 text-white text-xs font-bold hover:scale-105 transition-transform bg-glow-pink shadow-lg shadow-pink-500/20">
+                <i class="fab fa-instagram text-lg"></i> @i_f_t_uu
+            </a>
         </div>
     </nav>
 
-    <section class="relative pt-36 pb-20 px-6 max-w-7xl mx-auto z-10">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <div class="lg:col-span-7 space-y-8 text-left">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-indigo-500/10 border border-indigo-500/20 text-xs font-bold uppercase tracking-widest text-indigo-400">
-                    <i class="fas fa-microchip animate-pulse"></i> Next Generation Architecture
-                </div>
-                <h1 class="text-5xl sm:text-6xl xl:text-7xl font-extrabold text-white tracking-tight leading-[1.08]">
-                    The operating system for <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-emerald-400">high-tier web interfaces.</span>
-                </h1>
-                <p class="text-lg text-slate-400 max-w-xl font-normal leading-relaxed">
-                    Deploy modular glassmorphic component frameworks designed specifically for massive load conditions, rendering at microsecond scales.
-                </p>
-                <div class="flex flex-wrap items-center gap-4">
-                    <button onclick="triggerNotification('Deployment', 'Initializing cloud nodes across 24 zones...')" class="px-8 py-4 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-bold shadow-xl shadow-indigo-500/20 hover:opacity-90 transition-all">
-                        Launch Cloud Core
+    <section class="relative pt-32 pb-20 px-6 max-w-7xl mx-auto text-center z-10">
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-pink-600/20 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
+        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-cyan-600/20 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
+
+        <h1 class="text-5xl md:text-7xl font-extrabold mb-6">
+            Helpful Resources & <br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-cyan-400 glow-pink">Tokyo Aesthetics</span>
+        </h1>
+        <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10">
+            Download high-quality free assets for your projects, or unlock the exclusive Tokyo photography collection crafted by <span class="text-pink-400 font-bold">@i_f_t_uu</span>.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+            <a href="#free-assets" class="px-8 py-3 rounded-full border border-white/20 hover:bg-white/10 text-white font-semibold transition-all">
+                Explore Free Assets
+            </a>
+            <a href="#pricing" class="px-8 py-3 rounded-full bg-pink-500 hover:bg-pink-600 text-white font-bold transition-all shadow-[0_0_20px_rgba(236,72,153,0.4)]">
+                Unlock Premium
+            </a>
+        </div>
+    </section>
+
+    <section id="free-assets" class="py-20 px-6 bg-white/[0.01] border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl font-bold mb-2 flex items-center gap-3">
+                <i class="fas fa-gift text-cyan-400"></i> Free Asset Hub
+            </h2>
+            <p class="text-gray-400 mb-10">High-value resources to speed up your workflow, completely free.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-card p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="h-40 w-full rounded-xl overflow-hidden mb-4 relative">
+                            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80" class="object-cover w-full h-full opacity-80" alt="Abstract Background">
+                            <div class="absolute top-2 right-2 bg-black/60 px-2 py-1 rounded text-[10px] font-bold text-cyan-400 border border-cyan-500/30">FREE</div>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Abstract 4K Backgrounds</h3>
+                        <p class="text-sm text-gray-400">10 high-resolution glowing abstract renders for your next landing page.</p>
+                    </div>
+                    <button onclick="downloadItem('Abstract Backgrounds')" class="mt-6 w-full py-2 rounded-lg bg-white/5 border border-white/10 hover:bg-cyan-500/20 hover:border-cyan-500/50 hover:text-cyan-300 transition-all text-sm font-bold flex items-center justify-center gap-2">
+                        <i class="fas fa-download"></i> Download Now
                     </button>
-                    <a href="#solutions" class="px-8 py-4 rounded-xl bg-white/5 border border-white/10 text-white font-semibold hover:bg-white/10 transition-all">
-                        View Solution Matrices
-                    </a>
+                </div>
+
+                <div class="glass-card p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="h-40 w-full rounded-xl overflow-hidden mb-4 relative bg-gray-900 flex items-center justify-center">
+                            <i class="fas fa-code text-5xl text-gray-600"></i>
+                            <div class="absolute top-2 right-2 bg-black/60 px-2 py-1 rounded text-[10px] font-bold text-cyan-400 border border-cyan-500/30">FREE</div>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Tailwind Component Kit</h3>
+                        <p class="text-sm text-gray-400">50+ responsive UI cards, buttons, and navbars ready to copy-paste.</p>
+                    </div>
+                    <button onclick="downloadItem('Tailwind UI Kit')" class="mt-6 w-full py-2 rounded-lg bg-white/5 border border-white/10 hover:bg-cyan-500/20 hover:border-cyan-500/50 hover:text-cyan-300 transition-all text-sm font-bold flex items-center justify-center gap-2">
+                        <i class="fas fa-download"></i> Download Now
+                    </button>
+                </div>
+
+                <div class="glass-card p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="h-40 w-full rounded-xl overflow-hidden mb-4 relative">
+                            <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80" class="object-cover w-full h-full opacity-80" alt="Retro Tech">
+                            <div class="absolute top-2 right-2 bg-black/60 px-2 py-1 rounded text-[10px] font-bold text-cyan-400 border border-cyan-500/30">FREE</div>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Cyberpunk Lightroom Presets</h3>
+                        <p class="text-sm text-gray-400">Give your photos a neon Tokyo aesthetic with 1 click.</p>
+                    </div>
+                    <button onclick="downloadItem('Lightroom Presets')" class="mt-6 w-full py-2 rounded-lg bg-white/5 border border-white/10 hover:bg-cyan-500/20 hover:border-cyan-500/50 hover:text-cyan-300 transition-all text-sm font-bold flex items-center justify-center gap-2">
+                        <i class="fas fa-download"></i> Download Now
+                    </button>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <section id="tokyo-gallery" class="py-20 px-6 max-w-7xl mx-auto">
+        <h2 class="text-3xl font-bold mb-2 flex items-center gap-3">
+            <i class="fas fa-map-location-dot text-pink-500"></i> Tokyo Visuals
+        </h2>
+        <p class="text-gray-400 mb-10">Exclusive street photography from the heart of Japan.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             
-            <div class="lg:col-span-5 ultra-glass rounded-2xl p-6 border-white/10 shadow-2xl relative overflow-hidden">
-                <div class="flex items-center justify-between border-b border-white/5 pb-4 mb-6">
-                    <span class="text-xs font-mono text-slate-500">SYSTEM CORE RENDERING // ACTIVE</span>
-                    <span class="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_10px_#10b981]"></span>
+            <div class="group relative h-72 rounded-2xl overflow-hidden cursor-pointer">
+                <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=800&q=80" alt="Tokyo Street" class="object-cover w-full h-full img-zoom opacity-80 group-hover:opacity-100 transition-opacity">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                <div class="absolute bottom-4 left-4">
+                    <span class="px-2 py-1 bg-white/20 backdrop-blur rounded text-[10px] font-bold text-white mb-2 inline-block">FREE</span>
+                    <h4 class="font-bold text-white">Shibuya Crossing</h4>
                 </div>
-                <div class="space-y-4">
-                    <div>
-                        <div class="flex justify-between text-xs font-mono text-slate-400 mb-1">
-                            <span>V8 Pipeline Engine Load</span>
-                            <span>89.2%</span>
-                        </div>
-                        <div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
-                            <div class="h-full w-[89.2%] bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full"></div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="flex justify-between text-xs font-mono text-slate-400 mb-1">
-                            <span>Dynamic Asset Synthesis</span>
-                            <span>41.7%</span>
-                        </div>
-                        <div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
-                            <div class="h-full w-[41.7%] bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"></div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="flex justify-between text-xs font-mono text-slate-400 mb-1">
-                            <span>Edge Node Handshake Latency</span>
-                            <span>0.04ms</span>
-                        </div>
-                        <div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
-                            <div class="h-full w-[12%] bg-gradient-to-r from-emerald-400 to-cyan-400 rounded-full"></div>
-                        </div>
-                    </div>
+                <button onclick="downloadItem('Shibuya Image')" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 backdrop-blur flex items-center justify-center text-white hover:bg-pink-500 transition-colors opacity-0 group-hover:opacity-100">
+                    <i class="fas fa-download"></i>
+                </button>
+            </div>
+
+            <div class="group relative h-72 rounded-2xl overflow-hidden cursor-pointer">
+                <img src="https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=800&q=80" alt="Tokyo Neon" class="object-cover w-full h-full img-zoom opacity-80 group-hover:opacity-100 transition-opacity">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                <div class="absolute bottom-4 left-4">
+                    <span class="px-2 py-1 bg-white/20 backdrop-blur rounded text-[10px] font-bold text-white mb-2 inline-block">FREE</span>
+                    <h4 class="font-bold text-white">Neon Nights</h4>
                 </div>
-                <div class="mt-6 p-4 rounded-xl bg-black/40 border border-white/5 font-mono text-[11px] text-indigo-300/90 space-y-1">
-                    <p><span class="text-slate-600">&gt;</span> pixel-drop-os --init --env prod</p>
-                    <p class="text-emerald-400"><span class="text-slate-600">&gt;</span> [SUCCESS] Node synced to Edge Server Amsterdam.</p>
-                    <p class="text-purple-400"><span class="text-slate-600">&gt;</span> [OPTIMIZED] Layout structures compressed by 94.2%</p>
+                <button onclick="downloadItem('Neon Nights Image')" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 backdrop-blur flex items-center justify-center text-white hover:bg-pink-500 transition-colors opacity-0 group-hover:opacity-100">
+                    <i class="fas fa-download"></i>
+                </button>
+            </div>
+
+            <div class="group relative h-72 rounded-2xl overflow-hidden cursor-not-allowed border border-pink-500/20">
+                <img src="https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?auto=format&fit=crop&w=800&q=80" alt="Tokyo Premium" class="object-cover w-full h-full img-zoom opacity-40 blur-[2px]">
+                <div class="absolute inset-0 bg-black/40 flex flex-col items-center justify-center">
+                    <div class="w-12 h-12 rounded-full bg-pink-500/20 flex items-center justify-center text-pink-500 mb-2">
+                        <i class="fas fa-lock text-xl"></i>
+                    </div>
+                    <span class="text-xs font-bold text-pink-400 uppercase tracking-widest">Premium Only</span>
                 </div>
             </div>
+
+            <div class="group relative h-72 rounded-2xl overflow-hidden cursor-not-allowed border border-pink-500/20">
+                <img src="https://images.unsplash.com/photo-1522850655458-39d67280e55d?auto=format&fit=crop&w=800&q=80" alt="Tokyo Premium" class="object-cover w-full h-full img-zoom opacity-40 blur-[2px]">
+                <div class="absolute inset-0 bg-black/40 flex flex-col items-center justify-center">
+                    <div class="w-12 h-12 rounded-full bg-pink-500/20 flex items-center justify-center text-pink-500 mb-2">
+                        <i class="fas fa-lock text-xl"></i>
+                    </div>
+                    <span class="text-xs font-bold text-pink-400 uppercase tracking-widest">Premium Only</span>
+                </div>
+            </div>
+
         </div>
     </section>
 
-    <section id="metrics" class="py-12 bg-white/[0.01] border-y border-white/5 relative z-10">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div class="text-center md:text-left">
-                <div class="text-3xl sm:text-4xl font-extrabold text-white font-mono tracking-tight" data-target="99.99">0</div>
-                <div class="text-xs font-bold text-slate-500 uppercase tracking-widest mt-1">Uptime SLA Guaranteed</div>
-            </div>
-            <div class="text-center md:text-left">
-                <div class="text-3xl sm:text-4xl font-extrabold text-white font-mono tracking-tight" data-target="480">0</div>
-                <div class="text-xs font-bold text-slate-500 uppercase tracking-widest mt-1">Global Edge Clusters</div>
-            </div>
-            <div class="text-center md:text-left">
-                <div class="text-3xl sm:text-4xl font-extrabold text-emerald-400 font-mono tracking-tight" data-target="142">0</div>
-                <div class="text-xs font-bold text-slate-500 uppercase tracking-widest mt-1">Microsecond Compiles</div>
-            </div>
-            <div class="text-center md:text-left">
-                <div class="text-3xl sm:text-4xl font-extrabold text-white font-mono tracking-tight" data-target="85">0</div>
-                <div class="text-xs font-bold text-slate-500 uppercase tracking-widest mt-1">Enterprise Frameworks</div>
-            </div>
-        </div>
-    </section>
-
-    <section id="solutions" class="py-24 px-6 max-w-7xl mx-auto z-10 relative">
-        <div class="text-center max-w-3xl mx-auto mb-16">
-            <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Architectural Solutions Grid</h2>
-            <p class="text-slate-400 mt-3">Select a control node layer below to preview how our modular data structures process client states instantly.</p>
+    <section id="pricing" class="py-24 px-6 relative">
+        <div class="max-w-3xl mx-auto glass-card rounded-3xl p-8 md:p-12 text-center border-t-4 border-t-pink-500 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-pink-600/10 rounded-full blur-[80px] pointer-events-none"></div>
             
-            <div class="mt-8 inline-flex p-1.5 rounded-xl bg-white/5 border border-white/5 gap-2">
-                <button onclick="switchTab('core')" id="tab-btn-core" class="px-5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all bg-indigo-600 text-white">
-                    Core Engine
-                </button>
-                <button onclick="switchTab('network')" id="tab-btn-network" class="px-5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all text-slate-400 hover:text-white">
-                    Network Edge
-                </button>
-                <button onclick="switchTab('security')" id="tab-btn-security" class="px-5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all text-slate-400 hover:text-white">
-                    Quantum Shield
-                </button>
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Unlock Full Access</h2>
+            <p class="text-gray-400 mb-8 max-w-lg mx-auto">Get lifetime access to the complete Tokyo Premium Photo Gallery and exclusive upcoming assets. One-time payment only.</p>
+            
+            <div class="flex justify-center items-end gap-2 mb-8">
+                <span class="text-5xl font-extrabold text-white">৳100</span>
+                <span class="text-gray-500 font-medium pb-1">/ lifetime</span>
             </div>
-        </div>
 
-        <div id="tab-content" class="ultra-glass p-8 sm:p-12 rounded-3xl border-white/10">
-            </div>
-    </section>
+            <ul class="text-left max-w-sm mx-auto space-y-4 mb-10 text-sm text-gray-300 border-t border-white/10 pt-8">
+                <li class="flex items-center gap-3"><i class="fas fa-check-circle text-pink-500"></i> Full resolution 8K unwatermarked images</li>
+                <li class="flex items-center gap-3"><i class="fas fa-check-circle text-pink-500"></i> Commercial use license included</li>
+                <li class="flex items-center gap-3"><i class="fas fa-check-circle text-pink-500"></i> Priority support from @i_f_t_uu</li>
+            </ul>
 
-    <section id="faq" class="py-24 px-6 max-w-4xl mx-auto z-10 relative">
-        <div class="text-center mb-16">
-            <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">System Infrastructure FAQ</h2>
-            <p class="text-slate-400 mt-2">Deep architectural queries decoded for systems engineers.</p>
-        </div>
-
-        <div class="space-y-4">
-            <div class="ultra-glass rounded-2xl overflow-hidden border-white/5">
-                <button onclick="toggleAccordion(1)" class="w-full p-6 text-left flex items-center justify-between font-bold text-white hover:bg-white/[0.02] transition-all">
-                    <span>How does PixelDrop ensure microsecond sub-render states?</span>
-                    <i id="acc-icon-1" class="fas fa-chevron-down text-slate-500 transition-transform duration-300"></i>
-                </button>
-                <div id="acc-body-1" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-black/20">
-                    <p class="p-6 text-sm text-slate-400 leading-relaxed border-t border-white/5">
-                        By stripping away bulky JavaScript layout layers and pre-compiling component CSS hooks directly into unified hardware-accelerated rendering pools via the tailwind core config optimization models.
-                    </p>
-                </div>
-            </div>
-            <div class="ultra-glass rounded-2xl overflow-hidden border-white/5">
-                <button onclick="toggleAccordion(2)" class="w-full p-6 text-left flex items-center justify-between font-bold text-white hover:bg-white/[0.02] transition-all">
-                    <span>Can these components scale safely inside isolated Docker containers?</span>
-                    <i id="acc-icon-2" class="fas fa-chevron-down text-slate-500 transition-transform duration-300"></i>
-                </button>
-                <div id="acc-body-2" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-black/20">
-                    <p class="p-6 text-sm text-slate-400 leading-relaxed border-t border-white/5">
-                        Absolutely. The build structures are completely server-state agnostic, making them fully secure to ship inside microservice systems without context bleeding or CSS cascade leaking.
-                    </p>
-                </div>
-            </div>
+            <button onclick="openBkashModal()" class="w-full md:w-auto px-10 py-4 rounded-xl bg-[#e2136e] hover:bg-[#c91060] text-white font-bold text-lg transition-all shadow-[0_0_20px_rgba(226,19,110,0.4)] flex items-center justify-center gap-3 mx-auto">
+                <i class="fas fa-paper-plane"></i> Pay via bKash
+            </button>
         </div>
     </section>
 
-    <footer class="border-t border-white/5 bg-black/40 py-16 px-6 relative z-10">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 text-sm text-slate-400">
-            <div class="space-y-4">
-                <div class="text-white font-extrabold text-base flex items-center gap-3">
-                    <div class="w-7 h-7 rounded-lg bg-indigo-500 flex items-center justify-center text-xs"><i class="fas fa-layer-group"></i></div> PixelDrop OS
-                </div>
-                <p class="text-xs leading-relaxed text-slate-500">The next evolutionary leap for high-throughput enterprise frontend design compilation architectures.</p>
-            </div>
-            <div>
-                <h4 class="text-xs font-bold uppercase tracking-wider text-white mb-4">Control Nodes</h4>
-                <ul class="space-y-2 text-xs">
-                    <li><a href="#" class="hover:text-white transition-colors">V8 Core Compiler</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Distributed Routing</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">JSON State Sync</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="text-xs font-bold uppercase tracking-wider text-white mb-4">Governance</h4>
-                <ul class="space-y-2 text-xs">
-                    <li><a href="#" class="hover:text-white transition-colors">ISO-27001 Protocol</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">SLA Cloud Terms</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Privacy Sandboxing</a></li>
-                </ul>
-            </div>
-            <div class="space-y-3">
-                <h4 class="text-xs font-bold uppercase tracking-wider text-white mb-4">System Node Status</h4>
-                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[11px] text-emerald-400 font-mono">
-                    <span class="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-ping"></span> ALL CHANNELS OPERATIONAL
-                </div>
-            </div>
+    <footer class="border-t border-white/5 bg-black py-10 px-6 text-center">
+        <div class="text-2xl font-bold text-white mb-4">
+            PixelDrop x <span class="text-pink-500">@i_f_t_uu</span>
         </div>
-        <div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-white/5 text-center text-xs text-slate-600">
-            &copy; 2026 PixelDrop OS Grid. Synchronized globally across decentralized cloud arrays.
+        <p class="text-sm text-gray-500 mb-6">Built to inspire and help creators build better digital experiences.</p>
+        <div class="flex justify-center gap-6 text-gray-400 text-xl">
+            <a href="https://instagram.com/i_f_t_uu" target="_blank" class="hover:text-pink-500 transition"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="hover:text-white transition"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="hover:text-white transition"><i class="fas fa-envelope"></i></a>
         </div>
     </footer>
 
+    <div id="bkash-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-sm px-4">
+        <div class="bg-[#111] border border-white/10 p-8 rounded-2xl w-full max-w-md modal-animate relative text-center">
+            
+            <button onclick="closeBkashModal()" class="absolute top-4 right-4 text-gray-500 hover:text-white transition">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+
+            <div class="w-16 h-16 rounded-full bg-[#e2136e]/10 flex items-center justify-center mx-auto mb-4 border border-[#e2136e]/30">
+                <i class="fas fa-mobile-screen text-[#e2136e] text-2xl"></i>
+            </div>
+            
+            <h3 class="text-2xl font-bold text-white mb-2">bKash Payment</h3>
+            <p class="text-gray-400 text-sm mb-6">Please "Send Money" exactly <strong class="text-white">100 TK</strong> to the number below to unlock premium access.</p>
+            
+            <div class="bg-black border border-white/5 p-4 rounded-xl flex items-center justify-between mb-6 group hover:border-[#e2136e]/50 transition-colors">
+                <div class="text-left">
+                    <div class="text-xs text-gray-500 uppercase font-bold mb-1">Personal Number</div>
+                    <div class="text-2xl font-mono font-bold text-white tracking-wider" id="bkash-number">01774672656</div>
+                </div>
+                <button onclick="copyNumber()" class="w-10 h-10 rounded-lg bg-white/5 hover:bg-[#e2136e] flex items-center justify-center text-white transition group-active:scale-95" title="Copy Number">
+                    <i class="fas fa-copy"></i>
+                </button>
+            </div>
+
+            <p class="text-[11px] text-gray-500 mb-6 text-left bg-white/5 p-3 rounded-lg border border-white/5">
+                <i class="fas fa-info-circle text-cyan-400 mr-1"></i> After sending the money, DM the transaction screenshot to <a href="https://instagram.com/i_f_t_uu" target="_blank" class="text-pink-400 font-bold hover:underline">@i_f_t_uu</a> on Instagram to get your secret access password.
+            </p>
+
+            <button onclick="closeBkashModal()" class="w-full py-3 rounded-xl bg-white/5 hover:bg-white/10 text-white font-bold transition">
+                I Understood
+            </button>
+        </div>
+    </div>
+
     <script>
-        // 1. Toast Notification Factory Engine
-        function triggerNotification(title, msg) {
-            const holder = document.getElementById('toast-holder');
-            const el = document.createElement('div');
-            el.className = "ultra-glass p-4 rounded-xl w-72 text-white flex gap-3 shadow-2xl border-l-4 border-l-indigo-500 animate-[slideInRight_0.3s_ease-out] transition-all duration-300";
-            el.innerHTML = `
-                <div class="text-indigo-400 mt-0.5"><i class="fas fa-circle-nodes"></i></div>
+        // --- Free Asset Download Logic ---
+        function downloadItem(itemName) {
+            showToast('Download Started', `Downloading: ${itemName}.zip`, 'success');
+        }
+
+        // --- Toast Notification Engine ---
+        function showToast(title, message, type) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            toast.className = `glass-card p-4 rounded-xl w-72 text-white flex gap-3 shadow-2xl border-l-4 animate-[modalFadeIn_0.3s_ease-out] ${type === 'success' ? 'border-l-cyan-400' : 'border-l-[#e2136e]'}`;
+            
+            toast.innerHTML = `
+                <div class="${type === 'success' ? 'text-cyan-400' : 'text-[#e2136e]'} mt-0.5">
+                    <i class="fas ${type === 'success' ? 'fa-cloud-arrow-down' : 'fa-clipboard-check'} text-lg"></i>
+                </div>
                 <div class="flex-1">
-                    <h5 class="text-xs font-bold uppercase tracking-wider">${title}</h5>
-                    <p class="text-[11px] text-slate-400 mt-0.5">${msg}</p>
+                    <h5 class="text-sm font-bold">${title}</h5>
+                    <p class="text-[12px] text-gray-400 mt-1">${message}</p>
                 </div>
             `;
-            holder.appendChild(el);
-            setTimeout(() => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(-10px)';
-                setTimeout(() => el.remove(), 300);
-            }, 4000);
-        }
-
-        // 2. Realtime Tab Switching Simulation Matrix Data
-        const tabData = {
-            core: `
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-                    <div class="space-y-4">
-                        <span class="text-xs font-mono text-indigo-400 font-bold uppercase">[ NODE CONFIG LAYER 01 ]</span>
-                        <h3 class="text-2xl font-extrabold text-white">V8 Raw Component Compile Processing</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed">Our unified core pipeline analyzes layout nodes ahead-of-time (AOT), delivering pre-rendered components directly to client systems without browser-side delay.</p>
-                    </div>
-                    <div class="p-6 bg-slate-900/40 border border-white/5 rounded-xl space-y-3 font-mono text-xs text-indigo-300">
-                        <p class="text-slate-500">// Core execution matrix output</p>
-                        <p><span class="text-purple-400">LayoutEngine.compile</span>(DOM_Tree) -&gt; <span class="text-emerald-400">0.002ms</span></p>
-                        <p><span class="text-purple-400">MemoryState.flush</span>(Cache_Buffer) -&gt; <span class="text-emerald-400">DONE</span></p>
-                    </div>
-                </div>`,
-            network: `
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-                    <div class="space-y-4">
-                        <span class="text-xs font-mono text-purple-400 font-bold uppercase">[ EDGE CONFIG LAYER 02 ]</span>
-                        <h3 class="text-2xl font-extrabold text-white">Global Edge Layer Component Injection</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed">Distributed globally across Anycast networks to guarantee that matter templates render instantly from Tokyo to New York without pipeline congestion.</p>
-                    </div>
-                    <div class="grid grid-cols-3 gap-2 text-center text-[10px] font-mono">
-                        <div class="p-3 bg-white/5 border border-white/5 rounded-lg"><p class="text-slate-400">N. Virginia</p><p class="text-emerald-400 font-bold mt-1">1ms</p></div>
-                        <div class="p-3 bg-white/5 border border-white/5 rounded-lg"><p class="text-slate-400">Frankfurt</p><p class="text-emerald-400 font-bold mt-1">3ms</p></div>
-                        <div class="p-3 bg-white/5 border border-white/5 rounded-lg"><p class="text-slate-400">Singapore</p><p class="text-emerald-400 font-bold mt-1">5ms</p></div>
-                    </div>
-                </div>`,
-            security: `
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-                    <div class="space-y-4">
-                        <span class="text-xs font-mono text-emerald-400 font-bold uppercase">[ PROTECTION LAYER 03 ]</span>
-                        <h3 class="text-2xl font-extrabold text-white">Isolated Context Sandboxing</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed">Data nodes run in cryptographically isolated shadow layers inside the glass container, fully neutralizing malicious tracking injections instantly.</p>
-                    </div>
-                    <div class="p-4 rounded-xl bg-rose-950/20 border border-rose-500/20 flex items-center gap-4">
-                        <i class="fas fa-shield-halved text-2xl text-rose-400"></i>
-                        <div>
-                            <h4 class="text-xs font-bold text-white uppercase">Active Shield Protocol v4</h4>
-                            <p class="text-[11px] text-slate-400 mt-0.5">Real-time memory injection vectors fully blocked.</p>
-                        </div>
-                    </div>
-                </div>`
-        };
-
-        function switchTab(key) {
-            document.getElementById('tab-content').innerHTML = tabData[key];
             
-            // Toggle Active Button Styles
-            ['core', 'network', 'security'].forEach(k => {
-                const btn = document.getElementById(`tab-btn-${k}`);
-                if (k === key) {
-                    btn.className = "px-5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all bg-indigo-600 text-white";
-                } else {
-                    btn.className = "px-5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all text-slate-400 hover:text-white";
-                }
-            });
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(-10px)';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
         }
 
-        // Initialize default tab layout state on screen load
-        window.addEventListener('DOMContentLoaded', () => {
-            switchTab('core');
-            initCounters();
+        // --- Hidden bKash Modal Logic ---
+        const modal = document.getElementById('bkash-modal');
+
+        function openBkashModal() {
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden'; // Stop background scrolling
+        }
+
+        function closeBkashModal() {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+
+        // Close modal if clicked outside the box
+        modal.addEventListener('click', function(e) {
+            if(e.target === modal) {
+                closeBkashModal();
+            }
         });
 
-        // 3. Dynamic Animated Numbers Counter Logic
-        function initCounters() {
-            const counters = document.querySelectorAll('[data-target]');
-            counters.forEach(c => {
-                const target = parseFloat(c.getAttribute('data-target'));
-                let current = 0;
-                const increment = target / 60; // Smooth 60 frames transition distribution
-                
-                const update = () => {
-                    current += increment;
-                    if (current < target) {
-                        c.innerText = target % 1 === 0 ? Math.floor(current) : current.toFixed(2);
-                        requestAnimationFrame(update);
-                    } else {
-                        c.innerText = target;
-                    }
-                };
-                update();
+        // --- Copy to Clipboard Feature ---
+        function copyNumber() {
+            const num = document.getElementById('bkash-number').innerText;
+            navigator.clipboard.writeText(num).then(() => {
+                showToast('Number Copied!', 'bKash number copied to clipboard.', 'bkash');
             });
-        }
-
-        // 4. Accordion Expand/Collapse Logic Panel Handler
-        function toggleAccordion(id) {
-            const body = document.getElementById(`acc-body-${id}`);
-            const icon = document.getElementById(`acc-icon-${id}`);
-            
-            if (body.style.maxHeight === '0px' || !body.style.maxHeight) {
-                body.style.maxHeight = body.scrollHeight + 'px';
-                icon.style.transform = 'rotate(180deg)';
-                icon.classList.add('text-indigo-400');
-            } else {
-                body.style.maxHeight = '0px';
-                icon.style.transform = 'rotate(0deg)';
-                icon.classList.remove('text-indigo-400');
-            }
         }
     </script>
 </body>
