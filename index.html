@@ -3,795 +3,473 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEXUS VISUALS // MODERN</title>
+    <title>NEXUS VISUALS // TOKYO FUTURE // END-TO-END ENCRYPTED</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         /* ==========================================================================
-           1. MODERN VARIABLES & COLOR PALETTE
+           1. CORE VARIABLES & COLOR PALETTE
            ========================================================================== */
         :root {
-            --bg-deep: #0f0c29;
-            --bg-mid: #302b63;
-            --bg-light: #24243e;
-            
-            --neon-cyan: #00f2fe;
-            --neon-blue: #4facfe;
-            --neon-pink: #ff0844;
-            --neon-orange: #ffb199;
-            --neon-purple: #c471ed;
-            
-            --glass-bg: rgba(25, 25, 35, 0.4);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            
-            --text-main: #ffffff;
-            --text-dim: #a0a5b1;
-            
-            --font-title: 'Space Grotesk', sans-serif;
-            --font-body: 'Outfit', sans-serif;
+            --bg-deep: #020202; /* Total black for ultimate depth */
+            --grid-color: rgba(0, 243, 255, 0.1);
+            --neon-cyan: #00f3ff;
+            --neon-magenta: #ff007f;
+            --neon-purple: #8a2be2;
+            --neon-yellow: #ffea00;
+            --glass-bg: rgba(5, 5, 10, 0.6); /* Slightly darker glass for futuristic feel */
+            --glass-border: rgba(0, 243, 255, 0.15);
+            --text-main: #e0fbfc;
+            --text-dim: #8d99ae;
+            --font-title: 'Rajdhani', sans-serif;
+            --font-code: 'Space Mono', monospace;
         }
 
         * {
             margin: 0; padding: 0; box-sizing: border-box;
-            font-family: var(--font-body);
+            cursor: default; /* Avoid crosshair, cleaner UI */
         }
 
         body {
             background-color: var(--bg-deep);
             color: var(--text-main);
+            font-family: var(--font-code);
             overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             min-height: 100vh;
         }
 
-        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--bg-deep); }
-        ::-webkit-scrollbar-thumb { background: linear-gradient(var(--neon-blue), var(--neon-purple)); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(var(--neon-cyan), var(--neon-magenta)); border-radius: 10px; }
 
         /* ==========================================================================
-           2. COLORFUL ANIMATED BACKGROUND
+           2. MOBILE DEVICE CONTAINER & BROWSER BAR
            ========================================================================== */
-        .animated-bg {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            background: linear-gradient(45deg, var(--bg-deep), var(--bg-mid), var(--bg-light));
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-            z-index: -3;
+        #mobile-container {
+            width: 100%;
+            max-width: 420px;
+            height: 100vh;
+            background-color: var(--bg-deep);
+            position: relative;
+            box-shadow: 0 0 50px rgba(0, 243, 255, 0.1);
+            overflow: hidden;
+            border-left: 1px solid #111;
+            border-right: 1px solid #111;
         }
 
-        .glow-orbs {
-            position: fixed;
-            width: 100vw; height: 100vh;
-            z-index: -2;
-            overflow: hidden;
+        #browser-bar {
+            position: absolute; top: 0; left: 0; width: 100%; height: 60px;
+            background-color: #0d0d0f;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 15px; border-bottom: 1px solid #222; z-index: 100;
+        }
+
+        #url-input {
+            background-color: #1a1a1c;
+            border: 1px solid #333; color: #aaa;
+            border-radius: 8px; padding: 6px 12px; font-size: 0.9rem;
+            width: 200px; text-align: center; font-family: var(--font-code);
+        }
+
+        /* ==========================================================================
+           3. BACKGROUND GRIDS
+           ========================================================================== */
+        #mobile-content {
+            padding-top: 60px;
+            width: 100%; height: 100%;
+            position: relative;
+            overflow-y: auto;
+        }
+
+        .grid-bg-overlay {
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(transparent 98%, var(--grid-color) 100%),
+                linear-gradient(90deg, transparent 98%, var(--grid-color) 100%);
+            background-size: 40px 40px;
+            z-index: -1;
+            opacity: 0.8;
+        }
+
+        .ambient-glow {
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: radial-gradient(circle, rgba(138,43,226,0.1) 0%, rgba(0,0,0,0) 70%);
+            z-index: -1;
             pointer-events: none;
         }
 
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.5;
-            animation: float 10s infinite ease-in-out alternate;
-        }
-
-        .orb-1 { width: 300px; height: 300px; background: var(--neon-pink); top: 10%; left: 20%; animation-delay: 0s; }
-        .orb-2 { width: 400px; height: 400px; background: var(--neon-cyan); bottom: 10%; right: 10%; animation-delay: -3s; }
-        .orb-3 { width: 250px; height: 250px; background: var(--neon-purple); top: 40%; left: 60%; animation-delay: -6s; }
-
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0) scale(1); }
-            100% { transform: translateY(-50px) scale(1.1); }
-        }
-
         /* ==========================================================================
-           3. PREMIUM NAVIGATION
-           ========================================================================== */
-        nav {
-            position: sticky; top: 0;
-            width: 100%;
-            background: rgba(15, 12, 41, 0.7);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--glass-border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 50px;
-            z-index: 1000;
+           4. INTRO PAGE: BEAUTIFUL LOGO & ARROW ANIMATION
+           ========================================================================= */
+        #intro-page {
+            width: 100%; height: calc(100vh - 60px);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            background-size: cover; background-position: center;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            position: relative; z-index: 10;
         }
 
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-family: var(--font-title);
-            font-size: 1.8rem;
-            font-weight: 700;
-            letter-spacing: 1px;
+        .intro-text-glow {
+            font-family: var(--font-title); font-size: 3rem; font-weight: 700;
+            color: white; text-transform: uppercase; letter-spacing: 2px;
+            opacity: 0; animation: fadeIn 1.2s ease-out forwards 0.2s;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 
+                         0 0 30px var(--neon-cyan), 
+                         0 0 50px var(--neon-cyan);
+            margin-bottom: 20px;
+        }
+
+        .intro-subtitle {
+            color: #ddd; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1.5px;
+            margin-bottom: 50px; opacity: 0; animation: fadeIn 1.2s ease-out forwards 0.8s;
+        }
+
+        #arrow-link {
+            position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%);
+            display: flex; flex-direction: column; align-items: center;
+            color: white; font-size: 1.1rem; font-weight: 700;
+            opacity: 0; animation: fadeIn 1.2s ease-out forwards 1.4s;
             cursor: pointer;
         }
 
-        .logo-icon {
-            background: linear-gradient(to right, var(--neon-cyan), var(--neon-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-size: 2.2rem;
-        }
-
-        .logo-text span {
-            background: linear-gradient(to right, var(--neon-pink), var(--neon-orange));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .nav-actions { 
-            display: flex; 
-            gap: 20px; 
-            align-items: center; 
-        }
-
-        .btn {
-            padding: 10px 24px;
-            border-radius: 30px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: var(--font-body);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            border: none;
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--text-main);
-            border: 1px solid rgba(255,255,255,0.3);
-        }
-
-        .btn-outline:hover {
-            background: rgba(255,255,255,0.1);
-            border-color: #fff;
-        }
-
-        .btn-gradient {
-            background: linear-gradient(45deg, var(--neon-pink), var(--neon-purple));
-            color: white;
-            box-shadow: 0 4px 15px rgba(255, 8, 68, 0.4);
-        }
-
-        .btn-gradient:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 8, 68, 0.6);
-            background: linear-gradient(45deg, var(--neon-purple), var(--neon-pink));
-        }
-        
-        .icon-btn {
-            background: transparent;
-            color: var(--text-main);
-            border: none;
-            font-size: 1.4rem;
-            cursor: pointer;
-            transition: 0.3s;
-            padding: 5px;
-        }
-
-        .icon-btn:hover {
-            color: var(--neon-cyan);
-            transform: rotate(45deg);
-        }
-
-        /* User Profile State */
-        .user-profile {
-            display: none; /* Hidden by default */
-            align-items: center;
-            gap: 15px;
-        }
-        .user-avatar {
-            width: 40px; height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-blue));
+        .arrow-icon-wrapper {
+            margin-top: 15px; width: 60px; height: 60px;
             display: flex; justify-content: center; align-items: center;
-            font-weight: bold;
-            font-size: 1.2rem;
-            box-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
-        }
-        .user-name { font-weight: 500; }
-
-        /* ==========================================================================
-           4. HERO SECTION
-           ========================================================================== */
-        header.hero {
-            padding: 120px 20px 80px;
-            text-align: center;
             position: relative;
-            z-index: 10;
         }
 
-        .hero-badge {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--neon-cyan);
-            padding: 8px 20px;
-            border: 1px solid rgba(0, 242, 254, 0.3);
-            border-radius: 30px;
-            font-size: 0.9rem;
-            margin-bottom: 25px;
-            backdrop-filter: blur(5px);
+        .arrow-icon {
+            font-size: 1.8rem; color: var(--neon-cyan);
+            filter: drop-shadow(0 0 8px var(--neon-cyan));
+            position: absolute;
+            opacity: 0.6;
         }
 
-        .hero h1 {
-            font-family: var(--font-title);
-            font-size: 5rem;
-            line-height: 1.1;
-            margin-bottom: 25px;
-            letter-spacing: -2px;
+        .arrow-1 { animation: arrowAnimation 1.6s infinite ease-in-out; }
+        .arrow-2 { animation: arrowAnimation 1.6s infinite ease-in-out 0.4s; }
+        .arrow-3 { animation: arrowAnimation 1.6s infinite ease-in-out 0.8s; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
-        .hero h1 .gradient-text {
-            background: linear-gradient(to right, var(--neon-cyan), var(--neon-purple), var(--neon-pink), var(--neon-cyan));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: gradientShift 6s infinite linear;
-            background-size: 200% auto;
-        }
-
-        .hero p {
-            color: var(--text-dim);
-            max-width: 650px;
-            margin: 0 auto;
-            font-size: 1.15rem;
-            line-height: 1.6;
-        }
-
-        @keyframes gradientShift {
-            0% { background-position: 0% center; }
-            100% { background-position: 200% center; }
+        @keyframes arrowAnimation {
+            0% { opacity: 0.6; transform: translateY(-5px); color: var(--neon-cyan); }
+            50% { opacity: 1; transform: translateY(0); color: var(--neon-magenta); }
+            100% { opacity: 0.6; transform: translateY(5px); color: var(--neon-cyan); }
         }
 
         /* ==========================================================================
-           5. GALLERY GRID & MODERN CARDS
-           ========================================================================== */
-        .gallery-container {
-            max-width: 1500px;
-            margin: 0 auto;
-            padding: 20px 40px 100px;
+           5. MAIN GALLERY PAGE: REFINED HEADER & GALLERIES
+           ========================================================================= */
+        #main-page {
+            display: none; /* Hidden at start */
+            padding: 20px 15px;
+            position: relative; z-index: 5;
+            opacity: 0; transition: opacity 0.8s ease;
         }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 35px;
+        #app-header {
+            width: 100%; height: 70px;
+            background: rgba(5, 5, 10, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 15px; margin-bottom: 30px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-logo {
+            display: flex; align-items: center; gap: 8px;
+            font-family: var(--font-title); font-size: 1.6rem; font-weight: 700;
+            text-transform: uppercase;
+        }
+        .header-logo-icon { color: var(--neon-cyan); filter: drop-shadow(0 0 8px var(--neon-cyan)); }
+        .header-logo-text span { color: var(--neon-magenta); text-shadow: 0 0 10px var(--neon-magenta); }
+
+        .header-actions { display: flex; align-items: center; gap: 10px; }
+        .btn { padding: 8px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 0.85rem; font-family: var(--font-code); }
+        .btn-outline { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: #fff; }
+        .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
+        .btn-gradient { background: linear-gradient(45deg, var(--neon-magenta), var(--neon-purple)); color: white; border: none; }
+        .btn-gradient:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(255, 0, 127, 0.4); }
+
+        .header-info-box {
+            display: flex; flex-direction: column; gap: 4px;
+            color: #ddd; font-size: 0.8rem;
+            margin-right: auto; margin-left: 20px;
+        }
+
+        /* ==========================================================================
+           6. MODERN TOKYO HERO SECTION
+           ========================================================================= */
+        #gallery-title {
+            font-family: var(--font-title); font-size: 2.8rem; line-height: 1.1;
+            margin-bottom: 15px; text-transform: uppercase; text-align: center;
+            background: linear-gradient(to right, white, var(--neon-cyan), white);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+        }
+        #gallery-title span { background: linear-gradient(to right, var(--neon-magenta), var(--neon-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        #gallery-description {
+            color: var(--text-dim); text-align: center; font-size: 0.95rem;
+            max-width: 320px; margin: 0 auto 30px auto; line-height: 1.6;
+        }
+
+        /* ==========================================================================
+           7. LARGE TOKYO FUTURE GALLERY GRID & REFINED CARDS
+           ========================================================================= */
+        #gallery-grid {
+            display: grid; grid-template-columns: 1fr; gap: 20px;
         }
 
         .card {
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
-            border-radius: 20px;
+            border-radius: 12px;
             overflow: hidden;
             position: relative;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: var(--glass-shadow);
+            backdrop-filter: blur(6px);
+            opacity: 0; transform: translateY(40px);
+            transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.3s ease;
         }
 
         .card.visible { opacity: 1; transform: translateY(0); }
 
-        .card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
-
         .card-img-wrapper {
-            width: 100%;
-            height: 280px;
+            width: 100%; height: 260px; /* Refined image height */
             overflow: hidden;
             position: relative;
         }
 
-        .card img {
+        .card-img {
             width: 100%; height: 100%;
             object-fit: cover;
-            transition: 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.6s ease;
+        }
+        .card:hover .card-img { transform: scale(1.08); }
+
+        .card-img-gradient {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 50%;
+            background: linear-gradient(to top, rgba(5,5,10,1), transparent);
         }
 
-        .card:hover img { transform: scale(1.08); }
-
-        /* Download Overlay */
-        .download-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(3px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: 0.3s;
+        .card-info {
+            padding: 15px;
+            position: relative;
+            z-index: 2;
         }
-
-        .card:hover .download-overlay { opacity: 1; }
-
-        .btn-download {
-            background: rgba(255,255,255,0.2);
-            border: 1px solid #fff;
-            color: #fff;
-            padding: 12px 25px;
-            border-radius: 30px;
-            font-size: 1rem;
-            cursor: pointer;
-            backdrop-filter: blur(5px);
-            transition: 0.3s;
-            display: flex; align-items: center; gap: 10px;
-        }
-
-        .btn-download:hover {
-            background: #fff;
-            color: #000;
-            transform: scale(1.05);
-        }
-
-        .card-info { padding: 20px; }
 
         .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 8px;
         }
 
-        .node-title { 
-            font-family: var(--font-title);
-            font-size: 1.2rem; 
-            font-weight: 700;
-        }
+        .node-id { color: var(--neon-cyan); font-weight: bold; font-size: 1.1rem; font-family: var(--font-title); }
+        .node-meta { color: #aaa; font-size: 0.8rem; display: flex; gap: 8px; }
 
-        .author {
-            display: flex; align-items: center; gap: 8px;
-            color: var(--text-dim); font-size: 0.85rem;
-            margin-top: 15px;
+        .btn-download {
+            width: 100%; padding: 10px; border-radius: 6px;
+            font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-magenta));
+            border: none; color: white; cursor: pointer; transition: 0.3s;
+            display: flex; justify-content: center; align-items: center; gap: 10px;
         }
-        
-        .author img {
-            width: 24px; height: 24px; border-radius: 50%;
+        .btn-download:hover {
+            box-shadow: 0 4px 15px rgba(0, 243, 255, 0.4);
+            transform: translateY(-2px);
         }
 
         /* ==========================================================================
-           6. MODALS (LOGIN, SIGNUP, SETTINGS)
-           ========================================================================== */
-        .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            opacity: 0;
-            pointer-events: none;
-            transition: 0.4s ease;
+           8. INFO POPUPS & OVERLAYS
+           ========================================================================= */
+        #node-details-modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(8px);
+            z-index: 2000; justify-content: center; align-items: center;
+            opacity: 0; transition: opacity 0.4s ease;
         }
-
-        .modal-overlay.active {
-            opacity: 1; pointer-events: all;
-        }
+        #node-details-modal.active { display: flex; opacity: 1; }
 
         .modal-box {
-            background: rgba(25, 25, 35, 0.8);
-            border: 1px solid var(--glass-border);
-            padding: 40px;
-            border-radius: 24px;
-            width: 100%;
-            max-width: 450px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            transform: translateY(30px) scale(0.95);
-            transition: 0.4s ease;
-            position: relative;
+            width: 90%; max-width: 320px;
+            background: #0d0d0f; border: 1px solid var(--glass-border); border-radius: 12px;
+            padding: 20px; text-align: center;
         }
+        .modal-title { font-family: var(--font-title); font-size: 1.6rem; color: #fff; margin-bottom: 10px; }
+        .modal-subtitle { color: #aaa; font-size: 0.9rem; margin-bottom: 20px; line-height: 1.5; }
+        .modal-actions { display: flex; flex-direction: column; gap: 10px; }
 
-        .modal-overlay.active .modal-box {
-            transform: translateY(0) scale(1);
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 20px; right: 20px;
-            background: transparent;
-            border: none;
-            color: var(--text-dim);
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .close-modal:hover { color: var(--neon-pink); transform: rotate(90deg); }
-
-        .modal-title {
-            font-family: var(--font-title);
-            font-size: 2rem;
-            margin-bottom: 5px;
-            text-align: center;
-        }
-
-        .modal-subtitle {
-            text-align: center; color: var(--text-dim); margin-bottom: 30px; font-size: 0.9rem;
-        }
-
-        .input-group { margin-bottom: 20px; }
-        .input-group label { display: block; margin-bottom: 8px; font-size: 0.9rem; color: #ccc; }
-        .input-group input {
-            width: 100%;
-            padding: 14px 20px;
-            background: rgba(0,0,0,0.3);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
-            color: #fff;
-            font-size: 1rem;
-            outline: none;
-            transition: 0.3s;
-        }
-        .input-group input:focus {
-            border-color: var(--neon-cyan);
-            box-shadow: 0 0 10px rgba(0, 242, 254, 0.2);
-        }
-
-        .modal-btn { width: 100%; padding: 15px; font-size: 1.1rem; justify-content: center; margin-top: 10px; }
-
-        .switch-modal { text-align: center; margin-top: 20px; font-size: 0.9rem; color: var(--text-dim); }
-        .switch-modal span { color: var(--neon-cyan); cursor: pointer; font-weight: bold; }
-        .switch-modal span:hover { text-decoration: underline; }
-
-        /* Settings specific */
-        .setting-item {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-        /* Toggle Switch */
-        .switch { position: relative; display: inline-block; width: 50px; height: 24px; }
-        .switch input { opacity: 0; width: 0; height: 0; }
-        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(255,255,255,0.2); transition: .4s; border-radius: 34px; }
-        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
-        input:checked + .slider { background-color: var(--neon-cyan); }
-        input:checked + .slider:before { transform: translateX(26px); }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            nav { padding: 15px 20px; }
-            .hero h1 { font-size: 3.5rem; }
-            .gallery-container { padding: 20px; }
-            .auth-buttons .btn span { display: none; } /* Hide text on small screens, keep icons */
-            .logo-text { font-size: 1.2rem; }
-        }
     </style>
 </head>
 <body>
 
-    <div class="animated-bg"></div>
-    <div class="glow-orbs">
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-        <div class="orb orb-3"></div>
-    </div>
-
-    <nav>
-        <div class="logo-container" onclick="window.scrollTo({top:0, behavior:'smooth'})">
-            <i class="fas fa-layer-group logo-icon"></i>
-            <div class="logo-text">NEXUS<span>VISUALS</span></div>
-        </div>
+    <div id="mobile-container">
         
-        <div class="nav-actions">
-            <div id="auth-buttons" class="auth-buttons" style="display: flex; gap: 15px;">
-                <button class="btn btn-outline" onclick="openModal('login-modal')">
-                    <i class="fas fa-sign-in-alt"></i> <span>Log In</span>
-                </button>
-                <button class="btn btn-gradient" onclick="openModal('signup-modal')">
-                    <i class="fas fa-user-plus"></i> <span>Sign Up</span>
-                </button>
-            </div>
-
-            <div id="user-profile" class="user-profile">
-                <div class="user-name">Hi, <span id="display-name">User</span></div>
-                <div class="user-avatar" id="avatar-initial">U</div>
-                <button class="icon-btn" onclick="logout()" title="Logout">
-                    <i class="fas fa-sign-out-alt"></i>
-                </button>
-            </div>
-
-            <button class="icon-btn" onclick="openModal('settings-modal')" style="margin-left: 10px;">
-                <i class="fas fa-cog"></i>
-            </button>
+        <div id="browser-bar">
+            <i class="fas fa-arrow-left" style="color: #666;"></i>
+            <div id="url-input">iac1.github.io</div>
+            <i class="fas fa-ellipsis-v" style="color: #666;"></i>
         </div>
-    </nav>
 
-    <header class="hero">
-        <div class="hero-badge"><i class="fas fa-sparkles"></i> Premium Digital Assets</div>
-        <h1>
-            DISCOVER <br>
-            <span class="gradient-text">MODERN VISUALS</span>
-        </h1>
-        <p>
-            Explore an exclusive collection of high-quality digital artwork. Sign up to download and use them for your next big project. Maintained by @i_f_t_uu.
-        </p>
-    </header>
+        <div id="mobile-content">
+            <div class="grid-bg-overlay"></div>
+            <div class="ambient-glow"></div>
 
-    <main class="gallery-container">
-        <div class="grid" id="gallery-grid">
+            <div id="intro-page" style="background-image: url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=1920&h=1080&auto=format&fit=crop');">
+                <div class="intro-text-glow">Tokyo</div>
+                <div class="intro-subtitle">Modern Visuals</div>
+                
+                <a id="arrow-link">
+                    Discover Now
+                    <div class="arrow-icon-wrapper">
+                        <i class="fas fa-chevron-down arrow-icon arrow-1"></i>
+                        <i class="fas fa-chevron-down arrow-icon arrow-2"></i>
+                        <i class="fas fa-chevron-down arrow-icon arrow-3"></i>
+                    </div>
+                </a>
             </div>
-    </main>
 
-    <div class="modal-overlay" id="login-modal">
-        <div class="modal-box">
-            <button class="close-modal" onclick="closeModal('login-modal')"><i class="fas fa-times"></i></button>
-            <h2 class="modal-title">Welcome Back</h2>
-            <p class="modal-subtitle">Login to download premium visuals</p>
-            
-            <form onsubmit="handleLogin(event)">
-                <div class="input-group">
-                    <label>Email Address</label>
-                    <input type="email" placeholder="enter your email" required>
+            <div id="main-page">
+                <div id="app-header">
+                    <div class="header-logo">
+                        <i class="fas fa-layer-group header-logo-icon"></i>
+                        <div class="header-logo-text">NEXUS<span>VISUALS</span></div>
+                    </div>
+                    <div class="header-info-box">
+                        <i class="fas fa-satellite-dish" style="color: #0f0;"></i>
+                        Secure Proxy v2.1
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn btn-outline">Log In</button>
+                        <button class="btn btn-gradient">Sign Up</button>
+                    </div>
                 </div>
-                <div class="input-group">
-                    <label>Password</label>
-                    <input type="password" placeholder="••••••••" required>
-                </div>
-                <button type="submit" class="btn btn-gradient modal-btn">Log In</button>
-            </form>
-            
-            <div class="switch-modal">
-                Don't have an account? <span onclick="switchModal('login-modal', 'signup-modal')">Sign Up</span>
+
+                <h1 id="gallery-title">Discover <br>Modern<span> Tokyo</span></h1>
+                <p id="gallery-description">
+                    Explore an exclusive collection of high-quality, futurist digital artwork. Sign up to download and use them for your next big project. Maintained by @i_f_t_uu.
+                </p>
+
+                <div id="gallery-grid">
+                    </div>
             </div>
         </div>
     </div>
 
-    <div class="modal-overlay" id="signup-modal">
+    <div id="node-details-modal">
         <div class="modal-box">
-            <button class="close-modal" onclick="closeModal('signup-modal')"><i class="fas fa-times"></i></button>
-            <h2 class="modal-title">Create Account</h2>
-            <p class="modal-subtitle">Join us to get unlimited downloads</p>
-            
-            <form onsubmit="handleSignup(event)">
-                <div class="input-group">
-                    <label>Username</label>
-                    <input type="text" id="signup-name" placeholder="e.g. Alex" required>
-                </div>
-                <div class="input-group">
-                    <label>Email Address</label>
-                    <input type="email" placeholder="you@example.com" required>
-                </div>
-                <div class="input-group">
-                    <label>Password</label>
-                    <input type="password" placeholder="Create a password" required>
-                </div>
-                <button type="submit" class="btn btn-gradient modal-btn">Create Account</button>
-            </form>
-            
-            <div class="switch-modal">
-                Already have an account? <span onclick="switchModal('signup-modal', 'login-modal')">Log In</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="settings-modal">
-        <div class="modal-box">
-            <button class="close-modal" onclick="closeModal('settings-modal')"><i class="fas fa-times"></i></button>
-            <h2 class="modal-title">App Settings</h2>
-            <p class="modal-subtitle">Customize your experience</p>
-            
-            <div class="setting-item">
-                <span><i class="fas fa-bell"></i> Push Notifications</span>
-                <label class="switch">
-                    <input type="checkbox" checked>
-                    <span class="slider"></span>
-                </label>
-            </div>
-            <div class="setting-item">
-                <span><i class="fas fa-moon"></i> Dark Mode (Default)</span>
-                <label class="switch">
-                    <input type="checkbox" checked disabled>
-                    <span class="slider"></span>
-                </label>
-            </div>
-            <div class="setting-item">
-                <span><i class="fas fa-hdd"></i> High Quality Downloads</span>
-                <label class="switch">
-                    <input type="checkbox" checked>
-                    <span class="slider"></span>
-                </label>
-            </div>
-            
-            <div style="margin-top: 30px; text-align: center;">
-                <p style="color: var(--text-dim); font-size: 0.8rem;">App Version 2.0.1 • Nexus Inc.</p>
+            <div class="modal-title">ACCESS RESTRICTED</div>
+            <div class="modal-subtitle">Full data retrieval requires authorized clearance. Secure access protocols are now standard.</div>
+            <div class="modal-actions">
+                <button class="btn btn-gradient">Request Access Now</button>
+                <button class="btn btn-outline" id="close-modal-btn">Dismiss</button>
             </div>
         </div>
     </div>
 
     <script>
-        // --- 1. STATE MANAGEMENT (Login / Auth Simulation) ---
-        let isLoggedIn = false;
-        let userName = "";
-
-        const authButtons = document.getElementById('auth-buttons');
-        const userProfile = document.getElementById('user-profile');
-        const displayName = document.getElementById('display-name');
-        const avatarInitial = document.getElementById('avatar-initial');
-
-        function updateUI() {
-            if (isLoggedIn) {
-                authButtons.style.display = 'none';
-                userProfile.style.display = 'flex';
-                displayName.innerText = userName;
-                avatarInitial.innerText = userName.charAt(0).toUpperCase();
-            } else {
-                authButtons.style.display = 'flex';
-                userProfile.style.display = 'none';
-            }
-        }
-
-        // --- 2. MODAL LOGIC ---
-        function openModal(id) {
-            document.getElementById(id).classList.add('active');
-        }
-
-        function closeModal(id) {
-            document.getElementById(id).classList.remove('active');
-        }
-
-        function switchModal(closeId, openId) {
-            closeModal(closeId);
-            setTimeout(() => { openModal(openId); }, 200);
-        }
-
-        function handleLogin(e) {
-            e.preventDefault();
-            isLoggedIn = true;
-            userName = "User"; // Generic name for demo login
-            updateUI();
-            closeModal('login-modal');
-            alert("Login Successful! You can now download images.");
-        }
-
-        function handleSignup(e) {
-            e.preventDefault();
-            isLoggedIn = true;
-            userName = document.getElementById('signup-name').value;
-            updateUI();
-            closeModal('signup-modal');
-            alert("Account Created! Welcome, " + userName);
-        }
-
-        function logout() {
-            isLoggedIn = false;
-            userName = "";
-            updateUI();
-            alert("Logged out successfully.");
-        }
-
-        // --- 3. DOWNLOAD LOGIC ---
-        function triggerDownload(e, url, title) {
-            e.preventDefault();
-            
-            if (!isLoggedIn) {
-                // If not logged in, show login modal
-                openModal('login-modal');
-                return;
-            }
-
-            // Simulate Download Process
-            const btn = e.currentTarget;
-            const originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Downloading...';
-            
-            setTimeout(() => {
-                // Creating a dummy a tag to trigger browser download behavior
-                // Note: Direct download from external links might open in new tab due to CORS
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `${title.toLowerCase().replace(' ', '_')}.jpg`;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                
-                btn.innerHTML = '<i class="fas fa-check"></i> Done!';
-                setTimeout(() => { btn.innerHTML = originalText; }, 2000);
-            }, 1000);
-        }
-
-        // --- 4. DYNAMIC GALLERY RENDERING ---
-        const galleryGrid = document.getElementById('gallery-grid');
-        const TOTAL_FILES = 24; // Loading 24 initially for a good grid look
-
-        const searchCategories = [
-            "abstract,art", "neon,city", "nature,aesthetic", "technology,cyber",
-            "space,galaxy", "architecture,modern", "colorful,gradient"
+        // Array of high-quality, person-less future Tokyo images
+        const cardData = [
+            { id: "NODE_410", size: "2.8 MB", ping: "45ms", imgUrl: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=600&h=400&auto=format&fit=crop" },
+            { id: "NODE_392", size: "3.5 MB", ping: "38ms", imgUrl: "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?q=80&w=600&h=400&auto=format&fit=crop" },
+            { id: "NODE_401", size: "3.1 MB", ping: "41ms", imgUrl: "https://images.unsplash.com/photo-1518118014389-9a746536093a?q=80&w=600&h=400&auto=format&fit=crop" },
+            { id: "NODE_388", size: "4.0 MB", ping: "35ms", imgUrl: "https://images.unsplash.com/photo-1550920404-f5aaac37e96d?q=80&w=600&h=400&auto=format&fit=crop" },
+            { id: "NODE_405", size: "2.9 MB", ping: "43ms", imgUrl: "https://images.unsplash.com/photo-1555620921-6a2c28646b97?q=80&w=600&h=400&auto=format&fit=crop" },
+            { id: "NODE_395", size: "3.3 MB", ping: "40ms", imgUrl: "https://images.unsplash.com/photo-1522199710521-72d69614c702?q=80&w=600&h=400&auto=format&fit=crop" },
+            { id: "NODE_412", size: "2.7 MB", ping: "46ms", imgUrl: "https://images.unsplash.com/photo-1544483321-f09b53297a73?q=80&w=600&h=400&auto=format&fit=crop" },
+            { id: "NODE_408", size: "3.0 MB", ping: "42ms", imgUrl: "https://images.unsplash.com/photo-1503794614238-7f938d276b92?q=80&w=600&h=400&auto=format&fit=crop" },
+            { id: "NODE_401", size: "3.1 MB", ping: "41ms", imgUrl: "https://images.unsplash.com/photo-1511306161109-b6951b1451f1?q=80&w=600&h=400&auto=format&fit=crop" },
+            { id: "NODE_388", size: "4.0 MB", ping: "35ms", imgUrl: "https://images.unsplash.com/photo-1523472091444-1246a48d8b9f?q=80&w=600&h=400&auto=format&fit=crop" }
         ];
 
-        function generateCard(index) {
-            const catIndex = index % searchCategories.length;
-            const category = searchCategories[catIndex];
-            const url = `https://loremflickr.com/800/600/${category}?lock=${index * 7 + 2024}`;
-            const title = `Visual Art ${100 + index}`;
-            const authorImg = `https://i.pravatar.cc/100?img=${(index % 70) + 1}`;
+        // 1. PAGE TRANSITION (Intro -> Main)
+        const arrowLink = document.getElementById('arrow-link');
+        const introPage = document.getElementById('intro-page');
+        const mainPage = document.getElementById('main-page');
 
-            return `
-                <div class="card">
+        arrowLink.addEventListener('click', () => {
+            introPage.style.opacity = '0';
+            introPage.style.transform = 'translateY(-30px)';
+            setTimeout(() => {
+                introPage.style.display = 'none';
+                mainPage.style.display = 'block';
+                setTimeout(() => {
+                    mainPage.style.opacity = '1';
+                    generateGallery(); // Now load the gallery
+                    initScrollAnimations(); // And then initial scroll animations
+                }, 50);
+            }, 800);
+        });
+
+        // 2. MODAL LOGIC
+        const modal = document.getElementById('node-details-modal');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+
+        function openModal() { modal.classList.add('active'); }
+        function closeModal() { modal.classList.remove('active'); }
+
+        // Close on escape key and on close button
+        closeModalBtn.addEventListener('click', closeModal);
+        window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+        modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+
+        // 3. GENERATE GALLERY CARDS
+        const galleryGrid = document.getElementById('gallery-grid');
+
+        function generateGallery() {
+            cardData.forEach((data, index) => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
                     <div class="card-img-wrapper">
-                        <img data-src="${url}" alt="${title}" class="lazy">
-                        <div class="download-overlay">
-                            <button class="btn-download" onclick="triggerDownload(event, '${url}', '${title}')">
-                                <i class="fas fa-arrow-down"></i> Download HD
-                            </button>
-                        </div>
+                        <img class="card-img" src="${data.imgUrl}" alt="Future Tokyo ${data.id}">
+                        <div class="card-img-gradient"></div>
                     </div>
                     <div class="card-info">
                         <div class="card-header">
-                            <span class="node-title">${title}</span>
-                            <i class="far fa-heart" style="color: var(--neon-pink); cursor: pointer;" onclick="this.classList.toggle('fas'); this.classList.toggle('far');"></i>
+                            <span class="node-id">${data.id}</span>
+                            <div class="node-meta">
+                                <span><i class="fas fa-database"></i> ${data.size}</span>
+                                <span><i class="fas fa-network-wired"></i> ${data.ping}</span>
+                            </div>
                         </div>
-                        <div class="author">
-                            <img data-src="${authorImg}" class="lazy" alt="Creator">
-                            <span>Created by @artist_${index + 1}</span>
-                        </div>
+                        <button class="btn-download" onclick="openModal()">
+                            <i class="fas fa-file-export"></i> Authorize Data Retrieval
+                        </button>
                     </div>
-                </div>
-            `;
+                `;
+                galleryGrid.appendChild(card);
+            });
         }
 
-        function loadGallery() {
-            let buffer = '';
-            for (let i = 1; i <= TOTAL_FILES; i++) {
-                buffer += generateCard(i);
-            }
-            galleryGrid.innerHTML = buffer;
-            initScrollAnimations();
-        }
-
-        // --- 5. LAZY LOADING & ANIMATIONS ---
+        // 4. SCROLL ANIMATIONS (Fade in cards)
         function initScrollAnimations() {
-            const imgObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const img = entry.target;
-                        img.src = img.getAttribute('data-src');
-                        img.classList.remove('lazy');
-                        observer.unobserve(img);
-                    }
-                });
-            }, { rootMargin: "0px 0px 300px 0px" });
-
-            document.querySelectorAll('.lazy').forEach(img => imgObserver.observe(img));
-
-            const cardObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
                     }
                 });
-            }, { threshold: 0.1 });
+            }, {
+                threshold: 0.2 // Start fade when 20% is in view
+            });
 
-            document.querySelectorAll('.card').forEach(card => cardObserver.observe(card));
+            document.querySelectorAll('.card').forEach((card) => {
+                observer.observe(card);
+            });
         }
 
-        // Initialize on load
-        window.onload = () => {
-            loadGallery();
-        };
     </script>
 </body>
 </html>
