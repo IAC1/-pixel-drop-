@@ -3,530 +3,517 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>TOKYO 2026 // ULTRA PORTAL</title>
+    <title>TOKYO 2026 // GOD TIER PORTAL</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         /* ==========================================================================
-           [1] SYSTEM VARIABLES & THEME ENGINE
+           [1] GOD TIER VARIABLES
            ========================================================================== */
         :root[data-theme="dark"] {
-            --bg-base: #050507;
+            --bg-base: #020203;
             --bg-surface: #0a0a0f;
-            --bg-glass: rgba(10, 10, 15, 0.7);
-            --border-glass: rgba(255, 255, 255, 0.08);
+            --bg-glass: rgba(5, 5, 8, 0.85);
+            --border-glass: rgba(0, 243, 255, 0.15);
             --text-main: #ffffff;
-            --text-dim: #8b949e;
+            --text-dim: #6c7a89;
             --accent-cyan: #00f3ff;
             --accent-pink: #ff0055;
-            --accent-red: #ff3333;
-            --glow-cyan: 0 0 20px rgba(0, 243, 255, 0.4);
-            --glow-pink: 0 0 20px rgba(255, 0, 85, 0.4);
-            --glow-red: 0 0 15px rgba(255, 51, 51, 0.5);
+            --accent-red: #ff2a2a;
+            --accent-gold: #ffaa00;
+            --glow-cyan: 0 0 25px rgba(0, 243, 255, 0.5);
+            --glow-pink: 0 0 25px rgba(255, 0, 85, 0.5);
+            --glow-red: 0 0 20px rgba(255, 42, 42, 0.6);
         }
 
         :root[data-theme="light"] {
-            --bg-base: #f0f2f5;
+            --bg-base: #e6e8ec;
             --bg-surface: #ffffff;
-            --bg-glass: rgba(255, 255, 255, 0.85);
+            --bg-glass: rgba(255, 255, 255, 0.9);
             --border-glass: rgba(0, 0, 0, 0.1);
-            --text-main: #0f0f14;
-            --text-dim: #5c6bc0;
-            --accent-cyan: #0099ff;
-            --accent-pink: #e6004c;
-            --accent-red: #d90000;
-            --glow-cyan: 0 4px 15px rgba(0, 153, 255, 0.3);
-            --glow-pink: 0 4px 15px rgba(230, 0, 76, 0.3);
-            --glow-red: 0 4px 15px rgba(217, 0, 0, 0.3);
+            --text-main: #0a0a0a;
+            --text-dim: #4a4a4a;
+            --accent-cyan: #0077ff;
+            --accent-pink: #cc0044;
+            --accent-red: #cc0000;
+            --accent-gold: #cc8800;
+            --glow-cyan: 0 5px 20px rgba(0, 119, 255, 0.3);
+            --glow-pink: 0 5px 20px rgba(204, 0, 68, 0.3);
+            --glow-red: 0 5px 20px rgba(204, 0, 0, 0.3);
         }
 
-        /* ==========================================================================
-           [2] RESET & GLOBAL ARCHITECTURE
-           ========================================================================== */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Rajdhani', sans-serif; -webkit-tap-highlight-color: transparent; }
         
         body {
             background-color: var(--bg-base); color: var(--text-main);
-            overflow-x: hidden; transition: background-color 0.5s ease, color 0.5s ease;
-            cursor: none; /* Custom Cursor enabled */
+            overflow-x: hidden; transition: background-color 0.5s ease;
+            cursor: none;
         }
 
-        /* Sleek Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-track { background: var(--bg-base); }
-        ::-webkit-scrollbar-thumb { background: linear-gradient(var(--accent-cyan), var(--accent-pink)); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: var(--accent-cyan); border-radius: 10px; }
 
-        a { text-decoration: none; color: inherit; }
-        button { border: none; background: none; cursor: pointer; outline: none; }
+        /* Background Canvas */
+        #matrix-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; opacity: 0.15; pointer-events: none; }
 
         /* ==========================================================================
-           [3] CUSTOM CURSOR (2026 UI)
+           [2] CUSTOM CYBER CURSOR
            ========================================================================== */
-        .cursor-dot { width: 8px; height: 8px; background: var(--accent-cyan); position: fixed; border-radius: 50%; pointer-events: none; z-index: 10000; transform: translate(-50%, -50%); transition: width 0.2s, height 0.2s, background 0.2s; }
-        .cursor-ring { width: 30px; height: 30px; border: 1px solid var(--accent-pink); position: fixed; border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: width 0.2s, height 0.2s, border-color 0.2s; transition-timing-function: ease-out; }
-        
-        body.light-mode .cursor-dot { background: var(--accent-pink); }
-        body.light-mode .cursor-ring { border-color: var(--accent-cyan); }
+        .cursor-dot { width: 4px; height: 4px; background: var(--accent-pink); position: fixed; border-radius: 50%; pointer-events: none; z-index: 10000; transform: translate(-50%, -50%); box-shadow: var(--glow-pink); }
+        .cursor-ring { width: 35px; height: 35px; border: 1.5px solid var(--accent-cyan); position: fixed; border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: width 0.15s, height 0.15s, border-color 0.15s; }
 
         /* ==========================================================================
-           [4] PRELOADER SYSTEM
-           ========================================================================== */
-        #boot-screen {
-            position: fixed; inset: 0; background: var(--bg-base); z-index: 99999;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            transition: opacity 0.8s ease;
-        }
-        .boot-logo { font-family: 'Orbitron', sans-serif; font-size: 3rem; color: var(--accent-cyan); text-shadow: var(--glow-cyan); letter-spacing: 10px; animation: glitch 1.5s infinite; }
-        .boot-bar { width: 200px; height: 2px; background: rgba(255,255,255,0.1); margin-top: 20px; position: relative; overflow: hidden; }
-        .boot-progress { position: absolute; left: 0; top: 0; height: 100%; width: 0%; background: var(--accent-pink); box-shadow: var(--glow-pink); animation: loadBar 2s forwards ease-in-out; }
-
-        /* ==========================================================================
-           [5] NAVIGATION HEADER
+           [3] NAVIGATION HEADER
            ========================================================================== */
         header {
             position: fixed; top: 0; width: 100%; height: 80px;
-            background: var(--bg-glass); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            background: var(--bg-glass); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
             border-bottom: 1px solid var(--border-glass);
             display: flex; justify-content: space-between; align-items: center;
-            padding: 0 40px; z-index: 5000; transition: all 0.4s ease;
+            padding: 0 50px; z-index: 5000;
         }
 
-        .brand { display: flex; align-items: center; gap: 15px; }
-        .brand-text { font-family: 'Orbitron', sans-serif; font-size: 1.8rem; font-weight: 900; letter-spacing: 4px; background: linear-gradient(90deg, var(--accent-cyan), var(--accent-pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .brand-text { font-family: 'Orbitron', sans-serif; font-size: 2rem; font-weight: 900; letter-spacing: 5px; color: var(--text-main); text-shadow: var(--glow-cyan); }
         
-        .sys-controls { display: flex; gap: 15px; align-items: center; }
+        .sys-clock { font-family: 'Space Mono', monospace; font-size: 1.2rem; color: var(--accent-cyan); font-weight: bold; letter-spacing: 2px; }
+
+        .sys-controls { display: flex; gap: 15px; }
         .icon-btn {
-            width: 40px; height: 40px; border-radius: 12px; background: rgba(128,128,128,0.1);
+            width: 45px; height: 45px; border-radius: 10px; background: rgba(128,128,128,0.1);
             border: 1px solid var(--border-glass); color: var(--text-main);
-            display: flex; justify-content: center; align-items: center; font-size: 1.1rem;
-            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex; justify-content: center; align-items: center; font-size: 1.2rem;
+            cursor: pointer; transition: 0.3s;
         }
-        .icon-btn:hover { transform: translateY(-3px) rotate(5deg); border-color: var(--accent-cyan); color: var(--accent-cyan); box-shadow: var(--glow-cyan); }
+        .icon-btn:hover { background: rgba(0, 243, 255, 0.1); border-color: var(--accent-cyan); color: var(--accent-cyan); transform: translateY(-3px) scale(1.05); box-shadow: var(--glow-cyan); }
+        .icon-btn.sfx-btn.active { color: var(--accent-pink); border-color: var(--accent-pink); box-shadow: var(--glow-pink); }
 
         /* ==========================================================================
-           [6] HERO & STATS SECTION
+           [4] ADVANCED CONTROL PANEL (SEARCH & FILTER)
            ========================================================================== */
-        .hero { padding: 160px 40px 60px; text-align: center; position: relative; overflow: hidden; }
-        .hero h1 { font-family: 'Orbitron', sans-serif; font-size: 4rem; font-weight: 900; line-height: 1.1; margin-bottom: 15px; text-transform: uppercase; }
-        .hero p { font-family: 'Space Mono', monospace; color: var(--text-dim); font-size: 1.1rem; max-width: 600px; margin: 0 auto 30px; }
-        
-        .sys-stats { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
-        .stat-badge { padding: 10px 25px; background: rgba(128,128,128,0.05); border: 1px solid var(--border-glass); border-radius: 30px; font-family: 'Space Mono', monospace; font-size: 0.9rem; font-weight: bold; }
-        .stat-badge span { color: var(--accent-cyan); }
+        .control-panel {
+            margin: 120px auto 40px; max-width: 1600px; padding: 0 40px;
+            display: flex; flex-direction: column; gap: 20px; align-items: center;
+        }
+
+        .search-container {
+            position: relative; width: 100%; max-width: 600px;
+        }
+        .search-input {
+            width: 100%; padding: 18px 25px 18px 55px; background: rgba(0,0,0,0.5);
+            border: 2px solid var(--border-glass); border-radius: 30px;
+            color: var(--text-main); font-family: 'Space Mono', monospace; font-size: 1rem;
+            outline: none; transition: 0.3s; backdrop-filter: blur(10px);
+        }
+        .search-input:focus { border-color: var(--accent-cyan); box-shadow: var(--glow-cyan); }
+        .search-icon { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: var(--accent-cyan); font-size: 1.2rem; }
+
+        .filter-tags { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
+        .filter-btn {
+            padding: 8px 20px; background: rgba(128,128,128,0.1); border: 1px solid var(--border-glass);
+            border-radius: 20px; font-family: 'Orbitron', sans-serif; font-size: 0.85rem; font-weight: bold;
+            color: var(--text-dim); cursor: pointer; transition: 0.3s; letter-spacing: 1px;
+        }
+        .filter-btn:hover, .filter-btn.active { background: var(--accent-cyan); color: #000; border-color: var(--accent-cyan); box-shadow: var(--glow-cyan); }
 
         /* ==========================================================================
-           [7] MASTER GRID (EXTREME PERFORMANCE)
+           [5] MASONRY GRID SYSTEM
            ========================================================================== */
-        .mainframe { max-width: 1800px; margin: 0 auto; padding: 0 40px 100px; }
+        .mainframe { max-width: 1800px; margin: 0 auto; padding: 0 40px 120px; }
         
-        .grid-matrix {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 35px;
+        .masonry-grid {
+            column-count: 4; column-gap: 30px; width: 100%;
         }
+        @media (max-width: 1400px) { .masonry-grid { column-count: 3; } }
+        @media (max-width: 900px) { .masonry-grid { column-count: 2; column-gap: 15px; } }
+        @media (max-width: 600px) { .masonry-grid { column-count: 1; } }
 
         .data-node {
+            break-inside: avoid; margin-bottom: 30px;
             background: var(--bg-surface); border-radius: 20px; overflow: hidden;
             border: 1px solid var(--border-glass); position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: all 0.4s ease;
-            transform: translateY(30px); opacity: 0; animation: fadeUp 0.6s forwards ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); transition: 0.4s;
+            animation: fadeUp 0.6s ease forwards;
         }
-        .data-node:hover { transform: translateY(-8px); border-color: var(--accent-cyan); box-shadow: var(--glow-cyan); }
+        .data-node:hover { transform: translateY(-10px); border-color: var(--accent-pink); box-shadow: var(--glow-pink); }
 
-        .img-container { position: relative; width: 100%; aspect-ratio: 3/4; overflow: hidden; cursor: pointer; }
-        .img-container img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s ease, filter 0.5s ease; filter: brightness(0.85); }
-        .data-node:hover .img-container img { transform: scale(1.08); filter: brightness(1.1); }
-        
-        /* Tag Overlays */
-        .res-tag { position: absolute; top: 15px; left: 15px; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); padding: 5px 12px; border-radius: 8px; font-family: 'Space Mono', monospace; font-size: 0.75rem; color: #fff; border: 1px solid rgba(255,255,255,0.1); z-index: 10; }
-
-        /* Actions Layer */
-        .action-layer { position: absolute; top: 15px; right: 15px; display: flex; flex-direction: column; gap: 10px; z-index: 10; }
-        .action-circle { width: 38px; height: 38px; border-radius: 50%; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.2); display: flex; justify-content: center; align-items: center; color: #fff; cursor: pointer; transition: 0.3s; }
-        
-        .action-circle.btn-love:hover, .action-circle.btn-love.active { background: rgba(255,0,85,0.2); border-color: var(--accent-pink); color: var(--accent-pink); box-shadow: var(--glow-pink); transform: scale(1.1); }
-        .action-circle.btn-save:hover, .action-circle.btn-save.active { background: rgba(0,243,255,0.2); border-color: var(--accent-cyan); color: var(--accent-cyan); box-shadow: var(--glow-cyan); transform: scale(1.1); }
-
-        /* Node Info */
-        .node-info { padding: 20px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); }
-        .node-title { font-family: 'Orbitron', sans-serif; font-size: 1.1rem; color: var(--text-main); font-weight: 700; }
-        .node-meta { font-family: 'Space Mono', monospace; font-size: 0.75rem; color: var(--text-dim); margin-top: 5px; }
-        
-        .btn-download {
-            background: linear-gradient(135deg, var(--accent-cyan), #0088ff);
-            color: #000; padding: 10px 20px; border-radius: 12px;
-            font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 0.85rem;
-            text-transform: uppercase; letter-spacing: 1px; transition: 0.3s;
+        .img-container { position: relative; width: 100%; cursor: pointer; overflow: hidden; }
+        /* Skeleton loader effect */
+        .img-container::before {
+            content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+            transform: translateX(-100%); animation: shimmer 1.5s infinite; z-index: 1; pointer-events: none;
         }
-        .btn-download:hover { box-shadow: var(--glow-cyan); transform: scale(1.05); color: #fff; }
+        .img-container img { width: 100%; display: block; filter: brightness(0.85) contrast(1.1); transition: 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); z-index: 2; position: relative; }
+        .data-node:hover .img-container img { transform: scale(1.1); filter: brightness(1.1) contrast(1.2); }
 
-        /* Loading Spinner */
-        .infinite-spinner { text-align: center; padding: 60px 0; font-family: 'Space Mono', monospace; color: var(--accent-cyan); font-size: 1.2rem; display: none; }
-        .infinite-spinner i { animation: spin 1s linear infinite; margin-right: 10px; }
+        .action-layer { position: absolute; top: 15px; right: 15px; display: flex; flex-direction: column; gap: 10px; z-index: 10; opacity: 0; transition: 0.3s; transform: translateX(20px); }
+        .data-node:hover .action-layer { opacity: 1; transform: translateX(0); }
+        
+        .action-circle { width: 42px; height: 42px; border-radius: 50%; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.2); display: flex; justify-content: center; align-items: center; color: #fff; cursor: pointer; transition: 0.3s; font-size: 1.1rem; }
+        .action-circle.btn-love:hover, .action-circle.btn-love.active { background: rgba(255,0,85,0.3); border-color: var(--accent-pink); color: var(--accent-pink); box-shadow: var(--glow-pink); transform: scale(1.15); }
+        .action-circle.btn-download:hover { background: rgba(0,243,255,0.3); border-color: var(--accent-cyan); color: var(--accent-cyan); box-shadow: var(--glow-cyan); transform: scale(1.15); }
 
         /* ==========================================================================
-           [8] LIGHTBOX MODAL (FULL SCREEN PREVIEW)
+           [6] ADVANCED LIGHTBOX
            ========================================================================== */
         #lightbox {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.95); backdrop-filter: blur(15px);
+            position: fixed; inset: 0; background: rgba(0,0,0,0.98); backdrop-filter: blur(20px);
             z-index: 100000; display: flex; justify-content: center; align-items: center;
-            opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
+            opacity: 0; pointer-events: none; transition: 0.4s;
         }
         #lightbox.active { opacity: 1; pointer-events: auto; }
-        .lightbox-close { position: absolute; top: 30px; right: 40px; font-size: 2.5rem; color: #fff; cursor: pointer; transition: 0.3s; }
-        .lightbox-close:hover { color: var(--accent-pink); transform: rotate(90deg); }
-        #lightbox-img { max-width: 90vw; max-height: 90vh; border-radius: 15px; box-shadow: 0 0 50px rgba(0,243,255,0.2); border: 2px solid rgba(255,255,255,0.1); transform: scale(0.9); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        #lightbox.active #lightbox-img { transform: scale(1); }
+        
+        .lb-controls { position: absolute; width: 100%; height: 100%; pointer-events: none; }
+        .lb-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 60px; height: 60px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; color: #fff; cursor: pointer; pointer-events: auto; transition: 0.3s; border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(10px); }
+        .lb-btn:hover { background: var(--accent-cyan); border-color: var(--accent-cyan); box-shadow: var(--glow-cyan); color: #000; scale: 1.1; }
+        .lb-prev { left: 40px; } .lb-next { right: 40px; }
+        .lb-close { position: absolute; top: 40px; right: 40px; width: 50px; height: 50px; background: rgba(255,0,85,0.1); border: 1px solid var(--accent-pink); color: var(--accent-pink); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; cursor: pointer; pointer-events: auto; transition: 0.3s; }
+        .lb-close:hover { background: var(--accent-pink); color: #fff; box-shadow: var(--glow-pink); transform: rotate(90deg); }
+
+        #lb-img { max-width: 85vw; max-height: 85vh; border-radius: 10px; box-shadow: 0 0 40px rgba(0,0,0,0.8); object-fit: contain; transition: transform 0.3s; cursor: zoom-in; }
+        #lb-img.zoomed { transform: scale(1.5); cursor: zoom-out; }
 
         /* ==========================================================================
-           [9] TOAST NOTIFICATIONS
+           [7] SMALL RED TON COFFEE BUTTON
            ========================================================================== */
-        #toast-container { position: fixed; bottom: 30px; right: 30px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
-        .toast {
-            background: var(--bg-glass); border-left: 4px solid var(--accent-cyan);
-            color: var(--text-main); padding: 15px 25px; border-radius: 8px;
-            font-family: 'Space Mono', monospace; font-size: 0.9rem; font-weight: bold;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            animation: slideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        .ton-footer {
+            position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
+            z-index: 4000;
+        }
+        .ton-btn-red {
+            background: rgba(255, 42, 42, 0.15); backdrop-filter: blur(10px);
+            border: 1px solid var(--accent-red); padding: 10px 25px; border-radius: 30px;
+            display: flex; align-items: center; gap: 10px; cursor: pointer;
+            color: var(--accent-red); font-family: 'Space Mono', monospace; font-size: 0.9rem; font-weight: bold;
+            box-shadow: 0 0 15px rgba(255, 42, 42, 0.3); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .ton-btn-red:hover {
+            background: var(--accent-red); color: #fff; box-shadow: var(--glow-red); transform: translateY(-5px) scale(1.05);
         }
 
-        /* ==========================================================================
-           [10] SMALL RED TON COFFEE FOOTER
-           ========================================================================== */
-        .footer-compact {
-            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-            z-index: 4000; display: flex; justify-content: center;
-        }
-        .ton-red-btn {
-            background: rgba(255, 0, 0, 0.1); backdrop-filter: blur(10px);
-            border: 1px solid var(--accent-red); padding: 8px 18px; border-radius: 20px;
-            display: flex; align-items: center; gap: 8px; cursor: pointer;
-            color: var(--accent-red); font-family: 'Space Mono', monospace; font-size: 0.85rem; font-weight: bold;
-            box-shadow: 0 0 10px rgba(255, 0, 0, 0.2); transition: all 0.3s ease;
-        }
-        .ton-red-btn:hover {
-            background: rgba(255, 0, 0, 0.25); box-shadow: var(--glow-red); transform: translateY(-3px); color: #fff; border-color: #ff6666;
-        }
+        /* Toasts */
+        #toast-box { position: fixed; bottom: 40px; right: 40px; z-index: 99999; display: flex; flex-direction: column; gap: 15px; pointer-events: none; }
+        .toast-msg { background: rgba(10,10,15,0.95); border-left: 4px solid var(--accent-cyan); color: #fff; padding: 16px 24px; border-radius: 8px; font-family: 'Space Mono', monospace; font-size: 0.95rem; font-weight: bold; box-shadow: 0 10px 30px rgba(0,0,0,0.5); animation: slideIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; backdrop-filter: blur(10px); }
 
-        /* ==========================================================================
-           [11] KEYFRAMES & RESPONSIVE DESIGN
-           ========================================================================== */
-        @keyframes glitch { 0% { opacity: 1; } 50% { opacity: 0.8; transform: skewX(2deg); } 100% { opacity: 1; } }
-        @keyframes loadBar { 0% { width: 0%; } 100% { width: 100%; } }
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes slideIn { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes shimmer { 100% { transform: translateX(100%); } }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(100px); } to { opacity: 1; transform: translateX(0); } }
 
-        @media (max-width: 900px) {
-            header { padding: 0 20px; height: 70px; }
-            .hero h1 { font-size: 2.5rem; }
-            .grid-matrix { grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)); gap: 20px; padding: 0 15px; }
-            .mainframe { padding: 0 10px 100px; }
-            .footer-compact { width: 90%; bottom: 15px; }
-            .ton-red-btn { width: 100%; justify-content: center; font-size: 0.75rem; }
-            .cursor-dot, .cursor-ring { display: none; } /* Disable custom cursor on mobile */
-        }
+        /* Loader */
+        .status-bar { text-align: center; padding: 40px 0; font-family: 'Orbitron', sans-serif; color: var(--accent-cyan); font-size: 1.2rem; letter-spacing: 3px; font-weight: 900; }
     </style>
 </head>
 <body>
 
+    <canvas id="matrix-canvas"></canvas>
+
     <div class="cursor-dot" id="cursor-dot"></div>
     <div class="cursor-ring" id="cursor-ring"></div>
 
-    <div id="boot-screen">
-        <div class="boot-logo">TOKYO_OS</div>
-        <div style="font-family: 'Space Mono'; color: var(--text-dim); margin-top: 10px; font-size: 0.9rem;">INITIALIZING V10.0 ENGINE...</div>
-        <div class="boot-bar"><div class="boot-progress"></div></div>
-    </div>
-
     <header>
-        <div class="brand">
-            <span class="brand-text">PIXEL.DROP</span>
-        </div>
+        <div class="brand-text">TOKYO_OS</div>
+        <div class="sys-clock" id="live-clock">00:00:00</div>
         <div class="sys-controls">
-            <button class="icon-btn" onclick="toggleTheme()" title="Toggle Matrix Theme"><i class="fas fa-adjust"></i></button>
-            <button class="icon-btn" onclick="clearStorage()" title="Clear Memory Cache"><i class="fas fa-trash-alt"></i></button>
-            <button class="icon-btn" onclick="window.open('https://instagram.com/i_f_t_uu', '_blank')"><i class="fab fa-instagram"></i></button>
+            <button class="icon-btn sfx-btn" id="btn-sfx" title="Toggle SFX Audio" onclick="toggleSFX()"><i class="fas fa-volume-up"></i></button>
+            <button class="icon-btn" onclick="toggleTheme()" title="Switch Environment Theme"><i class="fas fa-satellite"></i></button>
+            <button class="icon-btn" onclick="clearMemory()" title="Wipe System Memory"><i class="fas fa-radiation"></i></button>
         </div>
     </header>
 
-    <section class="hero">
-        <h1>FUTURE VISION <span style="color: var(--accent-pink);">2026</span></h1>
-        <p>Advanced Neural Cyberpunk Archive. Accessing secure mainframe for ultra high-resolution assets.</p>
-        <div class="sys-stats">
-            <div class="stat-badge">ASSETS: <span id="asset-count">0</span> / 500+</div>
-            <div class="stat-badge">STATUS: <span>ONLINE</span></div>
-            <div class="stat-badge">PING: <span>12ms</span></div>
+    <section class="control-panel">
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" class="search-input" id="search-input" placeholder="Initiate Neural Search (e.g., 'Rainy Cyberpunk Girl')...">
+        </div>
+        <div class="filter-tags" id="filter-container">
+            <button class="filter-btn active" data-filter="cyberpunk tokyo city neon">ALL SECTORS</button>
+            <button class="filter-btn" data-filter="cyberpunk neon samurai street">SAMURAI</button>
+            <button class="filter-btn" data-filter="cyberpunk futuristic vehicle car">VEHICLES</button>
+            <button class="filter-btn" data-filter="cyberpunk rainy night alleyway">RAIN DROPS</button>
+            <button class="filter-btn" data-filter="cyberpunk highly detailed mechanical android">DROIDS</button>
         </div>
     </section>
 
     <main class="mainframe">
-        <div class="grid-matrix" id="data-grid">
-            </div>
-        
-        <div class="infinite-spinner" id="loading-spinner">
-            <i class="fas fa-circle-notch"></i> RENDERING NEXT SECTOR...
+        <div class="masonry-grid" id="data-grid"></div>
+        <div class="status-bar" id="loader">
+            <i class="fas fa-spinner fa-spin"></i> GENERATING NEURAL ASSETS...
         </div>
     </main>
 
-    <div class="footer-compact">
-        <button class="ton-red-btn" onclick="copyTonWallet()">
-            <i class="fas fa-gem"></i> TON COFFEE: UQCvCMmfwJugAgxbM...
+    <div id="lightbox">
+        <div class="lb-close" onclick="closeLB()"><i class="fas fa-times"></i></div>
+        <img id="lb-img" src="" alt="Full Preview" onclick="toggleZoom()">
+        <div class="lb-controls">
+            <div class="lb-btn lb-prev" onclick="changeImage(-1)"><i class="fas fa-chevron-left"></i></div>
+            <div class="lb-btn lb-next" onclick="changeImage(1)"><i class="fas fa-chevron-right"></i></div>
+        </div>
+    </div>
+
+    <div class="ton-footer">
+        <button class="ton-btn-red" onclick="copyWallet()">
+            <i class="fas fa-coffee"></i> SEND COFFEE (TON)
         </button>
     </div>
 
-    <div id="lightbox">
-        <i class="fas fa-times lightbox-close" onclick="closeLightbox()"></i>
-        <img id="lightbox-img" src="" alt="Full Resolution Preview">
-    </div>
-
-    <div id="toast-container"></div>
+    <div id="toast-box"></div>
 
     <script>
-        /* --- 1. CURSOR ENGINE --- */
+        /* --- CORE CONFIG --- */
+        let sfxEnabled = false;
+        let currentPrompt = "cyberpunk tokyo city neon";
+        const imageDB = []; // Stores URLs for Lightbox Navigation
+        let currentLBIndex = 0;
+
+        /* --- 1. WEB AUDIO API (SFX ENGINE) --- */
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        let audioCtx;
+
+        function initAudio() { if(!audioCtx) audioCtx = new AudioContext(); }
+        
+        function toggleSFX() {
+            sfxEnabled = !sfxEnabled;
+            const btn = document.getElementById('btn-sfx');
+            btn.classList.toggle('active');
+            btn.innerHTML = sfxEnabled ? '<i class="fas fa-volume-up"></i>' : '<i class="fas fa-volume-mute"></i>';
+            if(sfxEnabled) { initAudio(); playBeep(600, "sine", 0.1); showToast("Audio Feedback Enabled", "success"); }
+            else { showToast("Audio Feedback Disabled", "warning"); }
+        }
+
+        function playBeep(freq, type = "square", duration = 0.05) {
+            if(!sfxEnabled || !audioCtx) return;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = type; osc.frequency.value = freq;
+            osc.connect(gain); gain.connect(audioCtx.destination);
+            osc.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + duration);
+            osc.stop(audioCtx.currentTime + duration);
+        }
+
+        /* --- 2. LIVE CLOCK --- */
+        setInterval(() => {
+            const now = new Date();
+            document.getElementById('live-clock').innerText = 
+                `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+        }, 1000);
+
+        /* --- 3. CUSTOM CURSOR & HOVER SFX --- */
         const cursorDot = document.getElementById("cursor-dot");
         const cursorRing = document.getElementById("cursor-ring");
-        
         window.addEventListener("mousemove", (e) => {
-            const posX = e.clientX;
-            const posY = e.clientY;
-            
-            cursorDot.style.left = `${posX}px`;
-            cursorDot.style.top = `${posY}px`;
-            
-            cursorRing.animate({
-                left: `${posX}px`,
-                top: `${posY}px`
-            }, { duration: 150, fill: "forwards" });
+            cursorDot.style.left = `${e.clientX}px`; cursorDot.style.top = `${e.clientY}px`;
+            cursorRing.animate({ left: `${e.clientX}px`, top: `${e.clientY}px` }, { duration: 100, fill: "forwards" });
         });
 
-        // Hover effect for buttons
-        document.querySelectorAll("button, a, .img-container").forEach(el => {
-            el.addEventListener("mouseenter", () => {
-                cursorRing.style.width = "50px";
-                cursorRing.style.height = "50px";
-                cursorRing.style.backgroundColor = "rgba(0, 243, 255, 0.1)";
+        function attachCursorEvents() {
+            document.querySelectorAll("button, input, .img-container, .action-circle, .lb-btn").forEach(el => {
+                el.onmouseenter = () => {
+                    cursorRing.style.width = "50px"; cursorRing.style.height = "50px";
+                    cursorRing.style.borderColor = "var(--accent-pink)";
+                    playBeep(800, "sine", 0.02); // Hover sound
+                };
+                el.onmouseleave = () => {
+                    cursorRing.style.width = "35px"; cursorRing.style.height = "35px";
+                    cursorRing.style.borderColor = "var(--accent-cyan)";
+                };
             });
-            el.addEventListener("mouseleave", () => {
-                cursorRing.style.width = "30px";
-                cursorRing.style.height = "30px";
-                cursorRing.style.backgroundColor = "transparent";
-            });
-        });
-
-        /* --- 2. BOOT SEQUENCE --- */
-        window.addEventListener("load", () => {
-            setTimeout(() => {
-                const boot = document.getElementById("boot-screen");
-                boot.style.opacity = "0";
-                setTimeout(() => boot.style.display = "none", 800);
-                showToast("System Online. Mainframe connected.", "success");
-            }, 2000);
-        });
-
-        /* --- 3. THEME MANAGER --- */
-        function toggleTheme() {
-            const html = document.documentElement;
-            const currentTheme = html.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            html.setAttribute('data-theme', newTheme);
-            localStorage.setItem('tokyoTheme', newTheme);
-            showToast(`Theme switched to ${newTheme.toUpperCase()} mode`, "info");
-        }
-        
-        // Load saved theme
-        if(localStorage.getItem('tokyoTheme')) {
-            document.documentElement.setAttribute('data-theme', localStorage.getItem('tokyoTheme'));
         }
 
-        /* --- 4. TOAST NOTIFICATION ENGINE --- */
-        function showToast(message, type = "info") {
-            const container = document.getElementById("toast-container");
-            const toast = document.createElement("div");
-            toast.className = "toast";
-            
-            let icon = "fa-info-circle";
-            let color = "var(--accent-cyan)";
-            if(type === "success") { icon = "fa-check-circle"; color = "var(--accent-pink)"; }
-            if(type === "warning") { icon = "fa-exclamation-triangle"; color = "var(--accent-red)"; }
-            
+        /* --- 4. MATRIX BACKGROUND CANVAS --- */
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+        const letters = "01010101010101";
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = Array.from({length: columns}).fill(1);
+
+        function drawMatrix() {
+            ctx.fillStyle = "rgba(2, 2, 3, 0.05)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "#00f3ff"; // Cyan rain
+            ctx.font = fontSize + "px 'Space Mono'";
+            for (let i = 0; i < drops.length; i++) {
+                const text = letters.charAt(Math.floor(Math.random() * letters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            }
+        }
+        setInterval(drawMatrix, 50);
+
+        /* --- 5. TOAST & DATA SYSTEM --- */
+        function showToast(msg, type="info") {
+            const box = document.getElementById('toast-box');
+            const toast = document.createElement('div');
+            toast.className = 'toast-msg';
+            let color = type === "success" ? "var(--accent-pink)" : "var(--accent-cyan)";
+            if(type==="warning") color = "var(--accent-gold)";
             toast.style.borderLeftColor = color;
-            toast.innerHTML = `<i class="fas ${icon}" style="color:${color}; margin-right:10px;"></i> ${message}`;
-            
-            container.appendChild(toast);
-            
-            setTimeout(() => {
-                toast.style.opacity = "0";
-                toast.style.transform = "translateX(50px)";
-                toast.style.transition = "all 0.4s ease";
-                setTimeout(() => toast.remove(), 400);
-            }, 3000);
+            toast.innerHTML = `<i class="fas fa-terminal" style="color:${color}; margin-right:10px;"></i> ${msg}`;
+            box.appendChild(toast);
+            setTimeout(() => { toast.style.opacity="0"; setTimeout(()=>toast.remove(), 500); }, 3000);
         }
 
-        /* --- 5. TON WALLET RED BUTTON SYSTEM --- */
-        const TON_WALLET = "UQCvCMmfwJugAgxbMjmUrHI4goe2boXykQwNCDOWcwi8_fGT";
-        function copyTonWallet() {
-            navigator.clipboard.writeText(TON_WALLET).then(() => {
-                showToast("TON Wallet Copied! Thanks for the coffee <3", "success");
+        function copyWallet() {
+            playBeep(1200, "square", 0.1);
+            navigator.clipboard.writeText("UQCvCMmfwJugAgxbMjmUrHI4goe2boXykQwNCDOWcwi8_fGT").then(() => {
+                showToast("TON Address Copied. Thank You! ❤️", "success");
             });
         }
 
-        /* --- 6. LOCAL STORAGE DATA MANAGEMENT (Saves Likes & Bookmarks) --- */
-        let userLikes = JSON.parse(localStorage.getItem('tokyoLikes')) || [];
-        let userSaves = JSON.parse(localStorage.getItem('tokyoSaves')) || [];
-
-        function toggleAction(btn, type, id) {
+        let userLikes = JSON.parse(localStorage.getItem('godLikes')) || [];
+        function toggleLove(btn, url) {
+            playBeep(900, "triangle", 0.1);
+            btn.classList.toggle('active');
             const icon = btn.querySelector('i');
-            const isActive = btn.classList.contains('active');
-            
-            if (isActive) {
-                btn.classList.remove('active');
-                if(type === 'love') {
-                    icon.className = 'far fa-heart';
-                    userLikes = userLikes.filter(item => item !== id);
-                } else {
-                    icon.className = 'far fa-bookmark';
-                    userSaves = userSaves.filter(item => item !== id);
-                }
+            if(btn.classList.contains('active')) {
+                icon.className = 'fas fa-heart';
+                if(!userLikes.includes(url)) userLikes.push(url);
+                showToast("Asset Encrypted to Favorites", "success");
             } else {
-                btn.classList.add('active');
-                if(type === 'love') {
-                    icon.className = 'fas fa-heart';
-                    userLikes.push(id);
-                    showToast(`Image ${id} added to Favorites`, "success");
-                } else {
-                    icon.className = 'fas fa-bookmark';
-                    userSaves.push(id);
-                    showToast(`Image ${id} Bookmarked securely`, "info");
-                }
+                icon.className = 'far fa-heart';
+                userLikes = userLikes.filter(item => item !== url);
             }
-            
-            // Sync with local storage
-            localStorage.setItem('tokyoLikes', JSON.stringify(userLikes));
-            localStorage.setItem('tokyoSaves', JSON.stringify(userSaves));
+            localStorage.setItem('godLikes', JSON.stringify(userLikes));
         }
 
-        function clearStorage() {
-            localStorage.removeItem('tokyoLikes');
-            localStorage.removeItem('tokyoSaves');
-            userLikes = []; userSaves = [];
-            document.querySelectorAll('.action-circle').forEach(btn => {
-                btn.classList.remove('active');
-                if(btn.classList.contains('btn-love')) btn.querySelector('i').className = 'far fa-heart';
-                if(btn.classList.contains('btn-save')) btn.querySelector('i').className = 'far fa-bookmark';
-            });
-            showToast("Cache Cleared Successfully", "warning");
+        function clearMemory() {
+            playBeep(300, "sawtooth", 0.3);
+            localStorage.clear(); userLikes = [];
+            document.querySelectorAll('.btn-love').forEach(b => { b.classList.remove('active'); b.innerHTML = '<i class="far fa-heart"></i>'; });
+            showToast("System Memory Wiped", "warning");
         }
 
-        /* --- 7. LIGHTBOX (FULLSCREEN) ENGINE --- */
-        function openLightbox(imgSrc) {
-            const lb = document.getElementById("lightbox");
-            const img = document.getElementById("lightbox-img");
-            img.src = imgSrc;
-            lb.classList.add("active");
-        }
-        function closeLightbox() {
-            document.getElementById("lightbox").classList.remove("active");
+        function toggleTheme() {
+            playBeep(1000, "sine", 0.1);
+            const html = document.documentElement;
+            html.setAttribute('data-theme', html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+            showToast("Environment Mode Switched", "info");
         }
 
-        /* --- 8. AI DATA GENERATION (500+ IMAGES ENGINE) --- */
-        const TARGET_IMAGES = 505; 
-        const BATCH_SIZE = 15;
-        let currentLoaded = 0;
+        /* --- 6. NEURAL AI IMAGE GENERATOR (MASONRY & INFINITE) --- */
         const grid = document.getElementById("data-grid");
-        const loader = document.getElementById("loading-spinner");
-        const countDisplay = document.getElementById("asset-count");
-        
-        const sectorNames = ["NEON_CORE", "SHIBUYA_SYS", "AKIHABARA_X", "ROPPONGI_NET", "SHINJUKU_HUB"];
+        const loader = document.getElementById("loader");
+        let loading = false;
 
-        function loadImages() {
-            if(currentLoaded >= TARGET_IMAGES) {
-                loader.style.display = "none";
-                return;
-            }
-
-            loader.style.display = "block";
+        function fetchImages(reset = false) {
+            if(loading) return;
+            loading = true;
+            if(reset) { grid.innerHTML = ""; imageDB.length = 0; }
+            
             const fragment = document.createDocumentFragment();
-            let limit = Math.min(currentLoaded + BATCH_SIZE, TARGET_IMAGES);
+            // Varying heights for beautiful masonry look
+            const heights = [600, 800, 1000, 700, 900];
 
-            for (let i = currentLoaded; i < limit; i++) {
-                const imgID = 3000 + i;
-                const sector = sectorNames[i % sectorNames.length];
+            for (let i = 0; i < 16; i++) {
+                const seed = Math.floor(Math.random() * 1000000);
+                const h = heights[Math.floor(Math.random() * heights.length)];
                 
-                // Generates 4K Cyberpunk Tokyo Images dynamically without API limits
-                const prompt = encodeURIComponent("hyperrealistic 8k cyberpunk tokyo neon street night cinematic lighting photography");
-                const imgURL = `https://image.pollinations.ai/prompt/${prompt}?width=800&height=1000&nologo=true&seed=${imgID}`;
+                // Using Pollinations AI - generates image based on the dynamic prompt!
+                const safePrompt = encodeURIComponent(currentPrompt + " hyperrealistic 8k masterpiece cinematic");
+                const imgURL = `https://image.pollinations.ai/prompt/${safePrompt}?width=600&height=${h}&nologo=true&seed=${seed}`;
+                
+                const dbIndex = imageDB.length;
+                imageDB.push(imgURL);
 
-                const isLiked = userLikes.includes(imgID) ? "active" : "";
-                const isSaved = userSaves.includes(imgID) ? "active" : "";
-                const heartClass = userLikes.includes(imgID) ? "fas fa-heart" : "far fa-heart";
-                const saveClass = userSaves.includes(imgID) ? "fas fa-bookmark" : "far fa-bookmark";
+                const isLiked = userLikes.includes(imgURL) ? "active" : "";
+                const heartIcon = isLiked ? "fas" : "far";
 
                 const node = document.createElement("div");
                 node.className = "data-node";
-                node.style.animationDelay = `${(i % BATCH_SIZE) * 0.05}s`;
-
                 node.innerHTML = `
-                    <div class="img-container" onclick="openLightbox('${imgURL}')">
-                        <span class="res-tag">4K RAW</span>
-                        <img src="${imgURL}" loading="lazy" alt="Tokyo System Data">
+                    <div class="img-container" onclick="openLB(${dbIndex})">
+                        <img src="${imgURL}" loading="lazy" alt="AI Generated Asset">
                     </div>
-                    
                     <div class="action-layer">
-                        <div class="action-circle btn-love ${isLiked}" onclick="toggleAction(this, 'love', ${imgID})">
-                            <i class="${heartClass}"></i>
+                        <div class="action-circle btn-love ${isLiked}" onclick="toggleLove(this, '${imgURL}')" title="Add to Favorites">
+                            <i class="${heartIcon} fa-heart"></i>
                         </div>
-                        <div class="action-circle btn-save ${isSaved}" onclick="toggleAction(this, 'save', ${imgID})">
-                            <i class="${saveClass}"></i>
-                        </div>
-                    </div>
-
-                    <div class="node-info">
-                        <div>
-                            <div class="node-title">ASSET_${imgID}</div>
-                            <div class="node-meta">SECTOR: ${sector} // ONLINE</div>
-                        </div>
-                        <a href="${imgURL}" target="_blank" download="Tokyo_${imgID}.jpg" class="btn-download" title="Download HQ Image">
-                            SAVE
+                        <a href="${imgURL}" target="_blank" download="Tokyo_${seed}.jpg" class="action-circle btn-download" title="Download High Res">
+                            <i class="fas fa-download"></i>
                         </a>
                     </div>
                 `;
                 fragment.appendChild(node);
             }
-
             grid.appendChild(fragment);
-            currentLoaded = limit;
-            countDisplay.innerText = currentLoaded;
-            
-            // Add custom cursor events to new elements
-            document.querySelectorAll(".data-node .img-container, .btn-download, .action-circle").forEach(el => {
-                el.addEventListener("mouseenter", () => {
-                    cursorRing.style.width = "50px";
-                    cursorRing.style.height = "50px";
-                    cursorRing.style.backgroundColor = "rgba(255, 0, 85, 0.1)";
-                });
-                el.addEventListener("mouseleave", () => {
-                    cursorRing.style.width = "30px";
-                    cursorRing.style.height = "30px";
-                    cursorRing.style.backgroundColor = "transparent";
-                });
-            });
+            attachCursorEvents();
+            loading = false;
         }
 
-        /* --- 9. INFINITE SCROLL OBSERVER --- */
-        const scrollObserver = new IntersectionObserver((entries) => {
-            if(entries[0].isIntersecting) {
-                setTimeout(loadImages, 500); // 500ms delay for smooth loading feel
-            }
-        }, { rootMargin: "200px" });
+        /* --- 7. LIVE SEARCH & FILTERS --- */
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                playBeep(800, "square", 0.05);
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                currentPrompt = e.target.getAttribute('data-filter');
+                document.getElementById('search-input').value = ""; // clear search
+                fetchImages(true);
+                showToast(`Filter Applied: ${e.target.innerText}`, "info");
+            });
+        });
 
-        // Init
-        document.addEventListener("DOMContentLoaded", () => {
-            loadImages(); // Load initial batch
-            scrollObserver.observe(loader);
+        document.getElementById('search-input').addEventListener('keypress', (e) => {
+            if(e.key === 'Enter') {
+                const val = e.target.value.trim();
+                if(val) {
+                    playBeep(1200, "sine", 0.1);
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    currentPrompt = val;
+                    fetchImages(true);
+                    showToast(`Neural Query: "${val}"`, "success");
+                }
+            }
+        });
+
+        /* --- 8. ADVANCED LIGHTBOX SYSTEM --- */
+        const lb = document.getElementById("lightbox");
+        const lbImg = document.getElementById("lb-img");
+        
+        function openLB(index) {
+            playBeep(600, "sine", 0.1);
+            currentLBIndex = index;
+            lbImg.src = imageDB[currentLBIndex];
+            lbImg.classList.remove('zoomed');
+            lb.classList.add("active");
+        }
+        function closeLB() { playBeep(400, "sine", 0.1); lb.classList.remove("active"); }
+        function toggleZoom() { lbImg.classList.toggle('zoomed'); playBeep(800, "triangle", 0.05); }
+        
+        function changeImage(dir) {
+            playBeep(700, "square", 0.05);
+            currentLBIndex += dir;
+            if(currentLBIndex < 0) currentLBIndex = imageDB.length - 1;
+            if(currentLBIndex >= imageDB.length) currentLBIndex = 0;
+            lbImg.src = imageDB[currentLBIndex];
+            lbImg.classList.remove('zoomed');
+        }
+
+        // Keyboard support for Lightbox
+        window.addEventListener('keydown', (e) => {
+            if(!lb.classList.contains('active')) return;
+            if(e.key === "Escape") closeLB();
+            if(e.key === "ArrowRight") changeImage(1);
+            if(e.key === "ArrowLeft") changeImage(-1);
+        });
+
+        /* --- 9. INFINITE SCROLL OBSERVER --- */
+        const scrollObs = new IntersectionObserver((entries) => {
+            if(entries[0].isIntersecting) { setTimeout(() => fetchImages(false), 500); }
+        }, { rootMargin: "300px" });
+
+        window.addEventListener("DOMContentLoaded", () => {
+            // First user interaction needed for Audio Context initialization
+            document.body.addEventListener('click', initAudio, { once: true });
+            fetchImages(true);
+            scrollObs.observe(loader);
         });
 
     </script>
