@@ -48,7 +48,7 @@
         }
 
         /* ==========================================
-           2. HEADER & NAVIGATION (Based on 1000055207.jpg)
+           2. HEADER & NAVIGATION
            ========================================== */
         header {
             display: flex;
@@ -171,7 +171,7 @@
         }
 
         /* ==========================================
-           4. GALLERY GRID (500+ Images Container)
+           4. GALLERY GRID
            ========================================== */
         .gallery-wrapper {
             padding: 20px;
@@ -280,6 +280,14 @@
             letter-spacing: 1px;
         }
 
+        .badge-real {
+            color: #00f0ff;
+        }
+
+        .badge-future {
+            color: #ff007a;
+        }
+
         .download-btn {
             background: var(--gradient-btn);
             border: none;
@@ -299,7 +307,7 @@
         }
 
         /* ==========================================
-           5. ACTION BAR (Bottom Floating)
+           5. ACTION BAR
            ========================================== */
         .floating-action-bar {
             position: fixed;
@@ -338,11 +346,11 @@
         }
 
         .gift-coffee {
-            color: #ffb800;
+            color: #0088cc; /* Changed to TON blue color */
         }
 
         /* ==========================================
-           6. MODALS (Subscription, Login, Signup)
+           6. MODALS
            ========================================== */
         .modal-overlay {
             position: fixed;
@@ -445,9 +453,13 @@
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .modal-btn:hover {
+            box-shadow: var(--neon-glow);
         }
 
-        /* Standard Input styling for Login/Signup */
         .form-input {
             width: 100%;
             padding: 12px;
@@ -460,6 +472,20 @@
         }
         .form-input:focus {
             border-color: var(--accent-purple);
+        }
+
+        /* Wallet Box Styling */
+        .wallet-box {
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 8px;
+            word-break: break-all;
+            margin-bottom: 15px;
+            border: 1px dashed var(--accent-purple);
+            color: #00f0ff;
+            font-family: monospace;
+            font-size: 14px;
+            letter-spacing: 0.5px;
         }
 
         /* ==========================================
@@ -514,7 +540,7 @@
         </div>
     </header>
 
-    <!-- TABS (Mimicking 1000055207.jpg) -->
+    <!-- TABS -->
     <div class="tabs-container">
         <div class="tab active">DISCOVER</div>
         <div class="tab">SAVED VISUALS</div>
@@ -523,9 +549,9 @@
     <!-- MAIN GALLERY AREA -->
     <main class="gallery-wrapper">
         <div class="gallery-grid" id="image-grid">
-            <!-- 500+ Images will be dynamically injected here by JavaScript -->
+            <!-- 1000 Images will be dynamically injected here by JavaScript -->
         </div>
-        <div id="loader"><i class="fas fa-spinner fa-spin"></i> Loading Future Tokyo...</div>
+        <div id="loader"><i class="fas fa-spinner fa-spin"></i> Loading 1000+ Tokyo Visuals...</div>
     </main>
 
     <!-- FLOATING BOTTOM ACTION BAR -->
@@ -534,9 +560,10 @@
             <i class="fas fa-gem" style="color: #00f0ff;"></i>
             <span>Premium</span>
         </div>
-        <div class="action-item gift-coffee" onclick="openModal('coffeeModal')">
-            <i class="fas fa-coffee"></i>
-            <span>Gift Coffee</span>
+        <!-- Changed to TON Support -->
+        <div class="action-item gift-coffee" onclick="openModal('tonModal')">
+            <i class="fas fa-wallet"></i>
+            <span>Support</span>
         </div>
         <div class="action-item">
             <i class="fas fa-cog"></i>
@@ -559,7 +586,7 @@
         <div class="modal-box">
             <button class="close-modal" onclick="closeModal('subscriptionModal')"><i class="fas fa-times"></i></button>
             <h2 class="modal-title">Unlock Future Tokyo</h2>
-            <p class="modal-text">To download these 500+ ultra-HD future Tokyo photos, you need an active subscription.</p>
+            <p class="modal-text">To download these 1000 ultra-HD Tokyo photos, you need an active subscription.</p>
             
             <div class="sub-plans">
                 <div class="plan-card">
@@ -603,14 +630,20 @@
         </div>
     </div>
 
-    <!-- 4. Buy me a Coffee Modal -->
-    <div class="modal-overlay" id="coffeeModal">
+    <!-- 4. Support (TON Wallet) Modal -->
+    <div class="modal-overlay" id="tonModal">
         <div class="modal-box">
-            <button class="close-modal" onclick="closeModal('coffeeModal')"><i class="fas fa-times"></i></button>
+            <button class="close-modal" onclick="closeModal('tonModal')"><i class="fas fa-times"></i></button>
             <h2 class="modal-title">Support Iftuu</h2>
-            <p class="modal-text">Love the design? Buy me a coffee to support future updates!</p>
-            <i class="fas fa-mug-hot" style="font-size: 50px; color: #ffb800; margin-bottom: 20px;"></i>
-            <button class="modal-btn" style="background: #ffb800; color: #000;">DONATE $5</button>
+            <p class="modal-text">Love the design? Support me by sending TON to my wallet!</p>
+            
+            <!-- TON Icon -->
+            <i class="fas fa-gem" style="font-size: 50px; color: #0088cc; margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(0,136,204,0.5));"></i>
+            
+            <!-- Wallet Address Box -->
+            <div class="wallet-box" id="walletAddress">UQCvCMmfwJugAgxbMjmUrHI4goe2boXykQwNCDOWcwi8_fGT</div>
+            
+            <button class="modal-btn" style="background: #0088cc; color: #fff;" onclick="copyTonAddress()">COPY TON ADDRESS</button>
         </div>
     </div>
 
@@ -634,29 +667,42 @@
          JAVASCRIPT LOGIC
          ========================================== -->
     <script>
-        // 1. DYNAMICALLY GENERATE 500+ TOKYO PHOTOS
-        // Using a loop creates the 1500+ lines of HTML structure instantly in the browser without crashing the text file.
-        const TOTAL_IMAGES = 500;
+        // 1. DYNAMICALLY GENERATE 1000 TOKYO PHOTOS (500 Real + 500 Future)
+        const TOTAL_IMAGES = 1000;
         const grid = document.getElementById('image-grid');
         const loader = document.getElementById('loader');
 
-        // Futuristic keywords to get diverse Cyberpunk/Tokyo style images from placeholder APIs
-        const keywords = ['tokyo', 'neon', 'cyberpunk', 'cityscape', 'future', 'night', 'japan', 'street'];
+        // Keywords for Real Tokyo Photos (1 to 500)
+        const realKeywords = ['tokyo', 'japan', 'shibuya', 'shinjuku', 'tokyostreet', 'asakusa', 'tokyotower', 'cityscape'];
+        
+        // Keywords for Future Tokyo Photos (501 to 1000)
+        const futureKeywords = ['cyberpunk', 'neon', 'futuristic', 'scifi', 'synthwave', 'nightcity', 'hologram'];
 
-        function generateImages(start, count) {
+        function generateImages() {
             let htmlContent = '';
-            for (let i = start; i < start + count; i++) {
-                if(i > TOTAL_IMAGES) break;
+            
+            for (let i = 1; i <= TOTAL_IMAGES; i++) {
+                let isReal = i <= 500;
                 
-                // Mixing random keywords and IDs to avoid duplicate image caching
-                let randomKeyword = keywords[i % keywords.length];
+                // Select keyword based on category
+                let randomKeyword;
+                let badgeHTML;
+                
+                if (isReal) {
+                    randomKeyword = realKeywords[i % realKeywords.length];
+                    badgeHTML = `<span class="badge-premium badge-real">REAL</span>`;
+                } else {
+                    randomKeyword = futureKeywords[i % futureKeywords.length];
+                    badgeHTML = `<span class="badge-premium badge-future">FUTURE</span>`;
+                }
+
+                // Generates a unique image using the index 'i' as a lock
                 let imgUrl = `https://loremflickr.com/600/800/${randomKeyword}?lock=${i}`;
 
-                // HTML structure for EACH single image card (Generates massive DOM)
                 htmlContent += `
                     <div class="card">
                         <div class="card-img-wrapper">
-                            <img src="${imgUrl}" alt="Future Tokyo Photo ${i}" class="card-img" loading="lazy">
+                            <img src="${imgUrl}" alt="Tokyo Photo ${i}" class="card-img" loading="lazy">
                             <div class="card-overlay">
                                 <div class="card-top-actions">
                                     <button class="love-btn" onclick="toggleLove(this)">
@@ -664,7 +710,7 @@
                                     </button>
                                 </div>
                                 <div class="card-bottom-actions">
-                                    <span class="badge-premium">PRO</span>
+                                    ${badgeHTML}
                                     <button class="download-btn" onclick="attemptDownload()">
                                         <i class="fas fa-arrow-down"></i> GET
                                     </button>
@@ -674,15 +720,15 @@
                     </div>
                 `;
             }
-            grid.innerHTML += htmlContent;
+            grid.innerHTML = htmlContent;
         }
 
-        // Initial Load (Loads first 500 images)
+        // Initial Load
         loader.style.display = 'block';
         setTimeout(() => {
-            generateImages(1, TOTAL_IMAGES);
+            generateImages();
             loader.style.display = 'none';
-        }, 800); // Simulate network fetching
+        }, 1000); // Simulate processing time
 
 
         // 2. LOVE BUTTON INTERACTION
@@ -701,11 +747,20 @@
 
         // 3. DOWNLOAD BUTTON -> SUBSCRIPTION CHECKER
         function attemptDownload() {
-            // As requested, downloading requires a subscription
             openModal('subscriptionModal');
         }
 
-        // 4. MODAL LOGIC (Open / Close)
+        // 4. COPY TON WALLET ADDRESS
+        function copyTonAddress() {
+            const address = document.getElementById('walletAddress').innerText;
+            navigator.clipboard.writeText(address).then(() => {
+                alert("TON Address copied to clipboard!\nThank you for your support!");
+            }).catch(err => {
+                alert("Failed to copy. Please copy manually.");
+            });
+        }
+
+        // 5. MODAL LOGIC (Open / Close)
         function openModal(modalId) {
             document.getElementById(modalId).classList.add('active');
         }
@@ -724,19 +779,13 @@
             });
         }
 
-        // 5. TABS INTERACTION
+        // 6. TABS INTERACTION
         const tabs = document.querySelectorAll('.tab');
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
                 tabs.forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
-                // Simulate loading different visuals
-                grid.innerHTML = '';
-                loader.style.display = 'block';
-                setTimeout(() => {
-                    generateImages(1, 20); // Just load a few for "Saved Visuals" tab demo
-                    loader.style.display = 'none';
-                }, 500);
+                // Optional: You can add logic here to filter saved images
             });
         });
     </script>
