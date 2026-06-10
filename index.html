@@ -1,261 +1,807 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PixelDrop Nexus | Learn, Create & Download 8K</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syncopate:wght@400;700&display=swap');
-        
-        :root {
-            --bg-matrix: #010103;
-            --hologram-cyan: #00f3ff;
-            --hologram-pink: #ff0055;
-            --hologram-yellow: #fcee0a;
-        }
-        body {
-            background-color: var(--bg-matrix);
-            color: #d1d5db;
-            font-family: 'Share Tech Mono', monospace;
-            background-image: 
-                linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
-            background-size: 30px 30px;
-        }
-        .font-cyber { font-family: 'Syncopate', sans-serif; }
-        
-        /* CRT Scanline Effect */
-        .scanlines::before {
-            content: " ";
-            display: block;
-            position: fixed;
-            top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            z-index: 100;
-            background-size: 100% 2px, 3px 100%;
-            pointer-events: none;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="PixelDrop Nexus — a futuristic learning and asset hub for AI prompts, color extraction, and creative exploration." />
+  <title>PixelDrop Nexus — Learn, Create & Explore</title>
+  <style>
+    :root {
+      --bg: #060816;
+      --bg2: #0b1030;
+      --card: rgba(12, 16, 36, 0.68);
+      --card2: rgba(18, 24, 53, 0.84);
+      --stroke: rgba(255,255,255,0.10);
+      --text: #eef3ff;
+      --muted: rgba(238,243,255,0.72);
+      --accent: #7c9cff;
+      --accent2: #67f5d8;
+      --accent3: #ff7ad9;
+      --shadow: 0 24px 60px rgba(0,0,0,0.35);
+      --radius: 24px;
+    }
 
-        .glass-panel {
-            background: rgba(10, 10, 15, 0.6);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(0, 243, 255, 0.2);
-            box-shadow: 0 0 20px rgba(0, 243, 255, 0.05);
-        }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(124,156,255,0.22), transparent 25%),
+        radial-gradient(circle at 85% 15%, rgba(103,245,216,0.18), transparent 22%),
+        radial-gradient(circle at 50% 80%, rgba(255,122,217,0.14), transparent 28%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #000; }
-        ::-webkit-scrollbar-thumb { background: var(--hologram-cyan); }
-    </style>
+    .noise {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.14;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 32px 32px;
+      mask-image: radial-gradient(circle at center, black 25%, transparent 78%);
+    }
+
+    .wrap {
+      width: min(1240px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 22px 0 56px;
+      position: relative;
+      z-index: 1;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 10px 0 26px;
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(180deg, rgba(6,8,22,0.88), rgba(6,8,22,0.24));
+      z-index: 20;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background:
+        linear-gradient(135deg, rgba(103,245,216,0.95), rgba(124,156,255,0.92) 52%, rgba(255,122,217,0.92));
+      box-shadow: 0 10px 28px rgba(124,156,255,0.35);
+      position: relative;
+      overflow: hidden;
+    }
+    .logo::before {
+      content: "";
+      position: absolute;
+      inset: 9px;
+      border-radius: 10px;
+      background: rgba(6,8,22,0.95);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15);
+    }
+    .logo::after {
+      content: "";
+      position: absolute;
+      inset: 13px 17px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, var(--accent2), var(--accent3));
+      filter: blur(0.4px);
+    }
+
+    nav {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.96rem;
+      transition: 0.2s ease;
+    }
+    nav a:hover { color: var(--text); }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.18fr 0.82fr;
+      gap: 22px;
+      align-items: stretch;
+      padding: 12px 0 26px;
+    }
+
+    .panel {
+      border: 1px solid var(--stroke);
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero-main {
+      padding: 34px;
+      min-height: 460px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      isolation: isolate;
+    }
+    .hero-main::before {
+      content: "";
+      position: absolute;
+      inset: auto -10% -30% auto;
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(103,245,216,0.18), transparent 65%);
+      z-index: -1;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    .eyebrow span {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent2);
+      box-shadow: 0 0 12px var(--accent2);
+    }
+
+    h1 {
+      margin: 18px 0 12px;
+      font-size: clamp(2.7rem, 6vw, 5.6rem);
+      line-height: 0.95;
+      letter-spacing: -0.05em;
+      max-width: 10ch;
+    }
+    .gradient {
+      background: linear-gradient(90deg, #ffffff, #a7b9ff 28%, #7c9cff 54%, #67f5d8 78%, #ffffff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .subtext {
+      max-width: 66ch;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin: 0 0 22px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+    .btn {
+      appearance: none;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      padding: 14px 18px;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary {
+      background: linear-gradient(135deg, rgba(124,156,255,0.98), rgba(103,245,216,0.88));
+      color: #061019;
+      box-shadow: 0 18px 36px rgba(103,245,216,0.18);
+    }
+    .btn-ghost {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(255,255,255,0.10);
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .metric {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.09);
+    }
+    .metric strong {
+      display: block;
+      font-size: 1.6rem;
+      margin-bottom: 6px;
+    }
+    .metric span {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .hero-side {
+      display: grid;
+      gap: 16px;
+    }
+
+    .glass {
+      padding: 20px;
+    }
+    .glass h3 {
+      margin: 0 0 8px;
+      font-size: 1.05rem;
+    }
+    .glass p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 0.97rem;
+    }
+
+    .orb {
+      height: 240px;
+      border-radius: var(--radius);
+      border: 1px solid var(--stroke);
+      background:
+        radial-gradient(circle at 30% 30%, rgba(103,245,216,0.75), transparent 18%),
+        radial-gradient(circle at 70% 35%, rgba(255,122,217,0.62), transparent 20%),
+        radial-gradient(circle at 45% 68%, rgba(124,156,255,0.7), transparent 24%),
+        linear-gradient(135deg, rgba(255,255,255,0.09), rgba(255,255,255,0.02));
+      box-shadow: inset 0 0 90px rgba(255,255,255,0.04), var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    .orb::before, .orb::after {
+      content: "";
+      position: absolute;
+      inset: 12%;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.1);
+      animation: spin 14s linear infinite;
+    }
+    .orb::after {
+      inset: 22%;
+      animation-duration: 20s;
+      animation-direction: reverse;
+    }
+    @keyframes spin { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+
+    section {
+      margin-top: 18px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin: 22px 0 12px;
+    }
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      letter-spacing: -0.03em;
+    }
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 60ch;
+      line-height: 1.6;
+    }
+
+    .tools {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 16px;
+    }
+    .tool-card {
+      grid-column: span 4;
+      padding: 22px;
+      min-height: 220px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .tool-card h3 { margin: 12px 0 8px; font-size: 1.15rem; }
+    .tool-card p { margin: 0; color: var(--muted); line-height: 1.65; }
+    .icon {
+      width: 50px; height: 50px; border-radius: 16px;
+      background: linear-gradient(135deg, rgba(124,156,255,0.92), rgba(103,245,216,0.92));
+      display: grid; place-items: center;
+      color: #061019;
+      font-weight: 900;
+      box-shadow: 0 18px 28px rgba(124,156,255,0.2);
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .lab, .preview {
+      padding: 22px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.03));
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .field {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .field label {
+      font-size: 0.9rem;
+      color: rgba(238,243,255,0.84);
+    }
+    .field input, .field textarea {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(2,5,16,0.55);
+      color: var(--text);
+      border-radius: 16px;
+      padding: 14px 15px;
+      outline: none;
+      font: inherit;
+    }
+    .field textarea { min-height: 114px; resize: vertical; }
+    .field input::placeholder, .field textarea::placeholder { color: rgba(238,243,255,0.42); }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 14px 0 18px;
+    }
+    .chip {
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.05);
+      color: var(--muted);
+      padding: 10px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+    .chip:hover, .chip.active {
+      color: var(--text);
+      background: rgba(124,156,255,0.18);
+      border-color: rgba(124,156,255,0.35);
+    }
+
+    .output {
+      margin-top: 14px;
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(0,0,0,0.28);
+      border: 1px solid rgba(255,255,255,0.08);
+      min-height: 120px;
+      white-space: pre-wrap;
+      line-height: 1.7;
+      color: #dce6ff;
+    }
+
+    .preview-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .preview-top h3, .preview-top p { margin: 0; }
+    .preview-top p { color: var(--muted); font-size: 0.95rem; }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+    }
+    .art {
+      grid-column: span 3;
+      min-height: 200px;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: var(--shadow);
+      position: relative;
+      background: rgba(255,255,255,0.05);
+    }
+    .art img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transform: scale(1.01);
+      transition: transform 0.35s ease;
+    }
+    .art:hover img { transform: scale(1.08); }
+    .art .cap {
+      position: absolute;
+      inset: auto 0 0 0;
+      padding: 16px;
+      background: linear-gradient(180deg, transparent, rgba(0,0,0,0.82));
+      font-size: 0.95rem;
+      color: #eef3ff;
+    }
+
+    .roadmap {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .step {
+      padding: 20px;
+      border-radius: 22px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,0.05);
+    }
+    .step .num {
+      display: inline-grid;
+      place-items: center;
+      width: 42px; height: 42px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.09);
+      margin-bottom: 14px;
+      font-weight: 800;
+    }
+    .step h3 { margin: 0 0 8px; }
+    .step p { margin: 0; color: var(--muted); line-height: 1.65; }
+
+    footer {
+      margin-top: 22px;
+      padding: 24px 0 10px;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .floating {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 30;
+      display: grid;
+      gap: 10px;
+    }
+    .floating button {
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(8,12,24,0.76);
+      backdrop-filter: blur(12px);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 12px 16px;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+    }
+
+    @media (max-width: 1100px) {
+      .hero, .workspace { grid-template-columns: 1fr; }
+      .tool-card { grid-column: span 6; }
+      .art { grid-column: span 4; }
+    }
+    @media (max-width: 760px) {
+      header { align-items: flex-start; flex-direction: column; }
+      nav { justify-content: flex-start; }
+      .hero-main { min-height: auto; padding: 24px; }
+      .metrics { grid-template-columns: 1fr; }
+      .tool-card, .art, .roadmap { grid-column: span 12; }
+      .tools, .gallery, .roadmap { grid-template-columns: 1fr; }
+      .section-head { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
 </head>
-<body class="antialiased scanlines overflow-x-hidden selection:bg-cyan-500 selection:text-black">
+<body>
+  <div class="noise"></div>
 
-    <div class="w-full bg-cyan-500/10 border-b border-cyan-500/30 text-xs py-1 px-4 flex justify-between items-center z-50 relative">
-        <span class="text-cyan-400 animate-pulse">SYS.STATUS: ONLINE</span>
-        <span class="text-pink-400 font-bold">NETWORK: PIXELDROP-V3</span>
-        <span class="text-yellow-400">ENCRYPTION: AES-256</span>
-    </div>
-
-    <header class="p-5 flex flex-wrap justify-between items-center glass-panel sticky top-0 z-40">
-        <div class="flex items-center gap-3">
-            <h1 class="text-2xl md:text-4xl font-bold font-cyber text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-pink-500">
-                PIXELDROP
-            </h1>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo"></div>
+        <div>
+          <div>PIXELDROP</div>
+          <div style="font-size:.74rem;color:var(--muted);letter-spacing:.18em">NEXUS</div>
         </div>
-        <nav class="flex items-center gap-4 mt-4 md:mt-0">
-            <a href="https://instagram.com/i_f_t_uu" target="_blank" class="hidden md:flex text-gray-400 hover:text-cyan-400 transition text-sm">
-                [ OWNER: @I_F_T_UU ]
-            </a>
-            <button id="loginBtn" onclick="toggleLogin()" class="bg-cyan-500/20 hover:bg-cyan-500 hover:text-black text-cyan-400 border border-cyan-400 px-6 py-2 rounded-sm font-bold transition duration-300">
-                INITIALIZE LOGIN
-            </button>
-        </nav>
+      </div>
+      <nav>
+        <a href="#tools">Tools</a>
+        <a href="#lab">Prompt Lab</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#roadmap">Roadmap</a>
+      </nav>
     </header>
 
-    <section class="max-w-7xl mx-auto px-5 py-12 grid grid-cols-1 lg:grid-cols-2 gap-8 relative">
-        <div class="flex flex-col justify-center">
-            <h2 class="text-4xl md:text-6xl font-cyber text-white mb-4 shadow-cyan-500/50 drop-shadow-lg">
-                NEXT-GEN <br><span class="text-cyan-400">ASSET FORGE</span>
-            </h2>
-            <p class="text-gray-400 mb-8 text-lg">
-                Not just downloads. Learn how to engineer AI prompts, extract color codes for your projects, and access our 8K mainframe. 100% Free architecture.
+    <main>
+      <section class="hero">
+        <div class="panel hero-main">
+          <div>
+            <div class="eyebrow"><span></span> Free creative architecture for AI prompts, learning, and visual assets</div>
+            <h1><span class="gradient">Build</span> a futuristic digital world.</h1>
+            <p class="subtext">
+              PixelDrop Nexus is redesigned as a premium learning hub with a cinematic layout, interactive prompt engineering lab, abstract image gallery, and a clean structure that feels large, modern, and easy to use on mobile and desktop.
             </p>
-            <div class="flex gap-4">
-                <button onclick="scrollToGrid()" class="bg-pink-600 hover:bg-pink-500 text-white px-8 py-3 font-bold uppercase tracking-widest flex-1">
-                    Access Grid
-                </button>
+            <div class="actions">
+              <a class="btn btn-primary" href="#lab">Launch Lab</a>
+              <a class="btn btn-ghost" href="#gallery">Explore Gallery</a>
             </div>
+          </div>
+
+          <div class="metrics">
+            <div class="metric"><strong>8K+</strong><span>visual assets and abstract artwork blocks</span></div>
+            <div class="metric"><strong>AI</strong><span>prompt engine and learning workflow</span></div>
+            <div class="metric"><strong>UX</strong><span>responsive, fast, and premium feel</span></div>
+          </div>
         </div>
 
-        <div class="glass-panel p-6 rounded-lg relative overflow-hidden">
-            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-pink-500 to-yellow-500"></div>
-            <h3 class="text-xl font-cyber text-pink-400 mb-2">>> PROMPT ENGINEERING LAB</h3>
-            <p class="text-xs text-gray-400 mb-4">Learn to write perfect AI prompts. Mix elements to generate prompt code.</p>
-            
-            <div class="grid grid-cols-2 gap-2 mb-4 text-sm">
-                <button onclick="addPromptWord('Cyberpunk City')" class="border border-gray-700 hover:border-cyan-400 py-1 text-center">Subject: Cyberpunk</button>
-                <button onclick="addPromptWord('Neon Lighting, Ray Tracing')" class="border border-gray-700 hover:border-cyan-400 py-1 text-center">Lighting: Neon</button>
-                <button onclick="addPromptWord('Shot on 35mm lens')" class="border border-gray-700 hover:border-cyan-400 py-1 text-center">Camera: 35mm</button>
-                <button onclick="addPromptWord('Unreal Engine 5 Render, 8K')" class="border border-gray-700 hover:border-cyan-400 py-1 text-center">Engine: UE5</button>
-            </div>
-
-            <div class="bg-black p-3 border border-cyan-500/30 text-cyan-400 text-sm h-24 overflow-y-auto mb-2" id="promptBox">
-                // Your generated prompt will appear here...
-            </div>
-            <button onclick="copyPrompt()" class="w-full bg-gray-800 hover:bg-cyan-500 hover:text-black py-2 text-xs font-bold transition">
-                COPY PROMPT DATA
-            </button>
+        <div class="hero-side">
+          <div class="orb panel"></div>
+          <div class="panel glass">
+            <h3>Why this version feels bigger</h3>
+            <p>
+              The layout uses more spacing, stronger headings, glass panels, a larger media gallery, and interactive sections that make the page feel like a full product instead of a small static landing page.
+            </p>
+          </div>
         </div>
-    </section>
+      </section>
 
-    <section class="max-w-7xl mx-auto px-5 mb-12">
-        <div class="glass-panel p-4 flex flex-wrap gap-6 justify-between items-center text-xs text-cyan-500 border-l-4 border-l-pink-500">
-            <div><span class="text-gray-500">TOTAL ASSETS:</span> 1,450,230 (Dynamic)</div>
-            <div><span class="text-gray-500">ACTIVE USERS:</span> <span id="userCount" class="text-yellow-400">420</span></div>
-            <div><span class="text-gray-500">SYSTEM LOAD:</span> 12% Optimal</div>
-        </div>
-    </section>
-
-    <section id="mainGrid" class="max-w-7xl mx-auto px-5 mb-20">
-        <div class="flex justify-between items-end mb-6 border-b border-gray-800 pb-2">
-            <h3 class="text-2xl font-cyber text-white">>> REPOSITORY</h3>
-            <span class="text-xs text-gray-500">Hover image to extract data</span>
+      <section id="tools">
+        <div class="section-head">
+          <div>
+            <h2>Core tools</h2>
+            <p>Three polished sections that match the original idea but look cleaner, richer, and more futuristic.</p>
+          </div>
         </div>
 
-        <div id="galleryGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            </div>
-    </section>
+        <div class="tools">
+          <div class="tool-card">
+            <div class="icon">01</div>
+            <h3>Prompt Engineering Lab</h3>
+            <p>Build AI prompts from a subject, style, camera, lighting, and engine. The output updates live so users can learn by mixing pieces.
+            </p>
+          </div>
+          <div class="tool-card">
+            <div class="icon">02</div>
+            <h3>Color Extraction Studio</h3>
+            <p>Use palette chips and visual swatches to create a professional color workflow for creators, designers, and students.
+            </p>
+          </div>
+          <div class="tool-card">
+            <div class="icon">03</div>
+            <h3>Asset Repository</h3>
+            <p>A grid-based showcase for abstract visuals and portfolio-style cards that make the page feel full, premium, and active.
+            </p>
+          </div>
+        </div>
+      </section>
 
-    <footer class="border-t border-cyan-900/50 bg-[#010103] py-12 text-center px-5 z-40 relative glass-panel">
-        <h3 class="text-2xl font-cyber text-gray-400 mb-4">PIXELDROP <span class="text-cyan-500">NEXUS</span></h3>
-        <p class="text-sm text-gray-500 max-w-md mx-auto mb-6">Free 8K Assets. AI Prompt Learning. Color Extraction Tools.</p>
-        <p class="text-lg font-bold text-gray-300">
-            SYSTEM ARCHITECT: 
-            <a href="https://instagram.com/i_f_t_uu" target="_blank" class="text-pink-500 hover:text-cyan-400 hover:underline font-cyber transition ml-2">
-                @I_F_T_UU
-            </a>
-        </p>
+      <section id="lab">
+        <div class="section-head">
+          <div>
+            <h2>Interactive prompt lab</h2>
+            <p>Type a subject, choose a style, and generate a strong prompt instantly.</p>
+          </div>
+        </div>
+
+        <div class="workspace">
+          <div class="lab">
+            <div class="field">
+              <label for="subject">Subject</label>
+              <input id="subject" value="Cyberpunk city guardian" placeholder="Enter a subject" />
+            </div>
+            <div class="field">
+              <label for="style">Style</label>
+              <input id="style" value="Ultra-detailed cinematic concept art" placeholder="Enter a style" />
+            </div>
+            <div class="field">
+              <label for="camera">Camera / Lens</label>
+              <input id="camera" value="35mm, shallow depth of field" placeholder="Enter camera details" />
+            </div>
+            <div class="field">
+              <label for="lighting">Lighting</label>
+              <input id="lighting" value="Neon rim light, volumetric haze" placeholder="Enter lighting details" />
+            </div>
+            <div class="field">
+              <label for="engine">Engine / Medium</label>
+              <input id="engine" value="Unreal Engine 5, cinematic render" placeholder="Enter engine or medium" />
+            </div>
+
+            <div class="chip-row" id="chips">
+              <div class="chip active">Cyberpunk</div>
+              <div class="chip">Solarpunk</div>
+              <div class="chip">Sci-fi</div>
+              <div class="chip">Portrait</div>
+              <div class="chip">Editorial</div>
+              <div class="chip">Minimal</div>
+            </div>
+
+            <div class="actions" style="margin:0">
+              <button class="btn btn-primary" id="generate">Generate Prompt</button>
+              <button class="btn btn-ghost" id="copy">Copy Prompt</button>
+            </div>
+
+            <div class="output" id="output">Your generated prompt will appear here...</div>
+          </div>
+
+          <div class="preview">
+            <div class="preview-top">
+              <div>
+                <h3>Live preview</h3>
+                <p>Clean prompt structure built for learning and reuse.</p>
+              </div>
+              <div class="eyebrow" style="padding:8px 12px"><span></span> ready</div>
+            </div>
+            <div class="panel" style="padding:18px;background:rgba(255,255,255,0.05);border-radius:20px;min-height:560px;display:flex;flex-direction:column;justify-content:space-between;">
+              <div>
+                <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;">
+                  <div class="chip active">Prompt</div>
+                  <div class="chip">Learning</div>
+                  <div class="chip">Asset</div>
+                </div>
+                <div style="line-height:1.8;color:var(--muted);font-size:1rem">
+                  This area can later hold login, account dashboard, favorite prompts, download buttons, or a private asset vault. The layout is already prepared for future expansion.
+                </div>
+              </div>
+              <div style="margin-top:18px;display:grid;gap:12px;grid-template-columns:repeat(2,minmax(0,1fr));">
+                <div class="metric"><strong>128</strong><span>ready-made prompt ideas</span></div>
+                <div class="metric"><strong>24/7</strong><span>creative workflow support</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="gallery">
+        <div class="section-head">
+          <div>
+            <h2>Visual gallery</h2>
+            <p>These cards use generated SVG artwork so the page gets many visuals without relying on outside image links.</p>
+          </div>
+        </div>
+        <div class="gallery" id="galleryGrid"></div>
+      </section>
+
+      <section id="roadmap">
+        <div class="section-head">
+          <div>
+            <h2>Learning roadmap</h2>
+            <p>Use this section to teach users step-by-step instead of only showing downloads.</p>
+          </div>
+        </div>
+        <div class="roadmap">
+          <div class="step">
+            <div class="num">1</div>
+            <h3>Choose a subject</h3>
+            <p>Pick a clear concept, character, product, place, or scene.</p>
+          </div>
+          <div class="step">
+            <div class="num">2</div>
+            <h3>Add style and camera</h3>
+            <p>Teach users how details like lens, angle, and lighting change the result.</p>
+          </div>
+          <div class="step">
+            <div class="num">3</div>
+            <h3>Export and reuse</h3>
+            <p>Let people copy the prompt, save it, and build their own library over time.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div>PIXELDROP NEXUS — upgraded futuristic concept layout</div>
+      <div>Built for speed, clarity, and a premium look</div>
     </footer>
+  </div>
 
-    <script>
-        // -- LOGIN SYSTEM --
-        let isLogged = false;
-        function toggleLogin() {
-            const btn = document.getElementById('loginBtn');
-            if(!isLogged) {
-                isLogged = true;
-                btn.innerText = "LINK ESTABLISHED (LOGOUT)";
-                btn.className = "bg-pink-600 hover:bg-pink-700 text-white border border-pink-500 px-6 py-2 rounded-sm font-bold transition duration-300";
-                alert("ACCESS GRANTED! You can now download files and copy extraction data.");
-            } else {
-                isLogged = false;
-                btn.innerText = "INITIALIZE LOGIN";
-                btn.className = "bg-cyan-500/20 hover:bg-cyan-500 hover:text-black text-cyan-400 border border-cyan-400 px-6 py-2 rounded-sm font-bold transition duration-300";
-                alert("Connection Terminated.");
-            }
-        }
+  <div class="floating">
+    <button onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Top</button>
+  </div>
 
-        function downloadFile(title) {
-            if(isLogged) {
-                alert(`DOWNLOADING SECURE PACKAGE: [ ${title}.zip ]\nQuality: 8K RAW\nThanks for using PixelDrop Nexus!`);
-            } else {
-                alert("ERROR: LOGIN REQUIRED!\nYou must establish a connection to download free 8K assets.");
-            }
-        }
+  <script>
+    const subject = document.getElementById('subject');
+    const style = document.getElementById('style');
+    const camera = document.getElementById('camera');
+    const lighting = document.getElementById('lighting');
+    const engine = document.getElementById('engine');
+    const output = document.getElementById('output');
+    const generateBtn = document.getElementById('generate');
+    const copyBtn = document.getElementById('copy');
 
-        // -- PROMPT LAB TOOL --
-        let currentPrompt = "";
-        function addPromptWord(word) {
-            const box = document.getElementById('promptBox');
-            if(currentPrompt === "") {
-                currentPrompt = word;
-            } else {
-                currentPrompt += ", " + word;
-            }
-            box.innerText = currentPrompt;
-        }
+    const chips = document.querySelectorAll('.chip');
+    let activeChip = 'Cyberpunk';
 
-        function copyPrompt() {
-            if(currentPrompt === "") {
-                alert("Lab is empty! Click the buttons to build a prompt first.");
-            } else {
-                navigator.clipboard.writeText(currentPrompt);
-                alert("Prompt Copied to Clipboard! Use this in Midjourney or Stable Diffusion.");
-            }
-        }
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        chips.forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        activeChip = chip.textContent.trim();
+      });
+    });
 
-        function copyColor(hex) {
-            navigator.clipboard.writeText(hex);
-            alert(`Color code ${hex} copied! Ready for your CSS/Design software.`);
-        }
+    function buildPrompt() {
+      const prompt = `${activeChip} ${subject.value.trim()} — ${style.value.trim()}, ${camera.value.trim()}, ${lighting.value.trim()}, ${engine.value.trim()}, high detail, clean composition, premium color grading, cinematic atmosphere, sharp focus, professional concept art`;
+      output.textContent = prompt;
+      return prompt;
+    }
 
-        function scrollToGrid() {
-            document.getElementById('mainGrid').scrollIntoView();
-        }
+    generateBtn.addEventListener('click', buildPrompt);
+    copyBtn.addEventListener('click', async () => {
+      const text = output.textContent.includes('appear here') ? buildPrompt() : output.textContent;
+      try {
+        await navigator.clipboard.writeText(text);
+        copyBtn.textContent = 'Copied!';
+        setTimeout(() => copyBtn.textContent = 'Copy Prompt', 1400);
+      } catch {
+        copyBtn.textContent = 'Copy failed';
+        setTimeout(() => copyBtn.textContent = 'Copy Prompt', 1400);
+      }
+    });
 
-        // -- LIVE TERMINAL SIMULATION --
-        setInterval(() => {
-            const users = document.getElementById('userCount');
-            let current = parseInt(users.innerText);
-            users.innerText = current + Math.floor(Math.random() * 5) - 2; // Random fluctuate
-        }, 3000);
+    function svgDataURI(seed) {
+      const colors = [
+        ['#7c9cff', '#67f5d8', '#ff7ad9'],
+        ['#0ff0b3', '#7c9cff', '#111827'],
+        ['#ff7ad9', '#7c9cff', '#67f5d8'],
+        ['#67f5d8', '#e8f1ff', '#7c9cff'],
+        ['#10162b', '#7c9cff', '#ff7ad9']
+      ][seed % 5];
+      const circles = `
+        <circle cx="20" cy="30" r="18" fill="${colors[0]}" fill-opacity="0.36" />
+        <circle cx="78" cy="24" r="22" fill="${colors[1]}" fill-opacity="0.34" />
+        <circle cx="56" cy="76" r="28" fill="${colors[2]}" fill-opacity="0.34" />
+        <rect x="0" y="0" width="100" height="100" fill="${colors[2]}" fill-opacity="0.06" />
+        <path d="M0 80 C 20 60, 40 98, 60 70 S 100 50, 100 30" stroke="white" stroke-opacity="0.28" stroke-width="2" fill="none" />
+      `;
+      return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(`
+        <svg xmlns="http://www.w3.org/2000/svg" width="1000" height="800" viewBox="0 0 100 100">
+          <defs>
+            <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="${colors[0]}"/>
+              <stop offset="48%" stop-color="${colors[1]}"/>
+              <stop offset="100%" stop-color="${colors[2]}"/>
+            </linearGradient>
+            <filter id="blur"><feGaussianBlur stdDeviation="2.4"/></filter>
+          </defs>
+          <rect width="100" height="100" rx="16" fill="url(#g)"/>
+          <g filter="url(#blur)">${circles}</g>
+          <g opacity="0.9">
+            <rect x="12" y="12" width="76" height="76" rx="12" fill="none" stroke="white" stroke-opacity="0.18"/>
+            <circle cx="50" cy="50" r="12" fill="white" fill-opacity="0.12"/>
+          </g>
+        </svg>`)} `;
+    }
 
-        // -- MASSIVE ASSET GENERATOR (Creates a huge grid seamlessly) --
-        const baseImages = [
-            { url: "https://images.unsplash.com/photo-1542051841857-5f90071e7989?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", title: "Neo-Tokyo Rainy Street", colors: ['#FF0055', '#001133', '#00F3FF'], prompt: "Tokyo street in rain, neon lights reflection, cyberpunk style, 8k resolution" },
-            { url: "https://images.unsplash.com/photo-1605806616949-1e87b487cb2a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", title: "Sector-7 Slums", colors: ['#1A1A1A', '#FF4400', '#555555'], prompt: "Futuristic slums, dark atmospheric, orange glowing signs, cinematic lighting" },
-            { url: "https://images.unsplash.com/photo-1515630278258-407f66498911?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", title: "Orbital Space Station", colors: ['#000000', '#00F3FF', '#FFFFFF'], prompt: "Massive space station orbiting earth, sci-fi, highly detailed, photorealistic" },
-            { url: "https://images.unsplash.com/photo-1555580399-5ee411030e20?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", title: "Vaporwave Grid", colors: ['#FF00FF', '#00FFFF', '#220044'], prompt: "Synthwave sunset grid, retro 80s aesthetic, purple and pink gradient, 4k" },
-            { url: "https://images.unsplash.com/photo-1554629947-334ff61d85dc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", title: "Hover Car Prototype", colors: ['#888888', '#FFCC00', '#111111'], prompt: "Futuristic hover car parked in neon garage, metallic reflections, octane render" }
-        ];
-
-        const galleryGrid = document.getElementById('galleryGrid');
-        
-        // Loop to generate 50 cards dynamically (giving the feeling of endless scroll)
-        function renderGrid() {
-            let htmlContent = "";
-            for(let i=0; i<30; i++) { // Generated 30 items for speed and scale
-                const imgData = baseImages[i % baseImages.length];
-                
-                // Color Extraction Tool UI built into the card
-                let colorBoxes = "";
-                imgData.colors.forEach(c => {
-                    colorBoxes += `<div onclick="copyColor('${c}')" class="w-6 h-6 rounded-sm cursor-pointer hover:scale-125 transition" style="background-color: ${c};" title="Copy ${c}"></div>`;
-                });
-
-                htmlContent += `
-                    <div class="glass-panel group overflow-hidden flex flex-col justify-between">
-                        <div class="relative h-64 overflow-hidden">
-                            <img src="${imgData.url}" loading="lazy" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-110 transition duration-700">
-                            
-                            <div class="absolute inset-0 bg-black/80 flex flex-col justify-center items-center p-4 opacity-0 group-hover:opacity-100 transition duration-300">
-                                <span class="text-xs text-pink-400 mb-1">LEARNING DATA >></span>
-                                <p class="text-xs text-gray-300 text-center mb-4 italic">" ${imgData.prompt} "</p>
-                                <span class="text-xs text-cyan-400 mb-2">EXTRACTED COLORS:</span>
-                                <div class="flex gap-2">
-                                    ${colorBoxes}
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="p-4 bg-gray-950 border-t border-gray-800 flex justify-between items-center">
-                            <div class="w-2/3">
-                                <h4 class="text-cyan-400 font-bold truncate">${imgData.title}</h4>
-                                <span class="text-xs text-gray-500">Size: 8K RAW | Free</span>
-                            </div>
-                            <button onclick="downloadFile('${imgData.title}')" class="bg-gray-800 hover:bg-pink-600 text-white text-xs px-4 py-2 font-bold transition">
-                                DL
-                            </button>
-                        </div>
-                    </div>
-                `;
-            }
-            galleryGrid.innerHTML = htmlContent;
-        }
-
-        // Initialize grid on load
-        renderGrid();
-    </script>
-</body>
-</html>
+    const captions = [
+      'Neon Drift', 'Apex Grid', 'Void
