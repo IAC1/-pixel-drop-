@@ -3,93 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TOKYO VISUALS 2026 // END-TO-END ENCRYPTED</title>
+    <title>NEXUS VISUALS // MODERN</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         /* ==========================================================================
-           1. CORE VARIABLES & COLOR PALETTE
+           1. MODERN VARIABLES & COLOR PALETTE
            ========================================================================== */
         :root {
-            --bg-deep: #05050a;
-            --grid-color: rgba(0, 243, 255, 0.15);
-            --neon-cyan: #00f3ff;
-            --neon-magenta: #ff007f;
-            --neon-purple: #8a2be2;
-            --neon-yellow: #ffea00;
-            --glass-bg: rgba(15, 15, 25, 0.6);
-            --glass-border: rgba(0, 243, 255, 0.2);
-            --text-main: #e0fbfc;
-            --text-dim: #8d99ae;
-            --font-title: 'Rajdhani', sans-serif;
-            --font-code: 'Space Mono', monospace;
+            --bg-deep: #0f0c29;
+            --bg-mid: #302b63;
+            --bg-light: #24243e;
+            
+            --neon-cyan: #00f2fe;
+            --neon-blue: #4facfe;
+            --neon-pink: #ff0844;
+            --neon-orange: #ffb199;
+            --neon-purple: #c471ed;
+            
+            --glass-bg: rgba(25, 25, 35, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            
+            --text-main: #ffffff;
+            --text-dim: #a0a5b1;
+            
+            --font-title: 'Space Grotesk', sans-serif;
+            --font-body: 'Outfit', sans-serif;
         }
 
         * {
             margin: 0; padding: 0; box-sizing: border-box;
-            cursor: crosshair;
+            font-family: var(--font-body);
         }
 
         body {
             background-color: var(--bg-deep);
             color: var(--text-main);
-            font-family: var(--font-code);
             overflow-x: hidden;
+            min-height: 100vh;
         }
 
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--bg-deep); }
-        ::-webkit-scrollbar-thumb { background: linear-gradient(var(--neon-cyan), var(--neon-magenta)); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(var(--neon-blue), var(--neon-purple)); border-radius: 10px; }
 
         /* ==========================================================================
-           2. 3D CYBER-GRID BACKGROUND
+           2. COLORFUL ANIMATED BACKGROUND
            ========================================================================== */
-        .grid-bg {
+        .animated-bg {
             position: fixed;
             top: 0; left: 0;
             width: 100vw; height: 100vh;
-            background-image: 
-                linear-gradient(transparent 95%, var(--grid-color) 100%),
-                linear-gradient(90deg, transparent 95%, var(--grid-color) 100%);
-            background-size: 50px 50px;
-            transform: perspective(500px) rotateX(60deg) translateY(-100px) translateZ(-200px);
-            animation: gridMove 10s linear infinite;
-            z-index: -2;
-            opacity: 0.6;
+            background: linear-gradient(45deg, var(--bg-deep), var(--bg-mid), var(--bg-light));
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            z-index: -3;
         }
 
-        .ambient-glow {
+        .glow-orbs {
             position: fixed;
-            top: 50%; left: 50%;
-            width: 80vw; height: 80vh;
-            transform: translate(-50%, -50%);
-            background: radial-gradient(circle, rgba(138,43,226,0.15) 0%, rgba(0,0,0,0) 70%);
-            z-index: -1;
+            width: 100vw; height: 100vh;
+            z-index: -2;
+            overflow: hidden;
             pointer-events: none;
         }
 
-        @keyframes gridMove {
-            0% { background-position: 0 0; }
-            100% { background-position: 0 50px; }
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.5;
+            animation: float 10s infinite ease-in-out alternate;
+        }
+
+        .orb-1 { width: 300px; height: 300px; background: var(--neon-pink); top: 10%; left: 20%; animation-delay: 0s; }
+        .orb-2 { width: 400px; height: 400px; background: var(--neon-cyan); bottom: 10%; right: 10%; animation-delay: -3s; }
+        .orb-3 { width: 250px; height: 250px; background: var(--neon-purple); top: 40%; left: 60%; animation-delay: -6s; }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-50px) scale(1.1); }
         }
 
         /* ==========================================================================
-           3. PREMIUM NAVIGATION & LOGO
+           3. PREMIUM NAVIGATION
            ========================================================================== */
         nav {
             position: sticky; top: 0;
             width: 100%;
-            background: rgba(5, 5, 10, 0.85);
-            backdrop-filter: blur(12px);
+            background: rgba(15, 12, 41, 0.7);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--glass-border);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 40px;
+            padding: 15px 50px;
             z-index: 1000;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
         }
 
         .logo-container {
@@ -99,96 +118,103 @@
             font-family: var(--font-title);
             font-size: 1.8rem;
             font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
         }
 
         .logo-icon {
-            color: var(--neon-cyan);
-            font-size: 2rem;
-            filter: drop-shadow(0 0 8px var(--neon-cyan));
-            animation: pulseIcon 2s infinite alternate;
+            background: linear-gradient(to right, var(--neon-cyan), var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2.2rem;
         }
 
         .logo-text span {
-            color: var(--neon-magenta);
-            text-shadow: 0 0 10px var(--neon-magenta);
+            background: linear-gradient(to right, var(--neon-pink), var(--neon-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .nav-links { display: flex; gap: 20px; align-items: center; }
+        .nav-actions { 
+            display: flex; 
+            gap: 20px; 
+            align-items: center; 
+        }
 
-        .ig-btn {
-            background: linear-gradient(45deg, rgba(255,0,127,0.1), rgba(0,243,255,0.1));
-            border: 1px solid var(--neon-cyan);
-            padding: 8px 20px;
-            border-radius: 4px;
-            color: #fff;
-            text-decoration: none;
-            font-weight: bold;
-            transition: 0.3s;
+        .btn {
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: var(--font-body);
             display: flex;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 0 10px rgba(0,243,255,0.2);
+            border: none;
         }
 
-        .ig-btn:hover {
-            background: var(--neon-cyan);
-            color: #000;
-            box-shadow: 0 0 20px var(--neon-cyan);
+        .btn-outline {
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: #fff;
+        }
+
+        .btn-gradient {
+            background: linear-gradient(45deg, var(--neon-pink), var(--neon-purple));
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 8, 68, 0.4);
+        }
+
+        .btn-gradient:hover {
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 8, 68, 0.6);
+            background: linear-gradient(45deg, var(--neon-purple), var(--neon-pink));
+        }
+        
+        .icon-btn {
+            background: transparent;
+            color: var(--text-main);
+            border: none;
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: 0.3s;
+            padding: 5px;
         }
 
-        /* ==========================================================================
-           4. PRIVACY HUD (SIDEBAR)
-           ========================================================================== */
-        .privacy-hud {
-            position: fixed;
-            left: 20px; top: 50%;
-            transform: translateY(-50%);
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            backdrop-filter: blur(8px);
-            padding: 20px;
-            border-radius: 8px;
-            width: 220px;
-            z-index: 50;
-            box-shadow: 0 0 20px rgba(0,0,0,0.8);
-        }
-
-        .hud-title {
-            font-family: var(--font-title);
+        .icon-btn:hover {
             color: var(--neon-cyan);
-            font-size: 1.2rem;
-            border-bottom: 1px solid #333;
-            padding-bottom: 10px;
-            margin-bottom: 15px;
-            display: flex;
+            transform: rotate(45deg);
+        }
+
+        /* User Profile State */
+        .user-profile {
+            display: none; /* Hidden by default */
             align-items: center;
-            gap: 8px;
+            gap: 15px;
         }
-
-        .hud-item {
-            margin-bottom: 12px;
-            font-size: 0.8rem;
+        .user-avatar {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-blue));
+            display: flex; justify-content: center; align-items: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
         }
-
-        .hud-label { color: var(--text-dim); }
-        .hud-value { 
-            display: block; 
-            color: #0f0; 
-            font-weight: bold; 
-            margin-top: 3px;
-            text-shadow: 0 0 5px #0f0;
-        }
-
-        .hud-value.warning { color: var(--neon-magenta); text-shadow: 0 0 5px var(--neon-magenta); }
+        .user-name { font-weight: 500; }
 
         /* ==========================================================================
-           5. HERO SECTION
+           4. HERO SECTION
            ========================================================================== */
         header.hero {
-            padding: 100px 20px;
+            padding: 120px 20px 80px;
             text-align: center;
             position: relative;
             z-index: 10;
@@ -196,37 +222,37 @@
 
         .hero-badge {
             display: inline-block;
-            background: rgba(0, 243, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
             color: var(--neon-cyan);
-            padding: 5px 15px;
-            border: 1px solid var(--neon-cyan);
-            border-radius: 20px;
-            font-size: 0.85rem;
-            margin-bottom: 20px;
-            letter-spacing: 2px;
+            padding: 8px 20px;
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            border-radius: 30px;
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+            backdrop-filter: blur(5px);
         }
 
         .hero h1 {
             font-family: var(--font-title);
-            font-size: 4.5rem;
+            font-size: 5rem;
             line-height: 1.1;
-            margin-bottom: 20px;
-            text-transform: uppercase;
+            margin-bottom: 25px;
+            letter-spacing: -2px;
         }
 
         .hero h1 .gradient-text {
-            background: linear-gradient(to right, var(--neon-cyan), var(--neon-magenta), var(--neon-purple));
+            background: linear-gradient(to right, var(--neon-cyan), var(--neon-purple), var(--neon-pink), var(--neon-cyan));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: gradientShift 5s infinite linear;
+            animation: gradientShift 6s infinite linear;
             background-size: 200% auto;
         }
 
         .hero p {
             color: var(--text-dim);
-            max-width: 600px;
+            max-width: 650px;
             margin: 0 auto;
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             line-height: 1.6;
         }
 
@@ -236,76 +262,92 @@
         }
 
         /* ==========================================================================
-           6. GALLERY GRID & GLASSMORPHISM CARDS
+           5. GALLERY GRID & MODERN CARDS
            ========================================================================== */
         .gallery-container {
-            max-width: 1400px;
+            max-width: 1500px;
             margin: 0 auto;
-            padding: 20px 20px 100px 260px; /* Left padding avoids HUD */
+            padding: 20px 40px 100px;
         }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 35px;
         }
 
         .card {
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
-            border-radius: 12px;
+            border-radius: 20px;
             overflow: hidden;
             position: relative;
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             opacity: 0;
             transform: translateY(40px);
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: var(--glass-shadow);
         }
 
-        .card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .card.visible { opacity: 1; transform: translateY(0); }
 
         .card:hover {
             transform: translateY(-10px);
-            border-color: var(--neon-magenta);
-            box-shadow: 0 15px 40px rgba(255, 0, 127, 0.2);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
 
         .card-img-wrapper {
             width: 100%;
-            height: 250px;
+            height: 280px;
             overflow: hidden;
             position: relative;
-        }
-
-        .card-img-wrapper::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, transparent 60%, var(--glass-bg));
-            pointer-events: none;
         }
 
         .card img {
             width: 100%; height: 100%;
             object-fit: cover;
-            transition: 0.6s ease;
-            filter: saturate(1.2) contrast(1.1);
+            transition: 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .card:hover img {
-            transform: scale(1.1);
-            filter: saturate(1.5) contrast(1.2) brightness(1.1);
+        .card:hover img { transform: scale(1.08); }
+
+        /* Download Overlay */
+        .download-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(3px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: 0.3s;
         }
 
-        .card-info {
-            padding: 20px;
-            position: relative;
-            z-index: 2;
+        .card:hover .download-overlay { opacity: 1; }
+
+        .btn-download {
+            background: rgba(255,255,255,0.2);
+            border: 1px solid #fff;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            transition: 0.3s;
+            display: flex; align-items: center; gap: 10px;
         }
+
+        .btn-download:hover {
+            background: #fff;
+            color: #000;
+            transform: scale(1.05);
+        }
+
+        .card-info { padding: 20px; }
 
         .card-header {
             display: flex;
@@ -314,126 +356,178 @@
             margin-bottom: 10px;
         }
 
-        .node-id { color: var(--neon-cyan); font-weight: bold; font-size: 1.1rem; }
-        .secure-badge { background: rgba(0,255,0,0.1); color: #0f0; padding: 3px 8px; border-radius: 4px; font-size: 0.7rem; border: 1px solid #0f0; }
+        .node-title { 
+            font-family: var(--font-title);
+            font-size: 1.2rem; 
+            font-weight: 700;
+        }
 
-        .card-meta {
-            display: flex;
-            justify-content: space-between;
-            color: var(--text-dim);
-            font-size: 0.8rem;
+        .author {
+            display: flex; align-items: center; gap: 8px;
+            color: var(--text-dim); font-size: 0.85rem;
             margin-top: 15px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding-top: 15px;
+        }
+        
+        .author img {
+            width: 24px; height: 24px; border-radius: 50%;
         }
 
         /* ==========================================================================
-           7. BOOT SEQUENCE (PRIVACY CHECK)
+           6. MODALS (LOGIN, SIGNUP, SETTINGS)
            ========================================================================== */
-        #boot-screen {
+        .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
-            background: #020202;
-            z-index: 99999;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: 0.8s ease-out;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.4s ease;
         }
 
-        .lock-icon {
-            font-size: 4rem;
-            color: var(--neon-cyan);
-            margin-bottom: 20px;
-            animation: unlockAnim 2s forwards;
+        .modal-overlay.active {
+            opacity: 1; pointer-events: all;
         }
 
-        .terminal {
-            width: 80%;
-            max-width: 600px;
-            background: #0a0a0a;
-            border: 1px solid #333;
-            padding: 20px;
-            border-radius: 5px;
-            color: #0f0;
-            font-size: 0.9rem;
-            min-height: 200px;
+        .modal-box {
+            background: rgba(25, 25, 35, 0.8);
+            border: 1px solid var(--glass-border);
+            padding: 40px;
+            border-radius: 24px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            transform: translateY(30px) scale(0.95);
+            transition: 0.4s ease;
+            position: relative;
         }
 
-        @keyframes unlockAnim {
-            0% { transform: scale(0.8); color: var(--neon-magenta); }
-            50% { transform: scale(1.1); color: var(--neon-cyan); }
-            100% { transform: scale(1); color: #0f0; }
+        .modal-overlay.active .modal-box {
+            transform: translateY(0) scale(1);
         }
 
-        /* Responsive Design */
-        @media (max-width: 900px) {
-            .privacy-hud { display: none; } /* Hide sidebar on mobile */
+        .close-modal {
+            position: absolute;
+            top: 20px; right: 20px;
+            background: transparent;
+            border: none;
+            color: var(--text-dim);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .close-modal:hover { color: var(--neon-pink); transform: rotate(90deg); }
+
+        .modal-title {
+            font-family: var(--font-title);
+            font-size: 2rem;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        .modal-subtitle {
+            text-align: center; color: var(--text-dim); margin-bottom: 30px; font-size: 0.9rem;
+        }
+
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; margin-bottom: 8px; font-size: 0.9rem; color: #ccc; }
+        .input-group input {
+            width: 100%;
+            padding: 14px 20px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+        }
+        .input-group input:focus {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.2);
+        }
+
+        .modal-btn { width: 100%; padding: 15px; font-size: 1.1rem; justify-content: center; margin-top: 10px; }
+
+        .switch-modal { text-align: center; margin-top: 20px; font-size: 0.9rem; color: var(--text-dim); }
+        .switch-modal span { color: var(--neon-cyan); cursor: pointer; font-weight: bold; }
+        .switch-modal span:hover { text-decoration: underline; }
+
+        /* Settings specific */
+        .setting-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        /* Toggle Switch */
+        .switch { position: relative; display: inline-block; width: 50px; height: 24px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(255,255,255,0.2); transition: .4s; border-radius: 34px; }
+        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: var(--neon-cyan); }
+        input:checked + .slider:before { transform: translateX(26px); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav { padding: 15px 20px; }
+            .hero h1 { font-size: 3.5rem; }
             .gallery-container { padding: 20px; }
-            .hero h1 { font-size: 3rem; }
+            .auth-buttons .btn span { display: none; } /* Hide text on small screens, keep icons */
+            .logo-text { font-size: 1.2rem; }
         }
     </style>
 </head>
 <body>
 
-    <div id="boot-screen">
-        <i class="fas fa-shield-alt lock-icon" id="boot-icon"></i>
-        <div class="terminal" id="terminal-text"></div>
+    <div class="animated-bg"></div>
+    <div class="glow-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
     </div>
 
-    <div class="grid-bg"></div>
-    <div class="ambient-glow"></div>
-
     <nav>
-        <div class="logo-container">
-            <i class="fas fa-fingerprint logo-icon"></i>
-            <div class="logo-text">NEXUS_<span>PROXY</span></div>
+        <div class="logo-container" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+            <i class="fas fa-layer-group logo-icon"></i>
+            <div class="logo-text">NEXUS<span>VISUALS</span></div>
         </div>
-        <div class="nav-links">
-            <span style="color: #0f0; font-size: 0.8rem; letter-spacing: 1px;">
-                <i class="fas fa-lock"></i> END-TO-END ENCRYPTED
-            </span>
-            <a href="https://instagram.com/i_f_t_uu" target="_blank" class="ig-btn">
-                <i class="fab fa-instagram"></i> @i_f_t_uu
-            </a>
+        
+        <div class="nav-actions">
+            <div id="auth-buttons" class="auth-buttons" style="display: flex; gap: 15px;">
+                <button class="btn btn-outline" onclick="openModal('login-modal')">
+                    <i class="fas fa-sign-in-alt"></i> <span>Log In</span>
+                </button>
+                <button class="btn btn-gradient" onclick="openModal('signup-modal')">
+                    <i class="fas fa-user-plus"></i> <span>Sign Up</span>
+                </button>
+            </div>
+
+            <div id="user-profile" class="user-profile">
+                <div class="user-name">Hi, <span id="display-name">User</span></div>
+                <div class="user-avatar" id="avatar-initial">U</div>
+                <button class="icon-btn" onclick="logout()" title="Logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+
+            <button class="icon-btn" onclick="openModal('settings-modal')" style="margin-left: 10px;">
+                <i class="fas fa-cog"></i>
+            </button>
         </div>
     </nav>
 
-    <aside class="privacy-hud">
-        <div class="hud-title">
-            <i class="fas fa-satellite-dish"></i> NETWORK STATUS
-        </div>
-        <div class="hud-item">
-            <span class="hud-label">ANONYMITY:</span>
-            <span class="hud-value">GHOST MODE ACTIVE</span>
-        </div>
-        <div class="hud-item">
-            <span class="hud-label">ENCRYPTION:</span>
-            <span class="hud-value">AES-256-GCM</span>
-        </div>
-        <div class="hud-item">
-            <span class="hud-label">CONNECTION IP:</span>
-            <span class="hud-value" id="fake-ip">192.168.***.***</span>
-        </div>
-        <div class="hud-item">
-            <span class="hud-label">DATA LEAKS:</span>
-            <span class="hud-value" style="color: var(--neon-cyan);">0 DETECTED</span>
-        </div>
-        <div class="hud-item" style="margin-top: 20px; border-top: 1px dashed #333; padding-top: 15px;">
-            <span class="hud-label">ASSETS DECRYPTED:</span>
-            <span class="hud-value warning" id="asset-counter">0 / 500</span>
-        </div>
-    </aside>
-
     <header class="hero">
-        <div class="hero-badge">RESTRICTED ACCESS AREA // 2026</div>
+        <div class="hero-badge"><i class="fas fa-sparkles"></i> Premium Digital Assets</div>
         <h1>
-            TOKYO <br>
-            <span class="gradient-text">DIGITAL VISUALS</span>
+            DISCOVER <br>
+            <span class="gradient-text">MODERN VISUALS</span>
         </h1>
         <p>
-            Securely rendering 500 unique cyberpunk visual nodes. All tracking cookies destroyed. Proceed with digital anonymity. Maintained by @i_f_t_uu.
+            Explore an exclusive collection of high-quality digital artwork. Sign up to download and use them for your next big project. Maintained by @i_f_t_uu.
         </p>
     </header>
 
@@ -442,111 +536,234 @@
             </div>
     </main>
 
+    <div class="modal-overlay" id="login-modal">
+        <div class="modal-box">
+            <button class="close-modal" onclick="closeModal('login-modal')"><i class="fas fa-times"></i></button>
+            <h2 class="modal-title">Welcome Back</h2>
+            <p class="modal-subtitle">Login to download premium visuals</p>
+            
+            <form onsubmit="handleLogin(event)">
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <input type="email" placeholder="enter your email" required>
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn btn-gradient modal-btn">Log In</button>
+            </form>
+            
+            <div class="switch-modal">
+                Don't have an account? <span onclick="switchModal('login-modal', 'signup-modal')">Sign Up</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="signup-modal">
+        <div class="modal-box">
+            <button class="close-modal" onclick="closeModal('signup-modal')"><i class="fas fa-times"></i></button>
+            <h2 class="modal-title">Create Account</h2>
+            <p class="modal-subtitle">Join us to get unlimited downloads</p>
+            
+            <form onsubmit="handleSignup(event)">
+                <div class="input-group">
+                    <label>Username</label>
+                    <input type="text" id="signup-name" placeholder="e.g. Alex" required>
+                </div>
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <input type="email" placeholder="you@example.com" required>
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" placeholder="Create a password" required>
+                </div>
+                <button type="submit" class="btn btn-gradient modal-btn">Create Account</button>
+            </form>
+            
+            <div class="switch-modal">
+                Already have an account? <span onclick="switchModal('signup-modal', 'login-modal')">Log In</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="settings-modal">
+        <div class="modal-box">
+            <button class="close-modal" onclick="closeModal('settings-modal')"><i class="fas fa-times"></i></button>
+            <h2 class="modal-title">App Settings</h2>
+            <p class="modal-subtitle">Customize your experience</p>
+            
+            <div class="setting-item">
+                <span><i class="fas fa-bell"></i> Push Notifications</span>
+                <label class="switch">
+                    <input type="checkbox" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="setting-item">
+                <span><i class="fas fa-moon"></i> Dark Mode (Default)</span>
+                <label class="switch">
+                    <input type="checkbox" checked disabled>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="setting-item">
+                <span><i class="fas fa-hdd"></i> High Quality Downloads</span>
+                <label class="switch">
+                    <input type="checkbox" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <div style="margin-top: 30px; text-align: center;">
+                <p style="color: var(--text-dim); font-size: 0.8rem;">App Version 2.0.1 • Nexus Inc.</p>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // --- 1. SECURE BOOTUP LOGIC ---
-        const terminalText = document.getElementById('terminal-text');
-        const bootScreen = document.getElementById('boot-screen');
-        const bootIcon = document.getElementById('boot-icon');
+        // --- 1. STATE MANAGEMENT (Login / Auth Simulation) ---
+        let isLoggedIn = false;
+        let userName = "";
 
-        const bootSequence = [
-            "Initializing NEXUS_PROXY v2026.9...",
-            "Masking Local IP Address...",
-            "Connecting to Global Relay Nodes...",
-            "Establishing AES-256 Encrypted Tunnel...",
-            "[SUCCESS] Privacy Shield Activated.",
-            "Fetching 500 Unique Tokyo Assets...",
-            "Decrypting..."
-        ];
+        const authButtons = document.getElementById('auth-buttons');
+        const userProfile = document.getElementById('user-profile');
+        const displayName = document.getElementById('display-name');
+        const avatarInitial = document.getElementById('avatar-initial');
 
-        let bootIndex = 0;
-        function typeTerminal() {
-            if (bootIndex < bootSequence.length) {
-                terminalText.innerHTML += `> ${bootSequence[bootIndex]}<br>`;
-                bootIndex++;
-                setTimeout(typeTerminal, 400);
+        function updateUI() {
+            if (isLoggedIn) {
+                authButtons.style.display = 'none';
+                userProfile.style.display = 'flex';
+                displayName.innerText = userName;
+                avatarInitial.innerText = userName.charAt(0).toUpperCase();
             } else {
-                bootIcon.classList.replace('fa-shield-alt', 'fa-unlock-alt');
-                setTimeout(() => {
-                    bootScreen.style.opacity = '0';
-                    setTimeout(() => {
-                        bootScreen.style.display = 'none';
-                        startRendering();
-                    }, 800);
-                }, 1000);
+                authButtons.style.display = 'flex';
+                userProfile.style.display = 'none';
             }
         }
 
-        window.onload = () => { typeTerminal(); };
-
-        // --- 2. ADVANCED NO-DUPLICATE IMAGE GENERATOR (500 UNIQUE) ---
-        const galleryGrid = document.getElementById('gallery-grid');
-        const assetCounter = document.getElementById('asset-counter');
-        const TOTAL_FILES = 500;
-        const CHUNK_SIZE = 50;
-        let filesLoaded = 0;
-
-        // Wide variety of keywords to ensure absolutely no duplicates
-        const searchCategories = [
-            "tokyo,neon,night", "cyberpunk,city", "japan,street,rain", "shinjuku,signs", 
-            "shibuya,crossing,night", "akihabara,tech", "osaka,neon", "digital,art,city",
-            "dystopian,street", "synthwave,neon", "tokyo,underground,dark", "asian,cyberpunk",
-            "neon,lights,dark", "japan,alley", "futuristic,cityscape", "tokyo,architecture"
-        ];
-
-        function getUniqueUrl(index) {
-            const catIndex = index % searchCategories.length;
-            const category = searchCategories[catIndex];
-            // Multiplying index ensures salt is always completely different
-            const salt = (index * 13) + 2026; 
-            return `https://loremflickr.com/600/400/${category}?lock=${salt}`;
+        // --- 2. MODAL LOGIC ---
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
         }
 
-        function generateCard(index) {
-            const imgUrl = getUniqueUrl(index);
-            const size = (Math.random() * (4 - 1.2) + 1.2).toFixed(2) + ' MB';
-            const ping = Math.floor(Math.random() * (120 - 15) + 15) + 'ms';
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+
+        function switchModal(closeId, openId) {
+            closeModal(closeId);
+            setTimeout(() => { openModal(openId); }, 200);
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            isLoggedIn = true;
+            userName = "User"; // Generic name for demo login
+            updateUI();
+            closeModal('login-modal');
+            alert("Login Successful! You can now download images.");
+        }
+
+        function handleSignup(e) {
+            e.preventDefault();
+            isLoggedIn = true;
+            userName = document.getElementById('signup-name').value;
+            updateUI();
+            closeModal('signup-modal');
+            alert("Account Created! Welcome, " + userName);
+        }
+
+        function logout() {
+            isLoggedIn = false;
+            userName = "";
+            updateUI();
+            alert("Logged out successfully.");
+        }
+
+        // --- 3. DOWNLOAD LOGIC ---
+        function triggerDownload(e, url, title) {
+            e.preventDefault();
             
+            if (!isLoggedIn) {
+                // If not logged in, show login modal
+                openModal('login-modal');
+                return;
+            }
+
+            // Simulate Download Process
+            const btn = e.currentTarget;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Downloading...';
+            
+            setTimeout(() => {
+                // Creating a dummy a tag to trigger browser download behavior
+                // Note: Direct download from external links might open in new tab due to CORS
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${title.toLowerCase().replace(' ', '_')}.jpg`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                
+                btn.innerHTML = '<i class="fas fa-check"></i> Done!';
+                setTimeout(() => { btn.innerHTML = originalText; }, 2000);
+            }, 1000);
+        }
+
+        // --- 4. DYNAMIC GALLERY RENDERING ---
+        const galleryGrid = document.getElementById('gallery-grid');
+        const TOTAL_FILES = 24; // Loading 24 initially for a good grid look
+
+        const searchCategories = [
+            "abstract,art", "neon,city", "nature,aesthetic", "technology,cyber",
+            "space,galaxy", "architecture,modern", "colorful,gradient"
+        ];
+
+        function generateCard(index) {
+            const catIndex = index % searchCategories.length;
+            const category = searchCategories[catIndex];
+            const url = `https://loremflickr.com/800/600/${category}?lock=${index * 7 + 2024}`;
+            const title = `Visual Art ${100 + index}`;
+            const authorImg = `https://i.pravatar.cc/100?img=${(index % 70) + 1}`;
+
             return `
                 <div class="card">
                     <div class="card-img-wrapper">
-                        <img data-src="${imgUrl}" alt="Decrypted Visual ${index}" class="lazy">
+                        <img data-src="${url}" alt="${title}" class="lazy">
+                        <div class="download-overlay">
+                            <button class="btn-download" onclick="triggerDownload(event, '${url}', '${title}')">
+                                <i class="fas fa-arrow-down"></i> Download HD
+                            </button>
+                        </div>
                     </div>
                     <div class="card-info">
                         <div class="card-header">
-                            <span class="node-id">NODE_${2000 + index}</span>
-                            <span class="secure-badge"><i class="fas fa-check-circle"></i> SECURE</span>
+                            <span class="node-title">${title}</span>
+                            <i class="far fa-heart" style="color: var(--neon-pink); cursor: pointer;" onclick="this.classList.toggle('fas'); this.classList.toggle('far');"></i>
                         </div>
-                        <div class="card-meta">
-                            <span><i class="fas fa-database"></i> SIZE: ${size}</span>
-                            <span style="color: var(--neon-cyan)"><i class="fas fa-network-wired"></i> PING: ${ping}</span>
+                        <div class="author">
+                            <img data-src="${authorImg}" class="lazy" alt="Creator">
+                            <span>Created by @artist_${index + 1}</span>
                         </div>
                     </div>
                 </div>
             `;
         }
 
-        function startRendering() {
+        function loadGallery() {
             let buffer = '';
-            const limit = Math.min(filesLoaded + CHUNK_SIZE, TOTAL_FILES);
-
-            for (let i = filesLoaded + 1; i <= limit; i++) {
+            for (let i = 1; i <= TOTAL_FILES; i++) {
                 buffer += generateCard(i);
             }
-
-            galleryGrid.insertAdjacentHTML('beforeend', buffer);
-            filesLoaded = limit;
-            assetCounter.innerText = `${filesLoaded} / ${TOTAL_FILES}`;
-
-            if (filesLoaded < TOTAL_FILES) {
-                requestAnimationFrame(() => setTimeout(startRendering, 100)); // Render next chunk
-            } else {
-                initScrollAnimations();
-            }
+            galleryGrid.innerHTML = buffer;
+            initScrollAnimations();
         }
 
-        // --- 3. SCROLL & LAZY LOAD LOGIC ---
+        // --- 5. LAZY LOADING & ANIMATIONS ---
         function initScrollAnimations() {
-            // Lazy Loader
             const imgObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -556,11 +773,10 @@
                         observer.unobserve(img);
                     }
                 });
-            }, { rootMargin: "0px 0px 500px 0px" }); // Load way before they scroll
+            }, { rootMargin: "0px 0px 300px 0px" });
 
             document.querySelectorAll('.lazy').forEach(img => imgObserver.observe(img));
 
-            // Card Reveal
             const cardObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -572,16 +788,10 @@
             document.querySelectorAll('.card').forEach(card => cardObserver.observe(card));
         }
 
-        // --- 4. FAKE IP GENERATOR FOR HUD ---
-        function randomizeIP() {
-            const ip = `192.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.***`;
-            document.getElementById('fake-ip').innerText = ip;
-        }
-        setInterval(randomizeIP, 5000); // Change fake IP every 5 seconds
-
-        // Console Easter Egg
-        console.log("%c[ NEXUS_PROXY SECURE CORE ]", "color: #ff007f; font-size: 20px; font-weight: bold;");
-        console.log("%cConnection Encrypted. All Trackers Blocked. Authorized by @i_f_t_uu", "color: #00f3ff;");
+        // Initialize on load
+        window.onload = () => {
+            loadGallery();
+        };
     </script>
 </body>
 </html>
