@@ -3,551 +3,371 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>I_F_T_UU // Future Core</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <title>PixelDrop | Stunning Image Gallery</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
+        /* === Color Palette & Global Variables === */
         :root {
-            --bg-color: #060713;
-            --panel-bg: rgba(10, 11, 30, 0.65);
-            --neon-cyan: #00f3ff;
-            --neon-purple: #bd00ff;
-            --text-main: #ffffff;
-            --text-secondary: #8b9bb4;
-            --glow: 0 0 15px rgba(0, 243, 255, 0.5);
-            --glow-purple: 0 0 15px rgba(189, 0, 255, 0.5);
+            --primary: #ff007f;
+            --secondary: #7000ff;
+            --bg-color: #0f0c29;
+            --text-light: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
+            background: var(--bg-color);
+            background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
+            color: var(--text-light);
             overflow-x: hidden;
-            min-height: 100vh;
         }
 
-        /* Background Particle Canvas */
-        #particle-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
+        /* === Custom Scrollbar === */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f0c29;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--primary), var(--secondary));
+            border-radius: 10px;
         }
 
-        /* Glow effect on top corner */
-        body::before {
-            content: '';
-            position: fixed;
-            top: -150px;
-            left: -150px;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(0,243,255,0.2) 0%, rgba(0,0,0,0) 70%);
-            z-index: -1;
-        }
-
-        /* Navigation */
+        /* === Navigation Bar (Glassmorphism) === */
         nav {
             position: fixed;
             top: 0;
-            left: 0;
             width: 100%;
-            padding: 20px 5%;
-            background: rgba(6, 7, 19, 0.8);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 20px 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 100;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 1000;
+            transition: 0.3s ease;
         }
 
         .logo {
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 900;
-            font-size: 1.5rem;
-            letter-spacing: 2px;
-            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple));
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(45deg, #ff9a9e, #fecfef, #a18cd1, #fbc2eb);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: var(--glow);
+            letter-spacing: 1px;
         }
 
         .nav-links {
-            display: flex;
             list-style: none;
+            display: flex;
             gap: 30px;
         }
 
         .nav-links a {
-            color: var(--text-secondary);
+            color: var(--text-light);
             text-decoration: none;
-            font-size: 0.95rem;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
+            font-size: 16px;
+            font-weight: 500;
+            transition: 0.3s;
+            position: relative;
         }
 
-        .nav-links a:hover, .nav-links a.active {
-            color: var(--neon-cyan);
-            text-shadow: var(--glow);
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            bottom: -5px;
+            left: 0;
+            transition: 0.3s;
         }
 
-        /* Hero Section */
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* === Hero Section with Animation === */
         .hero {
-            min-height: 100vh;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 120px 20px 60px 20px;
+            padding: 0 20px;
             position: relative;
-        }
-
-        .hero h2 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.2rem;
-            letter-spacing: 5px;
-            color: var(--neon-cyan);
-            margin-bottom: 10px;
-            text-transform: uppercase;
         }
 
         .hero h1 {
-            font-family: 'Orbitron', sans-serif;
             font-size: 4rem;
-            font-weight: 900;
             margin-bottom: 20px;
-            letter-spacing: 2px;
-        }
-
-        .hero h1 span {
-            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            animation: slideUp 1s ease-out;
         }
 
         .hero p {
-            color: var(--text-secondary);
+            font-size: 1.2rem;
             max-width: 600px;
-            font-size: 1.1rem;
-            line-height: 1.8;
+            color: #d1d1d1;
             margin-bottom: 40px;
-        }
-
-        /* Futuristic Glass Buttons */
-        .btn-container {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
+            animation: slideUp 1.2s ease-out;
         }
 
         .btn {
-            padding: 14px 35px;
-            border-radius: 50px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-decoration: none;
-            text-transform: uppercase;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-primary {
-            background: linear-gradient(45deg, var(--neon-cyan), #00a2ff);
-            color: #000;
-            border: none;
-            box-shadow: var(--glow);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 0 25px rgba(0, 243, 255, 0.8);
-        }
-
-        .btn-secondary {
-            background: transparent;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: bold;
             color: #fff;
-            border: 2px solid var(--neon-purple);
-            box-shadow: inset 0 0 10px rgba(189, 0, 255, 0.2);
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(255, 0, 127, 0.3);
+            transition: 0.4s;
+            animation: slideUp 1.4s ease-out;
+            text-decoration: none;
         }
 
-        .btn-secondary:hover {
-            background: rgba(189, 0, 255, 0.1);
-            box-shadow: var(--glow-purple);
-            transform: translateY(-3px);
+        .btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 25px rgba(112, 0, 255, 0.4);
         }
 
-        /* Main Content / Tools Section */
-        .container {
-            max-width: 1200px;
+        /* === Gallery Section === */
+        .gallery-container {
+            max-width: 1300px;
             margin: 0 auto;
-            padding: 60px 20px;
+            padding: 50px 20px;
         }
 
         .section-title {
             text-align: center;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             margin-bottom: 50px;
-            letter-spacing: 2px;
-            position: relative;
+            background: linear-gradient(45deg, #00c6ff, #0072ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .section-title span {
-            color: var(--neon-cyan);
-            text-shadow: var(--glow);
-        }
-
-        /* Glassmorphism Grid Layout */
-        .grid-layout {
+        .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            margin-bottom: 60px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-gap: 25px;
         }
 
-        .glass-card {
-            background: var(--panel-bg);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: 30px;
-            backdrop-filter: blur(16px);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            transition: all 0.3s ease;
+        .grid-item {
             position: relative;
+            border-radius: 15px;
             overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            aspect-ratio: 1 / 1;
         }
 
-        .glass-card::before {
-            content: '';
+        .grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .overlay {
             position: absolute;
-            top: 0;
+            bottom: -100%;
             left: 0;
             width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
-            opacity: 0.7;
-        }
-
-        .glass-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(0, 243, 255, 0.3);
-            box-shadow: 0 12px 40px 0 rgba(0, 243, 255, 0.1);
-        }
-
-        .card-icon {
-            font-size: 2rem;
-            color: var(--neon-cyan);
-            margin-bottom: 20px;
-            text-shadow: var(--glow);
-        }
-
-        .glass-card h3 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-            letter-spacing: 1px;
-        }
-
-        /* Interactive Tool Styles */
-        .tool-input {
-            width: 100%;
-            padding: 12px;
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            color: #fff;
-            margin-bottom: 15px;
-            outline: none;
-            transition: 0.3s;
-        }
-
-        .tool-input:focus {
-            border-color: var(--neon-cyan);
-            box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
-        }
-
-        .tool-btn {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(45deg, var(--neon-purple), #7b00ff);
-            border: none;
-            border-radius: 8px;
-            color: white;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .tool-btn:hover {
-            box-shadow: var(--glow-purple);
-            opacity: 0.9;
-        }
-
-        .result-box {
-            margin-top: 15px;
-            padding: 12px;
-            background: rgba(0, 243, 255, 0.05);
-            border-radius: 8px;
-            border-left: 3px solid var(--neon-cyan);
-            font-family: monospace;
-            word-break: break-all;
-            min-height: 40px;
-            font-size: 0.9rem;
-        }
-
-        /* Task List Matrix Specific */
-        .task-item {
+            height: 100%;
+            background: linear-gradient(to top, rgba(15, 12, 41, 0.9), transparent);
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            background: rgba(255,255,255,0.03);
-            border-radius: 6px;
-            margin-bottom: 8px;
-            border: 1px solid rgba(255,255,255,0.05);
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 20px;
+            transition: bottom 0.4s ease;
         }
 
-        .task-item button {
-            background: transparent;
-            border: none;
-            color: #ff4a4a;
-            cursor: pointer;
+        .grid-item:hover img {
+            transform: scale(1.1);
         }
 
-        #taskList {
-            max-height: 180px;
-            overflow-y: auto;
+        .grid-item:hover .overlay {
+            bottom: 0;
+        }
+
+        .overlay h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .download-btn {
+            display: inline-block;
             margin-top: 10px;
+            padding: 8px 20px;
+            background: #fff;
+            color: #000;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+            width: max-content;
+            transition: 0.3s;
         }
 
-        /* Footer */
+        .download-btn:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        /* === Footer with Creator Details === */
         footer {
-            text-align: center;
+            background: rgba(0, 0, 0, 0.5);
             padding: 40px 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            font-family: 'Orbitron', sans-serif;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+            margin-top: 50px;
         }
 
-        /* Responsive Design */
+        .creator-info {
+            font-size: 1.2rem;
+            color: #aaa;
+        }
+
+        .insta-link {
+            color: #ff007f;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.5rem;
+            display: inline-block;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+
+        .insta-link:hover {
+            color: #00c6ff;
+            transform: scale(1.1);
+        }
+
+        .social-icons {
+            margin-top: 15px;
+            font-size: 24px;
+        }
+
+        /* === Animations === */
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* === Responsive Design === */
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.5rem; }
-            .nav-links { display: none; } /* Mobile optimization simple */
-            .grid-layout { grid-template-columns: 1fr; }
+            .nav-links { display: none; /* Make a hamburger menu for mobile later */ }
+            nav { justify-content: center; }
         }
     </style>
 </head>
 <body>
 
-    <canvas id="particle-canvas"></canvas>
-
     <nav>
-        <div class="logo">I_F_T_UU</div>
+        <div class="logo">PixelDrop 🎨</div>
         <ul class="nav-links">
-            <li><a href="#" class="active">Home</a></li>
-            <li><a href="#utility-hub">Utility Hub</a></li>
-            <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="categories.html">Categories</a></li>
+            <li><a href="favorites.html">Favorites</a></li>
         </ul>
     </nav>
 
-    <header class="hero">
-        <h2>System Initialize</h2>
-        <h1>WELCOME TO <span>@I_F_T_UU</span></h1>
-        <p>Creating premium visual architectures, immersive digital ecosystems, and cutting-edge future experiences. Explore the dashboard below for free smart utility tools.</p>
-        <div class="btn-container">
-            <a href="#utility-hub" class="btn btn-primary">Explore Hub</a>
-            <a href="https://instagram.com" target="_blank" class="btn btn-secondary"><i class="fab fa-instagram"></i> Instagram</a>
-        </div>
-    </header>
+    <section class="hero">
+        <h1>Discover Infinite Colors</h1>
+        <p>A premium collection of high-quality, vibrant images with smooth animations. Browse, favorite, and download stunning visuals from PixelDrop.</p>
+        <a href="#gallery" class="btn">Explore Gallery <i class="fas fa-arrow-right"></i></a>
+    </section>
 
-    <main class="container" id="utility-hub">
-        <h2 class="section-title">NEURAL <span>UTILITY HUB</span></h2>
+    <section id="gallery" class="gallery-container">
+        <h2 class="section-title">Trending Drops</h2>
         
-        <div class="grid-layout">
-            
-            <div class="glass-card">
-                <div class="card-icon"><i class="fas fa-terminal"></i></div>
-                <h3>Cyber Cipher Core</h3>
-                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 15px;">Convert your text to binary data matrix or back instantly.</p>
-                
-                <input type="text" id="cryptoInput" class="tool-input" placeholder="Enter text to analyze...">
-                <button onclick="encryptText()" class="tool-btn">GENERATE CYBER CODE</button>
-                
-                <div class="result-box" id="cryptoResult">Output layer waiting...</div>
-            </div>
-
-            <div class="glass-card">
-                <div class="card-icon"><i class="fas fa-brain"></i></div>
-                <h3>Neural Task Matrix</h3>
-                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 15px;">Your persistent cloudless dashboard memory tool. Tasks clear inside your system core.</p>
-                
-                <div style="display: flex; gap: 10px;">
-                    <input type="text" id="taskInput" class="tool-input" placeholder="Deploy new core task...">
-                    <button onclick="addTask()" class="tool-btn" style="width: auto; padding: 0 20px;">+</button>
+        <div class="grid">
+            <div class="grid-item">
+                <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1000&auto=format&fit=crop" alt="Abstract Art">
+                <div class="overlay">
+                    <h3>Neon Dreams</h3>
+                    <p>Abstract & Colors</p>
+                    <a href="#" class="download-btn"><i class="fas fa-download"></i> Download</a>
                 </div>
-                
-                <div id="taskList">
-                    </div>
             </div>
-
-            <div class="glass-card">
-                <div class="card-icon"><i class="fas fa-layer-group"></i></div>
-                <h3>Premium Assets</h3>
-                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 20px;">Access high-end visual layers, design files, and dynamic presets coming straight from the future lab.</p>
-                <a href="#" class="btn btn-secondary" style="padding: 10px 20px; font-size: 0.8rem; display: inline-block; text-align: center;">Access Drive</a>
+            <div class="grid-item">
+                <img src="https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?q=80&w=1000&auto=format&fit=crop" alt="3D Render">
+                <div class="overlay">
+                    <h3>Liquid Magic</h3>
+                    <p>3D Animation</p>
+                    <a href="#" class="download-btn"><i class="fas fa-download"></i> Download</a>
+                </div>
             </div>
-
+            <div class="grid-item">
+                <img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=1000&auto=format&fit=crop" alt="Nature">
+                <div class="overlay">
+                    <h3>Cosmic Paint</h3>
+                    <p>Digital Art</p>
+                    <a href="#" class="download-btn"><i class="fas fa-download"></i> Download</a>
+                </div>
+            </div>
+            <div class="grid-item">
+                <img src="https://images.unsplash.com/photo-1506744626753-1fa44f4a3112?q=80&w=1000&auto=format&fit=crop" alt="Landscape">
+                <div class="overlay">
+                    <h3>Vibrant Peaks</h3>
+                    <p>Nature</p>
+                    <a href="#" class="download-btn"><i class="fas fa-download"></i> Download</a>
+                </div>
+            </div>
+            <div class="grid-item">
+                <img src="https://images.unsplash.com/photo-1493514789931-586cb221d7a7?q=80&w=1000&auto=format&fit=crop" alt="Architecture">
+                <div class="overlay">
+                    <h3>City Lights</h3>
+                    <p>Urban Vibes</p>
+                    <a href="#" class="download-btn"><i class="fas fa-download"></i> Download</a>
+                </div>
+            </div>
+            <div class="grid-item">
+                <img src="https://images.unsplash.com/photo-1518640467707-6811f4a6ab73?q=80&w=1000&auto=format&fit=crop" alt="Creative">
+                <div class="overlay">
+                    <h3>Cyberpunk Neon</h3>
+                    <p>Sci-Fi Concept</p>
+                    <a href="#" class="download-btn"><i class="fas fa-download"></i> Download</a>
+                </div>
+            </div>
         </div>
-    </main>
+    </section>
 
     <footer>
-        <p>&copy; 2026 I_F_T_UU // SYSTEM OPERATIONAL // ALL RIGHTS RESERVED.</p>
+        <div class="creator-info">
+            <p>Designed, Developed & Maintained by</p>
+            <a href="https://instagram.com/i_f_t_uu" target="_blank" class="insta-link">
+                <i class="fab fa-instagram"></i> i_f_t_uu
+            </a>
+            <div class="social-icons">
+                </div>
+        </div>
+        <p style="margin-top: 20px; color: #666; font-size: 14px;">© 2024 PixelDrop. All rights reserved.</p>
     </footer>
 
     <script>
-        // --- 1. Interactive Particle Canvas Background Engine ---
-        const canvas = document.getElementById('particle-canvas');
-        const ctx = canvas.getContext('2d');
-
-        let particles = [];
-        const maxParticles = 60;
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 0.6;
-                this.vy = (Math.random() - 0.5) * 0.6;
-                this.radius = Math.random() * 2 + 1;
-            }
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-
-                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-            }
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(0, 243, 255, 0.4)';
-                ctx.fill();
-            }
-        }
-
-        function initParticles() {
-            for (let i = 0; i < maxParticles; i++) {
-                particles.push(new Particle());
-            }
-        }
-
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // Draw connections
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update();
-                particles[i].draw();
-                
-                for (let j = i + 1; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    
-                    if (dist < 120) {
-                        ctx.beginPath();
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.strokeStyle = `rgba(189, 0, 255, ${0.15 - dist/120})`;
-                        ctx.lineWidth = 0.8;
-                        ctx.stroke();
-                    }
-                }
-            }
-            requestAnimationFrame(animateParticles);
-        }
-        initParticles();
-        animateParticles();
-
-
-        // --- 2. Cyber Cipher Core Tool Logic ---
-        function encryptText() {
-            const input = document.getElementById('cryptoInput').value;
-            const resultBox = document.getElementById('cryptoResult');
-            
-            if(!input) {
-                resultBox.innerText = "Error: Input required.";
-                return;
-            }
-            
-            // Text to Binary representation for futuristic vibe
-            let output = "";
-            for (let i = 0; i < input.length; i++) {
-                output += input[i].charCodeAt(0).toString(2) + " ";
-            }
-            resultBox.innerText = output.substring(0, 60) + (output.length > 60 ? "..." : "");
-        }
-
-
-        // --- 3. Neural Task Matrix Tool Logic (LocalStorage enabled) ---
-        let tasks = JSON.parse(localStorage.getItem('future_tasks')) || [];
-
-        function renderTasks() {
-            const listEl = document.getElementById('taskList');
-            listEl.innerHTML = "";
-            tasks.forEach((task, index) => {
-                const item = document.createElement('div');
-                item.className = 'task-item';
-                item.innerHTML = `
-                    <span><i class="fas fa-caret-right" style="color:var(--neon-cyan)"></i> ${task}</span>
-                    <button onclick="deleteTask(${index})"><i class="fas fa-trash"></i></button>
-                `;
-                listEl.appendChild(item);
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
             });
-        }
-
-        function addTask() {
-            const input = document.getElementById('taskInput');
-            if(input.value.trim() === "") return;
-            tasks.push(input.value.trim());
-            localStorage.setItem('future_tasks', JSON.stringify(tasks));
-            input.value = "";
-            renderTasks();
-        }
-
-        function deleteTask(index) {
-            tasks.splice(index, 1);
-            localStorage.setItem('future_tasks', JSON.stringify(tasks));
-            renderTasks();
-        }
-
-        // Initial render on load
-        renderTasks();
+        });
     </script>
 </body>
 </html>
