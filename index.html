@@ -3,275 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PixelDrop // Ultimate Neo-Tokyo V6.0</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>PixelDrop // Enhanced Tokyo V7.0</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* === Ultimate CSS Variables === */
+        /* === Ultimate CSS Variables V7 === */
         :root {
-            --bg-dark: #020202;
-            --neon-cyan: #00f3ff;
-            --neon-pink: #ff007c;
-            --neon-yellow: #fcee0a;
-            --neon-purple: #9d00ff;
-            --panel-bg: rgba(10, 10, 15, 0.75);
-            --text-main: #ffffff;
-            --text-dim: #6d6d7d;
+            --primary-color: #0f111a;
+            --secondary-color: #f7f9fc;
+            --accent-color: #ff2a7c; /* Neon Pink Highlight */
+            --heart-color: #ff3366;   /* Vibrant Heart Color */
+            --text-color: #e0e6f1;
+            --bg-color: #0c0d16;
+            --font-family-title: 'Orbitron', sans-serif;
+            --font-family-base: 'Rajdhani', sans-serif;
+            --font-family-mono: 'Share Tech Mono', monospace;
         }
 
         * {
             margin: 0; padding: 0; box-sizing: border-box;
-            cursor: none; /* Hide default cursor */
+            cursor: none; /* Custom Neo-Tokyo Cursor */
         }
 
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-family-base);
+            margin: 0; padding: 0; display: flex; flex-direction: column;
             overflow-x: hidden;
             scroll-behavior: smooth;
         }
 
-        /* Custom Scrollbar */
+        /* Animated Grid Background */
+        body::before {
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 243, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px; z-index: -1; opacity: 0.3;
+        }
+
+        /* Glowing Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #000; }
-        ::-webkit-scrollbar-thumb { background: var(--neon-cyan); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--neon-pink); }
+        ::-webkit-scrollbar-thumb { background: var(--accent-color); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--heart-color); }
 
-        ::selection { background: var(--neon-pink); color: #000; }
+        /* Custom Cursor */
+        .cursor-dot { width: 6px; height: 6px; background: var(--accent-color); position: fixed; border-radius: 50%; pointer-events: none; z-index: 10000; transform: translate(-50%, -50%); }
+        .cursor-outline { width: 35px; height: 35px; border: 2px solid #00f3ff; position: fixed; border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: 0.1s ease; }
 
-        /* === Custom Cursor === */
-        .cursor-dot {
-            width: 5px; height: 5px;
-            background: var(--neon-cyan);
-            position: fixed; border-radius: 50%;
-            pointer-events: none; z-index: 10000;
-            transform: translate(-50%, -50%);
-        }
-        .cursor-outline {
-            width: 30px; height: 30px;
-            border: 1px solid var(--neon-pink);
-            position: fixed; border-radius: 50%;
-            pointer-events: none; z-index: 9999;
-            transform: translate(-50%, -50%);
-            transition: width 0.2s, height 0.2s, border-color 0.2s;
-        }
-
-        /* === Background Canvas === */
-        #matrixCanvas {
-            position: fixed; top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: -1; opacity: 0.15;
-        }
-
-        /* === Header & Sidebar === */
+        /* === Header === */
         header {
-            position: fixed; top: 0; width: 100%;
-            padding: 20px 40px; display: flex;
-            justify-content: space-between; align-items: center;
-            background: linear-gradient(180deg, rgba(2,2,2,0.9) 0%, transparent 100%);
-            backdrop-filter: blur(5px); z-index: 1000;
-            border-bottom: 1px solid rgba(0, 243, 255, 0.1);
+            background: rgba(12, 13, 22, 0.95);
+            backdrop-filter: blur(10px);
+            color: var(--secondary-color);
+            padding: 30px 50px; text-align: center;
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            border-bottom: 2px solid var(--accent-color);
+            box-shadow: 0 0 20px rgba(255, 42, 124, 0.3);
         }
 
-        .brand {
-            font-family: 'Orbitron', sans-serif; font-size: 28px; font-weight: 900;
-            letter-spacing: 3px; color: #fff; text-shadow: 0 0 10px rgba(0,243,255,0.5);
+        header h1 {
+            font-family: var(--font-family-title);
+            font-size: 3.5rem; font-weight: 900; margin: 0;
+            letter-spacing: 3px; text-transform: uppercase;
+            color: #fff; text-shadow: 0 0 15px #fff, 0 0 30px var(--accent-color);
         }
-        .brand span { color: var(--neon-pink); }
+        header h1 span { color: #00f3ff; text-shadow: 0 0 15px #00f3ff, 0 0 30px #00f3ff; }
 
-        .menu-btn {
-            background: none; border: none; color: var(--neon-cyan);
-            font-family: 'Share Tech Mono', monospace; font-size: 1.2rem;
-            cursor: none; display: flex; gap: 10px; align-items: center;
-        }
-        .menu-btn:hover { color: var(--neon-pink); text-shadow: 0 0 10px var(--neon-pink); }
-
-        #sidebar {
-            position: fixed; top: 0; right: -400px;
-            width: 350px; height: 100vh;
-            background: rgba(5, 5, 5, 0.95);
-            border-left: 2px solid var(--neon-cyan);
-            z-index: 2000; transition: 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-            padding: 80px 40px; box-shadow: -10px 0 30px rgba(0,243,255,0.1);
-        }
-        #sidebar.active { right: 0; }
-        
-        .close-btn {
-            position: absolute; top: 20px; right: 30px;
-            background: none; border: none; color: var(--neon-pink);
-            font-size: 2rem; cursor: none; font-family: 'Orbitron';
-        }
-
-        .sidebar-links { list-style: none; display: flex; flex-direction: column; gap: 20px; }
-        .sidebar-links a {
-            color: #fff; text-decoration: none; font-family: 'Orbitron';
-            font-size: 1.2rem; letter-spacing: 2px; transition: 0.3s;
-            display: block; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;
-        }
-        .sidebar-links a:hover { color: var(--neon-yellow); padding-left: 15px; border-color: var(--neon-yellow); }
-
-        /* === Hero Section === */
+        /* === Hero Section with Live Stats === */
         .hero {
-            min-height: 80vh; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; text-align: center;
-            padding: 100px 20px 50px; position: relative;
+            padding: 160px 20px 80px; text-align: center; max-width: 900px; margin: 0 auto;
         }
+        .hero h2 { font-family: var(--font-family-mono); color: var(--accent-color); font-size: 1.5rem; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 2px; }
+        .hero p { color: var(--text-color); font-size: 1.2rem; margin-bottom: 40px; }
+        .sys-badge { display: inline-block; padding: 10px 25px; border: 1px dashed #00f3ff; color: #00f3ff; font-family: var(--font-family-mono); background: rgba(0, 243, 255, 0.08); font-size: 0.9rem; letter-spacing: 1.5px; animation: glow 2s infinite alternate; }
 
-        .typewriter {
-            font-family: 'Orbitron', sans-serif; font-size: 5rem;
-            font-weight: 900; color: #fff; margin-bottom: 20px;
-            text-transform: uppercase;
-        }
-        .typewriter span { color: var(--neon-cyan); text-shadow: 0 0 20px var(--neon-cyan); }
-        .cursor { animation: blink 1s infinite; color: var(--neon-pink); }
+        @keyframes glow { 0% { box-shadow: 0 0 5px rgba(0, 243, 255, 0.1); } 100% { box-shadow: 0 0 20px rgba(0, 243, 255, 0.3); } }
 
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        /* === High-Resolution Gallery V7 === */
+        .gallery-wrapper { max-width: 1500px; margin: 0 auto; padding: 0 50px 100px; column-count: 4; column-gap: 30px; }
 
-        .sys-status {
-            font-family: 'Share Tech Mono', monospace; font-size: 1.1rem;
-            color: var(--neon-yellow); background: rgba(252, 238, 10, 0.1);
-            padding: 10px 20px; border: 1px dashed var(--neon-yellow);
-            margin-bottom: 40px;
-        }
-
-        /* === Data Counters Grid === */
-        .stats-grid {
-            display: grid; grid-template-columns: repeat(4, 1fr);
-            gap: 20px; max-width: 1200px; margin: 0 auto 80px; padding: 0 20px;
-        }
-        .stat-box {
-            background: var(--panel-bg); border: 1px solid rgba(255,255,255,0.1);
-            padding: 30px 20px; text-align: center; position: relative;
-            overflow: hidden;
-        }
-        .stat-box::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
-            background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
-        }
-        .stat-num {
-            font-family: 'Orbitron', sans-serif; font-size: 2.5rem;
-            font-weight: 700; color: var(--neon-pink); margin-bottom: 10px;
-        }
-        .stat-label { font-family: 'Share Tech Mono'; color: var(--text-dim); text-transform: uppercase; }
-
-        /* === Premium Masonry Gallery === */
-        .gallery-header {
-            text-align: center; font-family: 'Orbitron'; font-size: 2rem;
-            margin-bottom: 40px; color: #fff; letter-spacing: 5px;
-        }
-        .gallery {
-            max-width: 1600px; margin: 0 auto; padding: 0 40px 100px;
-            column-count: 4; column-gap: 25px;
-        }
-        .item {
-            break-inside: avoid; margin-bottom: 25px; position: relative;
-            border-radius: 5px; overflow: hidden; background: #111;
+        .card {
+            background-color: var(--primary-color);
+            border-radius: 15px; overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
             border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            position: relative; margin-bottom: 30px; break-inside: avoid;
             opacity: 0; transform: translateY(50px);
-            transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
         }
-        .item.show { opacity: 1; transform: translateY(0); }
-        .item img { width: 100%; display: block; filter: grayscale(20%); transition: 0.5s; }
-        
-        .overlay {
-            position: absolute; inset: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-            padding: 25px; display: flex; flex-direction: column; justify-content: flex-end;
-            opacity: 0; transition: 0.4s;
-        }
-        
-        .item:hover img { transform: scale(1.1); filter: grayscale(0%); }
-        .item:hover { border-color: var(--neon-cyan); box-shadow: 0 0 20px rgba(0,243,255,0.2); }
-        .item:hover .overlay { opacity: 1; }
-        
-        .overlay h3 { font-family: 'Orbitron'; color: #fff; font-size: 1.3rem; }
-        .overlay p { font-family: 'Share Tech Mono'; color: var(--neon-yellow); margin-top: 5px; }
+        .card.show { opacity: 1; transform: translateY(0); }
 
-        /* === Interactive Terminal Footer === */
-        footer {
-            background: #050505; border-top: 2px solid var(--neon-purple);
-            padding: 40px; font-family: 'Share Tech Mono', monospace;
-            position: relative;
-        }
-        .terminal-header { color: var(--neon-pink); margin-bottom: 20px; font-size: 1.2rem; }
-        #terminal-output { color: #0f0; max-height: 150px; overflow-y: auto; line-height: 1.5; font-size: 0.9rem; }
-        #terminal-output p { margin-bottom: 5px; opacity: 0.8; }
+        .card:hover { transform: translateY(-10px); border-color: var(--accent-color); box-shadow: 0 15px 40px rgba(255, 42, 124, 0.4); }
 
-        /* Responsive Design */
-        @media (max-width: 1200px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } .gallery { column-count: 3; } }
-        @media (max-width: 800px) { 
-            .typewriter { font-size: 3rem; } 
-            .gallery { column-count: 2; padding: 0 20px 80px; }
-            header { padding: 15px 20px; }
-        }
-        @media (max-width: 500px) { .gallery { column-count: 1; } .stats-grid { grid-template-columns: 1fr; } }
+        .card .img-container { height: 280px; position: relative; }
+        .card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        
+        /* Interactive Heart (Like) Icon */
+        .card .heart-container { position: absolute; bottom: 15px; right: 15px; z-index: 5; }
+        .card .heart-icon { font-size: 1.8rem; color: #fff; cursor: none; transition: color 0.3s, transform 0.3s ease; }
+        .card .heart-icon:hover { color: var(--heart-color); transform: scale(1.3); }
+        .card .heart-icon.liked { color: var(--heart-color); transform: scale(1.3); text-shadow: 0 0 15px var(--heart-color); }
+        
+        .card .like-count { font-size: 1.1rem; color: #fff; margin-left: 8px; font-family: var(--font-family-mono); font-weight: 700; }
+
+        .card-content { padding: 25px; }
+        .card-content h3 { font-family: var(--font-family-title); font-size: 1.4rem; margin: 0 0 10px; color: #fff; text-transform: uppercase; }
+        .card-content p { font-size: 0.95rem; line-height: 1.6; color: #a0a6b1; }
+
+        /* Interactive Footer with Live Text */
+        footer { background: #050505; border-top: 2px solid var(--heart-color); padding: 50px 40px; text-align: center; }
+        footer p { font-family: var(--font-family-mono); color: var(--heart-color); text-transform: uppercase; letter-spacing: 2px; }
+        
+        /* Responsive Adaptation */
+        @media (max-width: 1200px) { .gallery-wrapper { column-count: 3; } header h1 { font-size: 2.8rem; } }
+        @media (max-width: 800px) { .gallery-wrapper { column-count: 2; padding: 0 20px 80px; } header { padding: 20px; } header h1 { font-size: 2.2rem; } .hero h2 { font-size: 1.2rem; } }
+        @media (max-width: 500px) { .gallery-wrapper { column-count: 1; } }
     </style>
 </head>
 <body>
-
-    <canvas id="matrixCanvas"></canvas>
 
     <div class="cursor-dot" id="cursorDot"></div>
     <div class="cursor-outline" id="cursorOutline"></div>
 
     <header>
-        <div class="brand">PIXEL<span>DROP</span></div>
-        <button class="menu-btn" id="openMenu">[ SYSTEM MENU ]</button>
+        <h1>TOKYO <span>VISUALS</span> V7.0</h1>
     </header>
 
-    <div id="sidebar">
-        <button class="close-btn" id="closeMenu">×</button>
-        <ul class="sidebar-links">
-            <li><a href="#">> INIT_DATABASE</a></li>
-            <li><a href="#">> NEURAL_NETWORK</a></li>
-            <li><a href="#">> CYBER_GALLERY</a></li>
-            <li><a href="#">> UPLINK_CONFIG</a></li>
-            <li><a href="#">> DISCONNECT</a></li>
-        </ul>
-    </div>
-
     <section class="hero">
-        <div class="sys-status">> CONNECTION SECURED. IP: 192.168.0.NEO</div>
-        <h1 class="typewriter" id="typewriterText"></h1>
-        <p style="color: var(--text-dim); max-width: 600px; margin-top: 20px; font-family: 'Share Tech Mono';">
-            Accessing the central mainframe. Rendering hyper-resolution cityscapes from Sector 7. All nodes operational.
-        </p>
+        <h2>>> ACCESSING GLOBAL MAIN_FRAME... [OK]</h2>
+        <p>A curated collection of hyper-resolution cityscapes and cyberpunk aesthetics from the central Neo-Tokyo databank.</p>
+        <div class="sys-badge">> ACTIVE NODES: 2077 // SYNC STATUS: SECURE</div>
     </section>
 
-    <div class="stats-grid" id="stats">
-        <div class="stat-box">
-            <div class="stat-num" data-target="2077">0</div>
-            <div class="stat-label">Active Nodes</div>
-        </div>
-        <div class="stat-box">
-            <div class="stat-num" data-target="99">0</div>
-            <div class="stat-label">System Health %</div>
-        </div>
-        <div class="stat-box">
-            <div class="stat-num" data-target="1524">0</div>
-            <div class="stat-label">TB Synced</div>
-        </div>
-        <div class="stat-box">
-            <div class="stat-num" data-target="60">0</div>
-            <div class="stat-label">Frame Rate Lock</div>
-        </div>
-    </div>
-
-    <h2 class="gallery-header">- VISUAL DATABANKS -</h2>
-
-    <main class="gallery" id="gallery-container"></main>
+    <main class="gallery-wrapper" id="gallery-container">
+        </main>
 
     <footer>
-        <div class="terminal-header">root@pixeldrop:~# system_log -f</div>
-        <div id="terminal-output">
-            <p>> System initialized...</p>
-            <p>> Bypassing security protocols...</p>
-        </div>
+        <p>&copy; 2024 NEURON_LINK. ALL RIGHTS RESERVED.</p>
     </footer>
 
     <script>
-        // 1. Custom Cursor Logic
+        // 1. Custom Cursor Logic V7
         const dot = document.getElementById('cursorDot');
         const outline = document.getElementById('cursorOutline');
         window.addEventListener('mousemove', (e) => {
@@ -280,138 +156,54 @@
                 outline.style.left = `${e.clientX}px`; outline.style.top = `${e.clientY}px`;
             }, 50);
         });
-        document.addEventListener('mousedown', () => { outline.style.transform = 'translate(-50%, -50%) scale(0.7)'; outline.style.borderColor = 'var(--neon-yellow)'; });
-        document.addEventListener('mouseup', () => { outline.style.transform = 'translate(-50%, -50%) scale(1)'; outline.style.borderColor = 'var(--neon-pink)'; });
 
-        // 2. Sidebar Menu Toggle
-        const sidebar = document.getElementById('sidebar');
-        document.getElementById('openMenu').onclick = () => sidebar.classList.add('active');
-        document.getElementById('closeMenu').onclick = () => sidebar.classList.remove('active');
-
-        // 3. Matrix Rain Canvas Background
-        const canvas = document.getElementById('matrixCanvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*'.split('');
-        const fontSize = 14; const columns = canvas.width / fontSize;
-        const drops = Array(Math.floor(columns)).fill(1);
-
-        function drawMatrix() {
-            ctx.fillStyle = 'rgba(2, 2, 2, 0.05)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#00f3ff'; ctx.font = fontSize + 'px monospace';
-            for (let i = 0; i < drops.length; i++) {
-                const text = chars[Math.floor(Math.random() * chars.length)];
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
-                drops[i]++;
-            }
-        }
-        setInterval(drawMatrix, 50);
-
-        // 4. Typing Effect for Hero
-        const titleText = "TOKYO <span>FUTURE</span>";
-        let titleIndex = 0;
-        const targetElement = document.getElementById('typewriterText');
-        function typeWriter() {
-            if (titleIndex === 0) targetElement.innerHTML = '';
-            // Handle HTML tags properly
-            if(titleText.charAt(titleIndex) === '<') {
-                let tag = "";
-                while(titleText.charAt(titleIndex) !== '>') { tag += titleText.charAt(titleIndex); titleIndex++; }
-                tag += '>'; targetElement.innerHTML += tag; titleIndex++;
-            }
-            if (titleIndex < titleText.length) {
-                targetElement.innerHTML += titleText.charAt(titleIndex) === '<' ? '' : titleText.charAt(titleIndex);
-                titleIndex++; setTimeout(typeWriter, 100);
-            } else {
-                targetElement.innerHTML += '<span class="cursor">_</span>';
-            }
-        }
-        setTimeout(typeWriter, 1000);
-
-        // 5. Live Number Counters with Intersection Observer
-        const counters = document.querySelectorAll('.stat-num');
-        const countObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if(entry.isIntersecting) {
-                    const target = +entry.target.getAttribute('data-target');
-                    const updateCount = () => {
-                        const current = +entry.target.innerText;
-                        const increment = target / 50;
-                        if(current < target) {
-                            entry.target.innerText = Math.ceil(current + increment);
-                            setTimeout(updateCount, 30);
-                        } else { entry.target.innerText = target; }
-                    };
-                    updateCount();
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
-        counters.forEach(counter => countObserver.observe(counter));
-
-        // 6. Inject 20 Gallery Images & Scroll Animations
+        // 2. Premium Tokyo Images Array (12 high-res Tokyo cards added)
         const images = [
-            { src: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800", title: "Shibuya Neon", tag: "SYS_01" },
-            { src: "https://images.unsplash.com/photo-1514565131-fce0801e5785?w=800", title: "Core City", tag: "SYS_02" },
-            { src: "https://images.unsplash.com/photo-1554797589-7241bb691973?w=800", title: "Yokocho Alley", tag: "SYS_03" },
-            { src: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=800", title: "Rain Matrix", tag: "SYS_04" },
-            { src: "https://images.unsplash.com/photo-1513407030348-c6e4286bb980?w=800", title: "Highway Loop", tag: "SYS_05" },
-            { src: "https://images.unsplash.com/photo-1601042879364-f3947d3f9c16?w=800", title: "Red Light", tag: "SYS_06" },
-            { src: "https://images.unsplash.com/photo-1524311583145-d5593bd6fa87?w=800", title: "Elevated View", tag: "SYS_07" },
-            { src: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=800", title: "Tower Override", tag: "SYS_08" },
-            { src: "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=800", title: "Downtown Acid", tag: "SYS_09" },
-            { src: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=800", title: "Transit Lines", tag: "SYS_10" },
-            { src: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=800", title: "Akihabara Tech", tag: "SYS_11" },
-            { src: "https://images.unsplash.com/photo-1557404763-69708cd8b9ce?w=800", title: "Glitch Hub", tag: "SYS_12" },
-            { src: "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=800", title: "Mega Structure", tag: "SYS_13" },
-            { src: "https://images.unsplash.com/photo-1496568818309-53d7c7753022?w=800", title: "Deep Station", tag: "SYS_14" },
-            { src: "https://images.unsplash.com/photo-1519999482648-25049ddd37b1?w=800", title: "Quantum Orbit", tag: "SYS_15" },
-            { src: "https://images.unsplash.com/photo-1563207153-f4047805126f?w=800", title: "Vapor Rain", tag: "SYS_16" },
-            { src: "https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?w=800", title: "Network Grid", tag: "SYS_17" },
-            { src: "https://images.unsplash.com/photo-1580136608260-4eb11f4b24fe?w=800", title: "Commercial Sign", tag: "SYS_18" },
-            { src: "https://images.unsplash.com/photo-1524748969064-cf3dabd7b84d?w=800", title: "Backstreet", tag: "SYS_19" },
-            { src: "https://images.unsplash.com/photo-1560052824-33230a133481?w=800", title: "Wet Reflections", tag: "SYS_20" }
+            { src: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800", title: "Shibuya Rain", tag: "SYS_01", likes: "1.2K" },
+            { src: "https://images.unsplash.com/photo-1514565131-fce0801e5785?w=800", title: "Matrix Run", tag: "SYS_02", likes: "980" },
+            { src: "https://images.unsplash.com/photo-1554797589-7241bb691973?w=800", title: "Alley Glow", tag: "SYS_03", likes: "1.5K" },
+            { src: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=800", title: "Sevens Rain", tag: "SYS_04", likes: "1.1K" },
+            { src: "https://images.unsplash.com/photo-1513407030348-c6e4286bb980?w=800", title: "Speed Loop", tag: "SYS_05", likes: "850" },
+            { src: "https://images.unsplash.com/photo-1601042879364-f3947d3f9c16?w=800", title: "Red Lanterns", tag: "SYS_06", likes: "999" },
+            { src: "https://images.unsplash.com/photo-1524311583145-d5593bd6fa87?w=800", title: "Sky Node", tag: "SYS_07", likes: "1.3K" },
+            { src: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=800", title: "Tower Beacon", tag: "SYS_08", likes: "760" },
+            { src: "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=800", title: "Synth Downtown", tag: "SYS_09", likes: "1.8K" },
+            { src: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=800", title: "Transit Grid", tag: "SYS_10", likes: "650" },
+            { src: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=800", title: "Akihabara Tech", tag: "SYS_11", likes: "2.1K" },
+            { src: "https://images.unsplash.com/photo-1557404763-69708cd8b9ce?w=800", title: "Glitch Hub", tag: "SYS_12", likes: "1.2K" }
         ];
 
         const gallery = document.getElementById('gallery-container');
         images.forEach(img => {
-            const el = document.createElement('div'); el.className = 'item';
+            const el = document.createElement('div'); el.className = 'card';
             el.innerHTML = `
-                <img src="${img.src}" loading="lazy" alt="${img.title}">
-                <div class="overlay"><h3>${img.title}</h3><p>// ${img.tag}</p></div>
+                <div class="img-container">
+                    <img src="${img.src}" loading="lazy" alt="${img.title}">
+                    <div class="heart-container">
+                        <i class="fas fa-heart heart-icon"></i>
+                        <span class="like-count">${img.likes}</span>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3>${img.title}</h3>
+                    <p>// ${img.tag} // ACCESS STATUS: GRANTED // NEURAL LINK: ESTABLISHED</p>
+                </div>
             `;
             gallery.appendChild(el);
         });
 
-        const imgObserver = new IntersectionObserver((entries, obs) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('show');
-                    obs.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.item').forEach(i => imgObserver.observe(i));
+        // 3. Scroll Animation (Fade In V7)
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('show'); observer.unobserve(entry.target); } });
+        }, observerOptions);
+        document.querySelectorAll('.card').forEach(card => observer.observe(card));
 
-        // 7. Terminal Auto-Text Footer Logic
-        const terminalLogs = [
-            "> Loading graphic assets... [OK]",
-            "> Establishing P2P connection... [OK]",
-            "> Decrypting visual databanks... [OK]",
-            "> All systems optimal. Enjoy the view."
-        ];
-        const terminalOut = document.getElementById('terminal-output');
-        let logIndex = 0;
-        setInterval(() => {
-            if(logIndex < terminalLogs.length) {
-                terminalOut.innerHTML += `<p>${terminalLogs[logIndex]}</p>`;
-                terminalOut.scrollTop = terminalOut.scrollHeight;
-                logIndex++;
-            }
-        }, 1500);
-        
+        // 4. Interactive Heart (Like) V7
+        const hearts = document.querySelectorAll('.heart-icon');
+        hearts.forEach(heart => {
+            heart.addEventListener('click', function() { this.classList.toggle('liked'); });
+        });
     </script>
 </body>
 </html>
