@@ -3,101 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PixelDrop | Stunning Image Gallery</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>PixelDrop 2.0 | Premium Gallery</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* === Color Palette & Global Variables === */
+        /* === 2026 Premium Variables === */
         :root {
-            --primary: #ff007f;
-            --secondary: #7000ff;
-            --bg-color: #0f0c29;
-            --text-light: #ffffff;
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
+            --bg-main: #050505;
+            --primary: #00f0ff;
+            --secondary: #ff003c;
+            --text-main: #e0e0e0;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border-glass: rgba(255, 255, 255, 0.08);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            cursor: none; /* Custom cursor */
         }
 
         body {
-            background: var(--bg-color);
-            background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
-            color: var(--text-light);
+            background-color: var(--bg-main);
+            color: var(--text-main);
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
-        /* === Custom Scrollbar === */
-        ::-webkit-scrollbar {
-            width: 10px;
+        /* === Custom Cursor === */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
         }
-        ::-webkit-scrollbar-track {
-            background: #0f0c29;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(var(--primary), var(--secondary));
-            border-radius: 10px;
+        .cursor.hovered {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(0, 240, 255, 0.2);
+            border-color: transparent;
         }
 
-        /* === Navigation Bar (Glassmorphism) === */
+        /* === Loading Screen === */
+        #loader {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            background: #000;
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease;
+        }
+        .loader-text {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulse 1.5s infinite;
+        }
+
+        /* === Navigation === */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 20px 50px;
+            padding: 20px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--glass-border);
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border-glass);
             z-index: 1000;
-            transition: 0.3s ease;
         }
-
         .logo {
-            font-size: 28px;
-            font-weight: 800;
-            background: linear-gradient(45deg, #ff9a9e, #fecfef, #a18cd1, #fbc2eb);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: 1px;
+            font-size: 24px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: #fff;
         }
-
-        .nav-links {
-            list-style: none;
+        .logo span { color: var(--primary); }
+        
+        .search-bar {
+            background: var(--glass);
+            border: 1px solid var(--border-glass);
+            padding: 10px 20px;
+            border-radius: 30px;
             display: flex;
-            gap: 30px;
+            align-items: center;
+            gap: 10px;
+        }
+        .search-bar input {
+            background: transparent;
+            border: none;
+            color: white;
+            outline: none;
+            width: 200px;
         }
 
-        .nav-links a {
-            color: var(--text-light);
-            text-decoration: none;
-            font-size: 16px;
-            font-weight: 500;
-            transition: 0.3s;
-            position: relative;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            bottom: -5px;
-            left: 0;
-            transition: 0.3s;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        /* === Hero Section with Animation === */
+        /* === Hero Section === */
         .hero {
             height: 100vh;
             display: flex;
@@ -105,268 +118,343 @@
             justify-content: center;
             align-items: center;
             text-align: center;
+            background: radial-gradient(circle at center, rgba(0, 240, 255, 0.1) 0%, transparent 60%);
             padding: 0 20px;
-            position: relative;
         }
-
         .hero h1 {
-            font-size: 4rem;
+            font-size: 5rem;
+            line-height: 1.1;
             margin-bottom: 20px;
-            animation: slideUp 1s ease-out;
+            text-transform: uppercase;
         }
-
         .hero p {
             font-size: 1.2rem;
+            color: #a0a0a0;
             max-width: 600px;
-            color: #d1d1d1;
             margin-bottom: 40px;
-            animation: slideUp 1.2s ease-out;
         }
 
-        .btn {
-            padding: 15px 40px;
-            font-size: 18px;
-            font-weight: bold;
-            color: #fff;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            border: none;
+        /* === Filter Buttons === */
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 10px 25px;
+            background: var(--glass);
+            border: 1px solid var(--border-glass);
+            color: white;
             border-radius: 30px;
-            cursor: pointer;
-            box-shadow: 0 10px 20px rgba(255, 0, 127, 0.3);
-            transition: 0.4s;
-            animation: slideUp 1.4s ease-out;
-            text-decoration: none;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--primary);
+            color: black;
+            box-shadow: 0 0 15px var(--primary);
+            border-color: var(--primary);
         }
 
-        .btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 25px rgba(112, 0, 255, 0.4);
-        }
-
-        /* === Gallery Section === */
+        /* === Masonry Gallery === */
         .gallery-container {
-            max-width: 1300px;
-            margin: 0 auto;
-            padding: 50px 20px;
+            padding: 50px 5%;
         }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 50px;
-            background: linear-gradient(45deg, #00c6ff, #0072ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .masonry {
+            column-count: 3;
+            column-gap: 20px;
         }
+        @media (max-width: 900px) { .masonry { column-count: 2; } }
+        @media (max-width: 600px) { .masonry { column-count: 1; } }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            grid-gap: 25px;
-        }
-
-        .grid-item {
+        .item {
+            break-inside: avoid;
+            margin-bottom: 20px;
             position: relative;
             border-radius: 15px;
             overflow: hidden;
-            cursor: pointer;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-            aspect-ratio: 1 / 1;
+            group;
         }
-
-        .grid-item img {
+        .item img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
+            display: block;
+            border-radius: 15px;
+            transition: transform 0.5s;
         }
-
+        .item:hover img {
+            transform: scale(1.08);
+        }
+        
         .overlay {
             position: absolute;
-            bottom: -100%;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to top, rgba(15, 12, 41, 0.9), transparent);
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            padding: 20px;
-            transition: bottom 0.4s ease;
+            padding: 25px;
+            opacity: 0;
+            transition: 0.4s;
         }
-
-        .grid-item:hover img {
-            transform: scale(1.1);
-        }
-
-        .grid-item:hover .overlay {
-            bottom: 0;
-        }
-
-        .overlay h3 {
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-
-        .download-btn {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 8px 20px;
-            background: #fff;
-            color: #000;
-            border-radius: 20px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 14px;
-            width: max-content;
-            transition: 0.3s;
-        }
-
-        .download-btn:hover {
-            background: var(--primary);
-            color: #fff;
-        }
-
-        /* === Footer with Creator Details === */
-        footer {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 40px 20px;
-            text-align: center;
-            border-top: 1px solid var(--glass-border);
-            margin-top: 50px;
-        }
-
-        .creator-info {
-            font-size: 1.2rem;
-            color: #aaa;
-        }
-
-        .insta-link {
-            color: #ff007f;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.5rem;
-            display: inline-block;
-            margin-top: 10px;
-            transition: 0.3s;
-        }
-
-        .insta-link:hover {
-            color: #00c6ff;
-            transform: scale(1.1);
-        }
-
-        .social-icons {
+        .item:hover .overlay { opacity: 1; }
+        
+        .overlay h3 { font-size: 22px; margin-bottom: 5px; }
+        .action-btns {
+            display: flex;
+            gap: 10px;
             margin-top: 15px;
-            font-size: 24px;
+        }
+        .action-btns button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            backdrop-filter: blur(5px);
+            transition: 0.3s;
+        }
+        .action-btns button:hover { background: var(--primary); color: black; }
+
+        /* === Lightbox Modal === */
+        #lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0,0,0,0.95);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+        #lightbox img {
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
+        }
+        .close-btn {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            font-size: 40px;
+            color: white;
         }
 
-        /* === Animations === */
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* === Footer === */
+        footer {
+            padding: 60px 20px;
+            text-align: center;
+            background: #020202;
+            border-top: 1px solid var(--border-glass);
         }
+        .creator {
+            font-size: 1.5rem;
+            color: #888;
+        }
+        .insta {
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+            transition: transform 0.3s;
+        }
+        .insta:hover { transform: scale(1.1); }
 
-        /* === Responsive Design === */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            .nav-links { display: none; /* Make a hamburger menu for mobile later */ }
-            nav { justify-content: center; }
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
         }
     </style>
 </head>
 <body>
 
+    <div class="cursor" id="cursor"></div>
+
+    <div id="loader">
+        <div class="loader-text">PixelDrop...</div>
+    </div>
+
     <nav>
-        <div class="logo">PixelDrop 🎨</div>
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="categories.html">Categories</a></li>
-            <li><a href="favorites.html">Favorites</a></li>
-        </ul>
+        <div class="logo">Pixel<span>Drop</span></div>
+        <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search visuals...">
+        </div>
     </nav>
 
     <section class="hero">
-        <h1>Discover Infinite Colors</h1>
-        <p>A premium collection of high-quality, vibrant images with smooth animations. Browse, favorite, and download stunning visuals from PixelDrop.</p>
-        <a href="#gallery" class="btn">Explore Gallery <i class="fas fa-arrow-right"></i></a>
+        <h1>Welcome to<br>The Future</h1>
+        <p>Experience the next generation of visual galleries. Curated, high-quality, and exclusively designed for creators.</p>
     </section>
 
-    <section id="gallery" class="gallery-container">
-        <h2 class="section-title">Trending Drops</h2>
+    <section class="gallery-container">
         
-        <div class="grid">
-            <div class="grid-item">
-                <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1000&auto=format&fit=crop" alt="Abstract Art">
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">All Drops</button>
+            <button class="filter-btn" data-filter="neon">Neon & Cyberpunk</button>
+            <button class="filter-btn" data-filter="nature">Nature</button>
+            <button class="filter-btn" data-filter="3d">3D Renders</button>
+        </div>
+
+        <div class="masonry" id="gallery-grid">
+            
+            <div class="item" data-category="neon">
+                <img src="https://images.unsplash.com/photo-1555680202-c86f0e12f086?q=80&w=1000&auto=format&fit=crop" alt="Neon">
                 <div class="overlay">
-                    <h3>Neon Dreams</h3>
-                    <p>Abstract & Colors</p>
-                    <a href="#" class="download-btn"><i class="fas fa-download"></i> Download</a>
+                    <h3>Neon Streets</h3>
+                    <div class="action-btns">
+                        <button onclick="openLightbox(this)"><i class="fas fa-expand"></i> View</button>
+                        <button><i class="fas fa-download"></i></button>
+                    </div>
                 </div>
             </div>
-            <div class="grid-item">
-                <img src="https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?q=80&w=1000&auto=format&fit=crop" alt="3D Render">
+
+            <div class="item" data-category="3d">
+                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop" alt="3D">
                 <div class="overlay">
-                    <h3>Liquid Magic</h3>
-                    <p>3D Animation</p>
-                    <a href="#" class="download-btn"><i class="fas fa-download"></i> Download</a>
+                    <h3>Liquid Flow</h3>
+                    <div class="action-btns">
+                        <button onclick="openLightbox(this)"><i class="fas fa-expand"></i> View</button>
+                        <button><i class="fas fa-download"></i></button>
+                    </div>
                 </div>
             </div>
-            <div class="grid-item">
-                <img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=1000&auto=format&fit=crop" alt="Nature">
+
+            <div class="item" data-category="nature">
+                <img src="https://images.unsplash.com/photo-1506744626753-1fa44f4a3112?q=80&w=1000&auto=format&fit=crop" alt="Nature">
                 <div class="overlay">
-                    <h3>Cosmic Paint</h3>
-                    <p>Digital Art</p>
-                    <a href="#" class="download-btn"><i class="fas fa-download"></i> Download</a>
+                    <h3>Mystic Mountains</h3>
+                    <div class="action-btns">
+                        <button onclick="openLightbox(this)"><i class="fas fa-expand"></i> View</button>
+                        <button><i class="fas fa-download"></i></button>
+                    </div>
                 </div>
             </div>
-            <div class="grid-item">
-                <img src="https://images.unsplash.com/photo-1506744626753-1fa44f4a3112?q=80&w=1000&auto=format&fit=crop" alt="Landscape">
+
+            <div class="item" data-category="neon">
+                <img src="https://images.unsplash.com/photo-1604871000636-074fa5117945?q=80&w=1000&auto=format&fit=crop" alt="Cyberpunk">
                 <div class="overlay">
-                    <h3>Vibrant Peaks</h3>
-                    <p>Nature</p>
-                    <a href="#" class="download-btn"><i class="fas fa-download"></i> Download</a>
+                    <h3>Cyberpunk City</h3>
+                    <div class="action-btns">
+                        <button onclick="openLightbox(this)"><i class="fas fa-expand"></i> View</button>
+                        <button><i class="fas fa-download"></i></button>
+                    </div>
                 </div>
             </div>
-            <div class="grid-item">
-                <img src="https://images.unsplash.com/photo-1493514789931-586cb221d7a7?q=80&w=1000&auto=format&fit=crop" alt="Architecture">
+
+            <div class="item" data-category="3d">
+                <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1000&auto=format&fit=crop" alt="Abstract">
                 <div class="overlay">
-                    <h3>City Lights</h3>
-                    <p>Urban Vibes</p>
-                    <a href="#" class="download-btn"><i class="fas fa-download"></i> Download</a>
+                    <h3>Abstract Shapes</h3>
+                    <div class="action-btns">
+                        <button onclick="openLightbox(this)"><i class="fas fa-expand"></i> View</button>
+                        <button><i class="fas fa-download"></i></button>
+                    </div>
                 </div>
             </div>
-            <div class="grid-item">
-                <img src="https://images.unsplash.com/photo-1518640467707-6811f4a6ab73?q=80&w=1000&auto=format&fit=crop" alt="Creative">
+            
+            <div class="item" data-category="nature">
+                <img src="https://images.unsplash.com/photo-1518182170546-076616fd6251?q=80&w=1000&auto=format&fit=crop" alt="Forest">
                 <div class="overlay">
-                    <h3>Cyberpunk Neon</h3>
-                    <p>Sci-Fi Concept</p>
-                    <a href="#" class="download-btn"><i class="fas fa-download"></i> Download</a>
+                    <h3>Dark Forest</h3>
+                    <div class="action-btns">
+                        <button onclick="openLightbox(this)"><i class="fas fa-expand"></i> View</button>
+                        <button><i class="fas fa-download"></i></button>
+                    </div>
                 </div>
             </div>
+
         </div>
     </section>
+
+    <div id="lightbox">
+        <span class="close-btn" onclick="closeLightbox()">&times;</span>
+        <img id="lightbox-img" src="" alt="Zoomed Image">
+    </div>
 
     <footer>
-        <div class="creator-info">
-            <p>Designed, Developed & Maintained by</p>
-            <a href="https://instagram.com/i_f_t_uu" target="_blank" class="insta-link">
-                <i class="fab fa-instagram"></i> i_f_t_uu
-            </a>
-            <div class="social-icons">
-                </div>
-        </div>
-        <p style="margin-top: 20px; color: #666; font-size: 14px;">© 2024 PixelDrop. All rights reserved.</p>
+        <div class="creator">Crafted & Engineered by</div>
+        <a href="https://instagram.com/i_f_t_uu" target="_blank" class="insta">@i_f_t_uu</a>
+        <p style="margin-top: 20px; color: #555;">PixelDrop Gallery &copy; 2026. Setting the standard.</p>
     </footer>
 
     <script>
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
+        // 1. Remove Loader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loader').style.display = 'none';
+                }, 500);
+            }, 1000);
+        });
+
+        // 2. Custom Cursor Logic
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        const hoverElements = document.querySelectorAll('button, a, .item');
+        hoverElements.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
+        });
+
+        // 3. Category Filter Logic
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const items = document.querySelectorAll('.item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filterValue = btn.getAttribute('data-filter');
+
+                items.forEach(item => {
+                    if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                        item.style.display = 'block';
+                        setTimeout(() => item.style.opacity = '1', 50);
+                    } else {
+                        item.style.opacity = '0';
+                        setTimeout(() => item.style.display = 'none', 300);
+                    }
                 });
             });
+        });
+
+        // 4. Lightbox Logic
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        function openLightbox(button) {
+            // Find the image inside the same item container
+            const imgEl = button.closest('.item').querySelector('img');
+            lightboxImg.src = imgEl.src;
+            lightbox.style.display = 'flex';
+        }
+
+        function closeLightbox() {
+            lightbox.style.display = 'none';
+        }
+
+        // Close lightbox on clicking outside image
+        lightbox.addEventListener('click', (e) => {
+            if (e.target !== lightboxImg) {
+                closeLightbox();
+            }
         });
     </script>
 </body>
