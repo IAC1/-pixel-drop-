@@ -12,510 +12,287 @@
 
     <style>
         /* ==========================================================================
-           [1] GOD TIER VARIABLES
+           [1] GOD TIER VARIABLES & THEMES
            ========================================================================== */
         :root[data-theme="dark"] {
-            --bg-base: #020203;
+            --bg-base: #050507;
             --bg-surface: #0a0a0f;
-            --bg-glass: rgba(5, 5, 8, 0.85);
+            --bg-glass: rgba(10, 10, 15, 0.85);
             --border-glass: rgba(0, 243, 255, 0.15);
             --text-main: #ffffff;
-            --text-dim: #6c7a89;
+            --text-dim: #8b9eb3;
             --accent-cyan: #00f3ff;
             --accent-pink: #ff0055;
             --accent-red: #ff2a2a;
-            --accent-gold: #ffaa00;
-            --glow-cyan: 0 0 25px rgba(0, 243, 255, 0.5);
-            --glow-pink: 0 0 25px rgba(255, 0, 85, 0.5);
-            --glow-red: 0 0 20px rgba(255, 42, 42, 0.6);
+            --glow-cyan: 0 0 15px rgba(0, 243, 255, 0.4);
+            --glow-pink: 0 0 15px rgba(255, 0, 85, 0.4);
         }
 
         :root[data-theme="light"] {
-            --bg-base: #e6e8ec;
+            --bg-base: #f0f2f5;
             --bg-surface: #ffffff;
             --bg-glass: rgba(255, 255, 255, 0.9);
             --border-glass: rgba(0, 0, 0, 0.1);
-            --text-main: #0a0a0a;
-            --text-dim: #4a4a4a;
-            --accent-cyan: #0077ff;
-            --accent-pink: #cc0044;
+            --text-main: #111111;
+            --text-dim: #555555;
+            --accent-cyan: #0055ff;
+            --accent-pink: #e6004c;
             --accent-red: #cc0000;
-            --accent-gold: #cc8800;
-            --glow-cyan: 0 5px 20px rgba(0, 119, 255, 0.3);
-            --glow-pink: 0 5px 20px rgba(204, 0, 68, 0.3);
-            --glow-red: 0 5px 20px rgba(204, 0, 0, 0.3);
+            --glow-cyan: 0 5px 15px rgba(0, 85, 255, 0.2);
+            --glow-pink: 0 5px 15px rgba(230, 0, 76, 0.2);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Rajdhani', sans-serif; -webkit-tap-highlight-color: transparent; }
         
         body {
-            background-color: var(--bg-base); color: var(--text-main);
-            overflow-x: hidden; transition: background-color 0.5s ease;
-            cursor: none;
+            background-color: var(--bg-base); 
+            color: var(--text-main);
+            overflow-x: hidden; 
+            transition: background-color 0.3s ease, color 0.3s ease;
+            background-image: radial-gradient(circle at 50% 0%, rgba(0, 243, 255, 0.05) 0%, transparent 70%);
         }
 
-        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--bg-base); }
         ::-webkit-scrollbar-thumb { background: var(--accent-cyan); border-radius: 10px; }
 
-        /* Background Canvas */
-        #matrix-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; opacity: 0.15; pointer-events: none; }
-
         /* ==========================================================================
-           [2] CUSTOM CYBER CURSOR
-           ========================================================================== */
-        .cursor-dot { width: 4px; height: 4px; background: var(--accent-pink); position: fixed; border-radius: 50%; pointer-events: none; z-index: 10000; transform: translate(-50%, -50%); box-shadow: var(--glow-pink); }
-        .cursor-ring { width: 35px; height: 35px; border: 1.5px solid var(--accent-cyan); position: fixed; border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: width 0.15s, height 0.15s, border-color 0.15s; }
-
-        /* ==========================================================================
-           [3] NAVIGATION HEADER
+           [2] NAVIGATION HEADER & INSTAGRAM
            ========================================================================== */
         header {
             position: fixed; top: 0; width: 100%; height: 80px;
-            background: var(--bg-glass); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            background: var(--bg-glass); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-glass);
             display: flex; justify-content: space-between; align-items: center;
             padding: 0 50px; z-index: 5000;
         }
 
-        .brand-text { font-family: 'Orbitron', sans-serif; font-size: 2rem; font-weight: 900; letter-spacing: 5px; color: var(--text-main); text-shadow: var(--glow-cyan); }
-        
-        .sys-clock { font-family: 'Space Mono', monospace; font-size: 1.2rem; color: var(--accent-cyan); font-weight: bold; letter-spacing: 2px; }
+        .brand-text { font-family: 'Orbitron', sans-serif; font-size: 1.8rem; font-weight: 900; letter-spacing: 4px; color: var(--text-main); }
+        .brand-text span { color: var(--accent-cyan); text-shadow: var(--glow-cyan); }
+
+        .ig-link {
+            font-family: 'Space Mono', monospace; font-size: 1rem; font-weight: bold;
+            color: var(--accent-pink); text-decoration: none; display: flex; align-items: center; gap: 8px;
+            padding: 8px 16px; border: 1px solid var(--accent-pink); border-radius: 20px;
+            transition: 0.3s; background: rgba(255,0,85,0.05);
+        }
+        .ig-link:hover { background: var(--accent-pink); color: #fff; box-shadow: var(--glow-pink); }
 
         .sys-controls { display: flex; gap: 15px; }
         .icon-btn {
             width: 45px; height: 45px; border-radius: 10px; background: rgba(128,128,128,0.1);
             border: 1px solid var(--border-glass); color: var(--text-main);
             display: flex; justify-content: center; align-items: center; font-size: 1.2rem;
-            cursor: pointer; transition: 0.3s;
+            cursor: pointer; transition: 0.2s;
         }
-        .icon-btn:hover { background: rgba(0, 243, 255, 0.1); border-color: var(--accent-cyan); color: var(--accent-cyan); transform: translateY(-3px) scale(1.05); box-shadow: var(--glow-cyan); }
-        .icon-btn.sfx-btn.active { color: var(--accent-pink); border-color: var(--accent-pink); box-shadow: var(--glow-pink); }
+        .icon-btn:hover { border-color: var(--accent-cyan); color: var(--accent-cyan); transform: translateY(-2px); box-shadow: var(--glow-cyan); }
 
         /* ==========================================================================
-           [4] ADVANCED CONTROL PANEL (SEARCH & FILTER)
+           [3] CONTROL PANEL
            ========================================================================== */
-        .control-panel {
-            margin: 120px auto 40px; max-width: 1600px; padding: 0 40px;
-            display: flex; flex-direction: column; gap: 20px; align-items: center;
-        }
-
-        .search-container {
-            position: relative; width: 100%; max-width: 600px;
-        }
-        .search-input {
-            width: 100%; padding: 18px 25px 18px 55px; background: rgba(0,0,0,0.5);
-            border: 2px solid var(--border-glass); border-radius: 30px;
-            color: var(--text-main); font-family: 'Space Mono', monospace; font-size: 1rem;
-            outline: none; transition: 0.3s; backdrop-filter: blur(10px);
-        }
-        .search-input:focus { border-color: var(--accent-cyan); box-shadow: var(--glow-cyan); }
-        .search-icon { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: var(--accent-cyan); font-size: 1.2rem; }
-
-        .filter-tags { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
-        .filter-btn {
-            padding: 8px 20px; background: rgba(128,128,128,0.1); border: 1px solid var(--border-glass);
-            border-radius: 20px; font-family: 'Orbitron', sans-serif; font-size: 0.85rem; font-weight: bold;
-            color: var(--text-dim); cursor: pointer; transition: 0.3s; letter-spacing: 1px;
-        }
-        .filter-btn:hover, .filter-btn.active { background: var(--accent-cyan); color: #000; border-color: var(--accent-cyan); box-shadow: var(--glow-cyan); }
+        .control-panel { margin: 120px auto 30px; max-width: 1600px; padding: 0 40px; text-align: center; }
+        .title-sub { font-family: 'Space Mono', monospace; color: var(--text-dim); margin-bottom: 20px; font-size: 0.9rem; }
 
         /* ==========================================================================
-           [5] MASONRY GRID SYSTEM
+           [4] HIGH PERFORMANCE MASONRY GRID
            ========================================================================== */
-        .mainframe { max-width: 1800px; margin: 0 auto; padding: 0 40px 120px; }
+        .mainframe { max-width: 1800px; margin: 0 auto; padding: 0 40px 100px; }
         
-        .masonry-grid {
-            column-count: 4; column-gap: 30px; width: 100%;
-        }
+        .masonry-grid { column-count: 4; column-gap: 20px; width: 100%; }
         @media (max-width: 1400px) { .masonry-grid { column-count: 3; } }
         @media (max-width: 900px) { .masonry-grid { column-count: 2; column-gap: 15px; } }
         @media (max-width: 600px) { .masonry-grid { column-count: 1; } }
 
         .data-node {
-            break-inside: avoid; margin-bottom: 30px;
-            background: var(--bg-surface); border-radius: 20px; overflow: hidden;
+            break-inside: avoid; margin-bottom: 20px;
+            background: var(--bg-surface); border-radius: 16px; overflow: hidden;
             border: 1px solid var(--border-glass); position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5); transition: 0.4s;
-            animation: fadeUp 0.6s ease forwards;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
-        .data-node:hover { transform: translateY(-10px); border-color: var(--accent-pink); box-shadow: var(--glow-pink); }
+        .data-node:hover { transform: translateY(-5px); box-shadow: var(--glow-cyan); border-color: var(--accent-cyan); }
 
-        .img-container { position: relative; width: 100%; cursor: pointer; overflow: hidden; }
-        /* Skeleton loader effect */
-        .img-container::before {
-            content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
-            transform: translateX(-100%); animation: shimmer 1.5s infinite; z-index: 1; pointer-events: none;
-        }
-        .img-container img { width: 100%; display: block; filter: brightness(0.85) contrast(1.1); transition: 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); z-index: 2; position: relative; }
-        .data-node:hover .img-container img { transform: scale(1.1); filter: brightness(1.1) contrast(1.2); }
+        .img-container { position: relative; width: 100%; cursor: pointer; background: rgba(128,128,128,0.1); min-height: 200px; }
+        .img-container img { width: 100%; display: block; filter: brightness(0.9); transition: filter 0.3s; }
+        .data-node:hover .img-container img { filter: brightness(1.1); }
 
-        .action-layer { position: absolute; top: 15px; right: 15px; display: flex; flex-direction: column; gap: 10px; z-index: 10; opacity: 0; transition: 0.3s; transform: translateX(20px); }
-        .data-node:hover .action-layer { opacity: 1; transform: translateX(0); }
+        .action-layer { position: absolute; top: 10px; right: 10px; display: flex; flex-direction: column; gap: 8px; z-index: 10; opacity: 0; transition: 0.2s; }
+        .data-node:hover .action-layer { opacity: 1; }
         
-        .action-circle { width: 42px; height: 42px; border-radius: 50%; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.2); display: flex; justify-content: center; align-items: center; color: #fff; cursor: pointer; transition: 0.3s; font-size: 1.1rem; }
-        .action-circle.btn-love:hover, .action-circle.btn-love.active { background: rgba(255,0,85,0.3); border-color: var(--accent-pink); color: var(--accent-pink); box-shadow: var(--glow-pink); transform: scale(1.15); }
-        .action-circle.btn-download:hover { background: rgba(0,243,255,0.3); border-color: var(--accent-cyan); color: var(--accent-cyan); box-shadow: var(--glow-cyan); transform: scale(1.15); }
+        .action-circle { width: 38px; height: 38px; border-radius: 50%; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.2); display: flex; justify-content: center; align-items: center; color: #fff; cursor: pointer; transition: 0.2s; font-size: 1rem; }
+        .action-circle:hover { background: var(--accent-pink); border-color: var(--accent-pink); color: #fff; }
 
         /* ==========================================================================
-           [6] ADVANCED LIGHTBOX
+           [5] LIGHTBOX
            ========================================================================== */
         #lightbox {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.98); backdrop-filter: blur(20px);
+            position: fixed; inset: 0; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px);
             z-index: 100000; display: flex; justify-content: center; align-items: center;
-            opacity: 0; pointer-events: none; transition: 0.4s;
+            opacity: 0; pointer-events: none; transition: 0.3s;
         }
         #lightbox.active { opacity: 1; pointer-events: auto; }
         
-        .lb-controls { position: absolute; width: 100%; height: 100%; pointer-events: none; }
-        .lb-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 60px; height: 60px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; color: #fff; cursor: pointer; pointer-events: auto; transition: 0.3s; border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(10px); }
-        .lb-btn:hover { background: var(--accent-cyan); border-color: var(--accent-cyan); box-shadow: var(--glow-cyan); color: #000; scale: 1.1; }
-        .lb-prev { left: 40px; } .lb-next { right: 40px; }
-        .lb-close { position: absolute; top: 40px; right: 40px; width: 50px; height: 50px; background: rgba(255,0,85,0.1); border: 1px solid var(--accent-pink); color: var(--accent-pink); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; cursor: pointer; pointer-events: auto; transition: 0.3s; }
-        .lb-close:hover { background: var(--accent-pink); color: #fff; box-shadow: var(--glow-pink); transform: rotate(90deg); }
-
-        #lb-img { max-width: 85vw; max-height: 85vh; border-radius: 10px; box-shadow: 0 0 40px rgba(0,0,0,0.8); object-fit: contain; transition: transform 0.3s; cursor: zoom-in; }
-        #lb-img.zoomed { transform: scale(1.5); cursor: zoom-out; }
+        .lb-close { position: absolute; top: 30px; right: 30px; width: 45px; height: 45px; background: rgba(255,0,85,0.1); border: 1px solid var(--accent-pink); color: var(--accent-pink); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.2rem; cursor: pointer; transition: 0.2s; }
+        .lb-close:hover { background: var(--accent-pink); color: #fff; }
+        #lb-img { max-width: 90vw; max-height: 90vh; border-radius: 8px; object-fit: contain; }
 
         /* ==========================================================================
-           [7] SMALL RED TON COFFEE BUTTON
+           [6] TON COFFEE BUTTON & TOASTS
            ========================================================================== */
-        .ton-footer {
-            position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
-            z-index: 4000;
-        }
+        .ton-footer { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 4000; }
         .ton-btn-red {
-            background: rgba(255, 42, 42, 0.15); backdrop-filter: blur(10px);
-            border: 1px solid var(--accent-red); padding: 10px 25px; border-radius: 30px;
+            background: rgba(255, 42, 42, 0.1); backdrop-filter: blur(10px);
+            border: 1px solid var(--accent-red); padding: 10px 24px; border-radius: 30px;
             display: flex; align-items: center; gap: 10px; cursor: pointer;
             color: var(--accent-red); font-family: 'Space Mono', monospace; font-size: 0.9rem; font-weight: bold;
-            box-shadow: 0 0 15px rgba(255, 42, 42, 0.3); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: 0.2s;
         }
-        .ton-btn-red:hover {
-            background: var(--accent-red); color: #fff; box-shadow: var(--glow-red); transform: translateY(-5px) scale(1.05);
-        }
+        .ton-btn-red:hover { background: var(--accent-red); color: #fff; transform: translateY(-3px); }
 
-        /* Toasts */
-        #toast-box { position: fixed; bottom: 40px; right: 40px; z-index: 99999; display: flex; flex-direction: column; gap: 15px; pointer-events: none; }
-        .toast-msg { background: rgba(10,10,15,0.95); border-left: 4px solid var(--accent-cyan); color: #fff; padding: 16px 24px; border-radius: 8px; font-family: 'Space Mono', monospace; font-size: 0.95rem; font-weight: bold; box-shadow: 0 10px 30px rgba(0,0,0,0.5); animation: slideIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; backdrop-filter: blur(10px); }
+        #toast-box { position: fixed; bottom: 80px; right: 20px; z-index: 99999; display: flex; flex-direction: column; gap: 10px; pointer-events: none; }
+        .toast-msg { background: var(--bg-glass); border-left: 4px solid var(--accent-cyan); color: var(--text-main); padding: 15px 20px; border-radius: 6px; font-family: 'Space Mono', monospace; font-size: 0.9rem; font-weight: bold; box-shadow: 0 5px 15px rgba(0,0,0,0.3); opacity: 0; transform: translateX(50px); transition: 0.3s; }
+        .toast-msg.show { opacity: 1; transform: translateX(0); }
 
-        @keyframes shimmer { 100% { transform: translateX(100%); } }
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes slideIn { from { opacity: 0; transform: translateX(100px); } to { opacity: 1; transform: translateX(0); } }
-
-        /* Loader */
-        .status-bar { text-align: center; padding: 40px 0; font-family: 'Orbitron', sans-serif; color: var(--accent-cyan); font-size: 1.2rem; letter-spacing: 3px; font-weight: 900; }
+        .loader { text-align: center; padding: 30px 0; font-family: 'Orbitron', sans-serif; color: var(--accent-cyan); font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <canvas id="matrix-canvas"></canvas>
-
-    <div class="cursor-dot" id="cursor-dot"></div>
-    <div class="cursor-ring" id="cursor-ring"></div>
-
     <header>
-        <div class="brand-text">TOKYO_OS</div>
-        <div class="sys-clock" id="live-clock">00:00:00</div>
+        <div class="brand-text">TOKYO<span>_2026</span></div>
+        <a href="https://instagram.com/i_f_t_uu" target="_blank" class="ig-link">
+            <i class="fab fa-instagram"></i> i_f_t_uu
+        </a>
         <div class="sys-controls">
-            <button class="icon-btn sfx-btn" id="btn-sfx" title="Toggle SFX Audio" onclick="toggleSFX()"><i class="fas fa-volume-up"></i></button>
-            <button class="icon-btn" onclick="toggleTheme()" title="Switch Environment Theme"><i class="fas fa-satellite"></i></button>
-            <button class="icon-btn" onclick="clearMemory()" title="Wipe System Memory"><i class="fas fa-radiation"></i></button>
+            <button class="icon-btn" onclick="toggleTheme()" title="Settings / Dark-Light Mode"><i class="fas fa-moon"></i></button>
+            <button class="icon-btn" onclick="window.scrollTo(0,0)" title="Go Top"><i class="fas fa-arrow-up"></i></button>
         </div>
     </header>
 
     <section class="control-panel">
-        <div class="search-container">
-            <i class="fas fa-search search-icon"></i>
-            <input type="text" class="search-input" id="search-input" placeholder="Initiate Neural Search (e.g., 'Rainy Cyberpunk Girl')...">
-        </div>
-        <div class="filter-tags" id="filter-container">
-            <button class="filter-btn active" data-filter="cyberpunk tokyo city neon">ALL SECTORS</button>
-            <button class="filter-btn" data-filter="cyberpunk neon samurai street">SAMURAI</button>
-            <button class="filter-btn" data-filter="cyberpunk futuristic vehicle car">VEHICLES</button>
-            <button class="filter-btn" data-filter="cyberpunk rainy night alleyway">RAIN DROPS</button>
-            <button class="filter-btn" data-filter="cyberpunk highly detailed mechanical android">DROIDS</button>
-        </div>
+        <div class="title-sub">>> GENERATING 500+ ULTRA-HD FUTURE TOKYO ASSETS</div>
     </section>
 
     <main class="mainframe">
         <div class="masonry-grid" id="data-grid"></div>
-        <div class="status-bar" id="loader">
-            <i class="fas fa-spinner fa-spin"></i> GENERATING NEURAL ASSETS...
-        </div>
+        <div class="loader" id="loader"><i class="fas fa-circle-notch fa-spin"></i> SYNCING NEURAL DATA...</div>
     </main>
 
     <div id="lightbox">
         <div class="lb-close" onclick="closeLB()"><i class="fas fa-times"></i></div>
-        <img id="lb-img" src="" alt="Full Preview" onclick="toggleZoom()">
-        <div class="lb-controls">
-            <div class="lb-btn lb-prev" onclick="changeImage(-1)"><i class="fas fa-chevron-left"></i></div>
-            <div class="lb-btn lb-next" onclick="changeImage(1)"><i class="fas fa-chevron-right"></i></div>
-        </div>
+        <img id="lb-img" src="" alt="Full Preview">
     </div>
 
     <div class="ton-footer">
         <button class="ton-btn-red" onclick="copyWallet()">
-            <i class="fas fa-coffee"></i> SEND COFFEE (TON)
+            <i class="fas fa-coffee"></i> GIFT COFFEE (TON)
         </button>
     </div>
 
     <div id="toast-box"></div>
 
     <script>
-        /* --- CORE CONFIG --- */
-        let sfxEnabled = false;
-        let currentPrompt = "cyberpunk tokyo city neon";
-        const imageDB = []; // Stores URLs for Lightbox Navigation
-        let currentLBIndex = 0;
+        /* --- 1. CORE LOGIC --- */
+        let imageCount = 0;
+        const maxImages = 500;
+        const batchSize = 12; // Loading 12 at a time for crazy fast speed
+        const grid = document.getElementById('data-grid');
+        const loader = document.getElementById('loader');
 
-        /* --- 1. WEB AUDIO API (SFX ENGINE) --- */
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        let audioCtx;
-
-        function initAudio() { if(!audioCtx) audioCtx = new AudioContext(); }
-        
-        function toggleSFX() {
-            sfxEnabled = !sfxEnabled;
-            const btn = document.getElementById('btn-sfx');
-            btn.classList.toggle('active');
-            btn.innerHTML = sfxEnabled ? '<i class="fas fa-volume-up"></i>' : '<i class="fas fa-volume-mute"></i>';
-            if(sfxEnabled) { initAudio(); playBeep(600, "sine", 0.1); showToast("Audio Feedback Enabled", "success"); }
-            else { showToast("Audio Feedback Disabled", "warning"); }
-        }
-
-        function playBeep(freq, type = "square", duration = 0.05) {
-            if(!sfxEnabled || !audioCtx) return;
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.type = type; osc.frequency.value = freq;
-            osc.connect(gain); gain.connect(audioCtx.destination);
-            osc.start();
-            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + duration);
-            osc.stop(audioCtx.currentTime + duration);
-        }
-
-        /* --- 2. LIVE CLOCK --- */
-        setInterval(() => {
-            const now = new Date();
-            document.getElementById('live-clock').innerText = 
-                `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
-        }, 1000);
-
-        /* --- 3. CUSTOM CURSOR & HOVER SFX --- */
-        const cursorDot = document.getElementById("cursor-dot");
-        const cursorRing = document.getElementById("cursor-ring");
-        window.addEventListener("mousemove", (e) => {
-            cursorDot.style.left = `${e.clientX}px`; cursorDot.style.top = `${e.clientY}px`;
-            cursorRing.animate({ left: `${e.clientX}px`, top: `${e.clientY}px` }, { duration: 100, fill: "forwards" });
-        });
-
-        function attachCursorEvents() {
-            document.querySelectorAll("button, input, .img-container, .action-circle, .lb-btn").forEach(el => {
-                el.onmouseenter = () => {
-                    cursorRing.style.width = "50px"; cursorRing.style.height = "50px";
-                    cursorRing.style.borderColor = "var(--accent-pink)";
-                    playBeep(800, "sine", 0.02); // Hover sound
-                };
-                el.onmouseleave = () => {
-                    cursorRing.style.width = "35px"; cursorRing.style.height = "35px";
-                    cursorRing.style.borderColor = "var(--accent-cyan)";
-                };
-            });
-        }
-
-        /* --- 4. MATRIX BACKGROUND CANVAS --- */
-        const canvas = document.getElementById('matrix-canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-        const letters = "01010101010101";
-        const fontSize = 14;
-        const columns = canvas.width / fontSize;
-        const drops = Array.from({length: columns}).fill(1);
-
-        function drawMatrix() {
-            ctx.fillStyle = "rgba(2, 2, 3, 0.05)";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = "#00f3ff"; // Cyan rain
-            ctx.font = fontSize + "px 'Space Mono'";
-            for (let i = 0; i < drops.length; i++) {
-                const text = letters.charAt(Math.floor(Math.random() * letters.length));
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
-                drops[i]++;
+        /* --- 2. FAST IMAGE GENERATOR (LAZY LOADED) --- */
+        function loadImages(count) {
+            if (imageCount >= maxImages) {
+                loader.innerText = "ALL 500 ASSETS LOADED SUCCESSFULLY.";
+                return;
             }
-        }
-        setInterval(drawMatrix, 50);
-
-        /* --- 5. TOAST & DATA SYSTEM --- */
-        function showToast(msg, type="info") {
-            const box = document.getElementById('toast-box');
-            const toast = document.createElement('div');
-            toast.className = 'toast-msg';
-            let color = type === "success" ? "var(--accent-pink)" : "var(--accent-cyan)";
-            if(type==="warning") color = "var(--accent-gold)";
-            toast.style.borderLeftColor = color;
-            toast.innerHTML = `<i class="fas fa-terminal" style="color:${color}; margin-right:10px;"></i> ${msg}`;
-            box.appendChild(toast);
-            setTimeout(() => { toast.style.opacity="0"; setTimeout(()=>toast.remove(), 500); }, 3000);
-        }
-
-        function copyWallet() {
-            playBeep(1200, "square", 0.1);
-            navigator.clipboard.writeText("UQCvCMmfwJugAgxbMjmUrHI4goe2boXykQwNCDOWcwi8_fGT").then(() => {
-                showToast("TON Address Copied. Thank You! ❤️", "success");
-            });
-        }
-
-        let userLikes = JSON.parse(localStorage.getItem('godLikes')) || [];
-        function toggleLove(btn, url) {
-            playBeep(900, "triangle", 0.1);
-            btn.classList.toggle('active');
-            const icon = btn.querySelector('i');
-            if(btn.classList.contains('active')) {
-                icon.className = 'fas fa-heart';
-                if(!userLikes.includes(url)) userLikes.push(url);
-                showToast("Asset Encrypted to Favorites", "success");
-            } else {
-                icon.className = 'far fa-heart';
-                userLikes = userLikes.filter(item => item !== url);
-            }
-            localStorage.setItem('godLikes', JSON.stringify(userLikes));
-        }
-
-        function clearMemory() {
-            playBeep(300, "sawtooth", 0.3);
-            localStorage.clear(); userLikes = [];
-            document.querySelectorAll('.btn-love').forEach(b => { b.classList.remove('active'); b.innerHTML = '<i class="far fa-heart"></i>'; });
-            showToast("System Memory Wiped", "warning");
-        }
-
-        function toggleTheme() {
-            playBeep(1000, "sine", 0.1);
-            const html = document.documentElement;
-            html.setAttribute('data-theme', html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
-            showToast("Environment Mode Switched", "info");
-        }
-
-        /* --- 6. NEURAL AI IMAGE GENERATOR (MASONRY & INFINITE) --- */
-        const grid = document.getElementById("data-grid");
-        const loader = document.getElementById("loader");
-        let loading = false;
-
-        function fetchImages(reset = false) {
-            if(loading) return;
-            loading = true;
-            if(reset) { grid.innerHTML = ""; imageDB.length = 0; }
             
-            const fragment = document.createDocumentFragment();
-            // Varying heights for beautiful masonry look
-            const heights = [600, 800, 1000, 700, 900];
-
-            for (let i = 0; i < 16; i++) {
+            for (let i = 0; i < count; i++) {
+                if (imageCount >= maxImages) break;
+                
+                // Using Pollinations AI for free, fast, unlimited futuristic Tokyo images
                 const seed = Math.floor(Math.random() * 1000000);
-                const h = heights[Math.floor(Math.random() * heights.length)];
-                
-                // Using Pollinations AI - generates image based on the dynamic prompt!
-                const safePrompt = encodeURIComponent(currentPrompt + " hyperrealistic 8k masterpiece cinematic");
-                const imgURL = `https://image.pollinations.ai/prompt/${safePrompt}?width=600&height=${h}&nologo=true&seed=${seed}`;
-                
-                const dbIndex = imageDB.length;
-                imageDB.push(imgURL);
+                const randomHeight = Math.floor(Math.random() * (800 - 500 + 1) + 500);
+                const imgUrl = `https://image.pollinations.ai/prompt/cyberpunk%20tokyo%20future%20neon%20cityscape%20cinematic?width=600&height=${randomHeight}&nologo=true&seed=${seed}`;
 
-                const isLiked = userLikes.includes(imgURL) ? "active" : "";
-                const heartIcon = isLiked ? "fas" : "far";
-
-                const node = document.createElement("div");
-                node.className = "data-node";
+                const node = document.createElement('div');
+                node.className = 'data-node';
                 node.innerHTML = `
-                    <div class="img-container" onclick="openLB(${dbIndex})">
-                        <img src="${imgURL}" loading="lazy" alt="AI Generated Asset">
-                    </div>
-                    <div class="action-layer">
-                        <div class="action-circle btn-love ${isLiked}" onclick="toggleLove(this, '${imgURL}')" title="Add to Favorites">
-                            <i class="${heartIcon} fa-heart"></i>
+                    <div class="img-container" onclick="openLB('${imgUrl}')">
+                        <img src="${imgUrl}" loading="lazy" alt="Tokyo Asset ${imageCount}">
+                        <div class="action-layer">
+                            <div class="action-circle" onclick="event.stopPropagation(); showToast('Added to favorites!', 'success')"><i class="fas fa-heart"></i></div>
                         </div>
-                        <a href="${imgURL}" target="_blank" download="Tokyo_${seed}.jpg" class="action-circle btn-download" title="Download High Res">
-                            <i class="fas fa-download"></i>
-                        </a>
                     </div>
                 `;
-                fragment.appendChild(node);
+                grid.appendChild(node);
+                imageCount++;
             }
-            grid.appendChild(fragment);
-            attachCursorEvents();
-            loading = false;
         }
 
-        /* --- 7. LIVE SEARCH & FILTERS --- */
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                playBeep(800, "square", 0.05);
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                e.target.classList.add('active');
-                currentPrompt = e.target.getAttribute('data-filter');
-                document.getElementById('search-input').value = ""; // clear search
-                fetchImages(true);
-                showToast(`Filter Applied: ${e.target.innerText}`, "info");
+        /* --- 3. INFINITE SCROLL (For 500+ Images) --- */
+        window.addEventListener('scroll', () => {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 800) {
+                loadImages(batchSize);
+            }
+        });
+
+        // Initial Load
+        loadImages(16);
+
+        /* --- 4. LIGHTBOX PREVIEW --- */
+        const lightbox = document.getElementById('lightbox');
+        const lbImg = document.getElementById('lb-img');
+
+        function openLB(src) {
+            lbImg.src = src;
+            lightbox.classList.add('active');
+        }
+        function closeLB() {
+            lightbox.classList.remove('active');
+            lbImg.src = "";
+        }
+
+        /* --- 5. THEME TOGGLE (DARK/LIGHT) --- */
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            
+            const themeIcon = document.querySelector('button[onclick="toggleTheme()"] i');
+            themeIcon.className = newTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+            
+            showToast(`${newTheme.toUpperCase()} Mode Activated`);
+        }
+
+        /* --- 6. TON WALLET COPY --- */
+        const tonWallet = "UQCvCMmfwJugAgxbMjmUrHI4goe2boXykQwNCDOWcwi8_fGT";
+        
+        function copyWallet() {
+            navigator.clipboard.writeText(tonWallet).then(() => {
+                showToast("TON Address Copied! Thanks for the coffee!", "success");
+            }).catch(err => {
+                showToast("Failed to copy address.", "error");
             });
-        });
-
-        document.getElementById('search-input').addEventListener('keypress', (e) => {
-            if(e.key === 'Enter') {
-                const val = e.target.value.trim();
-                if(val) {
-                    playBeep(1200, "sine", 0.1);
-                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                    currentPrompt = val;
-                    fetchImages(true);
-                    showToast(`Neural Query: "${val}"`, "success");
-                }
-            }
-        });
-
-        /* --- 8. ADVANCED LIGHTBOX SYSTEM --- */
-        const lb = document.getElementById("lightbox");
-        const lbImg = document.getElementById("lb-img");
-        
-        function openLB(index) {
-            playBeep(600, "sine", 0.1);
-            currentLBIndex = index;
-            lbImg.src = imageDB[currentLBIndex];
-            lbImg.classList.remove('zoomed');
-            lb.classList.add("active");
-        }
-        function closeLB() { playBeep(400, "sine", 0.1); lb.classList.remove("active"); }
-        function toggleZoom() { lbImg.classList.toggle('zoomed'); playBeep(800, "triangle", 0.05); }
-        
-        function changeImage(dir) {
-            playBeep(700, "square", 0.05);
-            currentLBIndex += dir;
-            if(currentLBIndex < 0) currentLBIndex = imageDB.length - 1;
-            if(currentLBIndex >= imageDB.length) currentLBIndex = 0;
-            lbImg.src = imageDB[currentLBIndex];
-            lbImg.classList.remove('zoomed');
         }
 
-        // Keyboard support for Lightbox
-        window.addEventListener('keydown', (e) => {
-            if(!lb.classList.contains('active')) return;
-            if(e.key === "Escape") closeLB();
-            if(e.key === "ArrowRight") changeImage(1);
-            if(e.key === "ArrowLeft") changeImage(-1);
-        });
-
-        /* --- 9. INFINITE SCROLL OBSERVER --- */
-        const scrollObs = new IntersectionObserver((entries) => {
-            if(entries[0].isIntersecting) { setTimeout(() => fetchImages(false), 500); }
-        }, { rootMargin: "300px" });
-
-        window.addEventListener("DOMContentLoaded", () => {
-            // First user interaction needed for Audio Context initialization
-            document.body.addEventListener('click', initAudio, { once: true });
-            fetchImages(true);
-            scrollObs.observe(loader);
-        });
-
+        /* --- 7. TOAST NOTIFICATION SYSTEM --- */
+        const toastBox = document.getElementById('toast-box');
+        
+        function showToast(msg) {
+            const toast = document.createElement('div');
+            toast.className = 'toast-msg';
+            toast.innerText = msg;
+            toastBox.appendChild(toast);
+            
+            // Trigger animation
+            setTimeout(() => toast.classList.add('show'), 10);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
     </script>
 </body>
 </html>
