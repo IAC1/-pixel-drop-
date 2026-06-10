@@ -3,500 +3,445 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TOKYO METROPOLIS 2026 - Ultra Premium Portal</title>
+    <title>TOKYO CORE 2026 - Ultra Premium Portal</title>
     
-    <!-- Premium Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome for Pro Digital Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syncopate:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         /* ==========================================================================
-           1. CYBERPUNK TOKYO CORE VARIABLES (ULTRA PREMIUM)
+           1. LUXURY CYBERPUNK THEME VARIABLES
            ========================================================================== */
         :root {
-            --bg-matrix: #030305;
-            --bg-card: #0a0a10;
-            --bg-glass: rgba(5, 5, 10, 0.75);
-            --neon-pink: #ff0055;
-            --neon-cyan: #00f0ff;
-            --neon-purple: #9d00ff;
-            --neon-gold: #ffaa00;
-            --neon-red: #ff2a2a;
-            --text-pure: #ffffff;
-            --text-muted: #8888a0;
-            --cyber-font: 'Space Grotesk', sans-serif;
-            --tech-font: 'Orbitron', sans-serif;
-            --glow-pink: 0 0 20px rgba(255, 0, 85, 0.5);
-            --glow-cyan: 0 0 20px rgba(0, 240, 255, 0.5);
-            --glow-red: 0 0 20px rgba(255, 42, 42, 0.6);
+            --bg-deep: #050508;
+            --bg-card: #0d0d14;
+            --bg-glass: rgba(5, 5, 8, 0.75);
+            --accent-pink: #ff0055;
+            --accent-cyan: #00f5ff;
+            --accent-purple: #9d00ff;
+            --accent-red: #ff3344;
+            --text-main: #f5f5f7;
+            --text-muted: #7e7e9a;
+            
+            --font-display: 'Syncopate', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            
+            --glow-red: 0 0 15px rgba(255, 51, 68, 0.6);
+            --glow-cyan: 0 0 15px rgba(0, 245, 255, 0.4);
         }
 
-        /* Light Mode Variables */
-        body.light-mode {
-            --bg-matrix: #f0f0f5;
-            --bg-card: #ffffff;
-            --bg-glass: rgba(255, 255, 255, 0.9);
-            --text-pure: #0a0a14;
-            --text-muted: #555566;
-            --glow-cyan: 0 0 15px rgba(0, 150, 255, 0.4);
-        }
-
-        /* Reset & Base System */
         * {
             margin: 0; padding: 0; box-sizing: border-box;
-            font-family: var(--cyber-font);
+            font-family: var(--font-body);
             -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: var(--bg-matrix);
-            color: var(--text-pure);
+            background-color: var(--bg-deep);
+            color: var(--text-main);
             overflow-x: hidden;
             min-height: 100vh;
-            transition: background-color 0.4s ease, color 0.4s ease;
         }
 
-        /* Custom Sleek Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-matrix); }
+        /* Smooth Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-deep); }
         ::-webkit-scrollbar-thumb { 
-            background: linear-gradient(to bottom, var(--neon-pink), var(--neon-purple), var(--neon-cyan)); 
+            background: linear-gradient(to bottom, var(--accent-pink), var(--accent-cyan)); 
             border-radius: 10px;
         }
 
-        button { border: none; background: none; cursor: pointer; transition: all 0.3s ease; }
+        button, a { text-decoration: none; color: inherit; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
         /* ==========================================================================
-           2. PREMIUM HEAD-NAVIGATION BAR
+           2. PREMIUM RE-DESIGNED HEADER (MOBILE OPTIMIZED)
            ========================================================================== */
         header {
-            position: fixed; top: 0; left: 0; width: 100%; height: 90px;
-            background: var(--bg-glass); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-            border-bottom: 1px solid rgba(0, 240, 255, 0.15);
-            display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
-            padding: 0 50px; z-index: 2000;
+            position: fixed; top: 0; left: 0; width: 100%; height: 80px;
+            background: var(--bg-glass); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 245, 255, 0.1);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 40px; z-index: 2000;
         }
 
-        .nav-left-cluster { display: flex; align-items: center; gap: 20px; }
-        
-        .insta-creator-badge {
+        .header-left { display: flex; align-items: center; gap: 15px; }
+
+        .insta-badge {
             display: inline-flex; align-items: center; gap: 8px;
-            padding: 10px 22px; border-radius: 30px;
-            background: rgba(255, 0, 85, 0.08); border: 1px solid rgba(255, 0, 85, 0.4);
-            text-decoration: none; color: var(--text-pure); font-weight: 700;
-            transition: all 0.3s ease;
+            padding: 8px 16px; border-radius: 30px;
+            background: rgba(255, 0, 85, 0.06); border: 1px solid rgba(255, 0, 85, 0.3);
+            font-weight: 700; font-size: 0.85rem;
         }
-        .insta-creator-badge i { color: var(--neon-pink); font-size: 1.3rem; text-shadow: var(--glow-pink); }
-        .insta-creator-badge:hover { 
-            background: rgba(255, 0, 85, 0.2); transform: translateY(-3px); 
-            box-shadow: var(--glow-pink); border-color: var(--neon-pink);
+        .insta-badge i { color: var(--accent-pink); font-size: 1.1rem; }
+        .insta-badge:hover { 
+            background: rgba(255, 0, 85, 0.15); transform: translateY(-2px); 
+            box-shadow: 0 0 15px rgba(255, 0, 85, 0.4); border-color: var(--accent-pink);
         }
 
-        .sys-control-btn {
-            width: 45px; height: 45px; border-radius: 50%;
-            background: rgba(128,128,128,0.1); border: 1px solid rgba(128,128,128,0.2);
-            color: var(--text-pure); display: flex; justify-content: center; align-items: center; font-size: 1.1rem;
+        /* Top Red Coffee Button */
+        .btn-coffee-top {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(255, 51, 68, 0.1); border: 1px solid var(--accent-red);
+            color: #fff; padding: 8px 16px; border-radius: 30px;
+            font-size: 0.8rem; font-weight: 700; letter-spacing: 0.5px;
+            box-shadow: var(--glow-red); cursor: pointer;
         }
-        .sys-control-btn:hover { color: var(--neon-cyan); border-color: var(--neon-cyan); transform: rotate(90deg); box-shadow: var(--glow-cyan); }
-
-        /* Sleek Tokyo Logo */
-        .tokyo-core-logo {
-            font-family: var(--tech-font); font-size: 2.6rem; font-weight: 900;
-            letter-spacing: 14px; text-transform: uppercase; margin-left: 14px;
-            background: linear-gradient(90deg, #fff, var(--neon-cyan), var(--neon-pink), #fff);
-            background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: chromeShine 4s linear infinite;
+        .btn-coffee-top:hover {
+            background: var(--accent-red); transform: scale(1.05); box-shadow: 0 0 25px rgba(255, 51, 68, 0.8);
         }
-        body.light-mode .tokyo-core-logo { background: linear-gradient(90deg, #000, var(--neon-cyan), var(--neon-pink), #000); -webkit-background-clip: text; }
 
-        .nav-right-cluster { display: flex; justify-content: flex-end; align-items: center; gap: 15px; }
+        .header-right { display: flex; align-items: center; gap: 12px; }
 
-        .btn-cyber {
-            padding: 12px 26px; border-radius: 10px; font-family: var(--tech-font);
-            font-size: 0.85rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+        .btn-config {
+            width: 38px; height: 38px; border-radius: 50%;
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+            display: flex; justify-content: center; align-items: center; font-size: 1rem; cursor: pointer;
         }
-        .btn-primary { background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple)); color: white; }
-        .btn-primary:hover { box-shadow: var(--glow-pink); transform: scale(1.05); }
-        .btn-secondary { border: 1px solid var(--neon-cyan); color: var(--neon-cyan); background: rgba(0, 240, 255, 0.05); }
-        .btn-secondary:hover { background: rgba(0, 240, 255, 0.15); box-shadow: var(--glow-cyan); transform: translateY(-2px); }
+        .btn-config:hover { color: var(--accent-cyan); border-color: var(--accent-cyan); transform: rotate(45deg); }
+
+        .btn-login {
+            padding: 8px 18px; border-radius: 8px; border: 1px solid var(--accent-cyan);
+            color: var(--accent-cyan); font-weight: 700; font-size: 0.8rem; letter-spacing: 1px;
+            background: rgba(0, 245, 255, 0.03); cursor: pointer;
+        }
+        .btn-login:hover { background: rgba(0, 245, 255, 0.12); box-shadow: var(--glow-cyan); }
 
         /* ==========================================================================
-           3. FLOATING DASHBOARD (Minimal & Clean)
+           3. ANTI-TRUNCATION DASHBOARD HUB (FIXED TEXT OVERFLOW)
            ========================================================================== */
-        .interactive-action-hub {
-            max-width: 1500px; margin: 140px auto 40px; padding: 0 40px;
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px;
+        .dashboard-hub {
+            max-width: 1400px; margin: 120px auto 40px; padding: 0 24px;
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
         }
 
-        .hub-card {
-            background: var(--bg-card); border: 1px solid rgba(128,128,128,0.1); 
-            border-radius: 18px; padding: 22px; display: flex; align-items: center; gap: 18px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2); transition: all 0.3s ease; position: relative;
-            overflow: hidden;
+        .hub-node {
+            background: var(--bg-card); border: 1px solid rgba(255,255,255,0.04); 
+            border-radius: 16px; padding: 20px; display: flex; align-items: center; gap: 16px;
+            position: relative; overflow: hidden;
         }
-        .hub-card::before {
+        .hub-node::before {
             content: ''; position: absolute; left: 0; top: 0; width: 4px; height: 100%;
-            background: var(--neon-cyan);
+            background: var(--accent-cyan);
         }
-        .hub-card:nth-child(1)::before { background: var(--neon-purple); }
-        .hub-card:nth-child(2)::before { background: var(--neon-pink); }
-        .hub-card:nth-child(3)::before { background: var(--neon-gold); }
+        .hub-node:nth-child(1)::before { background: var(--accent-purple); }
+        .hub-node:nth-child(2)::before { background: var(--accent-pink); }
+        .hub-node:nth-child(3)::before { background: #ffaa00; }
         
-        .hub-card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.15); }
-        
-        .hub-icon-wrapper {
-            width: 52px; height: 52px; border-radius: 14px;
-            display: flex; justify-content: center; align-items: center; font-size: 1.4rem;
-            background: rgba(128,128,128,0.05); border: 1px solid rgba(128,128,128,0.1);
+        .hub-icon {
+            width: 46px; height: 46px; border-radius: 12px; display: flex;
+            justify-content: center; align-items: center; font-size: 1.2rem;
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+            flex-shrink: 0; /* Prevents icon from squeezing */
         }
-        .hub-details h4 { font-family: var(--tech-font); font-size: 0.85rem; letter-spacing: 1px; color: var(--text-muted); }
-        .hub-details p { font-size: 1.2rem; font-weight: 700; margin-top: 4px; }
+        
+        .hub-text {
+            display: flex; flex-direction: column; min-width: 0; /* Crucial for preventing overflow */
+        }
+        .hub-text span { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; }
+        .hub-text p { font-size: 1.05rem; font-weight: 700; margin-top: 2px; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
         /* ==========================================================================
-           4. HIGH-PERFORMANCE GRID MATRIX (1000+ IMAGES)
+           4. REALISTIC TOKYO GALLERY GRID MATRIX
            ========================================================================== */
-        main { padding: 0 40px 60px; max-width: 1920px; margin: 0 auto; }
+        main { padding: 0 24px 60px; max-width: 1600px; margin: 0 auto; }
 
-        .section-header { text-align: center; margin-bottom: 60px; }
-        .section-header h2 { font-family: var(--tech-font); font-size: 2.8rem; font-weight: 900; letter-spacing: 5px; }
-        .section-header p { color: var(--text-muted); letter-spacing: 3px; margin-top: 10px; font-weight: 600; text-transform: uppercase; }
+        .gallery-title { text-align: center; margin-bottom: 50px; }
+        .gallery-title h2 { font-family: var(--font-display); font-size: 2.2rem; font-weight: 700; letter-spacing: 4px; }
+        .gallery-title p { color: var(--text-muted); letter-spacing: 2px; margin-top: 12px; font-size: 0.85rem; font-weight: 600; }
 
-        .gallery-grid-matrix {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 35px;
+        .gallery-matrix {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px;
         }
 
-        .tokyo-visual-node {
-            position: relative; border-radius: 18px; overflow: hidden;
-            background: #0d0d14; aspect-ratio: 3/4;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-            animation: fadeUp 0.6s ease forwards;
+        .photo-card {
+            position: relative; border-radius: 16px; overflow: hidden;
+            background: #09090f; aspect-ratio: 3/4;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             will-change: transform, opacity;
         }
 
-        /* Image Styling */
-        .tokyo-visual-node img {
+        .photo-card img {
             width: 100%; height: 100%; object-fit: cover;
-            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.5s ease;
+            transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
+        .photo-card:hover img { transform: scale(1.06); }
 
-        .tokyo-visual-node:hover img { transform: scale(1.1) rotate(1deg); filter: brightness(0.4) saturate(1.2); }
-        
-        .tokyo-visual-node::after {
-            content: ''; position: absolute; inset: 0; border: 2px solid transparent; border-radius: 18px;
-            transition: all 0.4s ease; pointer-events: none; z-index: 5;
-        }
-        .tokyo-visual-node:hover::after { border-color: var(--neon-cyan); box-shadow: inset 0 0 30px rgba(0,240,255,0.3); }
-
-        .node-ui-overlay {
-            position: absolute; inset: 0; padding: 25px; z-index: 10;
-            background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0) 60%);
+        .card-overlay {
+            position: absolute; inset: 0; padding: 20px; z-index: 10;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.4) 100%);
             display: flex; flex-direction: column; justify-content: space-between;
-            opacity: 0; transition: opacity 0.4s ease;
+            opacity: 0; transition: opacity 0.3s ease;
         }
-        .tokyo-visual-node:hover .node-ui-overlay { opacity: 1; }
+        .photo-card:hover .card-overlay { opacity: 1; }
 
-        .node-top-bar { display: flex; justify-content: space-between; align-items: center; }
-        .node-premium-tag {
-            background: rgba(0, 240, 255, 0.15); border: 1px solid var(--neon-cyan);
-            color: var(--neon-cyan); padding: 6px 14px; border-radius: 30px;
-            font-size: 0.7rem; font-family: var(--tech-font); font-weight: 700; letter-spacing: 1px;
+        .tag-premium {
+            background: rgba(0, 245, 255, 0.12); border: 1px solid var(--accent-cyan);
+            color: var(--accent-cyan); padding: 4px 10px; border-radius: 20px;
+            font-size: 0.65rem; font-weight: 700; letter-spacing: 1px;
         }
 
-        .circle-action-btn {
-            width: 42px; height: 42px; border-radius: 50%;
-            background: rgba(255,255,255,0.15); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-            color: white; border: 1px solid rgba(255,255,255,0.25);
-            display: flex; justify-content: center; align-items: center; font-size: 1rem;
-            text-decoration: none; transition: all 0.3s ease;
+        .btn-action-circle {
+            width: 38px; height: 38px; border-radius: 50%;
+            background: rgba(255,255,255,0.15); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+            color: white; border: 1px solid rgba(255,255,255,0.2);
+            display: flex; justify-content: center; align-items: center; font-size: 0.9rem;
         }
-        .circle-action-btn:hover { background: var(--neon-cyan); border-color: var(--neon-cyan); color: #000; transform: scale(1.15); box-shadow: var(--glow-cyan); }
-        .circle-action-btn.love-btn:hover { background: var(--neon-pink); border-color: var(--neon-pink); color: #fff; box-shadow: var(--glow-pink); }
+        .btn-action-circle:hover { background: var(--accent-cyan); color: #000; box-shadow: var(--glow-cyan); transform: scale(1.1); }
+        .btn-action-circle.liked { background: var(--accent-pink) !important; color: white !important; border-color: var(--accent-pink); }
 
-        .node-bottom-bar { transform: translateY(15px); transition: transform 0.4s ease; }
-        .tokyo-visual-node:hover .node-bottom-bar { transform: translateY(0); }
-        
-        .node-meta-tag { font-size: 0.75rem; font-weight: 700; color: var(--neon-cyan); letter-spacing: 2px; margin-bottom: 8px; display: block; }
-        .node-title { font-size: 1.3rem; font-weight: 700; color: #fff; font-family: var(--tech-font); }
+        .meta-district { font-size: 0.7rem; font-weight: 700; color: var(--accent-cyan); letter-spacing: 2px; text-transform: uppercase; }
+        .meta-title { font-size: 1.15rem; font-weight: 700; color: #fff; margin-top: 3px; }
 
         /* Loader */
-        .scroll-loader { text-align: center; padding: 50px; color: var(--neon-cyan); font-family: var(--tech-font); letter-spacing: 2px; font-size: 1.2rem; display: none; }
+        .loading-trigger { text-align: center; padding: 40px; color: var(--accent-cyan); font-weight: 700; letter-spacing: 2px; font-size: 1rem; display: none; }
 
         /* ==========================================================================
-           5. TON WALLET FOOTER (RED STYLISH)
+           5. TON WALLET SYSTEM MODAL
            ========================================================================== */
-        .ton-footer-zone {
-            text-align: center; padding: 60px 20px; 
-            background: linear-gradient(to top, rgba(20, 0, 5, 0.95), var(--bg-matrix));
-            border-top: 1px solid rgba(255, 42, 42, 0.3);
-            margin-top: 40px; position: relative;
+        .modal-layer {
+            position: fixed; inset: 0; background: rgba(3,3,5,0.9); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            z-index: 5000; display: flex; justify-content: center; align-items: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s ease; padding: 20px;
+        }
+        .modal-layer.active { opacity: 1; pointer-events: auto; }
+
+        .wallet-card {
+            background: var(--bg-card); border: 1px solid var(--accent-red); width: 100%; max-width: 440px;
+            border-radius: 20px; padding: 35px 25px; text-align: center; position: relative;
+            box-shadow: var(--glow-red); transform: scale(0.95); transition: transform 0.3s ease;
+        }
+        .modal-layer.active .wallet-card { transform: scale(1); }
+
+        .close-modal { position: absolute; top: 15px; right: 15px; font-size: 1.1rem; color: var(--text-muted); cursor: pointer; }
+        .close-modal:hover { color: var(--accent-pink); }
+        
+        .wallet-card h3 { font-family: var(--font-body); font-weight: 800; font-size: 1.3rem; margin: 12px 0 6px; }
+        .wallet-card p { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 25px; }
+
+        .ton-address-box {
+            background: #06060a; border: 1px solid rgba(255,255,255,0.05); padding: 14px;
+            border-radius: 12px; font-family: monospace; font-size: 0.85rem; word-break: break-all;
+            color: #fff; margin-bottom: 15px; text-align: left; position: relative;
         }
         
-        .ton-wallet-btn {
-            display: inline-flex; align-items: center; justify-content: center; gap: 15px;
-            background: rgba(255, 42, 42, 0.08); border: 1px solid var(--neon-red);
-            padding: 15px 30px; border-radius: 50px; cursor: pointer;
-            box-shadow: 0 0 20px rgba(255, 42, 42, 0.3); transition: all 0.3s ease;
-            max-width: 100%; flex-wrap: wrap;
+        .btn-copy-address {
+            width: 100%; padding: 14px; border-radius: 12px; background: var(--accent-red);
+            color: white; font-weight: 700; font-size: 0.9rem; cursor: pointer; box-shadow: var(--glow-red);
         }
-        .ton-wallet-btn:hover {
-            background: rgba(255, 42, 42, 0.2); transform: translateY(-3px); box-shadow: var(--glow-red);
-        }
-        .ton-wallet-btn .label { color: var(--neon-red); font-family: var(--tech-font); font-weight: bold; font-size: 1rem; letter-spacing: 1px; }
-        .ton-wallet-btn .wallet-address { color: #fff; font-family: monospace; font-size: 1rem; background: rgba(0,0,0,0.7); padding: 10px 20px; border-radius: 25px; word-break: break-all; }
+        .btn-copy-address:hover { transform: translateY(-2px); filter: brightness(1.1); }
 
         /* ==========================================================================
-           6. SETTINGS MODAL
+           6. RESPONSIVE FIXES (PERFECT MOBILE VIEW)
            ========================================================================== */
-        .system-modal-layer {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            z-index: 5000; display: flex; justify-content: center; align-items: center;
-            opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
+        @media (max-width: 900px) {
+            .dashboard-hub { grid-template-columns: repeat(2, 1fr); }
         }
-        .system-modal-layer.active { opacity: 1; pointer-events: auto; }
-
-        .modal-mainframe {
-            background: var(--bg-card); border: 2px solid var(--neon-cyan); width: 100%; max-width: 450px;
-            border-radius: 24px; padding: 40px; text-align: center; position: relative;
-            box-shadow: var(--glow-cyan); transform: scale(0.9); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .system-modal-layer.active .modal-mainframe { transform: scale(1); }
-
-        .close-modal-btn { position: absolute; top: 15px; right: 15px; font-size: 1.3rem; color: var(--text-muted); width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; background: rgba(128,128,128,0.1); }
-        .close-modal-btn:hover { color: var(--neon-pink); background: rgba(255,0,85,0.1); }
-        .modal-mainframe h3 { font-family: var(--tech-font); font-size: 1.6rem; margin: 15px 0; color: var(--text-pure); }
-
-        /* ==========================================================================
-           7. ANIMATIONS & RESPONSIVE
-           ========================================================================== */
-        @keyframes chromeShine { to { background-position: 200% center; } }
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-
-        @media (max-width: 1024px) {
-            .interactive-action-hub { grid-template-columns: repeat(2, 1fr); margin-top: 120px; }
-            header { padding: 0 20px; }
-        }
-        @media (max-width: 768px) {
-            header { height: 85px; grid-template-columns: auto 1fr; }
-            .tokyo-core-logo { display: none; }
-            .nav-right-cluster { gap: 10px; }
-            .btn-cyber { padding: 10px 18px; font-size: 0.75rem; }
-            main { padding: 0 20px 40px; }
-            .gallery-grid-matrix { grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)); gap: 20px; }
-            .ton-wallet-btn { flex-direction: column; padding: 20px; border-radius: 20px; }
+        
+        @media (max-width: 500px) {
+            header { padding: 0 15px; height: 75px; }
+            .insta-badge span { display: none; } /* Space saver */
+            .btn-login { display: none; } /* Space saver */
+            
+            /* Vertical layout on tiny screens prevents ANY text truncation */
+            .dashboard-hub { 
+                grid-template-columns: 1fr; 
+                margin-top: 105px; 
+                gap: 12px;
+                padding: 0 15px;
+            }
+            .hub-node { padding: 15px; }
+            
+            main { padding: 0 15px 40px; }
+            .gallery-title h2 { font-size: 1.6rem; }
+            .gallery-matrix { grid-template-columns: 1fr; gap: 20px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- CENTRAL CONTROL HEADER LAYER -->
     <header>
-        <div class="nav-left-cluster">
-            <a href="https://instagram.com/i_f_t_uu" target="_blank" class="insta-creator-badge">
+        <div class="header-left">
+            <a href="https://instagram.com/i_f_t_uu" target="_blank" class="insta-badge">
                 <i class="fab fa-instagram"></i>
                 <span>@i_f_t_uu</span>
             </a>
-            <button class="sys-control-btn" onclick="openModal('settings-modal')"><i class="fas fa-sliders-h"></i></button>
+            <button class="btn-config" onclick="alert('Terminal Settings Secure')"><i class="fas fa-sliders-h"></i></button>
         </div>
         
-        <div class="tokyo-core-logo">Tokyo</div>
-        
-        <div class="nav-right-cluster">
-            <button class="btn-cyber btn-secondary" onclick="alert('Login Terminal Offline')">Login</button>
-            <button class="btn-cyber btn-primary" onclick="alert('Registration Terminal Offline')">Sign Up</button>
+        <div class="header-right">
+            <button class="btn-coffee-top" onclick="toggleWalletModal(true)">
+                <i class="fas fa-coffee"></i> Support
+            </button>
+            <button class="btn-login">LOGIN</button>
         </div>
     </header>
 
-    <!-- FLOATING INTERACTIVE ACTION DASHBOARD HUB -->
-    <section class="interactive-action-hub">
-        <div class="hub-card" onclick="window.open('https://instagram.com/i_f_t_uu', '_blank')" style="cursor:pointer;">
-            <div class="hub-icon-wrapper"><i class="fab fa-instagram" style="color: var(--neon-purple); text-shadow: 0 0 10px var(--neon-purple);"></i></div>
-            <div class="hub-details">
-                <h4>CREATOR</h4>
+    <section class="dashboard-hub">
+        <div class="hub-node" onclick="window.open('https://instagram.com/i_f_t_uu', '_blank')" style="cursor:pointer;">
+            <div class="hub-icon"><i class="fab fa-instagram" style="color: var(--accent-purple);"></i></div>
+            <div class="hub-text">
+                <span>Creator</span>
                 <p>Contact Me</p>
             </div>
         </div>
 
-        <div class="hub-card" onclick="scrollToFooter()" style="cursor:pointer;">
-            <div class="hub-icon-wrapper"><i class="fas fa-coffee" style="color: var(--neon-pink); text-shadow: var(--glow-pink);"></i></div>
-            <div class="hub-details">
-                <h4>SUPPORT</h4>
+        <div class="hub-node" onclick="toggleWalletModal(true)" style="cursor:pointer;">
+            <div class="hub-icon"><i class="fas fa-coffee" style="color: var(--accent-pink);"></i></div>
+            <div class="hub-text">
+                <span>Support</span>
                 <p>Buy Me Coffee</p>
             </div>
         </div>
 
-        <div class="hub-card">
-            <div class="hub-icon-wrapper"><i class="fas fa-bolt" style="color: var(--neon-gold); text-shadow: 0 0 10px var(--neon-gold);"></i></div>
-            <div class="hub-details">
-                <h4>SPEED</h4>
+        <div class="hub-node">
+            <div class="hub-icon"><i class="fas fa-bolt" style="color: #ffaa00;"></i></div>
+            <div class="hub-text">
+                <span>Speed</span>
                 <p>Lightning Fast</p>
             </div>
         </div>
 
-        <div class="hub-card">
-            <div class="hub-icon-wrapper"><i class="fas fa-database" style="color: var(--neon-cyan); text-shadow: var(--glow-cyan);"></i></div>
-            <div class="hub-details">
-                <h4>ASSETS</h4>
-                <p id="live-counter">0 / 1000+</p>
+        <div class="hub-node">
+            <div class="hub-icon"><i class="fas fa-images" style="color: var(--accent-cyan);"></i></div>
+            <div class="hub-text">
+                <span>Assets</span>
+                <p id="counter-display">0 / 1000+</p>
             </div>
         </div>
     </section>
 
-    <!-- MAIN DISPLAY CORE ARCHIVE -->
     <main>
-        <div class="section-header">
-            <h2>NEO TOKYO <span style="color: var(--neon-pink); text-shadow: var(--glow-pink);">GALLERY</span></h2>
-            <p>1000+ Premium Assets // Endless Cyberpunk Grid</p>
+        <div class="gallery-title">
+            <h2>NEO TOKYO <span style="color: var(--accent-pink)">GALLERY</span></h2>
+            <p>REALISTIC CINEMATIC ARCHIVE // HIGH SPEED RENDER</p>
         </div>
 
-        <!-- Master Grid -->
-        <div class="gallery-grid-matrix" id="tokyo-master-grid">
-            <!-- Dynamic AI Images will load here super fast -->
-        </div>
+        <div class="gallery-matrix" id="gallery-grid-matrix">
+            </div>
         
-        <!-- Auto Load Trigger for Infinite Scroll -->
-        <div class="scroll-loader" id="scroll-loader">
-            <i class="fas fa-circle-notch fa-spin"></i> Rendering New Sector Nodes...
+        <div class="loading-trigger" id="loading-trigger">
+            <i class="fas fa-spinner fa-spin"></i> GENERATING NODES...
         </div>
     </main>
 
-    <!-- TON WALLET FOOTER -->
-    <footer class="ton-footer-zone" id="ton-support">
-        <h3 style="font-family: var(--tech-font); margin-bottom: 25px; color: #fff; letter-spacing: 2px;">SYSTEM FUEL & SUPPORT</h3>
-        <div class="ton-wallet-btn" onclick="copyTon()" title="Click to copy!">
-            <div class="label"><i class="fas fa-coffee"></i> SEND COFFEE (TON)</div>
-            <div class="wallet-address">UQCvCMmfwJugAgxbMjmUrHI4goe2boXykQwNCDOWcwi8_fGT</div>
-        </div>
-        <p id="copy-msg" style="color: var(--neon-red); margin-top: 15px; font-weight: 700; opacity: 0; transition: opacity 0.3s ease; text-shadow: var(--glow-red);">Wallet address copied successfully!</p>
-    </footer>
-
-    <!-- SETTINGS MODAL -->
-    <div class="system-modal-layer" id="settings-modal">
-        <div class="modal-mainframe">
-            <button class="close-modal-btn" onclick="closeModal('settings-modal')"><i class="fas fa-times"></i></button>
-            <i class="fas fa-sliders-h" style="font-size: 3.5rem; color: var(--neon-cyan); margin-bottom: 15px; text-shadow: var(--glow-cyan);"></i>
-            <h3>SYSTEM SETTINGS</h3>
-            <p style="color: var(--text-muted); margin-bottom: 25px; line-height: 1.6;">Configure terminal interface visually.</p>
+    <div class="modal-layer" id="wallet-modal">
+        <div class="wallet-card">
+            <button class="close-modal" onclick="toggleWalletModal(false)"><i class="fas fa-times"></i></button>
+            <i class="fas fa-coffee" style="font-size: 3rem; color: var(--accent-red); text-shadow: var(--glow-red);"></i>
+            <h3>SUPPORT CREATOR</h3>
+            <p>Send TON to power the server core & fuel development.</p>
             
-            <button class="btn-cyber btn-secondary" style="width: 100%; padding: 16px; margin-bottom: 15px;" onclick="toggleTheme()">
-                <i class="fas fa-adjust"></i> Toggle Dark / Light Mode
-            </button>
-            <button class="btn-cyber btn-primary" style="width: 100%; padding: 16px;" onclick="window.open('https://instagram.com/i_f_t_uu', '_blank')">
-                <i class="fab fa-instagram"></i> Follow @i_f_t_uu
+            <div class="ton-address-box" id="ton-address">UQCvCMmfwJugAgxbMjmUrHI4goe2boXykQwNCDOWcwi8_fGT</div>
+            
+            <button class="btn-copy-address" onclick="copyTonAddress()" id="btn-copy-text">
+                <i class="far fa-copy"></i> Copy Wallet Address
             </button>
         </div>
     </div>
 
-    <!-- ==========================================================================
-       SUPER FAST JAVASCRIPT ENGINE (1000+ AI IMAGE GENERATOR)
-       ========================================================================== -->
     <script>
-        // Utilities
-        function openModal(id) { document.getElementById(id).classList.add('active'); }
-        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-        function toggleTheme() { document.body.classList.toggle('light-mode'); }
-        function scrollToFooter() { document.getElementById('ton-support').scrollIntoView({ behavior: 'smooth' }); }
+        function toggleWalletModal(show) {
+            const modal = document.getElementById('wallet-modal');
+            if(show) modal.classList.add('active');
+            else modal.classList.remove('active');
+        }
 
-        function copyTon() {
-            navigator.clipboard.writeText("UQCvCMmfwJugAgxbMjmUrHI4goe2boXykQwNCDOWcwi8_fGT").then(() => {
-                const msg = document.getElementById('copy-msg');
-                msg.style.opacity = "1";
-                setTimeout(() => { msg.style.opacity = "0"; }, 2500);
+        function copyTonAddress() {
+            const addr = document.getElementById('ton-address').innerText;
+            navigator.clipboard.writeText(addr).then(() => {
+                const btn = document.getElementById('btn-copy-text');
+                btn.innerHTML = '<i class="fas fa-check"></i> Address Copied!';
+                btn.style.background = '#00f5ff';
+                btn.style.boxShadow = '0 0 15px rgba(0, 245, 255, 0.6)';
+                
+                setTimeout(() => {
+                    btn.innerHTML = '<i class="far fa-copy"></i> Copy Wallet Address';
+                    btn.style.background = 'var(--accent-red)';
+                    btn.style.boxShadow = 'var(--glow-red)';
+                }, 2000);
             });
         }
 
-        function toggleLove(btn) {
+        function handleLike(btn) {
+            btn.classList.toggle('liked');
             const icon = btn.querySelector('i');
-            if(icon.classList.contains('far')) {
-                icon.className = 'fas fa-heart';
-                btn.style.background = 'var(--neon-pink)';
-                btn.style.borderColor = 'var(--neon-pink)';
-                btn.style.color = '#fff';
-            } else {
-                icon.className = 'far fa-heart';
-                btn.style.background = 'rgba(255,255,255,0.15)';
-                btn.style.borderColor = 'rgba(255,255,255,0.25)';
-            }
+            if(btn.classList.contains('liked')) icon.className = 'fas fa-heart';
+            else icon.className = 'far fa-heart';
         }
 
         // ==========================================
-        // DYNAMIC AI IMAGE ENGINE (NO BROKEN LINKS)
+        // REAL-LIFE TOKYO PHOTOGRAPHY CURATED HIGH-RES COLLECTION
         // ==========================================
-        const totalImagesTarget = 1050; // Generating 1000+ Images smoothly
-        let currentLoaded = 0;
-        const batchSize = 21; // Load 21 images at a time 
-        const grid = document.getElementById('tokyo-master-grid');
-        const loader = document.getElementById('scroll-loader');
+        const realisticTokyoIDs = [
+            "1503899036084-c55cdd94da26", "1540959733-31306d15a4b5", "1504593811423-6da368fa6d45",
+            "1493976040374-85c8e12f0c0e", "1524413840845-3832ce071848", "1551641586-4467f3449db4",
+            "1542051841857-5f90071e7989", "1578330776741-21820ddbb9ba", "1536625732103-6f81e6b360ea",
+            "1518562180175-34a163b1a9a6", "1543157145-f75c63990835", "1501854140801-50d01698950b",
+            "1542640244-7e672d6cef4e", "1498036882111-5748baf750b0", "1540962351-64201385966c",
+            "1511116630-9db07ff42d8d", "1570116812749-ca7da3178c54", "1564951434199-e67c87cb71cf"
+        ];
         
-        const sectors = ["SHINJUKU CYBER", "AKIHABARA NEON", "SHIBUYA NIGHTS", "ROPPONGI TECH", "MINATO GRID", "CHIYODA STREETS"];
+        const districts = ["SHINJUKU", "SHIBUYA", "AKIHABARA", "ROPPONGI", "GINZA", "ASAKUSA"];
+        
+        const totalItems = 1020; // 1000+ Items Loop Target
+        let currentCount = 0;
+        const batchSize = 16;
+        
+        const grid = document.getElementById('gallery-grid-matrix');
+        const trigger = document.getElementById('loading-trigger');
 
-        function loadNextBatch() {
-            if (currentLoaded >= totalImagesTarget) {
-                loader.style.display = 'none';
+        function appendPhotos() {
+            if (currentCount >= totalItems) {
+                trigger.style.display = 'none';
                 return;
             }
-
-            loader.style.display = 'block';
-            const fragment = document.createDocumentFragment();
-            let limit = Math.min(currentLoaded + batchSize, totalImagesTarget);
-
-            for (let i = currentLoaded; i < limit; i++) {
-                const sector = sectors[i % sectors.length];
+            
+            trigger.style.display = 'block';
+            const frag = document.createDocumentFragment();
+            let target = Math.min(currentCount + batchSize, totalItems);
+            
+            for(let i = currentCount; i < target; i++) {
+                const photoId = realisticTokyoIDs[i % realisticTokyoIDs.length];
+                // Ultra realistic curated photography source URL
+                const imgURL = `https://images.unsplash.com/photo-${photoId}?auto=format&fit=crop&w=600&h=800&q=82`;
+                const district = districts[i % districts.length];
                 
-                // Using Pollinations AI - It dynamically generates 100% unique, stunning Cyberpunk Tokyo images!
-                // No API key needed, never breaks, high quality 4K renders.
-                const prompt = encodeURIComponent("cyberpunk tokyo neon city street night photography hyperrealistic cinematic 8k");
-                const imgURL = `https://image.pollinations.ai/prompt/${prompt}?width=600&height=800&nologo=true&seed=${1000 + i}`;
-
-                const node = document.createElement('div');
-                node.className = 'tokyo-visual-node';
-                // Inline animation delay for waterfall loading effect
-                node.style.animationDelay = `${(i % batchSize) * 0.05}s`;
-
-                node.innerHTML = `
-                    <!-- Error fallback just in case -->
-                    <img src="${imgURL}" alt="Tokyo Cyber Asset" loading="lazy" onerror="this.src='https://loremflickr.com/600/800/tokyo,cyberpunk?lock=${1000 + i}'">
-                    
-                    <div class="node-ui-overlay">
-                        <div class="node-top-bar">
-                            <span class="node-premium-tag"><i class="fas fa-check-circle"></i> 4K ULTRA</span>
-                            <div style="display:flex; gap:10px;">
-                                <button class="circle-action-btn love-btn" onclick="toggleLove(this)"><i class="far fa-heart"></i></button>
-                            </div>
+                const card = document.createElement('div');
+                card.className = 'photo-card';
+                card.innerHTML = `
+                    <img src="${imgURL}" alt="Tokyo Reality Capture" loading="lazy">
+                    <div class="card-overlay">
+                        <div style="display: flex; justify-content: space-between; align-items: center; width:100%;">
+                            <span class="tag-premium"><i class="fas fa-camera"></i> PHOTOGRAPHY</span>
+                            <button class="btn-action-circle" onclick="handleLike(this)"><i class="far fa-heart"></i></button>
                         </div>
-                        <div class="node-bottom-bar">
-                            <span class="node-meta-tag">${sector} // V-${2000 + i}</span>
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <h3 class="node-title">Asset Node ${String(i+1).padStart(4, '0')}</h3>
-                                
-                                <!-- Direct High-Res Download -->
-                                <a href="${imgURL}" target="_blank" class="circle-action-btn" title="Download Asset">
-                                    <i class="fas fa-download"></i>
-                                </a>
+                        <div style="display: flex; justify-content: space-between; align-items: center; width:100%;">
+                            <div>
+                                <span class="meta-district">${district}</span>
+                                <h3 class="meta-title">Node Asset #${String(i+1).padStart(4, '0')}</h3>
                             </div>
+                            <a href="${imgURL}" target="_blank" class="btn-action-circle"><i class="fas fa-expand-alt"></i></a>
                         </div>
                     </div>
                 `;
-                fragment.appendChild(node);
+                frag.appendChild(card);
             }
-
-            grid.appendChild(fragment);
-            currentLoaded = limit;
-            document.getElementById('live-counter').innerText = `${currentLoaded} / ${totalImagesTarget}`;
+            
+            grid.appendChild(frag);
+            currentCount = target;
+            document.getElementById('counter-display').innerText = `${currentCount} / ${totalItems}`;
         }
 
-        // INFINITE SCROLL OBSERVER
-        const observer = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting) {
-                // Add a small 400ms delay to make the loading feel natural and prevent API spam
-                setTimeout(loadNextBatch, 400); 
+        // Infinite Scroll Observer Engine
+        const scrollObserver = new IntersectionObserver((entries) => {
+            if(entries[0].isIntersecting) {
+                setTimeout(appendPhotos, 300);
             }
-        }, { rootMargin: "300px" });
+        }, { rootMargin: "250px" });
 
-        // Initialize Engine
         window.addEventListener('DOMContentLoaded', () => {
-            loadNextBatch(); // Load first batch instantly
-            observer.observe(loader); // Start watching for scroll
+            appendPhotos();
+            scrollObserver.observe(trigger);
         });
     </script>
 </body>
