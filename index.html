@@ -3,868 +3,742 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TOKYO FUTURE - Premium Visual Experience</title>
-    
-    <!-- Google Fonts Premium Matrix -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome Premium Icons -->
+    <title>Tokyo by iftuu - Future Discover</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <style>
-        /* ==========================================================================
-           1. PREMIUM TOKYO PALETTE VARIABLES
-           ========================================================================== */
+        /* ==========================================
+           1. CSS VARIABLES & GLOBAL RESET
+           ========================================== */
         :root {
-            --bg-main: #040406;
-            --bg-surface: #0a0a12;
-            --bg-card: #10101c;
-            
-            --tokyo-pink: #ff1053; /* Pure Tokyo Neon Pink */
-            --tokyo-cyan: #00f0ff; /* Electric Cyber Cyan */
-            --tokyo-purple: #7209b7; /* Royal Neon Violet */
-            
-            --text-light: #ffffff;
-            --text-muted: #7e7e96;
-            --border-glow: rgba(255, 16, 83, 0.15);
-            
-            --font-display: 'Montserrat', sans-serif;
-            --font-logo: 'Cinzel', serif;
-            
-            --radius-standard: 12px;
-            --transition-premium: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            --bg-color: #050505;
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            --accent-pink: #ff007a;
+            --accent-purple: #7000ff;
+            --gradient-btn: linear-gradient(45deg, var(--accent-pink), var(--accent-purple));
+            --neon-glow: 0 0 10px rgba(255, 0, 122, 0.5), 0 0 20px rgba(112, 0, 255, 0.4);
+            --card-bg: #111111;
+            --border-color: #222222;
         }
 
-        /* ==========================================================================
-           2. RESET & BASE LAYOUT SYSTEM
-           ========================================================================== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: var(--font-display);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: var(--bg-main);
-            color: var(--text-light);
+            background-color: var(--bg-color);
+            color: var(--text-main);
             overflow-x: hidden;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
         }
 
-        /* Custom Modern Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--bg-main); }
-        ::-webkit-scrollbar-thumb { background: #222; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--tokyo-pink); }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-purple);
+            border-radius: 10px;
+        }
 
-        a { text-decoration: none; color: inherit; }
-        button { border: none; background: none; cursor: pointer; font-family: inherit; transition: var(--transition-premium); }
-        input { border: none; outline: none; background: none; color: white; }
-
-        /* ==========================================================================
-           3. BULLETPROOF RESPONSIVE HEADER (FIXES OVERLAP BUG)
-           ========================================================================== */
+        /* ==========================================
+           2. HEADER & NAVIGATION (Based on 1000055207.jpg)
+           ========================================== */
         header {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            height: 90px;
-            background: rgba(4, 4, 6, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            z-index: 1000;
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            padding: 0 40px;
+            padding: 15px 20px;
+            background: rgba(5, 5, 5, 0.9);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-color);
         }
 
-        /* Left Side: Clean Instagram Badge */
         .header-left {
             display: flex;
             align-items: center;
-            justify-content: flex-start;
-        }
-
-        .instagram-brand-link {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 8px 16px;
-            border-radius: 50px;
-            background: rgba(255, 16, 83, 0.05);
-            border: 1px solid rgba(255, 16, 83, 0.2);
-            transition: var(--transition-premium);
-        }
-
-        .instagram-brand-link i {
-            font-size: 1.2rem;
-            color: var(--tokyo-pink);
-            text-shadow: 0 0 10px rgba(255, 16, 83, 0.5);
-        }
-
-        .instagram-brand-link span {
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            color: #ffffff;
-        }
-
-        .instagram-brand-link:hover {
-            background: rgba(255, 16, 83, 0.15);
-            border-color: var(--tokyo-pink);
-            transform: translateY(-1px);
-        }
-
-        /* Center Side: Strictly Balanced Logo */
-        .header-center {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .main-gallery-logo {
-            font-family: var(--font-logo);
-            font-size: 2.2rem;
-            font-weight: 700;
-            letter-spacing: 14px;
-            color: #ffffff;
-            text-transform: uppercase;
-            text-align: center;
-            padding-left: 14px; /* Offsets last letter spacing tracking */
-            background: linear-gradient(to right, #fff, #ff1053, #00f0ff, #fff);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: textGradShine 6s linear infinite;
-        }
-
-        /* Right Side: Control Panels */
-        .header-right {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
             gap: 15px;
         }
 
-        .luxury-icon-btn {
-            width: 44px; height: 44px;
-            border-radius: 50%;
-            display: flex; justify-content: center; align-items: center;
-            font-size: 1.1rem;
-            color: var(--text-muted);
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+        .ig-icon {
+            color: var(--accent-pink);
+            font-size: 24px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        
+        .ig-icon:hover {
+            text-shadow: var(--neon-glow);
         }
 
-        .luxury-icon-btn:hover {
-            color: var(--tokyo-cyan);
-            background: rgba(0, 240, 255, 0.05);
-            border-color: rgba(0, 240, 255, 0.3);
-            transform: translateY(-2px);
-        }
-
-        .premium-gate-btn {
-            padding: 11px 26px;
-            border-radius: 30px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            background: linear-gradient(135deg, var(--tokyo-pink), var(--tokyo-purple));
-            color: #ffffff;
-            box-shadow: 0 4px 20px rgba(255, 16, 83, 0.3);
-        }
-
-        .premium-gate-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(255, 16, 83, 0.5);
-        }
-
-        .active-user-badge {
-            display: none;
-            align-items: center;
-            gap: 10px;
-            padding: 6px 16px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 30px;
-        }
-
-        .active-user-badge span { font-size: 0.9rem; font-weight: 500; }
-
-        /* ==========================================================================
-           4. NAVIGATION TABS SYSTEM
-           ========================================================================== */
-        main {
-            flex: 1;
-            padding: 140px 40px 60px;
-            max-width: 1800px;
-            margin: 0 auto;
-            width: 100%;
-        }
-
-        .gallery-nav-tabs {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-bottom: 45px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            padding-bottom: 5px;
-        }
-
-        .nav-tab-trigger {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            padding: 12px 10px;
-            position: relative;
+        .site-title {
+            font-size: 22px;
+            font-weight: 800;
             letter-spacing: 2px;
             text-transform: uppercase;
+            background: -webkit-linear-gradient(45deg, #00f0ff, #ff007a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .nav-tab-trigger.active { color: #ffffff; }
-
-        .nav-tab-trigger::after {
-            content: ''; position: absolute; bottom: -6px; left: 0; width: 100%; height: 2px;
-            background: var(--tokyo-pink); transform: scaleX(0); transition: var(--transition-premium);
-        }
-        .nav-tab-trigger.active::after { transform: scaleX(1); }
-
-        /* ==========================================================================
-           5. GALLERY RENDERING ENGINE (100% VISIBLE GRID)
-           ========================================================================== */
-        .gallery-viewport-wrapper { display: none; }
-        .gallery-viewport-wrapper.active { display: block; animation: viewFadeIn 0.5s ease forwards; }
-
-        .image-render-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 30px;
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
-        .tokyo-card-container {
+        .icon-btn {
+            background: #1a1a1a;
+            border: none;
+            color: var(--text-muted);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .icon-btn:hover {
+            color: white;
+            background: #333;
+        }
+
+        .login-btn {
+            background: var(--gradient-btn);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 0, 122, 0.3);
+            transition: 0.3s transform, 0.3s box-shadow;
+        }
+
+        .login-btn:hover {
+            transform: scale(1.05);
+            box-shadow: var(--neon-glow);
+        }
+
+        /* ==========================================
+           3. TAB NAVIGATION
+           ========================================== */
+        .tabs-container {
+            display: flex;
+            justify-content: center;
+            padding: 20px 0 0 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .tab {
+            padding: 15px 40px;
+            color: var(--text-muted);
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 13px;
+            transition: 0.3s;
             position: relative;
-            background: var(--bg-card);
-            border-radius: var(--radius-standard);
+        }
+
+        .tab.active {
+            color: var(--text-main);
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--accent-pink);
+            box-shadow: 0 -2px 10px rgba(255, 0, 122, 0.5);
+        }
+
+        /* ==========================================
+           4. GALLERY GRID (500+ Images Container)
+           ========================================== */
+        .gallery-wrapper {
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        /* Image Cards */
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
             overflow: hidden;
-            aspect-ratio: 3 / 4;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            position: relative;
+            border: 1px solid #1a1a1a;
+            transition: 0.4s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-purple);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5), 0 0 15px rgba(112, 0, 255, 0.2);
+        }
+
+        .card-img-wrapper {
+            position: relative;
+            width: 100%;
+            height: 350px;
+            overflow: hidden;
+            background: #222;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s ease;
+        }
+
+        .card:hover .card-img {
+            transform: scale(1.1);
+            filter: brightness(0.7);
+        }
+
+        /* Card Overlays (Buttons) */
+        .card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
             opacity: 0;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 15px;
+        }
+
+        .card:hover .card-overlay {
+            opacity: 1;
+        }
+
+        .card-top-actions {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .love-btn {
+            background: rgba(0, 0, 0, 0.6);
+            border: none;
+            color: white;
+            font-size: 18px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .love-btn:hover, .love-btn.loved {
+            color: var(--accent-pink);
+            background: white;
+            transform: scale(1.1);
+        }
+
+        .card-bottom-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .badge-premium {
+            background: rgba(0, 0, 0, 0.7);
+            color: #ffd700;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .download-btn {
+            background: var(--gradient-btn);
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: 0.3s;
+        }
+
+        .download-btn:hover {
+            box-shadow: var(--neon-glow);
+        }
+
+        /* ==========================================
+           5. ACTION BAR (Bottom Floating)
+           ========================================== */
+        .floating-action-bar {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(15, 15, 15, 0.85);
+            backdrop-filter: blur(15px);
+            padding: 10px 25px;
+            border-radius: 30px;
+            display: flex;
+            gap: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            z-index: 90;
+        }
+
+        .action-item {
+            color: var(--text-main);
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 12px;
+            gap: 5px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .action-item i {
+            font-size: 20px;
+        }
+
+        .action-item:hover {
+            color: var(--accent-pink);
+        }
+
+        .gift-coffee {
+            color: #ffb800;
+        }
+
+        /* ==========================================
+           6. MODALS (Subscription, Login, Signup)
+           ========================================== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.4s;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-box {
+            background: var(--card-bg);
+            border: 1px solid var(--accent-purple);
+            padding: 40px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            position: relative;
             transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.4s ease;
+            transition: 0.4s;
+            box-shadow: 0 0 30px rgba(112, 0, 255, 0.2);
         }
 
-        .tokyo-card-container.fully-loaded { opacity: 1; transform: translateY(0); }
-        .tokyo-card-container:hover { box-shadow: 0 15px 30px rgba(255, 16, 83, 0.2); }
-
-        .tokyo-card-container img {
-            width: 100%; height: 100%; object-fit: cover;
-            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease;
-            background-color: #0b0b14;
+        .modal-overlay.active .modal-box {
+            transform: translateY(0);
         }
 
-        .tokyo-card-container:hover img { transform: scale(1.05); filter: brightness(0.7); }
-
-        /* Elegantly Formatted Card Hover UI Overlay */
-        .card-interactive-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to top, rgba(4,4,6,0.95) 0%, rgba(4,4,6,0.2) 60%, rgba(4,4,6,0.4) 100%);
-            display: flex; flex-direction: column; justify-content: space-between;
-            padding: 25px; opacity: 0; transition: opacity 0.4s ease;
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
         }
 
-        .tokyo-card-container:hover .card-interactive-overlay { opacity: 1; }
-
-        .save-action-wrapper { align-self: flex-end; }
-        
-        .bookmark-heart-btn {
-            width: 46px; height: 46px; border-radius: 50%;
-            background: rgba(4, 4, 6, 0.8); border: 1px solid rgba(255,255,255,0.1);
-            color: #ffffff; display: flex; justify-content: center; align-items: center;
-            font-size: 1.15rem; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        .modal-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: white;
         }
 
-        .bookmark-heart-btn:hover { transform: scale(1.1); border-color: var(--tokyo-pink); color: var(--tokyo-pink); }
-        .bookmark-heart-btn.saved { color: var(--tokyo-pink); background: rgba(255, 16, 83, 0.1); border-color: var(--tokyo-pink); }
-
-        .card-metadata-box { pointer-events: none; }
-        .card-meta-tag { font-size: 0.75rem; color: var(--tokyo-cyan); font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px; display: block; }
-        .card-main-title { font-size: 1.2rem; font-weight: 600; letter-spacing: 0.5px; color: #ffffff; }
-
-        /* Empty/Restricted States */
-        .system-empty-placeholder {
-            grid-column: 1 / -1; text-align: center; padding: 100px 20px; color: var(--text-muted);
-        }
-        .system-empty-placeholder i { font-size: 2.5rem; color: var(--tokyo-pink); margin-bottom: 20px; }
-        .system-empty-placeholder h3 { font-size: 1.4rem; margin-bottom: 8px; color: #fff; font-weight: 500; }
-
-        /* ==========================================================================
-           6. MODERN CLEAN DIALOG MODALS
-           ========================================================================== */
-        .ux-modal-backdrop {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(4, 4, 6, 0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            z-index: 2000; display: flex; justify-content: center; align-items: center;
-            opacity: 0; visibility: hidden; transition: all 0.4s ease;
+        .modal-text {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 25px;
+            line-height: 1.5;
         }
 
-        .ux-modal-backdrop.active { opacity: 1; visibility: visible; }
-
-        .ux-dialog-box {
-            background: var(--bg-surface); border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 20px; width: 100%; max-width: 440px; padding: 40px; position: relative;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-            transform: translateY(20px); transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        .sub-plans {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
         }
 
-        .ux-modal-backdrop.active .ux-dialog-box { transform: translateY(0); }
-
-        .close-dialog-btn { position: absolute; top: 22px; right: 22px; font-size: 1.3rem; color: var(--text-muted); }
-        .close-dialog-btn:hover { color: #fff; }
-
-        .dialog-title { font-size: 1.6rem; font-weight: 700; text-align: center; letter-spacing: 1px; margin-bottom: 8px; }
-        .dialog-subtitle { text-align: center; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 30px; }
-
-        .input-field-container { margin-bottom: 20px; }
-        .field-label { display: block; font-size: 0.8rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; margin-bottom: 8px; text-transform: uppercase; }
-        
-        .premium-input-style {
-            width: 100%; padding: 14px 18px; background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; color: #fff; font-size: 0.95rem; transition: 0.3s;
-        }
-        .premium-input-style:focus { border-color: var(--tokyo-pink); background: rgba(255, 255, 255, 0.05); }
-
-        .dialog-execute-btn {
-            width: 100%; padding: 15px; border-radius: 8px; font-weight: 700; font-size: 0.95rem; letter-spacing: 1px; text-transform: uppercase;
-            background: #ffffff; color: #000000; margin-top: 10px;
-        }
-        .dialog-execute-btn:hover { background: var(--tokyo-pink); color: #fff; box-shadow: 0 5px 20px rgba(255, 16, 83, 0.4); }
-
-        .form-toggle-prompt { text-align: center; margin-top: 20px; font-size: 0.9rem; color: var(--text-muted); }
-        .form-toggle-prompt span { color: var(--tokyo-cyan); font-weight: 600; cursor: pointer; }
-
-        /* Security Dashboard System Cleaned */
-        .security-dashboard-wrapper { display: flex; flex-direction: column; gap: 18px; text-align: left; }
-        .dashboard-status-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .status-metric-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; }
-        .metric-title { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; font-weight: 600; }
-        .metric-data { font-size: 1.1rem; font-weight: 600; color: var(--tokyo-cyan); }
-
-        /* ==========================================================================
-           7. SYSTEM UI TOAST NOTIFICATION ENGINE
-           ========================================================================== */
-        #global-toast-layer { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
-        .premium-toast {
-            background: rgba(10, 10, 18, 0.95); border: 1px solid rgba(255,255,255,0.08); padding: 14px 28px; border-radius: 50px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5); display: flex; align-items: center; gap: 12px;
-            animation: toastSlideUp 0.4s ease forwards;
-        }
-        .premium-toast i { font-size: 1.1rem; }
-        .premium-toast.success i { color: var(--tokyo-cyan); }
-        .premium-toast.error i { color: var(--tokyo-pink); }
-        .premium-toast span { font-size: 0.9rem; font-weight: 500; }
-
-        /* ==========================================================================
-           8. FOOTER DESIGN
-           ========================================================================== */
-        footer { margin-top: auto; padding: 35px 20px; border-top: 1px solid rgba(255, 255, 255, 0.05); background: var(--bg-surface); text-align: center; }
-        .footer-text-node { font-size: 0.85rem; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; }
-        .footer-text-node a { color: var(--tokyo-pink); font-weight: 700; margin-left: 4px; transition: 0.3s; }
-        .footer-text-node a:hover { color: var(--tokyo-cyan); text-shadow: 0 0 10px var(--tokyo-cyan); }
-
-        /* ==========================================================================
-           9. KEYFRAMES MOTIONS ENGINE
-           ========================================================================== */
-        @keyframes textGradShine { to { background-position: 200% center; } }
-        @keyframes viewFadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes toastSlideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 0; transform: translateY(0); } }
-
-        /* ==========================================================================
-           10. BULLETPROOF MEDIA RESPONSIVE RULES
-           ========================================================================== */
-        @media (max-width: 850px) {
-            header { padding: 0 20px; height: 80px; }
-            .main-gallery-logo { font-size: 1.6rem; letter-spacing: 8px; }
-            main { padding: 110px 20px 40px; }
-            .image-render-grid { grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)); gap: 20px; }
+        .plan-card {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
         }
 
-        @media (max-width: 550px) {
-            header { grid-template-columns: auto 1fr; gap: 10px; }
-            .header-center { display: none; } /* Safely hide duplicate centered branding on tiny displays to protect space allocation */
-            .instagram-brand-link span { display: none; }
-            .instagram-brand-link { padding: 10px; }
-            .premium-gate-btn { padding: 9px 16px; font-size: 0.75rem; }
+        .plan-card:hover {
+            border-color: var(--accent-pink);
+            background: rgba(255, 0, 122, 0.1);
+        }
+
+        .plan-price {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--accent-pink);
+        }
+
+        .modal-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--gradient-btn);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Standard Input styling for Login/Signup */
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            color: white;
+            border-radius: 8px;
+            outline: none;
+        }
+        .form-input:focus {
+            border-color: var(--accent-purple);
+        }
+
+        /* ==========================================
+           7. FOOTER
+           ========================================== */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+            background: #000;
+        }
+
+        .footer-brand {
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 10px;
+            background: -webkit-linear-gradient(45deg, #ff007a, #7000ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .footer-credit {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /* Loader */
+        #loader {
+            text-align: center;
+            padding: 20px;
+            color: var(--accent-pink);
+            font-weight: bold;
+            display: none;
         }
     </style>
 </head>
 <body>
 
-    <!-- APPLICATION HEADER PROFILE -->
+    <!-- HEADER AREA -->
     <header>
         <div class="header-left">
-            <a href="https://instagram.com/i_f_t_uu" target="_blank" class="instagram-brand-link">
+            <a href="https://instagram.com/আপনার_আইডি_এখানে" target="_blank" class="ig-icon" id="contact-ig">
                 <i class="fab fa-instagram"></i>
-                <span>@i_f_t_uu</span>
             </a>
+            <div class="site-title">TOKYO</div>
         </div>
-
-        <div class="header-center">
-            <h1 class="main-gallery-logo">Tokyo</h1>
-        </div>
-
         <div class="header-right">
-            <button class="luxury-icon-btn" onclick="openSystemDialog('app-privacy-dashboard-modal')" title="Privacy Dashboard">
-                <i class="fas fa-shield-blank"></i>
-            </button>
-            
-            <div id="auth-state-injection-point">
-                <button class="premium-gate-btn" id="gate-trigger-login" onclick="openSystemDialog('app-identity-gate-modal')">
-                    Log In
-                </button>
-                <div class="active-user-badge" id="gate-active-profile">
-                    <span id="display-user-node-string">User</span>
-                    <button onclick="executeTerminalLogout()" style="margin-left: 8px; color: var(--tokyo-pink);" title="Log Out">
-                        <i class="fas fa-sign-out-alt"></i>
-                    </button>
-                </div>
-            </div>
+            <button class="icon-btn" onclick="openModal('settingsModal')"><i class="fas fa-shield-alt"></i></button>
+            <button class="login-btn" onclick="openModal('loginModal')">LOG IN</button>
+            <button class="icon-btn" onclick="openModal('signupModal')"><i class="fas fa-user-plus"></i></button>
         </div>
     </header>
 
-    <!-- MAIN CORE CONTEXT VIEWPORT -->
-    <main>
-        <div class="gallery-nav-tabs">
-            <button class="nav-tab-trigger active" onclick="switchActiveTabEngine('discover')">Discover</button>
-            <button class="nav-tab-trigger" onclick="switchActiveTabEngine('saved')">Saved Visuals</button>
-        </div>
+    <!-- TABS (Mimicking 1000055207.jpg) -->
+    <div class="tabs-container">
+        <div class="tab active">DISCOVER</div>
+        <div class="tab">SAVED VISUALS</div>
+    </div>
 
-        <!-- Discover Active Viewport -->
-        <div id="discover-tab-viewport" class="gallery-viewport-wrapper active">
-            <div class="image-render-grid" id="discover-grid-mount">
-                <!-- Programmatically rendered image elements loaded inside load runtime loops -->
-            </div>
+    <!-- MAIN GALLERY AREA -->
+    <main class="gallery-wrapper">
+        <div class="gallery-grid" id="image-grid">
+            <!-- 500+ Images will be dynamically injected here by JavaScript -->
         </div>
-
-        <!-- Saved Active Viewport -->
-        <div id="saved-tab-viewport" class="gallery-viewport-wrapper">
-            <div class="image-render-grid" id="saved-grid-mount">
-                <!-- Dynamically constructed elements generated from user record storage caches -->
-            </div>
-        </div>
+        <div id="loader"><i class="fas fa-spinner fa-spin"></i> Loading Future Tokyo...</div>
     </main>
 
-    <!-- NOTIFICATION CAPTURE CONTAINER -->
-    <div id="global-toast-layer"></div>
-
-    <!-- CLEAN APPLICATION ENTRY IDENTITY PORTAL -->
-    <div class="ux-modal-backdrop" id="app-identity-gate-modal">
-        <div class="ux-dialog-box">
-            <i class="fas fa-times close-dialog-btn" onclick="closeSystemDialog('app-identity-gate-modal')"></i>
-            
-            <!-- Login UI Form Section -->
-            <div id="account-login-form-subpanel">
-                <h2 class="dialog-title">Welcome Back</h2>
-                <p class="dialog-subtitle">Verify your identity parameters to continue</p>
-                
-                <div class="input-field-container">
-                    <label class="field-label">Username</label>
-                    <input type="text" id="auth-username-field" class="premium-input-style" placeholder="Enter username">
-                </div>
-                <div class="input-field-container">
-                    <label class="field-label">Passcode</label>
-                    <input type="password" id="auth-passcode-field" class="premium-input-style" placeholder="••••••••">
-                </div>
-                <button class="dialog-execute-btn" onclick="processAccountLoginAuthentication()">Authenticate</button>
-                <div class="form-toggle-prompt">
-                    New collector? <span onclick="toggleDialogForms('signup')">Create Registry</span>
-                </div>
-            </div>
-
-            <!-- Signup UI Form Section -->
-            <div id="account-signup-form-subpanel" style="display: none;">
-                <h2 class="dialog-title">Create Account</h2>
-                <p class="dialog-subtitle">Join the private future art collective registry</p>
-                
-                <div class="input-field-container">
-                    <label class="field-label">Select Username</label>
-                    <input type="text" id="register-username-field" class="premium-input-style" placeholder="Username">
-                </div>
-                <div class="input-field-container">
-                    <label class="field-label">Secure Password</label>
-                    <input type="password" id="register-passcode-field" class="premium-input-style" placeholder="Password (Min 4 chars)">
-                </div>
-                <button class="dialog-execute-btn" onclick="processAccountRegistrationProtocol()">Register Credentials</button>
-                <div class="form-toggle-prompt">
-                    Already registered? <span onclick="toggleDialogForms('login')">Return to Sign In</span>
-                </div>
-            </div>
+    <!-- FLOATING BOTTOM ACTION BAR -->
+    <div class="floating-action-bar">
+        <div class="action-item" onclick="openModal('subscriptionModal')">
+            <i class="fas fa-gem" style="color: #00f0ff;"></i>
+            <span>Premium</span>
+        </div>
+        <div class="action-item gift-coffee" onclick="openModal('coffeeModal')">
+            <i class="fas fa-coffee"></i>
+            <span>Gift Coffee</span>
+        </div>
+        <div class="action-item">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
         </div>
     </div>
 
-    <!-- MODERN PRIVACY & SYSTEM DASHBOARD MODAL -->
-    <div class="ux-modal-backdrop" id="app-privacy-dashboard-modal">
-        <div class="ux-dialog-box">
-            <i class="fas fa-times close-dialog-btn" onclick="closeSystemDialog('app-privacy-dashboard-modal')"></i>
-            <h2 class="dialog-title" style="text-align: left; margin-bottom: 25px;">Privacy Settings</h2>
-            
-            <div class="security-dashboard-wrapper">
-                <div class="dashboard-status-row">
-                    <div class="status-metric-card">
-                        <div class="metric-title">Vault Status</div>
-                        <div class="metric-data" style="color: #39ff14;">Encrypted</div>
-                    </div>
-                    <div class="status-metric-card">
-                        <div class="metric-title">Archived Nodes</div>
-                        <div class="metric-data" id="dashboard-archive-counter">0 Items</div>
-                    </div>
-                </div>
-                <div class="status-metric-card" style="width: 100%;">
-                    <div class="metric-title">Current Profile Path</div>
-                    <div class="metric-data" id="dashboard-profile-string" style="font-size: 0.9rem; word-break: break-all; color: var(--text-muted);">Guest Visitor Session</div>
-                </div>
-                <button class="dialog-execute-btn" style="background: rgba(255,255,255,0.05); color:#fff;" onclick="closeSystemDialog('app-privacy-dashboard-modal')">Close Dashboard</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- APPLICATION FOOTER NODE -->
+    <!-- FOOTER -->
     <footer>
-        <p class="footer-text-node">
-            © 2026 Tokyo Future Visions. Crafted by <a href="https://instagram.com/i_f_t_uu" target="_blank">@i_f_t_uu</a>
-        </p>
+        <div class="footer-brand">TOKYO</div>
+        <div class="footer-credit">Designed & Developed by <b>iftuu</b> &copy; 2026 Future City</div>
     </footer>
 
-    <!-- ==========================================================================
-       11. CLIENT RENDERING APPLICATION JAVASCRIPT SYSTEM
-       ========================================================================== -->
+    <!-- ==========================================
+         MODALS (Popups for interactions)
+         ========================================== -->
+
+    <!-- 1. Subscription Modal -->
+    <div class="modal-overlay" id="subscriptionModal">
+        <div class="modal-box">
+            <button class="close-modal" onclick="closeModal('subscriptionModal')"><i class="fas fa-times"></i></button>
+            <h2 class="modal-title">Unlock Future Tokyo</h2>
+            <p class="modal-text">To download these 500+ ultra-HD future Tokyo photos, you need an active subscription.</p>
+            
+            <div class="sub-plans">
+                <div class="plan-card">
+                    <h3>Monthly Pass</h3>
+                    <div class="plan-price">$4.99</div>
+                    <p style="color: #888; font-size: 12px; margin-top: 5px;">Unlimited HD Downloads</p>
+                </div>
+                <div class="plan-card" style="border-color: var(--accent-pink);">
+                    <h3>Lifetime Access</h3>
+                    <div class="plan-price">$29.99</div>
+                    <p style="color: #888; font-size: 12px; margin-top: 5px;">One time payment, forever yours</p>
+                </div>
+            </div>
+            
+            <button class="modal-btn">SUBSCRIBE NOW</button>
+        </div>
+    </div>
+
+    <!-- 2. Login Modal -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal-box">
+            <button class="close-modal" onclick="closeModal('loginModal')"><i class="fas fa-times"></i></button>
+            <h2 class="modal-title">Welcome Back</h2>
+            <p class="modal-text">Log in to sync your saved Tokyo visuals.</p>
+            <input type="email" class="form-input" placeholder="Email Address">
+            <input type="password" class="form-input" placeholder="Password">
+            <button class="modal-btn">LOG IN</button>
+        </div>
+    </div>
+
+    <!-- 3. Signup Modal -->
+    <div class="modal-overlay" id="signupModal">
+        <div class="modal-box">
+            <button class="close-modal" onclick="closeModal('signupModal')"><i class="fas fa-times"></i></button>
+            <h2 class="modal-title">Join Tokyo</h2>
+            <p class="modal-text">Create an account to save and download.</p>
+            <input type="text" class="form-input" placeholder="Username">
+            <input type="email" class="form-input" placeholder="Email Address">
+            <input type="password" class="form-input" placeholder="Password">
+            <button class="modal-btn">SIGN UP</button>
+        </div>
+    </div>
+
+    <!-- 4. Buy me a Coffee Modal -->
+    <div class="modal-overlay" id="coffeeModal">
+        <div class="modal-box">
+            <button class="close-modal" onclick="closeModal('coffeeModal')"><i class="fas fa-times"></i></button>
+            <h2 class="modal-title">Support Iftuu</h2>
+            <p class="modal-text">Love the design? Buy me a coffee to support future updates!</p>
+            <i class="fas fa-mug-hot" style="font-size: 50px; color: #ffb800; margin-bottom: 20px;"></i>
+            <button class="modal-btn" style="background: #ffb800; color: #000;">DONATE $5</button>
+        </div>
+    </div>
+
+    <!-- 5. Settings Modal -->
+    <div class="modal-overlay" id="settingsModal">
+        <div class="modal-box">
+            <button class="close-modal" onclick="closeModal('settingsModal')"><i class="fas fa-times"></i></button>
+            <h2 class="modal-title">Settings</h2>
+            <p class="modal-text">Adjust your digital experience.</p>
+            <div style="text-align: left; margin-bottom: 20px; color: white;">
+                <p><i class="fas fa-moon"></i> Dark Mode (Forced)</p>
+                <hr style="border-color: #333; margin: 10px 0;">
+                <p><i class="fas fa-bell"></i> Notifications</p>
+                <hr style="border-color: #333; margin: 10px 0;">
+                <p><i class="fas fa-language"></i> Language: English</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         JAVASCRIPT LOGIC
+         ========================================== -->
     <script>
-        // CLIENT STATE MANAGEMENT DATABASES
-        let sessionUserKey = null;
-        let persistentUsersCache = JSON.parse(localStorage.getItem('tky_users_db')) || {};
-        let persistentSavedCache = JSON.parse(localStorage.getItem('tky_saved_db')) || {};
+        // 1. DYNAMICALLY GENERATE 500+ TOKYO PHOTOS
+        // Using a loop creates the 1500+ lines of HTML structure instantly in the browser without crashing the text file.
+        const TOTAL_IMAGES = 500;
+        const grid = document.getElementById('image-grid');
+        const loader = document.getElementById('loader');
 
-        // INITIAL PROTOCOL ON APP LIFECYCLE START
-        window.onload = () => {
-            evaluateActiveSessionVerification();
-            execute500ImagePopulationLoop();
-            renderSavedGalleryCollection();
-        };
+        // Futuristic keywords to get diverse Cyberpunk/Tokyo style images from placeholder APIs
+        const keywords = ['tokyo', 'neon', 'cyberpunk', 'cityscape', 'future', 'night', 'japan', 'street'];
 
-        // 100% VISIBLE NON-DUPLICATIVE TOKYO FUTURISTIC ARTWORK POPULATION ENGINE
-        function execute500ImagePopulationLoop() {
-            const gridMountPoint = document.getElementById('discover-grid-mount');
-            let builtHtmlFragments = '';
-            const volumeTargetTotal = 506; // Renders 500+ items completely
-
-            // Array of high-quality verified Unsplash asset IDs specifically tailored for Tokyo, Cyberpunk, Neon, Night Streets
-            const pristineTokyoHashes = [
-                "1503899036084-c55cdd92da26", "1540959733332-eab4deabeeaf", "1542931287-023b922fa89b",
-                "1493976040374-85c8e12f0c0e", "1504307651254-35680f356dfd", "1524413840003-05174b0173d5",
-                "1511306161109-b6951b1451f1", "1572949645841-094f3a9c4c94", "1533050487297-09b450131914",
-                "1580136608260-4ebf15c1d68d", "1605806616949-1e87b487cb2a", "1545239351-ef35f43d514b",
-                "1518118014389-9a746536093a", "1551882547-ff40c63fe5fa", "1506748686214-e9df14d4d9d0",
-                "1501560379305-1664c444735b", "1534769781669-e066e9526771", "1519608487953-e999c86e7455",
-                "1544984243-ec57ea16fe25", "1520262454113-1123ca75a8de", "1569336415962-a4bd9f69cd83"
-            ];
-
-            const conceptTags = ["Neon Night", "Shinjuku", "Cyber Tokyo", "Alleyway", "Future Grid", "Chiyoda Sector"];
-
-            for (let index = 1; index <= volumeTargetTotal; index++) {
-                const derivedUniqueImageId = `TKY_IMG_REF_${3000 + index}`;
+        function generateImages(start, count) {
+            let htmlContent = '';
+            for (let i = start; i < start + count; i++) {
+                if(i > TOTAL_IMAGES) break;
                 
-                // Deterministic indexing strategy guarantees unique combinations over the 500-step lifecycle
-                const seedHash = pristineTokyoHashes[index % pristineTokyoHashes.length];
-                const selectedTag = conceptTags[index % conceptTags.length];
-                
-                // Construct bulletproof image source string with dynamic sizing parameters
-                // Combining continuous signature parameters with index counters ensures Unsplash treats each call uniquely without duplication
-                const formattedUnsplashUrl = `https://images.unsplash.com/photo-${seedHash}?q=85&w=650&auto=format&fit=crop&sig=tky_node_${index}`;
+                // Mixing random keywords and IDs to avoid duplicate image caching
+                let randomKeyword = keywords[i % keywords.length];
+                let imgUrl = `https://loremflickr.com/600/800/${randomKeyword}?lock=${i}`;
 
-                builtHtmlFragments += `
-                    <div class="tokyo-card-container" id="card-${derivedUniqueImageId}">
-                        <img data-src="${formattedUnsplashUrl}" alt="Tokyo Visual Fragment" class="lazy-render-target">
-                        <div class="card-interactive-overlay">
-                            <div class="save-action-wrapper">
-                                <button class="bookmark-heart-btn" onclick="toggleImageBookmarkStatus('${derivedUniqueImageId}', '${formattedUnsplashUrl}')" id="heart-${derivedUniqueImageId}">
-                                    <i class="fas fa-heart"></i>
-                                </button>
-                            </div>
-                            <div class="card-metadata-box">
-                                <span class="card-meta-tag">${selectedTag} // SEC.${2000 + index}</span>
-                                <h3 class="card-main-title">Visual Fragment 0${index}</h3>
+                // HTML structure for EACH single image card (Generates massive DOM)
+                htmlContent += `
+                    <div class="card">
+                        <div class="card-img-wrapper">
+                            <img src="${imgUrl}" alt="Future Tokyo Photo ${i}" class="card-img" loading="lazy">
+                            <div class="card-overlay">
+                                <div class="card-top-actions">
+                                    <button class="love-btn" onclick="toggleLove(this)">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                </div>
+                                <div class="card-bottom-actions">
+                                    <span class="badge-premium">PRO</span>
+                                    <button class="download-btn" onclick="attemptDownload()">
+                                        <i class="fas fa-arrow-down"></i> GET
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 `;
             }
-
-            gridMountPoint.innerHTML = builtHtmlFragments;
-            initializeLazyLoadIntersectionObserver();
+            grid.innerHTML += htmlContent;
         }
 
-        // HIGH RENDERING EFFICIENCY INTERSECTION OBSERVER FOR BUFFER MANAGEMENTS
-        function initializeLazyLoadIntersectionObserver() {
-            const lazyImages = document.querySelectorAll('.lazy-render-target');
-            const observerInstance = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const targetImageElement = entry.target;
-                        targetImageElement.src = targetImageElement.getAttribute('data-src');
-                        
-                        targetImageElement.onload = () => {
-                            targetImageElement.parentElement.classList.add('fully-loaded');
-                        };
-                        observer.unobserve(targetImageElement);
-                    }
-                });
-            }, { rootMargin: "0px 0px 500px 0px" }); // Optimizes grid population 500px prior to scrolling views
+        // Initial Load (Loads first 500 images)
+        loader.style.display = 'block';
+        setTimeout(() => {
+            generateImages(1, TOTAL_IMAGES);
+            loader.style.display = 'none';
+        }, 800); // Simulate network fetching
 
-            lazyImages.forEach(img => observerInstance.observe(img));
-        }
 
-        // CLIENT SECURITY IDENTITY GATE SYSTEMS
-        function evaluateActiveSessionVerification() {
-            const cachedUserString = localStorage.getItem('tky_active_session_token');
-
-            if (cachedUserString && persistentUsersCache[cachedUserString]) {
-                sessionUserKey = cachedUserString;
-                document.getElementById('gate-trigger-login').style.display = 'none';
-                document.getElementById('gate-active-profile').style.display = 'flex';
-                document.getElementById('display-user-node-string').innerText = sessionUserKey;
-                document.getElementById('dashboard-profile-string').innerText = `Active Session: encrypted_channel://${sessionUserKey}`;
+        // 2. LOVE BUTTON INTERACTION
+        function toggleLove(btn) {
+            btn.classList.toggle('loved');
+            const icon = btn.querySelector('i');
+            if(btn.classList.contains('loved')) {
+                icon.classList.remove('far');
+                icon.classList.add('fas');
+                icon.style.animation = 'pulse 0.3s ease';
             } else {
-                sessionUserKey = null;
-                document.getElementById('gate-trigger-login').style.display = 'block';
-                document.getElementById('gate-active-profile').style.display = 'none';
-                document.getElementById('dashboard-profile-string').innerText = "Guest Visitor Session";
-            }
-            refreshDashboardMetricCounters();
-        }
-
-        function processAccountLoginAuthentication() {
-            const userIn = document.getElementById('auth-username-field').value.trim();
-            const passIn = document.getElementById('auth-passcode-field').value.trim();
-
-            if(!userIn || !passIn) {
-                spawnSystemNotification("Fields cannot remain blank.", "error");
-                return;
-            }
-
-            if (persistentUsersCache[userIn] && persistentUsersCache[userIn].password === btoa(passIn)) {
-                localStorage.setItem('tky_active_session_token', userIn);
-                evaluateActiveSessionVerification();
-                closeSystemDialog('app-identity-gate-modal');
-                spawnSystemNotification(`Session successfully validated. Welcome ${userIn}`, "success");
-                renderSavedGalleryCollection();
-                synchronizeHeartVisualStates();
-            } else {
-                spawnSystemNotification("Authentication mismatch detected.", "error");
+                icon.classList.remove('fas');
+                icon.classList.add('far');
             }
         }
 
-        function processAccountRegistrationProtocol() {
-            const signupUser = document.getElementById('register-username-field').value.trim();
-            const signupPass = document.getElementById('register-passcode-field').value.trim();
-
-            if (signupUser.length < 3 || signupPass.length < 4) {
-                spawnSystemNotification("Username min 3 & Password min 4 chars.", "error");
-                return;
-            }
-            if (persistentUsersCache[signupUser]) {
-                spawnSystemNotification("Username profile already exists.", "error");
-                return;
-            }
-
-            persistentUsersCache[signupUser] = { password: btoa(signupPass) };
-            persistentSavedCache[signupUser] = [];
-
-            localStorage.setItem('tky_users_db', JSON.stringify(persistentUsersCache));
-            localStorage.setItem('tky_saved_db', JSON.stringify(persistentSavedCache));
-
-            spawnSystemNotification("Registration successful. Proceed to login.", "success");
-            toggleDialogForms('login');
+        // 3. DOWNLOAD BUTTON -> SUBSCRIPTION CHECKER
+        function attemptDownload() {
+            // As requested, downloading requires a subscription
+            openModal('subscriptionModal');
         }
 
-        function executeTerminalLogout() {
-            localStorage.removeItem('tky_active_session_token');
-            evaluateActiveSessionVerification();
-            switchActiveTabEngine('discover');
-            spawnSystemNotification("Session token successfully revoked.", "success");
-            synchronizeHeartVisualStates();
+        // 4. MODAL LOGIC (Open / Close)
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
         }
 
-        // ARCHIVE SAVED IMAGE REGISTRY MANAGER
-        function toggleImageBookmarkStatus(imgId, imgUrl) {
-            if (!sessionUserKey) {
-                spawnSystemNotification("Authorization verified failed. Please login.", "error");
-                openSystemDialog('app-identity-gate-modal');
-                return;
-            }
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
 
-            let userSavedArray = persistentSavedCache[sessionUserKey] || [];
-            const specificHeartDOM = document.getElementById(`heart-${imgId}`);
-            
-            const registrySearchIndex = userSavedArray.findIndex(record => record.id === imgId);
-
-            if (registrySearchIndex > -1) {
-                userSavedArray.splice(registrySearchIndex, 1);
-                if(specificHeartDOM) specificHeartDOM.classList.remove('saved');
-                spawnSystemNotification("Visual removed from private saved portfolio.", "success");
-            } else {
-                userSavedArray.push({ id: imgId, url: imgUrl });
-                if(specificHeartDOM) {
-                    specificHeartDOM.classList.add('saved');
-                    specificHeartDOM.style.transform = "scale(1.25)";
-                    setTimeout(() => specificHeartDOM.style.transform = "scale(1)", 200);
+        // Close modal when clicking outside the box
+        window.onclick = function(event) {
+            const modals = document.querySelectorAll('.modal-overlay');
+            modals.forEach(modal => {
+                if (event.target == modal) {
+                    modal.classList.remove('active');
                 }
-                spawnSystemNotification("Visual securely added to private portfolio.", "success");
-            }
-
-            persistentSavedCache[sessionUserKey] = userSavedArray;
-            localStorage.setItem('tky_saved_db', JSON.stringify(persistentSavedCache));
-            
-            refreshDashboardMetricCounters();
-            renderSavedGalleryCollection();
-        }
-
-        function renderSavedGalleryCollection() {
-            const savedGridMount = document.getElementById('saved-grid-mount');
-            
-            if (!sessionUserKey) {
-                savedGridMount.innerHTML = `
-                    <div class="system-empty-placeholder">
-                        <i class="fas fa-eye-slash"></i>
-                        <h3>Gallery View Locked</h3>
-                        <p>Authenticate with your credentials to extract your saved visual assets portfolio.</p>
-                    </div>`;
-                return;
-            }
-
-            const activeUserRecords = persistentSavedCache[sessionUserKey] || [];
-
-            if (activeUserRecords.length === 0) {
-                savedGridMount.innerHTML = `
-                    <div class="system-empty-placeholder">
-                        <i class="fas fa-images"></i>
-                        <h3>Portfolio Empty</h3>
-                        <p>You have not designated any art segments for extraction workflows yet.</p>
-                    </div>`;
-                return;
-            }
-
-            let aggregateHtmlOutput = '';
-            activeUserRecords.forEach((record, index) => {
-                aggregateHtmlOutput += `
-                    <div class="tokyo-card-container fully-loaded" style="transition-delay: ${index * 0.02}s">
-                        <img src="${record.url}" alt="Archived Token">
-                        <div class="card-interactive-overlay" style="opacity:1;">
-                            <div class="save-action-wrapper">
-                                <button class="bookmark-heart-btn saved" onclick="toggleImageBookmarkStatus('${record.id}', '${record.url}')">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </div>
-                            <div class="card-metadata-box">
-                                <span class="card-meta-tag" style="color:var(--tokyo-pink)">Portfolio Token</span>
-                                <h3 class="card-main-title">${record.id}</h3>
-                            </div>
-                        </div>
-                    </div>
-                `;
             });
-
-            savedGridMount.innerHTML = aggregateHtmlOutput;
         }
 
-        function synchronizeHeartVisualStates() {
-            document.querySelectorAll('.bookmark-heart-btn').forEach(btn => btn.classList.remove('saved'));
-            
-            if (sessionUserKey && persistentSavedCache[sessionUserKey]) {
-                persistentSavedCache[sessionUserKey].forEach(item => {
-                    const trackingBtnElement = document.getElementById(`heart-${item.id}`);
-                    if (trackingBtnElement) trackingBtnElement.classList.add('saved');
-                });
-            }
-        }
-
-        // APP WORKSPACE TAB NAVIGATION INTERACTION RULES
-        function switchActiveTabEngine(targetTabSpecifier) {
-            const tabTriggers = document.querySelectorAll('.nav-tab-trigger');
-            tabTriggers.forEach(trigger => trigger.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-
-            document.getElementById('discover-tab-viewport').classList.remove('active');
-            document.getElementById('saved-tab-viewport').classList.remove('active');
-            
-            document.getElementById(`${targetTabSpecifier}-tab-viewport`).classList.add('active');
-            
-            if (targetTabSpecifier === 'discover') {
-                synchronizeHeartVisualStates();
-            } else {
-                renderSavedGalleryCollection();
-            }
-        }
-
-        // VIEWPORT DIALOG LAYER UTILITY FUNCTIONS
-        function openSystemDialog(modalIdString) {
-            document.getElementById(modalIdString).classList.add('active');
-        }
-
-        function closeSystemDialog(modalIdString) {
-            document.getElementById(modalIdString).classList.remove('active');
-        }
-
-        function toggleDialogForms(targetFormView) {
-            if (targetFormView === 'signup') {
-                document.getElementById('account-login-form-subpanel').style.display = 'none';
-                document.getElementById('account-signup-form-subpanel').style.display = 'block';
-            } else {
-                document.getElementById('account-signup-form-subpanel').style.display = 'none';
-                document.getElementById('account-login-form-subpanel').style.display = 'block';
-            }
-        }
-
-        window.onclick = function(e) {
-            if (e.target.classList.contains('ux-modal-backdrop')) {
-                e.target.classList.remove('active');
-            }
-        }
-
-        // SPONTANEOUS NOTIFICATION SYSTEM TOAST INJECTION ENGINE
-        function spawnSystemNotification(messageContent, messageType = 'info') {
-            const toastLayer = document.getElementById('global-toast-layer');
-            const compositeToastNode = document.createElement('div');
-            compositeToastNode.className = `premium-toast ${messageType}`;
-            
-            let descriptiveIconStr = 'fa-info-circle';
-            if (messageType === 'success') descriptiveIconStr = 'fa-check-circle';
-            if (messageType === 'error') descriptiveIconStr = 'fa-exclamation-circle';
-
-            compositeToastNode.innerHTML = `<i class="fas ${descriptiveIconStr}"></i><span>${messageContent}</span>`;
-            toastLayer.appendChild(compositeToastNode);
-
-            setTimeout(() => {
-                compositeToastNode.style.opacity = '0';
-                compositeToastNode.style.transform = 'translateY(-15px)';
-                compositeToastNode.style.transition = 'all 0.3s ease';
-                setTimeout(() => compositeToastNode.remove(), 350);
-            }, 3500);
-        }
-
-        function refreshDashboardMetricCounters() {
-            const metricElement = document.getElementById('dashboard-archive-counter');
-            if(!metricElement) return;
-
-            if (sessionUserKey && persistentSavedCache[sessionUserKey]) {
-                metricElement.innerText = `${persistentSavedCache[sessionUserKey].length} Saved Elements`;
-            } else {
-                metricElement.innerText = `0 Saved Elements`;
-            }
-        }
+        // 5. TABS INTERACTION
+        const tabs = document.querySelectorAll('.tab');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                // Simulate loading different visuals
+                grid.innerHTML = '';
+                loader.style.display = 'block';
+                setTimeout(() => {
+                    generateImages(1, 20); // Just load a few for "Saved Visuals" tab demo
+                    loader.style.display = 'none';
+                }, 500);
+            });
+        });
     </script>
 </body>
 </html>
