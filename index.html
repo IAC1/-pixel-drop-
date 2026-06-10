@@ -3,257 +3,577 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PixelDrop // 2026 Edition V8.0</title>
-    
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    
+    <title>TOKYO VISUALS // SYSTEM_OVERRIDE</title>
     <style>
-        /* === 2026 Next-Gen Variables === */
+        /* =========================================
+           1. CSS VARIABLES & RESET
+           ========================================= */
         :root {
-            --bg-deep: #050507;
+            --bg-base: #030303;
+            --bg-surface: #0f0f13;
+            --bg-card: #15151a;
             --neon-cyan: #00f3ff;
-            --neon-pink: #ff007c;
-            --neon-purple: #8a2be2;
-            --glass-bg: rgba(20, 20, 25, 0.45);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --text-main: #f0f4f8;
-            --text-dim: #9ba4b5;
-            --heart-active: #ff2a5f;
+            --neon-pink: #ff0055;
+            --neon-purple: #b500ff;
+            --text-main: #f0f0f0;
+            --text-muted: #666677;
+            --border-glow: rgba(0, 243, 255, 0.3);
         }
 
         * {
-            margin: 0; padding: 0; box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent; /* Removes blue tap highlight on mobile */
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace;
         }
 
-        body {
-            background-color: var(--bg-deep);
-            color: var(--text-main);
-            font-family: 'Rajdhani', sans-serif;
-            overflow-x: hidden;
+        html {
             scroll-behavior: smooth;
         }
 
-        /* Ambient Glowing Background Effect (2026 Trend) */
-        body::before, body::after {
-            content: ''; position: fixed; width: 300px; height: 300px;
-            border-radius: 50%; filter: blur(150px); z-index: -1; opacity: 0.5;
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            overflow-x: hidden;
+            background-image: 
+                linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
         }
-        body::before { top: -100px; left: -100px; background: var(--neon-purple); }
-        body::after { bottom: -100px; right: -100px; background: var(--neon-cyan); }
 
-        /* Modern Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: linear-gradient(var(--neon-cyan), var(--neon-pink)); border-radius: 10px; }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-base);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--neon-pink);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--neon-cyan);
+        }
 
-        /* === Header (Glassmorphism) === */
+        /* =========================================
+           2. HEADER & NAVIGATION
+           ========================================= */
         header {
-            position: fixed; top: 0; width: 100%; z-index: 1000;
-            background: rgba(5, 5, 7, 0.6);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid var(--glass-border);
-            padding: 20px; text-align: center;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            text-align: center;
+            padding: 80px 20px;
+            background: radial-gradient(circle at center, #1a0b2e 0%, var(--bg-base) 100%);
+            border-bottom: 2px solid var(--neon-cyan);
+            box-shadow: 0 5px 30px var(--border-glow);
+            overflow: hidden;
         }
 
-        .logo {
-            font-family: 'Orbitron', sans-serif; font-size: 2.2rem; font-weight: 900;
-            color: #fff; letter-spacing: 2px; text-transform: uppercase;
-        }
-        .logo span {
-            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px rgba(255, 0, 124, 0.4);
+        .scanlines {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2));
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 1;
         }
 
-        /* === Hero Section === */
-        .hero {
-            padding: 140px 20px 60px; text-align: center; max-width: 800px; margin: 0 auto;
+        h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 2;
+            text-shadow: 2px 2px 0px var(--neon-pink), -2px -2px 0px var(--neon-cyan);
+            animation: glitch-anim 3s infinite;
         }
-        .hero .version-tag {
-            display: inline-block; padding: 6px 15px; margin-bottom: 20px;
-            border-radius: 50px; background: rgba(0, 243, 255, 0.1);
-            border: 1px solid var(--neon-cyan); color: var(--neon-cyan);
-            font-family: 'Space Mono', monospace; font-size: 0.85rem; letter-spacing: 1px;
-            box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
-        }
-        .hero h2 { font-size: 1.5rem; font-weight: 600; color: var(--text-dim); margin-bottom: 10px; }
 
-        /* === 2026 CSS Grid Layout (Perfect for Mobile & Desktop) === */
-        .gallery-container {
-            display: grid;
-            /* Auto-fit creates a responsive grid without breaking cards */
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-            padding: 0 30px 100px;
+        h1 span {
+            color: var(--neon-cyan);
+        }
+
+        .subtitle {
+            margin-top: 15px;
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            letter-spacing: 3px;
+            z-index: 2;
+            position: relative;
+        }
+
+        /* =========================================
+           3. SYSTEM STATUS BAR
+           ========================================= */
+        .status-bar {
+            background-color: var(--bg-surface);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #333;
+            font-size: 0.9rem;
+            color: var(--neon-cyan);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        }
+
+        .pulse-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: #00ff00;
+            border-radius: 50%;
+            margin-right: 10px;
+            box-shadow: 0 0 10px #00ff00;
+            animation: pulse 1s infinite alternate;
+        }
+
+        /* =========================================
+           4. GALLERY GRID SYSTEM
+           ========================================= */
+        .container {
             max-width: 1600px;
             margin: 0 auto;
+            padding: 40px 20px;
         }
 
-        /* === Premium Glass Cards === */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
         .card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
+            background-color: var(--bg-card);
+            border: 1px solid #2a2a35;
+            border-radius: 4px;
             overflow: hidden;
             position: relative;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(0, 243, 255, 0.1), transparent);
+            transform: skewX(-25deg);
+            transition: 0.5s;
+            z-index: 2;
+        }
+
+        .card:hover::before {
+            left: 150%;
+            transition: 0.7s;
+        }
+
+        .card:hover {
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 20px rgba(255, 0, 85, 0.2);
+            transform: translateY(-10px);
+        }
+
+        .img-wrapper {
+            position: relative;
+            width: 100%;
+            height: 280px;
+            overflow: hidden;
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            filter: contrast(1.1) saturate(1.2);
+        }
+
+        .card:hover img {
+            transform: scale(1.1);
+            filter: contrast(1.2) saturate(1.5) brightness(0.8);
+        }
+
+        .card-info {
+            padding: 20px;
+            border-top: 2px solid #222;
+            position: relative;
+            z-index: 3;
+            background: var(--bg-card);
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 3px 8px;
+            background-color: rgba(0, 243, 255, 0.1);
+            color: var(--neon-cyan);
+            font-size: 0.75rem;
+            margin-bottom: 10px;
+            border: 1px solid var(--neon-cyan);
+            border-radius: 2px;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--text-main);
+            margin-bottom: 5px;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .likes {
+            color: var(--neon-pink);
+            font-weight: bold;
+        }
+
+        /* =========================================
+           5. LIGHTBOX MODAL
+           ========================================= */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease;
-            opacity: 0; transform: translateY(40px); /* For scroll animation */
         }
 
-        .card.show { opacity: 1; transform: translateY(0); }
-        .card:hover { 
-            transform: translateY(-10px); 
-            border-color: rgba(255, 0, 124, 0.5);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 0, 124, 0.2);
+        .modal.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
         }
 
-        .card-img { position: relative; width: 100%; height: 350px; overflow: hidden; }
-        .card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
-        .card:hover .card-img img { transform: scale(1.08); }
-
-        /* Like Button 2026 Style */
-        .like-btn {
-            position: absolute; top: 15px; right: 15px;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(5px);
-            border-radius: 30px; padding: 8px 15px;
-            display: flex; align-items: center; gap: 8px;
-            cursor: pointer; border: 1px solid rgba(255,255,255,0.1);
-            transition: all 0.3s ease; z-index: 10;
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90vh;
+            border: 2px solid var(--neon-cyan);
+            box-shadow: 0 0 50px rgba(0, 243, 255, 0.2);
         }
-        .like-btn:hover { background: rgba(20, 20, 20, 0.8); border-color: rgba(255,255,255,0.3); }
-        
-        .heart-icon { color: #fff; font-size: 1.1rem; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s; }
-        .like-count { color: #fff; font-family: 'Space Mono', monospace; font-size: 0.95rem; font-weight: 700; }
 
-        /* Active Heart Animation */
-        .like-btn.active { border-color: var(--heart-active); background: rgba(255, 42, 95, 0.1); }
-        .like-btn.active .heart-icon { color: var(--heart-active); transform: scale(1.2); text-shadow: 0 0 10px var(--heart-active); }
-        @keyframes pop { 0% { transform: scale(1); } 50% { transform: scale(1.4); } 100% { transform: scale(1.2); } }
-        .like-btn.active .heart-icon { animation: pop 0.4s forwards; }
+        .modal-content img {
+            max-width: 100%;
+            max-height: 85vh;
+            display: block;
+        }
 
-        /* Card Content */
-        .card-info { padding: 25px; }
-        .card-info h3 { font-family: 'Orbitron', sans-serif; font-size: 1.4rem; color: #fff; margin-bottom: 8px; letter-spacing: 1px; }
-        .card-info .sys-data { font-family: 'Space Mono', monospace; font-size: 0.85rem; color: var(--neon-cyan); opacity: 0.8; }
+        .close-btn {
+            position: absolute;
+            top: -40px; right: 0;
+            color: var(--neon-pink);
+            font-size: 2rem;
+            cursor: pointer;
+            text-shadow: 0 0 10px var(--neon-pink);
+        }
 
-        /* === Footer 2026 === */
+        .close-btn:hover {
+            color: #fff;
+        }
+
+        /* =========================================
+           6. FOOTER
+           ========================================= */
         footer {
-            text-align: center; padding: 40px 20px;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            background: rgba(0,0,0,0.5);
-            font-family: 'Space Mono', monospace; color: var(--text-dim);
+            text-align: center;
+            padding: 60px 20px;
+            background-color: var(--bg-surface);
+            border-top: 1px solid #333;
+            margin-top: 50px;
+            position: relative;
         }
-        footer span { color: var(--neon-pink); }
 
-        /* Mobile Fixes */
-        @media (max-width: 768px) {
-            .gallery-container { grid-template-columns: 1fr; padding: 0 20px 80px; }
-            .card-img { height: 280px; } /* Slightly shorter images on mobile */
-            header { padding: 15px; }
-            .logo { font-size: 1.8rem; }
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo span {
+            color: var(--neon-pink);
+        }
+
+        .copyright {
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        .warning-text {
+            color: #ffaa00;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+        }
+
+        /* =========================================
+           7. ANIMATIONS (KEYFRAMES)
+           ========================================= */
+        @keyframes pulse {
+            from { opacity: 0.5; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1.2); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes glitch-anim {
+            0% { text-shadow: 2px 2px 0px var(--neon-pink), -2px -2px 0px var(--neon-cyan); }
+            20% { text-shadow: -2px -2px 0px var(--neon-pink), 2px 2px 0px var(--neon-cyan); transform: translate(1px, 1px); }
+            40% { text-shadow: 2px -2px 0px var(--neon-pink), -2px 2px 0px var(--neon-cyan); transform: translate(-1px, -1px); }
+            60% { text-shadow: -2px 2px 0px var(--neon-pink), 2px -2px 0px var(--neon-cyan); transform: translate(1px, -1px); }
+            80% { text-shadow: 2px 2px 0px var(--neon-pink), -2px -2px 0px var(--neon-cyan); transform: translate(-1px, 1px); }
+            100% { text-shadow: 2px 2px 0px var(--neon-pink), -2px -2px 0px var(--neon-cyan); }
+        }
+
+        /* Loader */
+        #loader-wrapper {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-base);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader-text {
+            color: var(--neon-cyan);
+            font-size: 1.5rem;
+            letter-spacing: 5px;
+            margin-bottom: 20px;
+            animation: pulse 1s infinite;
+        }
+
+        .progress-bar {
+            width: 300px;
+            height: 4px;
+            background: #222;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            position: absolute;
+            top: 0; left: 0; height: 100%; width: 0%;
+            background: var(--neon-pink);
+            box-shadow: 0 0 10px var(--neon-pink);
+            transition: width 0.1s;
         }
     </style>
 </head>
 <body>
 
+    <div id="loader-wrapper">
+        <div class="loader-text">ESTABLISHING UPLINK...</div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress"></div>
+        </div>
+    </div>
+
     <header>
-        <div class="logo">TOKYO <span>VISUALS</span></div>
+        <div class="scanlines"></div>
+        <h1>TOKYO <span>VISUALS</span></h1>
+        <div class="subtitle">DECRYPTING BLACK MARKET ARCHIVES // 800+ FILES</div>
     </header>
 
-    <section class="hero">
-        <div class="version-tag">/// SYSTEM BUILD: 2026.V8 ///</div>
-        <h2>NEXT-GEN CYBERPUNK ARCHIVE</h2>
-        <p style="color: var(--text-dim);">Neural-synced high-resolution aesthetic modules. Tap the heart to upload preference to the mainframe.</p>
-    </section>
+    <div class="status-bar">
+        <div><span class="pulse-dot"></span> CONNECTION: SECURE // ENCRYPTED</div>
+        <div id="file-counter">FILES LOADED: 0 / 800</div>
+    </div>
 
-    <main class="gallery-container" id="gallery">
-        </main>
+    <div class="container">
+        <div class="gallery" id="gallery-grid">
+            </div>
+    </div>
+
+    <div class="modal" id="lightbox">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeLightbox()">&times;</span>
+            <img id="lightbox-img" src="" alt="Expanded Visual">
+        </div>
+    </div>
 
     <footer>
-        <p>&copy; 2026 NEURON_LINK. ALL RIGHTS RESERVED.</p>
-        <p style="font-size: 0.8rem; margin-top: 10px;">SECURE CONNECTION ESTABLISHED <span>●</span></p>
+        <div class="footer-logo">NEURON_<span>LINK</span></div>
+        <p class="copyright">© 2026. ALL RIGHTS RESERVED BY UNDERGROUND NETWORK.</p>
+        <p class="warning-text">WARNING: UNAUTHORIZED ACCESS WILL BE TRACKED.</p>
     </footer>
 
     <script>
-        // Elite 2026 Tokyo Image Database
-        const tokyoData = [
-            { id: 1, src: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800", title: "SHIBUYA_OVERRIDE", data: "NODE_77 // UPLINK: STABLE", likes: 2450 },
-            { id: 2, src: "https://images.unsplash.com/photo-1514565131-fce0801e5785?w=800", title: "NIGHT_RUNNER", data: "SECTOR_4 // ENCRYPTED", likes: 1820 },
-            { id: 3, src: "https://images.unsplash.com/photo-1554797589-7241bb691973?w=800", title: "NEON_ALLEY", data: "YOKOCHO // LOW_LATENCY", likes: 3105 },
-            { id: 4, src: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=800", title: "ACID_RAIN", data: "CORE_SYSTEM // SYNCING", likes: 984 },
-            { id: 5, src: "https://images.unsplash.com/photo-1601042879364-f3947d3f9c16?w=800", title: "KABUKICHO_X", data: "DISTRICT_9 // ONLINE", likes: 4200 },
-            { id: 6, src: "https://images.unsplash.com/photo-1524311583145-d5593bd6fa87?w=800", title: "SKY_NODE", data: "ELEVATED // PING: 2ms", likes: 1560 },
-            { id: 7, src: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=800", title: "TOWER_BEACON", data: "TRANSMITTER_01 // LIVE", likes: 2230 },
-            { id: 8, src: "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=800", title: "SYNTH_DOWNTOWN", data: "GRID_ACCESS // GRANTED", likes: 3890 },
-            { id: 9, src: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=800", title: "AKIHABARA_TECH", data: "HARDWARE_HUB // ACTIVE", likes: 5120 },
-            { id: 10, src: "https://images.unsplash.com/photo-1557404763-69708cd8b9ce?w=800", title: "GLITCH_MARKET", data: "BLACK_MARKET // HIDDEN", likes: 2750 }
+        // --- 1. CONFIGURATION ---
+        const TOTAL_IMAGES = 800; // Demanded 800+ photos
+        const galleryGrid = document.getElementById('gallery-grid');
+        const progressBar = document.getElementById('progress');
+        const loaderWrapper = document.getElementById('loader-wrapper');
+        const fileCounter = document.getElementById('file-counter');
+
+        // Cyberpunk style tags and names for variety
+        const glitchNames = [
+            "NEON_DREAM", "CYBER_STREET", "GLITCH_CORE", "NIGHT_CITY", 
+            "SYNTH_WAVE", "TOKYO_DRIFT", "NEURON_LINK", "DATA_BREACH",
+            "SHINJUKU_NIGHTS", "AKIHABARA_TECH", "SHIBUYA_CROSS", "GHOST_WIRE"
         ];
 
-        const gallery = document.getElementById('gallery');
+        const classifications = ["HIDDEN", "CLASSIFIED", "RESTRICTED", "PUBLIC_ARCHIVE", "LEAKED_DATA"];
 
-        // Function to format numbers (e.g., 2450 -> 2.4K)
-        const formatLikes = (num) => {
-            if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
-            return num;
-        };
+        // Helper functions
+        const getRandomItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
+        const getRandomLikes = () => (Math.random() * (9.9 - 0.5) + 0.5).toFixed(1) + 'K';
+        const getRandomSize = () => (Math.random() * (45 - 10) + 10).toFixed(2) + ' MB';
+        
+        // --- 2. GENERATE AND INJECT HTML ---
+        // Doing this in chunks so the browser doesn't freeze when rendering 800 cards at once
+        let currentLoaded = 0;
+        const chunkSize = 50;
 
-        // Render Cards
-        tokyoData.forEach(item => {
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.innerHTML = `
-                <div class="card-img">
-                    <img src="${item.src}" loading="lazy" alt="${item.title}">
-                    <div class="like-btn" onclick="toggleLike(this, ${item.likes})">
-                        <i class="fa-solid fa-heart heart-icon"></i>
-                        <span class="like-count" data-base="${item.likes}">${formatLikes(item.likes)}</span>
+        function renderChunk() {
+            let htmlChunk = '';
+            const target = Math.min(currentLoaded + chunkSize, TOTAL_IMAGES);
+
+            for (let i = currentLoaded + 1; i <= target; i++) {
+                const title = `${getRandomItem(glitchNames)}_v${i}`;
+                const tag = getRandomItem(classifications);
+                const likes = getRandomLikes();
+                const size = getRandomSize();
+                
+                // Using loremflickr API for diverse tokyo/cyberpunk images. 
+                // Using parameters to ensure high resolution and no duplicates.
+                const imgUrl = `https://loremflickr.com/600/400/tokyo,neon,cyberpunk?lock=${i}`;
+                const fullResUrl = `https://loremflickr.com/1200/800/tokyo,neon,cyberpunk?lock=${i}`;
+
+                htmlChunk += `
+                    <div class="card" onclick="openLightbox('${fullResUrl}')">
+                        <div class="img-wrapper">
+                            <img data-src="${imgUrl}" alt="${title}" class="lazy-load">
+                        </div>
+                        <div class="card-info">
+                            <div class="tag">> ${tag}</div>
+                            <div class="card-title">${title}</div>
+                            <div class="card-meta">
+                                <span>SIZE: ${size}</span>
+                                <span class="likes">♥ ${likes}</span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="card-info">
-                    <h3>${item.title}</h3>
-                    <div class="sys-data">> ${item.data}</div>
-                </div>
-            `;
-            gallery.appendChild(card);
-        });
-
-        // 2026 Like Button Logic
-        function toggleLike(element, baseLikes) {
-            const isLiked = element.classList.contains('active');
-            const countSpan = element.querySelector('.like-count');
-            
-            if (isLiked) {
-                element.classList.remove('active');
-                countSpan.innerText = formatLikes(baseLikes); // Revert to base
-            } else {
-                element.classList.add('active');
-                countSpan.innerText = formatLikes(baseLikes + 1); // Add 1 like
+                `;
             }
-            
-            // Add a tiny haptic feedback simulation for mobile devices
-            if (navigator.vibrate) {
-                navigator.vibrate(50);
+
+            galleryGrid.insertAdjacentHTML('beforeend', htmlChunk);
+            currentLoaded = target;
+
+            // Update loading progress
+            const progressPercent = (currentLoaded / TOTAL_IMAGES) * 100;
+            progressBar.style.width = `${progressPercent}%`;
+            fileCounter.innerText = `FILES LOADED: ${currentLoaded} / ${TOTAL_IMAGES}`;
+
+            if (currentLoaded < TOTAL_IMAGES) {
+                // Continue loading next chunk
+                requestAnimationFrame(renderChunk);
+            } else {
+                // All loaded
+                setTimeout(() => {
+                    loaderWrapper.style.opacity = '0';
+                    setTimeout(() => {
+                        loaderWrapper.style.display = 'none';
+                        initializeObservers();
+                    }, 500);
+                }, 800);
             }
         }
 
-        // Smooth Scroll Reveal Animation
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('show');
-                    observer.unobserve(entry.target); // Play animation only once
-                }
-            });
-        }, { threshold: 0.1 });
+        // Start rendering engine
+        renderChunk();
 
-        document.querySelectorAll('.card').forEach(card => observer.observe(card));
+        // --- 3. INTERSECTION OBSERVER (Scroll Animations & Lazy Loading) ---
+        function initializeObservers() {
+            // Lazy load images
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.getAttribute('data-src');
+                        img.removeAttribute('data-src');
+                        observer.unobserve(img);
+                    }
+                });
+            }, { rootMargin: "0px 0px 300px 0px" }); // Load 300px before scroll hits it
+
+            document.querySelectorAll('.lazy-load').forEach(img => {
+                imageObserver.observe(img);
+            });
+
+            // Card slide-up animation
+            const cardObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.card').forEach(card => {
+                cardObserver.observe(card);
+            });
+        }
+
+        // --- 4. LIGHTBOX LOGIC ---
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        function openLightbox(imgUrl) {
+            lightboxImg.src = imgUrl;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Stop background scrolling
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            setTimeout(() => {
+                lightboxImg.src = '';
+            }, 300);
+            document.body.style.overflow = 'auto'; // Restore background scrolling
+        }
+
+        // Close lightbox on escape key or clicking outside
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                closeLightbox();
+            }
+        });
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        // --- 5. SECURITY EASTER EGG (Console Log) ---
+        console.log("%cSYSTEM BREACH DETECTED", "color: red; font-size: 30px; font-weight: bold; background: black; padding: 10px;");
+        console.log("%cACCESSING TOKYO BLACK MARKET DATABASE...", "color: #00f3ff; font-size: 16px;");
+        console.log("800+ Visual nodes successfully extracted to DOM.");
     </script>
 </body>
 </html>
