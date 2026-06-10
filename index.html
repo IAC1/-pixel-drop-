@@ -3,295 +3,476 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>TOKYO 2026 // GOD TIER PORTAL</title>
+    <title>TOKYO_2026 // NEURAL_PORTAL v4.1</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         /* ==========================================================================
-           [1] GOD TIER VARIABLES & THEMES
+           [1] OS CORE VARIABLES & THEMES (STYLISH FRONTEND)
            ========================================================================== */
         :root[data-theme="dark"] {
-            --bg-base: #050507;
+            --bg-base: #020203;
             --bg-surface: #0a0a0f;
-            --bg-glass: rgba(10, 10, 15, 0.85);
-            --border-glass: rgba(0, 243, 255, 0.15);
+            --bg-glass: rgba(5, 5, 8, 0.9);
+            --border-glass: rgba(0, 243, 255, 0.1);
+            
             --text-main: #ffffff;
-            --text-dim: #8b9eb3;
+            --text-dim: #6c7a89;
+            --text-cyber: #00f3ff;
+            
             --accent-cyan: #00f3ff;
             --accent-pink: #ff0055;
             --accent-red: #ff2a2a;
-            --glow-cyan: 0 0 15px rgba(0, 243, 255, 0.4);
-            --glow-pink: 0 0 15px rgba(255, 0, 85, 0.4);
+            
+            --glow-cyan: 0 0 20px rgba(0, 243, 255, 0.5);
+            --glow-pink: 0 0 20px rgba(255, 0, 85, 0.5);
+            --glow-red: 0 0 15px rgba(255, 42, 42, 0.6);
+            --matrix-color: rgba(0, 243, 255, 0.1);
         }
 
         :root[data-theme="light"] {
-            --bg-base: #f0f2f5;
+            --bg-base: #e6e8ec;
             --bg-surface: #ffffff;
-            --bg-glass: rgba(255, 255, 255, 0.9);
-            --border-glass: rgba(0, 0, 0, 0.1);
-            --text-main: #111111;
-            --text-dim: #555555;
-            --accent-cyan: #0055ff;
-            --accent-pink: #e6004c;
+            --bg-glass: rgba(255, 255, 255, 0.95);
+            --border-glass: rgba(0, 0, 0, 0.08);
+            
+            --text-main: #0a0a0a;
+            --text-dim: #4a4a4a;
+            --text-cyber: #0077ff;
+            
+            --accent-cyan: #0077ff;
+            --accent-pink: #cc0044;
             --accent-red: #cc0000;
-            --glow-cyan: 0 5px 15px rgba(0, 85, 255, 0.2);
-            --glow-pink: 0 5px 15px rgba(230, 0, 76, 0.2);
+            
+            --glow-cyan: 0 5px 15px rgba(0, 119, 255, 0.2);
+            --glow-pink: 0 5px 15px rgba(204, 0, 68, 0.2);
+            --glow-red: 0 5px 15px rgba(204, 0, 0, 0.2);
+            --matrix-color: rgba(0, 119, 255, 0.05);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Rajdhani', sans-serif; -webkit-tap-highlight-color: transparent; }
+        /* Basic Reset */
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
         body {
             background-color: var(--bg-base); 
             color: var(--text-main);
+            font-family: 'Rajdhani', sans-serif;
             overflow-x: hidden; 
-            transition: background-color 0.3s ease, color 0.3s ease;
-            background-image: radial-gradient(circle at 50% 0%, rgba(0, 243, 255, 0.05) 0%, transparent 70%);
+            transition: background-color 0.4s ease;
+            font-size: 16px;
         }
 
-        ::-webkit-scrollbar { width: 6px; }
+        /* Futuristic Scrollbar */
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
         ::-webkit-scrollbar-track { background: var(--bg-base); }
         ::-webkit-scrollbar-thumb { background: var(--accent-cyan); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent-pink); }
+
+        /* Background Canvas - LOW ANIMATION FOR SPEED */
+        #matrix-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; opacity: 0.2; }
 
         /* ==========================================================================
-           [2] NAVIGATION HEADER & INSTAGRAM
+           [2] OS NAVIGATION HEADER
            ========================================================================== */
         header {
-            position: fixed; top: 0; width: 100%; height: 80px;
-            background: var(--bg-glass); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            position: fixed; top: 0; width: 100%; height: 85px;
+            background: var(--bg-glass); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
             border-bottom: 1px solid var(--border-glass);
             display: flex; justify-content: space-between; align-items: center;
-            padding: 0 50px; z-index: 5000;
+            padding: 0 60px; z-index: 5000;
+            transition: 0.3s ease;
         }
+        header.scrolled { height: 65px; padding: 0 40px; }
 
-        .brand-text { font-family: 'Orbitron', sans-serif; font-size: 1.8rem; font-weight: 900; letter-spacing: 4px; color: var(--text-main); }
-        .brand-text span { color: var(--accent-cyan); text-shadow: var(--glow-cyan); }
+        .brand-text { font-family: 'Syncopate', sans-serif; font-size: 1.8rem; font-weight: 700; letter-spacing: 6px; color: var(--text-main); text-shadow: var(--glow-cyan); }
+        .brand-text span { color: var(--accent-cyan); }
 
-        .ig-link {
-            font-family: 'Space Mono', monospace; font-size: 1rem; font-weight: bold;
-            color: var(--accent-pink); text-decoration: none; display: flex; align-items: center; gap: 8px;
-            padding: 8px 16px; border: 1px solid var(--accent-pink); border-radius: 20px;
-            transition: 0.3s; background: rgba(255,0,85,0.05);
+        .sys-info { display: flex; align-items: center; gap: 20px; font-family: 'Space Mono', monospace; color: var(--text-dim); font-size: 0.9rem; }
+        .ig-id {
+            color: var(--accent-pink); font-weight: bold; text-decoration: none; 
+            padding: 8px 18px; border: 1px solid var(--accent-pink); border-radius: 20px;
+            transition: 0.3s;
         }
-        .ig-link:hover { background: var(--accent-pink); color: #fff; box-shadow: var(--glow-pink); }
+        .ig-id:hover { background: var(--accent-pink); color: #fff; box-shadow: var(--glow-pink); }
 
         .sys-controls { display: flex; gap: 15px; }
         .icon-btn {
-            width: 45px; height: 45px; border-radius: 10px; background: rgba(128,128,128,0.1);
+            width: 48px; height: 48px; border-radius: 12px; background: rgba(128,128,128,0.08);
             border: 1px solid var(--border-glass); color: var(--text-main);
-            display: flex; justify-content: center; align-items: center; font-size: 1.2rem;
-            cursor: pointer; transition: 0.2s;
+            display: flex; justify-content: center; align-items: center; font-size: 1.3rem;
+            cursor: pointer; transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .icon-btn:hover { border-color: var(--accent-cyan); color: var(--accent-cyan); transform: translateY(-2px); box-shadow: var(--glow-cyan); }
+        .icon-btn:hover { background: rgba(0, 243, 255, 0.1); border-color: var(--accent-cyan); color: var(--accent-cyan); transform: translateY(-3px); box-shadow: var(--glow-cyan); }
+        .icon-btn.sfx-btn.active { color: var(--accent-pink); border-color: var(--accent-pink); box-shadow: var(--glow-pink); }
 
         /* ==========================================================================
-           [3] CONTROL PANEL
+           [3] OS CORE MAINFRAME
            ========================================================================== */
-        .control-panel { margin: 120px auto 30px; max-width: 1600px; padding: 0 40px; text-align: center; }
-        .title-sub { font-family: 'Space Mono', monospace; color: var(--text-dim); margin-bottom: 20px; font-size: 0.9rem; }
-
-        /* ==========================================================================
-           [4] HIGH PERFORMANCE MASONRY GRID
-           ========================================================================== */
-        .mainframe { max-width: 1800px; margin: 0 auto; padding: 0 40px 100px; }
+        .mainframe { max-width: 1900px; margin: 120px auto 120px; padding: 0 50px; }
         
-        .masonry-grid { column-count: 4; column-gap: 20px; width: 100%; }
-        @media (max-width: 1400px) { .masonry-grid { column-count: 3; } }
-        @media (max-width: 900px) { .masonry-grid { column-count: 2; column-gap: 15px; } }
-        @media (max-width: 600px) { .masonry-grid { column-count: 1; } }
+        .os-status { text-align: center; margin-bottom: 50px; font-family: 'Orbitron', sans-serif; letter-spacing: 3px; color: var(--text-dim); font-size: 1.1rem; }
+        .os-status span { color: var(--accent-cyan); font-weight: 900; }
 
+        /* Performance Optimized Masonry Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            grid-gap: 30px;
+            grid-auto-flow: dense;
+        }
+        @media (max-width: 900px) { .grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); grid-gap: 15px; } }
+
+        /* Core Image Node */
         .data-node {
-            break-inside: avoid; margin-bottom: 20px;
-            background: var(--bg-surface); border-radius: 16px; overflow: hidden;
+            background: var(--bg-surface); border-radius: 18px; overflow: hidden;
             border: 1px solid var(--border-glass); position: relative;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            cursor: pointer;
+            aspect-ratio: 16/9; /* Required for Skeleton effect */
         }
-        .data-node:hover { transform: translateY(-5px); box-shadow: var(--glow-cyan); border-color: var(--accent-cyan); }
-
-        .img-container { position: relative; width: 100%; cursor: pointer; background: rgba(128,128,128,0.1); min-height: 200px; }
-        .img-container img { width: 100%; display: block; filter: brightness(0.9); transition: filter 0.3s; }
-        .data-node:hover .img-container img { filter: brightness(1.1); }
-
-        .action-layer { position: absolute; top: 10px; right: 10px; display: flex; flex-direction: column; gap: 8px; z-index: 10; opacity: 0; transition: 0.2s; }
-        .data-node:hover .action-layer { opacity: 1; }
         
-        .action-circle { width: 38px; height: 38px; border-radius: 50%; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.2); display: flex; justify-content: center; align-items: center; color: #fff; cursor: pointer; transition: 0.2s; font-size: 1rem; }
-        .action-circle:hover { background: var(--accent-pink); border-color: var(--accent-pink); color: #fff; }
+        /* Grid spans for Masonry effect */
+        .data-node.v-span { grid-row: span 2; aspect-ratio: 9/16; }
+        .data-node.h-span { grid-column: span 2; aspect-ratio: 21/9; }
+        
+        @media (max-width: 1200px) { .data-node.h-span { grid-column: span 1; aspect-ratio: 16/9; } }
+
+        .data-node:hover { border-color: var(--accent-cyan); transform: translateY(-8px) scale(1.02); box-shadow: var(--glow-cyan); z-index: 10; }
+
+        .img-container { position: absolute; inset: 0; width: 100%; height: 100%; overflow: hidden; }
+        .img-container img { 
+            width: 100%; height: 100%; object-fit: cover; 
+            filter: brightness(0.9) contrast(1.1); 
+            transition: 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+            opacity: 0; /* Hidden initially for lazy load */
+        }
+        .data-node:hover .img-container img { transform: scale(1.08); filter: brightness(1.1) contrast(1.2); }
+        .img-container img.loaded { opacity: 1; }
+
+        /* Node Actions */
+        .action-layer { position: absolute; top: 15px; right: 15px; display: flex; flex-direction: column; gap: 10px; z-index: 20; opacity: 0; transition: 0.2s; transform: translateX(20px); }
+        .data-node:hover .action-layer { opacity: 1; transform: translateX(0); }
+        
+        .action-circle { width: 42px; height: 42px; border-radius: 50%; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: center; align-items: center; color: #fff; cursor: pointer; transition: 0.2s; font-size: 1rem; }
+        .action-circle.btn-love:hover { background: rgba(255,0,85,0.3); border-color: var(--accent-pink); color: var(--accent-pink); box-shadow: var(--glow-pink); transform: scale(1.1); }
+        .action-circle.btn-dl:hover { background: rgba(0,243,255,0.3); border-color: var(--accent-cyan); color: var(--accent-cyan); box-shadow: var(--glow-cyan); transform: scale(1.1); }
+
+        /* SKELETON LOADER (User dukar motto dekhe) */
+        .skeleton { 
+            position: absolute; inset: 0;
+            background: linear-gradient(110deg, #0a0a0f 8%, #16161f 18%, #0a0a0f 33%);
+            background-size: 200% 100%;
+            animation: 1.5s shine linear infinite;
+        }
+        :root[data-theme="light"] .skeleton {
+            background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+            background-size: 200% 100%;
+        }
+        @keyframes shine { to { background-position-x: -200%; } }
 
         /* ==========================================================================
-           [5] LIGHTBOX
+           [4] OS STATUS BAR (INFINITE SCROLL LOADER)
+           ========================================================================= */
+        .os-loader { text-align: center; padding: 50px 0; font-family: 'Orbitron', sans-serif; color: var(--accent-cyan); font-size: 1.3rem; letter-spacing: 5px; font-weight: 900; opacity: 0; transition: 0.3s; }
+        .os-loader.active { opacity: 1; }
+
+        /* ==========================================================================
+           [5] ADVANCED NEURAL LIGHTBOX
            ========================================================================== */
         #lightbox {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px);
+            position: fixed; inset: 0; background: rgba(0,0,0,0.98); backdrop-filter: blur(20px);
             z-index: 100000; display: flex; justify-content: center; align-items: center;
-            opacity: 0; pointer-events: none; transition: 0.3s;
+            opacity: 0; pointer-events: none; transition: 0.4s cubic-bezier(0.22, 1, 0.36, 1);
         }
         #lightbox.active { opacity: 1; pointer-events: auto; }
         
-        .lb-close { position: absolute; top: 30px; right: 30px; width: 45px; height: 45px; background: rgba(255,0,85,0.1); border: 1px solid var(--accent-pink); color: var(--accent-pink); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.2rem; cursor: pointer; transition: 0.2s; }
-        .lb-close:hover { background: var(--accent-pink); color: #fff; }
-        #lb-img { max-width: 90vw; max-height: 90vh; border-radius: 8px; object-fit: contain; }
+        .lb-close { position: absolute; top: 30px; right: 30px; width: 55px; height: 55px; background: rgba(255,0,85,0.1); border: 1px solid var(--accent-pink); color: var(--accent-pink); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; cursor: pointer; transition: 0.3s ease; }
+        .lb-close:hover { background: var(--accent-pink); color: #fff; box-shadow: var(--glow-pink); transform: rotate(90deg) scale(1.1); }
+
+        #lb-img { max-width: 90vw; max-height: 90vh; border-radius: 12px; box-shadow: 0 0 50px rgba(0,0,0,0.9); object-fit: contain; opacity: 0; transition: 0.3s; }
+        #lb-img.loaded { opacity: 1; }
 
         /* ==========================================================================
-           [6] TON COFFEE BUTTON & TOASTS
+           [6] OS FOOTER (TON DONATION)
            ========================================================================== */
-        .ton-footer { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 4000; }
+        .ton-footer { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); z-index: 4000; }
         .ton-btn-red {
-            background: rgba(255, 42, 42, 0.1); backdrop-filter: blur(10px);
-            border: 1px solid var(--accent-red); padding: 10px 24px; border-radius: 30px;
-            display: flex; align-items: center; gap: 10px; cursor: pointer;
-            color: var(--accent-red); font-family: 'Space Mono', monospace; font-size: 0.9rem; font-weight: bold;
-            transition: 0.2s;
+            background: rgba(255, 42, 42, 0.1); backdrop-filter: blur(15px);
+            border: 1px solid var(--accent-red); padding: 12px 30px; border-radius: 30px;
+            display: flex; align-items: center; gap: 12px; cursor: pointer;
+            color: var(--accent-red); font-family: 'Space Mono', monospace; font-size: 0.95rem; font-weight: bold;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .ton-btn-red:hover { background: var(--accent-red); color: #fff; transform: translateY(-3px); }
+        .ton-btn-red:hover { background: var(--accent-red); color: #fff; box-shadow: var(--glow-red); transform: translateY(-5px) scale(1.05); }
 
-        #toast-box { position: fixed; bottom: 80px; right: 20px; z-index: 99999; display: flex; flex-direction: column; gap: 10px; pointer-events: none; }
-        .toast-msg { background: var(--bg-glass); border-left: 4px solid var(--accent-cyan); color: var(--text-main); padding: 15px 20px; border-radius: 6px; font-family: 'Space Mono', monospace; font-size: 0.9rem; font-weight: bold; box-shadow: 0 5px 15px rgba(0,0,0,0.3); opacity: 0; transform: translateX(50px); transition: 0.3s; }
-        .toast-msg.show { opacity: 1; transform: translateX(0); }
-
-        .loader { text-align: center; padding: 30px 0; font-family: 'Orbitron', sans-serif; color: var(--accent-cyan); font-weight: bold; }
+        #toast-box { position: fixed; bottom: 40px; right: 40px; z-index: 99999; display: flex; flex-direction: column; gap: 15px; pointer-events: none; }
+        .toast-msg { background: var(--bg-surface); border-left: 4px solid var(--accent-cyan); color: #fff; padding: 18px 26px; border-radius: 8px; font-family: 'Space Mono', monospace; font-size: 0.95rem; font-weight: bold; box-shadow: 0 10px 40px rgba(0,0,0,0.6); transform: translateX(100px); opacity: 0; transition: 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); backdrop-filter: blur(10px); }
+        .toast-msg.show { transform: translateX(0); opacity: 1; }
+        .toast-msg.success { border-color: #00ff88; }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="brand-text">TOKYO<span>_2026</span></div>
-        <a href="https://instagram.com/i_f_t_uu" target="_blank" class="ig-link">
-            <i class="fab fa-instagram"></i> i_f_t_uu
-        </a>
+    <canvas id="matrix-canvas"></canvas>
+
+    <header id="os-header">
+        <div class="brand-text">TOKYO<span>OS</span></div>
+        <div class="sys-info">
+            <span id="live-clock">00:00:00 UTC</span>
+            <a href="https://instagram.com/i_f_t_uu" target="_blank" class="ig-id"><i class="fab fa-instagram"></i> i_f_t_uu</a>
+        </div>
         <div class="sys-controls">
-            <button class="icon-btn" onclick="toggleTheme()" title="Settings / Dark-Light Mode"><i class="fas fa-moon"></i></button>
-            <button class="icon-btn" onclick="window.scrollTo(0,0)" title="Go Top"><i class="fas fa-arrow-up"></i></button>
+            <button class="icon-btn sfx-btn" id="btn-sfx" title="Audio Feedback" onclick="os_toggleSFX()"><i class="fas fa-volume-up"></i></button>
+            <button class="icon-btn" onclick="os_toggleTheme()" title="Settings"><i class="fas fa-cog"></i></button>
         </div>
     </header>
 
-    <section class="control-panel">
-        <div class="title-sub">>> GENERATING 500+ ULTRA-HD FUTURE TOKYO ASSETS</div>
-    </section>
-
     <main class="mainframe">
-        <div class="masonry-grid" id="data-grid"></div>
-        <div class="loader" id="loader"><i class="fas fa-circle-notch fa-spin"></i> SYNCING NEURAL DATA...</div>
+        <div class="os-status">>> NEURAL_SOURCE_LOADED // SYNCING_STATUS: <span>ACTIVE</span></div>
+        <div class="grid" id="os-grid">
+            </div>
+        <div class="os-loader" id="os-loader">
+            <i class="fas fa-circle-notch fa-spin"></i> GENERATING NEURAL ASSETS...
+        </div>
     </main>
 
     <div id="lightbox">
-        <div class="lb-close" onclick="closeLB()"><i class="fas fa-times"></i></div>
-        <img id="lb-img" src="" alt="Full Preview">
+        <div class="lb-close" onclick="os_closeLB()"><i class="fas fa-times"></i></div>
+        <img id="lb-img" src="" alt="Full Neural Preview">
     </div>
 
     <div class="ton-footer">
-        <button class="ton-btn-red" onclick="copyWallet()">
-            <i class="fas fa-coffee"></i> GIFT COFFEE (TON)
+        <button class="ton-btn-red" onclick="os_copyWallet()">
+            <i class="fas fa-coffee"></i> SEND COFFEE (TON)
         </button>
     </div>
 
     <div id="toast-box"></div>
 
     <script>
-        /* --- 1. CORE LOGIC --- */
-        let imageCount = 0;
-        const maxImages = 500;
-        const batchSize = 12; // Loading 12 at a time for crazy fast speed
-        const grid = document.getElementById('data-grid');
-        const loader = document.getElementById('loader');
+        /* --- OS CONFIGURATION --- */
+        const OS_IG_ID = "i_f_t_uu";
+        const OS_TON_WALLET = "UQCvCMmfwJugAgxbMjmUrHI4goe2boXykQwNCDOWcwi8_fGT";
+        const OS_MAX_IMAGES = 500;
+        const OS_BATCH_SIZE = 12; // Loading batch size for extreme performance
+        const OS_PROMPT = "cyberpunk tokyo city neon future detailed cityscape realistic ultra-detailed cinematic 8k nologo";
+        
+        let os_sfx_enabled = false;
+        let os_img_count = 0;
+        let os_is_loading = false;
+        let os_matrix_ctx, os_matrix_drops;
 
-        /* --- 2. FAST IMAGE GENERATOR (LAZY LOADED) --- */
-        function loadImages(count) {
-            if (imageCount >= maxImages) {
-                loader.innerText = "ALL 500 ASSETS LOADED SUCCESSFULLY.";
-                return;
-            }
+        /* --- [1] OS INITIALIZATION --- */
+        window.onload = () => {
+            os_initMatrix();
+            os_initClock();
+            os_loadBatch(); // Initial load
             
-            for (let i = 0; i < count; i++) {
-                if (imageCount >= maxImages) break;
-                
-                // Using Pollinations AI for free, fast, unlimited futuristic Tokyo images
-                const seed = Math.floor(Math.random() * 1000000);
-                const randomHeight = Math.floor(Math.random() * (800 - 500 + 1) + 500);
-                const imgUrl = `https://image.pollinations.ai/prompt/cyberpunk%20tokyo%20future%20neon%20cityscape%20cinematic?width=600&height=${randomHeight}&nologo=true&seed=${seed}`;
+            // Attached Infinite Scroll Listener
+            window.addEventListener('scroll', os_handleInfiniteScroll);
+            window.addEventListener('resize', () => { os_initMatrix(); });
+        };
 
-                const node = document.createElement('div');
-                node.className = 'data-node';
-                node.innerHTML = `
-                    <div class="img-container" onclick="openLB('${imgUrl}')">
-                        <img src="${imgUrl}" loading="lazy" alt="Tokyo Asset ${imageCount}">
-                        <div class="action-layer">
-                            <div class="action-circle" onclick="event.stopPropagation(); showToast('Added to favorites!', 'success')"><i class="fas fa-heart"></i></div>
+        /* --- [2] SFX ENGINE (WEB AUDIO API) --- */
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        let os_audio_ctx;
+
+        function os_initAudio() { if(!os_audio_ctx) os_audio_ctx = new AudioContext(); }
+        
+        function os_toggleSFX() {
+            os_sfx_enabled = !os_sfx_enabled;
+            os_initAudio();
+            const btn = document.getElementById('btn-sfx');
+            btn.classList.toggle('active');
+            btn.innerHTML = os_sfx_enabled ? '<i class="fas fa-volume-up"></i>' : '<i class="fas fa-volume-mute"></i>';
+            os_playBeep(os_sfx_enabled ? 600 : 400, "sine", 0.1);
+            os_showToast(`Audio Feedback ${os_sfx_enabled ? 'Enabled' : 'Disabled'}`);
+        }
+
+        function os_playBeep(freq, type = "square", duration = 0.05) {
+            if(!os_sfx_enabled || !os_audio_ctx) return;
+            const osc = os_audio_ctx.createOscillator();
+            const gain = os_audio_ctx.createGain();
+            osc.type = type; osc.frequency.value = freq;
+            osc.connect(gain); gain.connect(os_audio_ctx.destination);
+            osc.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, os_audio_ctx.currentTime + duration);
+            osc.stop(os_audio_ctx.currentTime + duration);
+        }
+
+        /* --- [3] LIVE OS CLOCK --- */
+        function os_initClock() {
+            const clockEl = document.getElementById('live-clock');
+            setInterval(() => {
+                const now = new Date();
+                clockEl.innerText = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')} UTC`;
+            }, 1000);
+        }
+
+        /* --- [4] NEURAL IMAGE ENGINE (INFINITE SCROLL + LAZY LOAD) --- */
+        const os_grid = document.getElementById('os-grid');
+        const os_loader = document.getElementById('os-loader');
+
+        function os_loadBatch() {
+            if(os_is_loading || os_img_count >= OS_MAX_IMAGES) return;
+            
+            os_is_loading = true;
+            os_loader.classList.add('active');
+
+            // Simulate neural generation lag
+            setTimeout(() => {
+                const fragment = document.createDocumentFragment();
+
+                for (let i = 0; i < OS_BATCH_SIZE; i++) {
+                    if (os_img_count >= OS_MAX_IMAGES) break;
+
+                    const seed = Math.floor(Math.random() * 2000000);
+                    const prompt = encodeURIComponent(OS_PROMPT + ` ${os_img_count}`);
+                    const imgUrl = `https://image.pollinations.ai/prompt/${prompt}?width=700&nologo=true&seed=${seed}`;
+
+                    // Create Node Structure
+                    const node = document.createElement('div');
+                    node.className = 'data-node';
+                    
+                    // Randomize spans for masonry effect
+                    const r = Math.random();
+                    if(r > 0.85) node.classList.add('v-span');
+                    else if(r > 0.7) node.classList.add('h-span');
+
+                    node.innerHTML = `
+                        <div class="skeleton"></div>
+                        <div class="img-container" onclick="os_openLB('${imgUrl}')">
+                            <img src="${imgUrl}" alt="Neural Tokyo Asset #${os_img_count}" loading="lazy">
                         </div>
-                    </div>
-                `;
-                grid.appendChild(node);
-                imageCount++;
+                        <div class="action-layer">
+                            <div class="action-circle btn-love" onclick="event.stopPropagation(); os_playBeep(800, 'sine', 0.05); os_showToast('Added to Neural Favorites', 'success')"><i class="fas fa-heart"></i></div>
+                            <a href="${imgUrl}" target="_blank" download class="action-circle btn-dl" onclick="event.stopPropagation(); os_playBeep(700, 'sine', 0.05);"><i class="fas fa-download"></i></a>
+                        </div>
+                    `;
+
+                    fragment.appendChild(node);
+                    os_img_count++;
+
+                    // Image Load Event (Lazy Loading implementation)
+                    const img = node.querySelector('img');
+                    img.onload = function() {
+                        this.classList.add('loaded');
+                        node.querySelector('.skeleton').style.opacity = '0';
+                        setTimeout(() => node.querySelector('.skeleton').remove(), 500);
+                    }
+                }
+
+                os_grid.appendChild(fragment);
+                os_is_loading = false;
+                os_loader.classList.remove('active');
+                
+                os_playBeep(1200, "sine", 0.02); // Sync Sound
+
+            }, 800); // Simulated delay
+        }
+
+        function os_handleInfiniteScroll() {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000) {
+                os_loadBatch();
             }
+            // Header animation
+            const header = document.getElementById('os-header');
+            if (window.scrollY > 100) header.classList.add('scrolled');
+            else header.classList.remove('scrolled');
         }
 
-        /* --- 3. INFINITE SCROLL (For 500+ Images) --- */
-        window.addEventListener('scroll', () => {
-            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 800) {
-                loadImages(batchSize);
-            }
-        });
-
-        // Initial Load
-        loadImages(16);
-
-        /* --- 4. LIGHTBOX PREVIEW --- */
-        const lightbox = document.getElementById('lightbox');
-        const lbImg = document.getElementById('lb-img');
-
-        function openLB(src) {
-            lbImg.src = src;
-            lightbox.classList.add('active');
-        }
-        function closeLB() {
-            lightbox.classList.remove('active');
-            lbImg.src = "";
-        }
-
-        /* --- 5. THEME TOGGLE (DARK/LIGHT) --- */
-        function toggleTheme() {
+        /* --- [5] SETTINGS & THEME TOGGLE --- */
+        function os_toggleTheme() {
             const html = document.documentElement;
             const currentTheme = html.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             html.setAttribute('data-theme', newTheme);
             
-            const themeIcon = document.querySelector('button[onclick="toggleTheme()"] i');
-            themeIcon.className = newTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
-            
-            showToast(`${newTheme.toUpperCase()} Mode Activated`);
+            os_showToast(`Environment Reset: ${newTheme.toUpperCase()} Mode`);
+            os_playBeep(newTheme === 'dark' ? 300 : 800, "sine", 0.1);
         }
 
-        /* --- 6. TON WALLET COPY --- */
-        const tonWallet = "UQCvCMmfwJugAgxbMjmUrHI4goe2boXykQwNCDOWcwi8_fGT";
-        
-        function copyWallet() {
-            navigator.clipboard.writeText(tonWallet).then(() => {
-                showToast("TON Address Copied! Thanks for the coffee!", "success");
-            }).catch(err => {
-                showToast("Failed to copy address.", "error");
+        /* --- [6] NEURAL LIGHTBOX PREVIEW --- */
+        const os_lb = document.getElementById('lightbox');
+        const os_lb_img = document.getElementById('lb-img');
+
+        function os_openLB(src) {
+            os_playBeep(1000, "sine", 0.05);
+            os_lb.classList.add('active');
+            os_lb_img.src = src;
+            os_lb_img.onload = () => os_lb_img.classList.add('loaded');
+        }
+        function os_closeLB() {
+            os_playBeep(500, "sine", 0.05);
+            os_lb.classList.remove('active');
+            os_lb_img.classList.remove('loaded');
+            setTimeout(() => os_lb_img.src = "", 400); // Clear source after animation
+        }
+
+        /* --- [7] TON DONATION ENGINE --- */
+        function os_copyWallet() {
+            os_playBeep(900, "sine", 0.05);
+            navigator.clipboard.writeText(OS_TON_WALLET).then(() => {
+                os_showToast("TON Address Copied! Redirecting to coffee supply...", "success");
+            }).catch(() => {
+                os_showToast("Copy failed. System error.", "error");
             });
         }
 
-        /* --- 7. TOAST NOTIFICATION SYSTEM --- */
-        const toastBox = document.getElementById('toast-box');
-        
-        function showToast(msg) {
+        /* --- [8] UTILITY: TOAST NOTIFICATIONS --- */
+        function os_showToast(msg, type = "info") {
+            const box = document.getElementById('toast-box');
             const toast = document.createElement('div');
-            toast.className = 'toast-msg';
-            toast.innerText = msg;
-            toastBox.appendChild(toast);
+            toast.className = `toast-msg ${type}`;
+            toast.innerText = `>> ${msg}`;
+            box.appendChild(toast);
             
-            // Trigger animation
-            setTimeout(() => toast.classList.add('show'), 10);
-            
-            // Remove after 3 seconds
+            setTimeout(() => toast.classList.add('show'), 100);
             setTimeout(() => {
                 toast.classList.remove('show');
-                setTimeout(() => toast.remove(), 300);
+                setTimeout(() => toast.remove(), 400);
             }, 3000);
+        }
+
+        /* --- [9] MATRIX BACKGROUND ENGINE (Low Energy) --- */
+        function os_initMatrix() {
+            const canvas = document.getElementById('matrix-canvas');
+            os_matrix_ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const chars = "01".split("");
+            const fontSize = 14;
+            const columns = canvas.width / fontSize;
+            
+            os_matrix_drops = [];
+            for (let i = 0; i < columns; i++) os_matrix_drops[i] = 1;
+
+            if(window.os_matrix_interval) clearInterval(window.os_matrix_interval);
+            window.os_matrix_interval = setInterval(os_drawMatrix, 50); // Slower update for performance
+        }
+
+        function os_drawMatrix() {
+            os_matrix_ctx.fillStyle = document.documentElement.getAttribute('data-theme') === 'dark' ? "rgba(2, 2, 3, 0.1)" : "rgba(230, 232, 236, 0.1)";
+            os_matrix_ctx.fillRect(0, 0, os_matrix_ctx.canvas.width, os_matrix_ctx.canvas.height);
+
+            os_matrix_ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--matrix-color').trim();
+            os_matrix_ctx.font = "14px 'Space Mono'";
+
+            for (let i = 0; i < os_matrix_drops.length; i++) {
+                const text = "01"[Math.floor(Math.random() * 2)];
+                os_matrix_ctx.fillText(text, i * 14, os_matrix_drops[i] * 14);
+
+                if (os_matrix_drops[i] * 14 > os_matrix_ctx.canvas.height && Math.random() > 0.985)
+                    os_matrix_drops[i] = 0;
+                
+                os_matrix_drops[i]++;
+            }
         }
     </script>
 </body>
