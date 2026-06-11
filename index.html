@@ -33,6 +33,7 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
         /* Custom Scrollbar */
@@ -78,6 +79,7 @@
         
         .ig-icon:hover {
             text-shadow: var(--neon-glow);
+            transform: scale(1.1);
         }
 
         .site-title {
@@ -133,6 +135,29 @@
             box-shadow: var(--neon-glow);
         }
 
+        /* User Profile Badge (Hidden initially) */
+        .user-profile {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            background: #1a1a1a;
+            padding: 5px 15px 5px 5px;
+            border-radius: 20px;
+            border: 1px solid var(--accent-purple);
+        }
+        
+        .user-profile img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+
+        .user-profile span {
+            font-size: 14px;
+            font-weight: bold;
+            color: #00f0ff;
+        }
+
         /* ==========================================
            3. TAB NAVIGATION
            ========================================== */
@@ -177,6 +202,7 @@
             padding: 20px;
             max-width: 1400px;
             margin: 0 auto;
+            min-height: 80vh;
         }
 
         .gallery-grid {
@@ -193,10 +219,20 @@
             position: relative;
             border: 1px solid #1a1a1a;
             transition: 0.4s;
+            animation: fadeIn 0.8s ease forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-5px) !important;
             border-color: var(--accent-purple);
             box-shadow: 0 10px 20px rgba(0,0,0,0.5), 0 0 15px rgba(112, 0, 255, 0.2);
         }
@@ -272,7 +308,6 @@
 
         .badge-premium {
             background: rgba(0, 0, 0, 0.7);
-            color: #ffd700;
             padding: 5px 10px;
             border-radius: 5px;
             font-size: 11px;
@@ -280,13 +315,8 @@
             letter-spacing: 1px;
         }
 
-        .badge-real {
-            color: #00f0ff;
-        }
-
-        .badge-future {
-            color: #ff007a;
-        }
+        .badge-real { color: #00f0ff; border: 1px solid #00f0ff; }
+        .badge-future { color: #ff007a; border: 1px solid #ff007a; }
 
         .download-btn {
             background: var(--gradient-btn);
@@ -319,7 +349,7 @@
             padding: 10px 25px;
             border-radius: 30px;
             display: flex;
-            gap: 20px;
+            gap: 30px;
             border: 1px solid var(--border-color);
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
             z-index: 90;
@@ -337,17 +367,10 @@
             cursor: pointer;
         }
 
-        .action-item i {
-            font-size: 20px;
-        }
-
-        .action-item:hover {
-            color: var(--accent-pink);
-        }
-
-        .gift-coffee {
-            color: #0088cc; /* Changed to TON blue color */
-        }
+        .action-item i { font-size: 20px; }
+        .action-item:hover { color: var(--accent-pink); }
+        .gift-coffee { color: #0088cc; }
+        .gift-coffee:hover { color: #00f0ff; }
 
         /* ==========================================
            6. MODALS
@@ -388,9 +411,7 @@
             box-shadow: 0 0 30px rgba(112, 0, 255, 0.2);
         }
 
-        .modal-overlay.active .modal-box {
-            transform: translateY(0);
-        }
+        .modal-overlay.active .modal-box { transform: translateY(0); }
 
         .close-modal {
             position: absolute;
@@ -401,27 +422,15 @@
             color: white;
             font-size: 20px;
             cursor: pointer;
+            transition: 0.3s;
         }
+        
+        .close-modal:hover { color: var(--accent-pink); transform: rotate(90deg); }
 
-        .modal-title {
-            font-size: 24px;
-            margin-bottom: 10px;
-            color: white;
-        }
+        .modal-title { font-size: 24px; margin-bottom: 10px; color: white; }
+        .modal-text { color: var(--text-muted); font-size: 14px; margin-bottom: 25px; line-height: 1.5; }
 
-        .modal-text {
-            color: var(--text-muted);
-            font-size: 14px;
-            margin-bottom: 25px;
-            line-height: 1.5;
-        }
-
-        .sub-plans {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
+        .sub-plans { display: flex; flex-direction: column; gap: 15px; margin-bottom: 25px; }
 
         .plan-card {
             background: #1a1a1a;
@@ -437,11 +446,7 @@
             background: rgba(255, 0, 122, 0.1);
         }
 
-        .plan-price {
-            font-size: 20px;
-            font-weight: bold;
-            color: var(--accent-pink);
-        }
+        .plan-price { font-size: 20px; font-weight: bold; color: var(--accent-pink); }
 
         .modal-btn {
             width: 100%;
@@ -456,9 +461,7 @@
             transition: 0.3s;
         }
         
-        .modal-btn:hover {
-            box-shadow: var(--neon-glow);
-        }
+        .modal-btn:hover { box-shadow: var(--neon-glow); }
 
         .form-input {
             width: 100%;
@@ -470,11 +473,8 @@
             border-radius: 8px;
             outline: none;
         }
-        .form-input:focus {
-            border-color: var(--accent-purple);
-        }
+        .form-input:focus { border-color: var(--accent-purple); }
 
-        /* Wallet Box Styling */
         .wallet-box {
             background: #1a1a1a;
             padding: 15px;
@@ -489,11 +489,48 @@
         }
 
         /* ==========================================
-           7. FOOTER
+           7. TOAST NOTIFICATION
+           ========================================== */
+        #toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            background: rgba(20, 20, 20, 0.95);
+            border-left: 4px solid var(--accent-pink);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            font-size: 14px;
+            font-weight: bold;
+            animation: slideInRight 0.5s ease forwards, fadeOut 0.5s ease 2.5s forwards;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+
+        /* ==========================================
+           8. FOOTER & LOADER
            ========================================== */
         footer {
             text-align: center;
-            padding: 40px 20px;
+            padding: 40px 20px 100px 20px; /* Extra bottom padding for floating bar */
             border-top: 1px solid var(--border-color);
             margin-top: 40px;
             background: #000;
@@ -508,35 +545,51 @@
             -webkit-text-fill-color: transparent;
         }
 
-        .footer-credit {
-            color: var(--text-muted);
-            font-size: 14px;
-        }
+        .footer-credit { color: var(--text-muted); font-size: 14px; }
 
-        /* Loader */
-        #loader {
+        .loader-container {
             text-align: center;
-            padding: 20px;
+            padding: 30px;
             color: var(--accent-pink);
             font-weight: bold;
-            display: none;
+            font-size: 18px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
         }
     </style>
 </head>
 <body>
 
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toast-container"></div>
+
     <!-- HEADER AREA -->
     <header>
         <div class="header-left">
-            <a href="https://instagram.com/আপনার_আইডি_এখানে" target="_blank" class="ig-icon" id="contact-ig">
+            <!-- INSTAGRAM ID UPDATED HERE -->
+            <a href="https://instagram.com/i_f_t_uu" target="_blank" class="ig-icon" id="contact-ig" title="Follow i_f_t_uu">
                 <i class="fab fa-instagram"></i>
             </a>
             <div class="site-title">TOKYO</div>
         </div>
         <div class="header-right">
             <button class="icon-btn" onclick="openModal('settingsModal')"><i class="fas fa-shield-alt"></i></button>
-            <button class="login-btn" onclick="openModal('loginModal')">LOG IN</button>
-            <button class="icon-btn" onclick="openModal('signupModal')"><i class="fas fa-user-plus"></i></button>
+            
+            <!-- Auth Buttons -->
+            <div id="auth-buttons">
+                <button class="login-btn" onclick="openModal('loginModal')">LOG IN</button>
+                <button class="icon-btn" onclick="openModal('signupModal')" style="display:inline-flex; margin-left:10px;"><i class="fas fa-user-plus"></i></button>
+            </div>
+            
+            <!-- User Profile (Shows after Login) -->
+            <div id="user-profile" class="user-profile">
+                <img src="https://loremflickr.com/100/100/avatar" alt="Avatar">
+                <span>Iftuu_Fan</span>
+                <button class="icon-btn" onclick="handleLogout()" style="width: 25px; height: 25px; font-size: 12px; margin-left: 5px;"><i class="fas fa-sign-out-alt"></i></button>
+            </div>
         </div>
     </header>
 
@@ -549,9 +602,13 @@
     <!-- MAIN GALLERY AREA -->
     <main class="gallery-wrapper">
         <div class="gallery-grid" id="image-grid">
-            <!-- 1000 Images will be dynamically injected here by JavaScript -->
+            <!-- Images will be injected here in batches for blazing fast speed -->
         </div>
-        <div id="loader"><i class="fas fa-spinner fa-spin"></i> Loading 1000+ Tokyo Visuals...</div>
+        
+        <!-- Lazy Load Trigger at bottom -->
+        <div id="scroll-trigger" class="loader-container">
+            <i class="fas fa-spinner fa-spin"></i> Loading More Tokyo Magic...
+        </div>
     </main>
 
     <!-- FLOATING BOTTOM ACTION BAR -->
@@ -560,12 +617,12 @@
             <i class="fas fa-gem" style="color: #00f0ff;"></i>
             <span>Premium</span>
         </div>
-        <!-- Changed to TON Support -->
+        <!-- TON Wallet Support Button -->
         <div class="action-item gift-coffee" onclick="openModal('tonModal')">
             <i class="fas fa-wallet"></i>
             <span>Support</span>
         </div>
-        <div class="action-item">
+        <div class="action-item" onclick="openModal('settingsModal')">
             <i class="fas fa-cog"></i>
             <span>Settings</span>
         </div>
@@ -586,13 +643,13 @@
         <div class="modal-box">
             <button class="close-modal" onclick="closeModal('subscriptionModal')"><i class="fas fa-times"></i></button>
             <h2 class="modal-title">Unlock Future Tokyo</h2>
-            <p class="modal-text">To download these 1000 ultra-HD Tokyo photos, you need an active subscription.</p>
+            <p class="modal-text">Support the platform and get ultra-premium perks.</p>
             
             <div class="sub-plans">
                 <div class="plan-card">
                     <h3>Monthly Pass</h3>
                     <div class="plan-price">$4.99</div>
-                    <p style="color: #888; font-size: 12px; margin-top: 5px;">Unlimited HD Downloads</p>
+                    <p style="color: #888; font-size: 12px; margin-top: 5px;">Ad-free & 4K Res</p>
                 </div>
                 <div class="plan-card" style="border-color: var(--accent-pink);">
                     <h3>Lifetime Access</h3>
@@ -600,8 +657,7 @@
                     <p style="color: #888; font-size: 12px; margin-top: 5px;">One time payment, forever yours</p>
                 </div>
             </div>
-            
-            <button class="modal-btn">SUBSCRIBE NOW</button>
+            <button class="modal-btn" onclick="showToast('Redirecting to payment...')">SUBSCRIBE NOW</button>
         </div>
     </div>
 
@@ -610,10 +666,12 @@
         <div class="modal-box">
             <button class="close-modal" onclick="closeModal('loginModal')"><i class="fas fa-times"></i></button>
             <h2 class="modal-title">Welcome Back</h2>
-            <p class="modal-text">Log in to sync your saved Tokyo visuals.</p>
-            <input type="email" class="form-input" placeholder="Email Address">
-            <input type="password" class="form-input" placeholder="Password">
-            <button class="modal-btn">LOG IN</button>
+            <p class="modal-text">Log in to download photos and save your visual library.</p>
+            <form onsubmit="handleLogin(event)">
+                <input type="email" class="form-input" placeholder="Email Address" required value="user@example.com">
+                <input type="password" class="form-input" placeholder="Password" required value="password123">
+                <button type="submit" class="modal-btn">LOG IN</button>
+            </form>
         </div>
     </div>
 
@@ -623,10 +681,12 @@
             <button class="close-modal" onclick="closeModal('signupModal')"><i class="fas fa-times"></i></button>
             <h2 class="modal-title">Join Tokyo</h2>
             <p class="modal-text">Create an account to save and download.</p>
-            <input type="text" class="form-input" placeholder="Username">
-            <input type="email" class="form-input" placeholder="Email Address">
-            <input type="password" class="form-input" placeholder="Password">
-            <button class="modal-btn">SIGN UP</button>
+            <form onsubmit="handleLogin(event)">
+                <input type="text" class="form-input" placeholder="Username" required>
+                <input type="email" class="form-input" placeholder="Email Address" required>
+                <input type="password" class="form-input" placeholder="Password" required>
+                <button type="submit" class="modal-btn">SIGN UP</button>
+            </form>
         </div>
     </div>
 
@@ -637,13 +697,14 @@
             <h2 class="modal-title">Support Iftuu</h2>
             <p class="modal-text">Love the design? Support me by sending TON to my wallet!</p>
             
-            <!-- TON Icon -->
             <i class="fas fa-gem" style="font-size: 50px; color: #0088cc; margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(0,136,204,0.5));"></i>
             
-            <!-- Wallet Address Box -->
+            <!-- YOUR TON WALLET ADDRES -->
             <div class="wallet-box" id="walletAddress">UQCvCMmfwJugAgxbMjmUrHI4goe2boXykQwNCDOWcwi8_fGT</div>
             
-            <button class="modal-btn" style="background: #0088cc; color: #fff;" onclick="copyTonAddress()">COPY TON ADDRESS</button>
+            <button class="modal-btn" style="background: #0088cc; color: #fff;" onclick="copyTonAddress()">
+                <i class="fas fa-copy"></i> COPY TON ADDRESS
+            </button>
         </div>
     </div>
 
@@ -654,7 +715,7 @@
             <h2 class="modal-title">Settings</h2>
             <p class="modal-text">Adjust your digital experience.</p>
             <div style="text-align: left; margin-bottom: 20px; color: white;">
-                <p><i class="fas fa-moon"></i> Dark Mode (Forced)</p>
+                <p><i class="fas fa-moon" style="color:var(--accent-pink)"></i> Dark Mode (Forced)</p>
                 <hr style="border-color: #333; margin: 10px 0;">
                 <p><i class="fas fa-bell"></i> Notifications</p>
                 <hr style="border-color: #333; margin: 10px 0;">
@@ -667,24 +728,31 @@
          JAVASCRIPT LOGIC
          ========================================== -->
     <script>
-        // 1. DYNAMICALLY GENERATE 1000 TOKYO PHOTOS (500 Real + 500 Future)
+        // GLOBAL STATE
+        let isLoggedIn = false;
+        let imagesLoadedCount = 0;
         const TOTAL_IMAGES = 1000;
-        const grid = document.getElementById('image-grid');
-        const loader = document.getElementById('loader');
-
-        // Keywords for Real Tokyo Photos (1 to 500)
-        const realKeywords = ['tokyo', 'japan', 'shibuya', 'shinjuku', 'tokyostreet', 'asakusa', 'tokyotower', 'cityscape'];
+        const BATCH_SIZE = 20; // Load 20 images at a time for crazy fast performance!
         
-        // Keywords for Future Tokyo Photos (501 to 1000)
-        const futureKeywords = ['cyberpunk', 'neon', 'futuristic', 'scifi', 'synthwave', 'nightcity', 'hologram'];
+        const grid = document.getElementById('image-grid');
+        const scrollTrigger = document.getElementById('scroll-trigger');
 
-        function generateImages() {
+        // Better Keywords for Premium Look
+        const realKeywords = ['tokyo,street', 'japan,temple', 'shibuya,night', 'shinjuku', 'asakusa', 'tokyotower,night', 'japan,cityscape'];
+        const futureKeywords = ['cyberpunk,city', 'neon,tokyo', 'futuristic,street', 'scifi,city', 'synthwave', 'nightcity,neon', 'cyberpunk,alley'];
+
+        // 1. GENERATE IMAGES FUNCTION (FAST BATCH LOADING)
+        function loadNextBatch() {
+            if (imagesLoadedCount >= TOTAL_IMAGES) {
+                scrollTrigger.style.display = 'none'; // Hide loader if done
+                return;
+            }
+
             let htmlContent = '';
-            
-            for (let i = 1; i <= TOTAL_IMAGES; i++) {
-                let isReal = i <= 500;
-                
-                // Select keyword based on category
+            let limit = Math.min(imagesLoadedCount + BATCH_SIZE, TOTAL_IMAGES);
+
+            for (let i = imagesLoadedCount + 1; i <= limit; i++) {
+                let isReal = i % 2 !== 0; // Alternate between real and future
                 let randomKeyword;
                 let badgeHTML;
                 
@@ -696,8 +764,8 @@
                     badgeHTML = `<span class="badge-premium badge-future">FUTURE</span>`;
                 }
 
-                // Generates a unique image using the index 'i' as a lock
-                let imgUrl = `https://loremflickr.com/600/800/${randomKeyword}?lock=${i}`;
+                // URL Construction with specific dimensions and keywords
+                let imgUrl = `https://loremflickr.com/600/800/${randomKeyword}?lock=${i + 1000}`;
 
                 htmlContent += `
                     <div class="card">
@@ -711,7 +779,7 @@
                                 </div>
                                 <div class="card-bottom-actions">
                                     ${badgeHTML}
-                                    <button class="download-btn" onclick="attemptDownload()">
+                                    <button class="download-btn" onclick="attemptDownload('${imgUrl}')">
                                         <i class="fas fa-arrow-down"></i> GET
                                     </button>
                                 </div>
@@ -720,18 +788,46 @@
                     </div>
                 `;
             }
-            grid.innerHTML = htmlContent;
+            
+            // Append batch to grid
+            grid.insertAdjacentHTML('beforeend', htmlContent);
+            imagesLoadedCount = limit;
         }
 
+        // 2. INFINITE SCROLL (Intersection Observer)
+        // This makes the website run smoothly without freezing
+        const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                // Simulate network delay for nice loading effect
+                setTimeout(loadNextBatch, 500);
+            }
+        }, { rootMargin: "100px" });
+
+        // Start observing the loader text
+        observer.observe(scrollTrigger);
+
         // Initial Load
-        loader.style.display = 'block';
-        setTimeout(() => {
-            generateImages();
-            loader.style.display = 'none';
-        }, 1000); // Simulate processing time
+        loadNextBatch();
 
+        // 3. TOAST NOTIFICATION SYSTEM
+        function showToast(message, isError = false) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            
+            let icon = isError ? '<i class="fas fa-exclamation-circle" style="color: #ff007a;"></i>' 
+                               : '<i class="fas fa-check-circle" style="color: #00f0ff;"></i>';
+            
+            toast.innerHTML = `${icon} ${message}`;
+            container.appendChild(toast);
 
-        // 2. LOVE BUTTON INTERACTION
+            // Remove toast after animation ends
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+
+        // 4. LOVE BUTTON INTERACTION
         function toggleLove(btn) {
             btn.classList.toggle('loved');
             const icon = btn.querySelector('i');
@@ -739,28 +835,68 @@
                 icon.classList.remove('far');
                 icon.classList.add('fas');
                 icon.style.animation = 'pulse 0.3s ease';
+                showToast("Added to Saved Visuals!");
             } else {
                 icon.classList.remove('fas');
                 icon.classList.add('far');
+                showToast("Removed from Saved Visuals.");
             }
         }
 
-        // 3. DOWNLOAD BUTTON -> SUBSCRIPTION CHECKER
-        function attemptDownload() {
-            openModal('subscriptionModal');
+        // 5. DOWNLOAD LOGIC (Checks Authentication)
+        function attemptDownload(url) {
+            if (isLoggedIn) {
+                // User is logged in, proceed to download
+                showToast("Preparing high-res download...");
+                
+                // Create a temporary anchor to trigger download
+                const link = document.createElement('a');
+                link.href = url;
+                link.target = "_blank"; // Opens image if direct download blocked by CORS
+                link.download = `Tokyo_iftuu_${Math.floor(Math.random() * 10000)}.jpg`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } else {
+                // User NOT logged in
+                showToast("Please log in to download photos!", true);
+                openModal('loginModal');
+            }
         }
 
-        // 4. COPY TON WALLET ADDRESS
+        // 6. LOGIN / LOGOUT LOGIC
+        function handleLogin(e) {
+            e.preventDefault(); // Stop page reload
+            isLoggedIn = true;
+            
+            // Update UI
+            document.getElementById('auth-buttons').style.display = 'none';
+            document.getElementById('user-profile').style.display = 'flex';
+            
+            closeModal('loginModal');
+            closeModal('signupModal');
+            showToast("Welcome back to Tokyo!");
+        }
+
+        function handleLogout() {
+            isLoggedIn = false;
+            document.getElementById('auth-buttons').style.display = 'block';
+            document.getElementById('user-profile').style.display = 'none';
+            showToast("Logged out successfully.");
+        }
+
+        // 7. COPY TON WALLET ADDRESS
         function copyTonAddress() {
             const address = document.getElementById('walletAddress').innerText;
             navigator.clipboard.writeText(address).then(() => {
-                alert("TON Address copied to clipboard!\nThank you for your support!");
+                showToast("TON Address copied! Thank you!");
+                closeModal('tonModal');
             }).catch(err => {
                 alert("Failed to copy. Please copy manually.");
             });
         }
 
-        // 5. MODAL LOGIC (Open / Close)
+        // 8. MODAL LOGIC (Open / Close)
         function openModal(modalId) {
             document.getElementById(modalId).classList.add('active');
         }
@@ -779,13 +915,12 @@
             });
         }
 
-        // 6. TABS INTERACTION
+        // 9. TABS INTERACTION
         const tabs = document.querySelectorAll('.tab');
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
                 tabs.forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
-                // Optional: You can add logic here to filter saved images
             });
         });
     </script>
