@@ -1,480 +1,863 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="cyber-neon">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TOKYO X - Endless Future</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;700&display=swap" rel="stylesheet">
+    <meta name="author" content="@i_f_t_uu">
+    <meta name="project-version" content="5.0.0-Enterprise-Production">
+    <title>NEO TOKYO NEXUS // ULTIMATE GRAPHICS ENGINE</title>
+    
+    <!-- External Asset Fonts & Vector Protocols -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         /* ==========================================================================
-           1. ADVANCED CSS VARIABLES & THEME MANAGEMENT
+           1. CORE CORE VARS & MULTI-THEME CONFIGURATION MATRIX
            ========================================================================== */
-        :root[data-theme="dark"] {
-            --bg-primary: #020203;
-            --bg-secondary: rgba(10, 10, 15, 0.85);
+        :root[data-theme="cyber-neon"] {
+            --matrix-bg: #020204;
+            --matrix-surface: #07070c;
+            --matrix-card: #0d0d16;
+            --primary-accent: #ff0055;
+            --primary-glow: 0 0 25px rgba(255, 0, 85, 0.6);
+            --secondary-accent: #00f0ff;
+            --secondary-glow: 0 0 20px rgba(0, 240, 255, 0.5);
             --text-main: #ffffff;
-            --text-muted: #8892b0;
-            --accent-main: #ff003c;
-            --accent-glow: 0 0 25px rgba(255, 0, 60, 0.6);
-            --card-bg: #0a0a0f;
-            --border-color: rgba(255, 0, 60, 0.15);
-            --header-bg: rgba(2, 2, 3, 0.8);
+            --text-muted: #6b7a90;
+            --border-neon: rgba(255, 0, 85, 0.25);
+            --terminal-green: #39ff14;
         }
 
-        :root[data-theme="light"] {
-            --bg-primary: #f0f2f5;
-            --bg-secondary: rgba(255, 255, 255, 0.9);
-            --text-main: #0a0a0f;
-            --text-muted: #555c6b;
-            --accent-main: #d90033;
-            --accent-glow: 0 5px 15px rgba(217, 0, 51, 0.3);
-            --card-bg: #ffffff;
-            --border-color: rgba(0, 0, 0, 0.1);
-            --header-bg: rgba(255, 255, 255, 0.9);
+        :root[data-theme="synthwave"] {
+            --matrix-bg: #1a0826;
+            --matrix-surface: #260f38;
+            --matrix-card: #34154c;
+            --primary-accent: #f107a3;
+            --primary-glow: 0 0 25px rgba(241, 7, 163, 0.6);
+            --secondary-accent: #ff9900;
+            --secondary-glow: 0 0 20px rgba(255, 153, 0, 0.5);
+            --text-main: #ffe6ff;
+            --text-muted: #9c82ac;
+            --border-neon: rgba(241, 7, 163, 0.3);
+            --terminal-green: #ff00ff;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Rajdhani', sans-serif; }
+        :root[data-theme="matrix-green"] {
+            --matrix-bg: #010802;
+            --matrix-surface: #041406;
+            --matrix-card: #06200a;
+            --primary-accent: #00ff41;
+            --primary-glow: 0 0 25px rgba(0, 255, 65, 0.7);
+            --secondary-accent: #008f11;
+            --secondary-glow: 0 0 20px rgba(0, 143, 17, 0.5);
+            --text-main: #dffff0;
+            --text-muted: #497a53;
+            --border-neon: rgba(0, 255, 65, 0.3);
+            --terminal-green: #00ff41;
+        }
+
+        :root[data-theme="stealth"] {
+            --matrix-bg: #080808;
+            --matrix-surface: #121212;
+            --matrix-card: #1c1c1c;
+            --primary-accent: #ffffff;
+            --primary-glow: 0 0 20px rgba(255, 255, 255, 0.3);
+            --secondary-accent: #555555;
+            --secondary-glow: 0 0 15px rgba(85, 85, 85, 0.3);
+            --text-main: #ffffff;
+            --text-muted: #666666;
+            --border-neon: rgba(255, 255, 255, 0.1);
+            --terminal-green: #aaaaaa;
+        }
+
+        /* ==========================================================================
+           2. RESET PROTOCOLS & CORE SCROLLBARS
+           ========================================================================== */
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            user-select: none; -webkit-user-drag: none;
+        }
 
         body {
-            background-color: var(--bg-primary); color: var(--text-main);
-            overflow-x: hidden; scroll-behavior: smooth; transition: background-color 0.5s ease, color 0.5s ease;
+            background-color: var(--matrix-bg);
+            color: var(--text-main);
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            overflow-x: hidden;
+            transition: background 0.5s ease, color 0.5s ease;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.002) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.002) 1px, transparent 1px);
+            background-size: 40px 40px;
         }
 
-        /* Custom Scrollbar for fast scrolling */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-primary); }
-        ::-webkit-scrollbar-thumb { background: var(--accent-main); border-radius: 4px; }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: var(--matrix-bg); }
+        ::-webkit-scrollbar-thumb { background: var(--primary-accent); border-radius: 4px; box-shadow: var(--primary-glow); }
+        ::-webkit-scrollbar-thumb:hover { background: var(--secondary-accent); }
 
         /* ==========================================================================
-           2. TOP BAR (IG HANDLE) & HEADER
+           3. UPPER STREAM SYSTEM TICKER & OVERHEAD NAVIGATION HUD
            ========================================================================== */
-        .top-bar {
-            background: var(--accent-main); color: #fff; text-align: center;
-            padding: 5px; font-size: 12px; font-weight: bold; letter-spacing: 2px;
-            text-transform: uppercase;
+        .system-top-ticker {
+            background: #000000;
+            color: var(--secondary-accent);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 11px;
+            padding: 6px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            letter-spacing: 2px;
+            z-index: 1002; position: relative;
         }
+        .system-top-ticker a { color: var(--primary-accent); text-decoration: none; font-weight: bold; text-shadow: var(--primary-glow); }
 
         header {
+            background: rgba(var(--matrix-surface), 0.85);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            padding: 15px 40px; position: sticky; top: 0; z-index: 1000;
+            border-bottom: 2px solid var(--primary-accent);
             display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 40px; background: var(--header-bg); backdrop-filter: blur(15px);
-            position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border-color);
-            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
         }
 
-        .logo {
-            font-family: 'Orbitron', sans-serif; font-size: 35px; font-weight: 900;
-            color: var(--accent-main); text-shadow: var(--accent-glow);
-            letter-spacing: 5px; cursor: pointer; text-transform: uppercase;
+        .brand-logo-panel h1 {
+            font-family: 'Orbitron', sans-serif; font-size: 26px; font-weight: 900;
+            letter-spacing: 5px; color: #fff; text-shadow: var(--primary-glow);
+        }
+        .brand-logo-panel span { color: var(--secondary-accent); text-shadow: var(--secondary-glow); }
+
+        .control-panel-cluster { display: flex; align-items: center; gap: 15px; }
+
+        /* Advanced Filter Infrastructure styling */
+        .filter-capsule-deck {
+            display: flex; gap: 8px; background: rgba(0,0,0,0.5); padding: 5px;
+            border-radius: 4px; border: 1px solid rgba(255,255,255,0.05);
+        }
+        .filter-node-btn {
+            background: transparent; border: 1px solid transparent; color: var(--text-muted);
+            font-family: 'Orbitron', sans-serif; font-size: 10px; font-weight: 700;
+            padding: 8px 14px; cursor: pointer; text-transform: uppercase; transition: all 0.3s;
+        }
+        .filter-node-btn.is-active, .filter-node-btn:hover {
+            color: var(--secondary-accent); border-color: var(--secondary-accent);
+            background: rgba(0, 240, 255, 0.05); text-shadow: var(--secondary-glow);
         }
 
-        .nav-controls { display: flex; align-items: center; gap: 15px; }
-
-        .btn-outline, .btn-solid, .icon-btn {
-            font-family: 'Rajdhani', sans-serif; font-weight: 700; cursor: pointer;
-            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); border-radius: 6px;
+        /* Standardized Cyber Buttons */
+        .hightech-cyber-btn {
+            font-family: 'Orbitron', sans-serif; font-size: 11px; font-weight: 900;
+            padding: 10px 20px; cursor: pointer; background: transparent;
+            color: var(--text-main); border: 1px solid var(--primary-accent); position: relative;
+            letter-spacing: 1.5px; overflow: hidden;
+            clip-path: polygon(8px 0%, 100% 0%, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0% 100%, 0% 8px);
+            transition: all 0.3s ease;
         }
-
-        .btn-outline {
-            background: transparent; border: 1px solid var(--accent-main);
-            color: var(--text-main); padding: 8px 20px;
+        .hightech-cyber-btn::before {
+            content: ''; position: absolute; inset: 0; background: var(--primary-accent);
+            z-index: -1; transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease;
         }
-        .btn-outline:hover { background: var(--accent-main); color: #fff; box-shadow: var(--accent-glow); }
+        .hightech-cyber-btn:hover::before { transform: scaleX(1); }
+        .hightech-cyber-btn:hover { color: #000 !important; box-shadow: var(--primary-glow); }
+        .hightech-cyber-btn-solid { background: var(--primary-accent); color: #000; border: none; box-shadow: var(--primary-glow); }
+        .hightech-cyber-btn-solid:hover { filter: brightness(1.2); }
 
-        .btn-solid {
-            background: var(--accent-main); border: none; color: #fff;
-            padding: 9px 24px; box-shadow: var(--accent-glow);
+        /* Configuration Custom Controls */
+        .config-icon-trigger {
+            background: var(--matrix-card); border: 1px solid var(--border-neon);
+            color: var(--text-main); width: 38px; height: 38px; border-radius: 4px;
+            display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.2s;
         }
-        .btn-solid:hover { transform: translateY(-2px); filter: brightness(1.2); }
-
-        .icon-btn {
-            background: var(--bg-secondary); border: 1px solid var(--border-color);
-            color: var(--text-main); width: 40px; height: 40px; border-radius: 50%;
-            display: flex; justify-content: center; align-items: center; font-size: 16px;
-        }
-        .icon-btn:hover { border-color: var(--accent-main); color: var(--accent-main); transform: rotate(15deg); }
-
-        /* User Profile Badge */
-        .user-badge {
-            display: none; align-items: center; gap: 10px; background: var(--border-color);
-            padding: 5px 15px 5px 5px; border-radius: 30px; border: 1px solid var(--accent-main);
-        }
-        .user-badge img { width: 30px; height: 30px; border-radius: 50%; }
-        .user-badge span { font-family: 'Orbitron'; font-weight: bold; font-size: 14px; }
+        .config-icon-trigger:hover { border-color: var(--secondary-accent); color: var(--secondary-accent); box-shadow: var(--secondary-glow); }
 
         /* ==========================================================================
-           3. AUTHENTICATION MODALS (LOGIN / SIGNUP)
+           4. SYSTEM ENGINE CONFIGURATION DRAWER SIDEBAR
            ========================================================================== */
-        .modal-overlay {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px);
-            display: flex; justify-content: center; align-items: center; z-index: 9999;
-            opacity: 0; visibility: hidden; transition: 0.4s;
+        .engine-sidebar-drawer {
+            position: fixed; top: 0; right: -350px; width: 350px; height: 100vh;
+            background: rgba(var(--matrix-surface), 0.95); backdrop-filter: blur(30px);
+            z-index: 1500; border-left: 2px solid var(--primary-accent); padding: 40px 30px;
+            box-shadow: -10px 0 40px rgba(0,0,0,0.8); transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .modal-overlay.active { opacity: 1; visibility: visible; }
-
-        .modal-content {
-            background: var(--bg-primary); border: 1px solid var(--accent-main);
-            padding: 40px; border-radius: 12px; width: 100%; max-width: 400px;
-            transform: translateY(50px) scale(0.9); transition: 0.5s; position: relative;
-            box-shadow: var(--accent-glow);
-        }
-        .modal-overlay.active .modal-content { transform: translateY(0) scale(1); }
-
-        .close-modal {
-            position: absolute; top: 15px; right: 15px; background: none; border: none;
-            color: var(--text-muted); font-size: 20px; cursor: pointer; transition: 0.3s;
-        }
-        .close-modal:hover { color: var(--accent-main); transform: rotate(90deg); }
-
-        .modal-title { font-family: 'Orbitron'; font-size: 24px; margin-bottom: 25px; text-align: center; color: var(--text-main); }
+        .engine-sidebar-drawer.is-open { right: 0; }
+        .sidebar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 35px; }
+        .sidebar-header h2 { font-family: 'Orbitron'; font-size: 18px; letter-spacing: 2px; }
         
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; margin-bottom: 5px; color: var(--text-muted); font-weight: 600; }
-        .form-control {
-            width: 100%; padding: 12px 15px; background: var(--bg-secondary);
-            border: 1px solid var(--border-color); color: var(--text-main);
-            border-radius: 6px; outline: none; transition: 0.3s;
-        }
-        .form-control:focus { border-color: var(--accent-main); box-shadow: inset 0 0 10px rgba(255,0,60,0.2); }
+        .sidebar-setting-block { margin-bottom: 25px; }
+        .sidebar-setting-block label { display: block; font-size: 12px; color: var(--text-muted); font-family: 'Orbitron'; margin-bottom: 10px; letter-spacing: 1px;}
         
-        .auth-switch { text-align: center; margin-top: 15px; font-size: 14px; color: var(--text-muted); }
-        .auth-switch span { color: var(--accent-main); cursor: pointer; font-weight: bold; }
-        .auth-switch span:hover { text-decoration: underline; }
+        .theme-grid-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .theme-select-btn {
+            background: #000; border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 10px;
+            font-family: 'Rajdhani'; font-size: 13px; font-weight: bold; cursor: pointer; text-align: center;
+        }
+        .theme-select-btn:hover, .theme-select-btn.is-active { border-color: var(--secondary-accent); color: var(--secondary-accent); }
+
+        /* Custom Range Slider Core styles */
+        .cyber-range-input {
+            width: 100%; -webkit-appearance: none; background: #000; height: 6px; border-radius: 3px; outline: none;
+        }
+        .cyber-range-input::-webkit-slider-thumb {
+            -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--primary-accent); cursor: pointer; box-shadow: var(--primary-glow);
+        }
 
         /* ==========================================================================
-           4. LAG-FREE INFINITE GRID SYSTEM
+           5. SYSTEM MONITORING ANALYTICS HUD DASHBOARD
            ========================================================================== */
-        .grid-container {
-            padding: 40px; max-width: 2000px; margin: 0 auto; min-height: 100vh;
-            display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            grid-auto-flow: dense;
+        .analytics-hud-dashboard {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+            padding: 25px 40px; background: rgba(0,0,0,0.3); border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-family: 'Share Tech Mono', monospace;
         }
+        .hud-metric-card {
+            background: var(--matrix-card); border-left: 3px solid var(--secondary-accent);
+            padding: 12px 20px; display: flex; flex-direction: column; justify-content: center;
+        }
+        .hud-metric-card.alert-mode { border-left-color: var(--primary-accent); }
+        .hud-metric-label { color: var(--text-muted); font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; }
+        .hud-metric-value { color: var(--text-main); font-size: 22px; font-weight: 700; margin-top: 4px; }
 
-        /* Performance Optimizations for "Hazar Hazar" photos */
-        .photo-card {
-            background: var(--card-bg); border-radius: 10px; overflow: hidden;
-            position: relative; border: 1px solid var(--border-color);
-            content-visibility: auto; contain-intrinsic-size: 400px;
-            will-change: transform; transform: translateZ(0); 
-            opacity: 0; animation: fadeIn 0.6s ease forwards;
-            height: 400px; display: flex; flex-direction: column;
-        }
+        /* ==========================================================================
+           6. ULTRA HIGH INTERCEPTOR PHOTO GRID ARRAY
+           ========================================================================== */
+        .primary-viewport-container { padding: 40px; max-width: 2200px; margin: 0 auto; min-height: 80vh; }
         
-        /* Masonry varied heights */
-        .photo-card.tall { height: 600px; grid-row: span 2; }
-        .photo-card.wide { grid-column: span 2; }
-        @media(max-width: 768px) { .photo-card.wide { grid-column: span 1; } }
+        .quantum-photo-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 30px;
+        }
 
-        @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+        /* Advanced Hardware Compounded Card Node Structure */
+        .quantum-photo-card {
+            background: var(--matrix-card); border: 1px solid var(--border-neon);
+            position: relative; height: 460px; overflow: hidden; will-change: transform;
+            transform: var(--hardware-acceleration); content-visibility: auto; contain-intrinsic-size: 460px;
+            transition: border-color 0.4s, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .quantum-photo-card:hover { border-color: var(--secondary-accent); transform: translateY(-6px); box-shadow: var(--secondary-glow); }
 
-        .photo-card:hover { border-color: var(--accent-main); transform: translateY(-5px); box-shadow: var(--accent-glow); z-index: 10; }
+        /* Shimmer Loading Elements */
+        .shimmer-skeleton-mask {
+            position: absolute; inset: 0; background: linear-gradient(90deg, var(--matrix-card) 25%, rgba(255,255,255,0.03) 50%, var(--matrix-card) 75%);
+            background-size: 200% 100%; animation: matrixShimmer 1.5s infinite linear; z-index: 2;
+        }
+        @keyframes matrixShimmer { to { background-position: -200% 0; } }
 
-        .img-wrapper { width: 100%; height: 100%; position: relative; background: #111; overflow: hidden; }
+        .media-viewport { width: 100%; height: 100%; position: relative; background: #000; }
+        .media-viewport img { width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.6s ease, filter 0.3s ease; }
+
+        /* Interactive Multi-View HUD Layer Configuration */
+        .card-hud-overlay {
+            position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
+            display: flex; flex-direction: column; justify-content: space-between; padding: 25px; opacity: 0; transition: opacity 0.35s ease; z-index: 3;
+        }
+        .quantum-photo-card:hover .card-hud-overlay { opacity: 1; }
+
+        .card-hud-upper { display: flex; justify-content: space-between; align-items: center; }
+        .card-hud-badge { background: rgba(0,0,0,0.75); border: 1px solid var(--secondary-accent); color: var(--secondary-accent); padding: 4px 10px; font-family: 'Share Tech Mono'; font-size: 11px; border-radius: 2px; }
         
-        .grid-img {
-            width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease;
+        .card-action-deck { display: flex; gap: 8px; }
+        .card-action-btn {
+            background: rgba(0,0,0,0.85); border: 1px solid rgba(255,255,255,0.1); color: #fff;
+            width: 36px; height: 36px; border-radius: 4px; display: flex; justify-content: center; align-items: center;
+            cursor: pointer; transition: all 0.2s; font-size: 13px;
         }
-        .photo-card:hover .grid-img { transform: scale(1.1); filter: brightness(0.7) contrast(1.2); }
+        .card-action-btn:hover { border-color: var(--secondary-accent); color: var(--secondary-accent); box-shadow: var(--secondary-glow); transform: scale(1.05); }
+        .card-action-btn.is-saved { color: var(--primary-accent); border-color: var(--primary-accent); }
 
-        .overlay-ui {
-            position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, transparent 60%);
-            opacity: 0; transition: 0.3s; display: flex; flex-direction: column; justify-content: space-between; padding: 20px;
+        /* Photo Embedded FX Tweaker Panel */
+        .photo-fx-tweaker-hud {
+            background: rgba(0,0,0,0.9); border: 1px solid rgba(255,255,255,0.08); padding: 12px; border-radius: 4px;
+            margin-top: 10px; display: none; flex-direction: column; gap: 8px;
         }
-        .photo-card:hover .overlay-ui { opacity: 1; }
+        .photo-fx-tweaker-hud.is-visible { display: flex; }
+        .fx-slider-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+        .fx-slider-row span { font-family: 'Share Tech Mono'; font-size: 10px; color: var(--text-muted); width: 60px; text-transform: uppercase; }
+        .fx-slider-row input { flex-grow: 1; height: 3px; -webkit-appearance: none; background: #222; }
+        .fx-slider-row input::-webkit-slider-thumb { -webkit-appearance: none; width: 10px; height: 10px; background: var(--secondary-accent); border-radius: 50%; cursor: pointer;}
 
-        .card-actions { display: flex; justify-content: flex-end; gap: 10px; }
-        .action-btn {
-            background: rgba(0,0,0,0.6); color: white; border: 1px solid rgba(255,255,255,0.2);
-            width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center;
-            cursor: pointer; transition: 0.3s; font-size: 16px;
+        .card-hud-lower h3 { font-family: 'Orbitron'; font-size: 16px; font-weight: 700; margin-bottom: 4px; letter-spacing: 1px; color: #fff; }
+        .card-hud-lower p { font-family: 'Share Tech Mono'; font-size: 12px; color: var(--secondary-accent); }
+
+        .pipeline-end-loader { text-align: center; padding: 60px 0; font-family: 'Orbitron'; font-size: 14px; color: var(--primary-accent); letter-spacing: 4px; }
+
+        /* ==========================================================================
+           7. MODAL PROTOCOLS & CRYPTO INVOICE WIDGETS
+           ========================================================================== */
+        .system-modal-backdrop {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.92); backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px); display: flex; justify-content: center; align-items: center;
+            z-index: 3000; opacity: 0; visibility: hidden; transition: all 0.3s ease;
         }
-        .action-btn:hover { border-color: var(--accent-main); color: var(--accent-main); }
-        .action-btn.saved { color: var(--accent-main); border-color: var(--accent-main); background: rgba(255,0,60,0.2); }
+        .system-modal-backdrop.is-active { opacity: 1; visibility: visible; }
 
-        .card-info { color: white; transform: translateY(10px); transition: 0.3s; }
-        .photo-card:hover .card-info { transform: translateY(0); }
-        .card-title { font-family: 'Orbitron'; font-size: 18px; margin-bottom: 5px; text-transform: uppercase; }
-        .card-desc { font-size: 13px; color: #aaa; margin-bottom: 15px; }
-        
-        .download-full {
-            width: 100%; padding: 10px; background: transparent; border: 1px solid var(--accent-main);
-            color: white; border-radius: 4px; font-weight: bold; cursor: pointer; transition: 0.3s;
+        .system-modal-window {
+            background: var(--matrix-surface); border: 2px solid var(--primary-accent);
+            padding: 40px; width: 90%; max-width: 480px; box-shadow: var(--primary-glow);
+            position: relative; clip-path: polygon(0 0, calc(100% - 25px) 0, 100% 25px, 100% 100%, 25px 100%, 0 calc(100% - 25px));
         }
-        .download-full:hover { background: var(--accent-main); box-shadow: var(--accent-glow); }
+        .close-modal-trigger { position: absolute; top: 20px; right: 20px; background: none; border: none; color: var(--text-muted); font-size: 18px; cursor: pointer; }
+        .close-modal-trigger:hover { color: var(--primary-accent); }
 
-        /* Loader */
-        .system-loader { text-align: center; padding: 50px; color: var(--accent-main); font-family: 'Orbitron'; font-size: 20px; letter-spacing: 2px; }
+        .crypto-wallet-container { background: #000; border: 1px dashed var(--secondary-accent); padding: 18px; margin: 20px 0; text-align: left; }
+        .crypto-address-string { font-family: 'Share Tech Mono', monospace; font-size: 12px; color: #fff; word-break: break-all; background: rgba(255,255,255,0.02); padding: 10px; border: 1px solid rgba(255,255,255,0.05); margin-top: 5px; }
 
-        /* Toasts */
-        #toast-container { position: fixed; bottom: 30px; left: 30px; z-index: 10000; display: flex; flex-direction: column; gap: 10px; }
-        .toast { background: var(--bg-secondary); border-left: 4px solid var(--accent-main); color: var(--text-main); padding: 15px 25px; border-radius: 4px; border-top: 1px solid var(--border-color); border-right: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 12px; font-weight: bold; animation: slideIn 0.3s forwards, fadeOut 0.3s 3s forwards; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
-        @keyframes slideIn { from { transform: translateX(-100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-        @keyframes fadeOut { to { opacity: 0; transform: translateX(-20px); } }
+        .invoice-simulation-log { background: #05050a; border: 1px solid #111; height: 100px; overflow-y: auto; padding: 10px; font-family: 'Share Tech Mono'; font-size: 11px; color: var(--terminal-green); text-align: left; margin-top: 15px; }
+
+        /* Lightbox Image Preview system */
+        #portal-lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 4000; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: 0.3s; }
+        #portal-lightbox.is-active { opacity: 1; visibility: visible; }
+        .lightbox-content-box { position: relative; max-width: 85vw; max-height: 80vh; text-align: center; }
+        .lightbox-content-box img { max-width: 100%; max-height: 80vh; object-fit: contain; border: 1px solid rgba(255,255,255,0.1); }
+
+        /* ==========================================================================
+           8. SYSTEM PERSISTENT LOG TERMINAL COMPONENT
+           ========================================================================== */
+        .system-log-terminal-panel {
+            background: #020205; border-top: 2px solid var(--secondary-accent); height: 160px;
+            position: fixed; bottom: 0; left: 0; width: 100%; z-index: 999;
+            font-family: 'Share Tech Mono', monospace; padding: 15px 30px; display: flex; flex-direction: column;
+        }
+        .terminal-header { display: flex; justify-content: space-between; color: var(--secondary-accent); font-size: 12px; padding-bottom: 8px; border-bottom: 1px solid rgba(0,240,255,0.1); margin-bottom: 10px; }
+        .terminal-stream-feed { flex-grow: 1; overflow-y: auto; font-size: 11px; display: flex; flex-direction: column; gap: 4px; color: var(--terminal-green); }
+
+        /* Toast UI Feedback alerts */
+        #toast-nexus-dock { position: fixed; bottom: 180px; left: 30px; z-index: 6000; display: flex; flex-direction: column; gap: 10px; }
+        .nexus-toast { background: var(--matrix-card); border-left: 4px solid var(--secondary-accent); padding: 15px 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); animation: toastSlipIn 0.3s forwards; font-size: 13px; font-family: 'Share Tech Mono';}
+        @keyframes toastSlipIn { from { transform: translateX(-100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 
     </style>
 </head>
 <body>
 
-    <div class="top-bar">
-        Designed By <span style="font-family: 'Orbitron'; color: white;">@i_f_t_uu</span>
+    <!-- OVERHEAD MAIN SYSTEM TRACK SCREEN RUNNER -->
+    <div class="system-top-ticker">
+        <div>CORE ENGINE PROTOCOL: ONLINE // HARDWARE_ACCELERATION: ACTIVE // MEMORY_LOCK: ENFORCED</div>
+        <div>OPERATOR DIRECTIVES ARCHIVE: <span><a href="https://instagram.com/i_f_t_uu" target="_blank">@i_f_t_uu</a></span></div>
     </div>
 
+    <!-- MAIN APP STRUCTURE CONTROL HEADER -->
     <header>
-        <div class="logo" onclick="window.scrollTo(0,0)">TOKYO</div>
+        <div class="brand-logo-panel">
+            <h1 onclick="window.scrollTo({top: 0, behavior: 'smooth'})">TOKYO_<span>NEXUS</span></h1>
+        </div>
         
-        <div class="nav-controls">
-            <button class="icon-btn" id="themeToggle" title="Toggle Dark/Light Mode">
-                <i class="fas fa-moon"></i>
-            </button>
-            
-            <div id="auth-buttons">
-                <button class="btn-outline" onclick="openModal('loginModal')">LOGIN</button>
-                <button class="btn-solid" onclick="openModal('signupModal')">SIGN UP</button>
-            </div>
+        <!-- Dynamic Category Stratum Matrix selectors -->
+        <div class="filter-capsule-deck">
+            <button class="filter-node-btn is-active" onclick="AppEngine.Pipeline.setCategory('all', this)">ALL METRO</button>
+            <button class="filter-node-btn" onclick="AppEngine.Pipeline.setCategory('cyberpunk,tokyo,alley', this)">ALLEYS</button>
+            <button class="filter-node-btn" onclick="AppEngine.Pipeline.setCategory('neon,skyscraper,tokyo', this)">TOWERS</button>
+            <button class="filter-node-btn" onclick="AppEngine.Pipeline.setCategory('synthwave,cyberpunk', this)">SYNTH DISCO</button>
+            <button class="filter-node-btn" onclick="AppEngine.Pipeline.setCategory('tokyo,night,traffic', this)">TRAFFIC FLOW</button>
+        </div>
 
-            <div id="user-profile" class="user-badge">
-                <img src="https://loremflickr.com/100/100/cyberpunk,avatar" alt="User">
-                <span id="username-display">USER_ID</span>
-                <button class="icon-btn" style="width: 25px; height: 25px; font-size: 12px; border: none; background: transparent; color: var(--accent-main);" onclick="logout()" title="Logout">
-                    <i class="fas fa-power-off"></i>
-                </button>
-            </div>
+        <div class="control-panel-cluster">
+            <button class="hightech-cyber-btn hightech-cyber-btn-solid" onclick="AppEngine.Modals.toggle('coffeeModal', true)">
+                <i class="fas fa-coffee"></i> COFFEE STATION
+            </button>
+            <button class="config-icon-trigger" onclick="AppEngine.Sidebar.toggle(true)" title="Engine Architecture Settings">
+                <i class="fas fa-sliders-h"></i>
+            </button>
         </div>
     </header>
 
-    <main>
-        <div class="grid-container" id="gallery-grid">
-            </div>
+    <!-- REAL-TIME DIAGNOSTIC METRIC PANEL HUD -->
+    <div class="analytics-hud-dashboard">
+        <div class="hud-metric-card">
+            <span class="hud-metric-label">STREAMED_ASSET_COUNT</span>
+            <span class="hud-metric-value" id="hud-total-assets">0</span>
+        </div>
+        <div class="hud-metric-card">
+            <span class="hud-metric-label">DEDUPLICATION_MUTEX_LOCKS</span>
+            <span class="hud-metric-value" id="hud-mutex-locks">0</span>
+        </div>
+        <div class="hud-metric-card">
+            <span class="hud-metric-label">HARDWARE_RENDER_RATIO</span>
+            <span class="hud-metric-value" id="hud-fps-counter">60.0 FPS</span>
+        </div>
+        <div class="hud-metric-card" id="hud-saved-card">
+            <span class="hud-metric-label">BOOKMARKED_DATA_PACKETS</span>
+            <span class="hud-metric-value" id="hud-saved-count">0</span>
+        </div>
+    </div>
+
+    <!-- MAIN RENDER VIEWPORT SPACE -->
+    <main class="primary-viewport-container">
+        <div class="quantum-photo-grid" id="main-quantum-photo-grid">
+            <!-- Dynamic independent hardware-bound image template items populate inside this grid component -->
+        </div>
         
-        <div id="scroll-target" class="system-loader">
-            <i class="fas fa-circle-notch fa-spin"></i> GENERATING NEXT SECTOR...
+        <!-- Infinite Stream Tracker Intersection Pivot Point -->
+        <div id="infinite-pipeline-sentinel" class="pipeline-end-loader">
+            <i class="fas fa-circle-notch fa-spin"></i> INTERCEPTING INFINITE TOKYO PHOTON NETWORK PIPELINE...
         </div>
     </main>
 
-    <div class="modal-overlay" id="loginModal">
-        <div class="modal-content">
-            <button class="close-modal" onclick="closeModal('loginModal')"><i class="fas fa-times"></i></button>
-            <h2 class="modal-title">SYSTEM LOGIN</h2>
-            <form id="loginForm" onsubmit="handleLogin(event)">
-                <div class="form-group">
-                    <label>Username / Email</label>
-                    <input type="text" class="form-control" id="loginUser" required placeholder="Enter your ID">
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" class="form-control" required placeholder="Enter encryption key">
-                </div>
-                <button type="submit" class="btn-solid" style="width: 100%;">ACCESS UPLINK</button>
-                <div class="auth-switch">
-                    No account? <span onclick="switchModal('loginModal', 'signupModal')">Create one</span>
-                </div>
-            </form>
+    <!-- DYNAMIC SYSTEM DRAWER SIDEBAR CONFIGURATION DOCK -->
+    <div class="engine-sidebar-drawer" id="engine-sidebar">
+        <div class="sidebar-header">
+            <h2>ENGINE CONTROL</h2>
+            <button class="config-icon-trigger" onclick="AppEngine.Sidebar.toggle(false)"><i class="fas fa-times"></i></button>
+        </div>
+        
+        <div class="sidebar-setting-block">
+            <label>VISUAL ENVIRONMENT EMULATION</label>
+            <div class="theme-grid-selector">
+                <button class="theme-select-btn is-active" data-theme-id="cyber-neon" onclick="AppEngine.Themes.switchTheme(this)">CYBER NEON</button>
+                <button class="theme-select-btn" data-theme-id="synthwave" onclick="AppEngine.Themes.switchTheme(this)">SYNTHWAVE</button>
+                <button class="theme-select-btn" data-theme-id="matrix-green" onclick="AppEngine.Themes.switchTheme(this)">MATRIX GREEN</button>
+                <button class="theme-select-btn" data-theme-id="stealth" onclick="AppEngine.Themes.switchTheme(this)">STEALTH MODE</button>
+            </div>
+        </div>
+
+        <div class="sidebar-setting-block">
+            <label id="slider-cols-label">GRID COLS STRUCT: AUTO</label>
+            <input type="range" class="cyber-range-input" min="1" max="5" value="3" id="grid-column-slider" oninput="AppEngine.Pipeline.adjustGridLayout(this.value)">
+        </div>
+
+        <div class="sidebar-setting-block">
+            <label>PIPELINE BATCH LOAD QUANTITY</label>
+            <input type="range" class="cyber-range-input" min="8" max="40" value="16" id="batch-size-slider">
+        </div>
+        
+        <div class="sidebar-setting-block" style="margin-top: 40px;">
+            <button class="hightech-cyber-btn" style="width: 100%;" onclick="AppEngine.Storage.clearBookmarks()">
+                <i class="fas fa-trash-alt"></i> PURGE STORAGE VAULT
+            </button>
         </div>
     </div>
 
-    <div class="modal-overlay" id="signupModal">
-        <div class="modal-content">
-            <button class="close-modal" onclick="closeModal('signupModal')"><i class="fas fa-times"></i></button>
-            <h2 class="modal-title">REGISTER IDENTITY</h2>
-            <form id="signupForm" onsubmit="handleSignup(event)">
-                <div class="form-group">
-                    <label>Desired Username</label>
-                    <input type="text" class="form-control" id="signupUser" required placeholder="Choose an alias">
-                </div>
-                <div class="form-group">
-                    <label>Email Address</label>
-                    <input type="email" class="form-control" required placeholder="System comms link">
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" class="form-control" required placeholder="Secure key">
-                </div>
-                <button type="submit" class="btn-solid" style="width: 100%;">INITIALIZE</button>
-                <div class="auth-switch">
-                    Already registered? <span onclick="switchModal('signupModal', 'loginModal')">Login here</span>
-                </div>
-            </form>
+    <!-- COFFEE CONTRIBUTION SIMULATOR MODAL PANEL -->
+    <div class="system-modal-backdrop" id="coffeeModal">
+        <div class="system-modal-window">
+            <button class="close-modal-trigger" onclick="AppEngine.Modals.toggle('coffeeModal', false)"><i class="fas fa-times"></i></button>
+            <h2 style="font-family:'Orbitron'; font-size:18px; letter-spacing:2px; text-align:center;">COFFEE CORE DONATION</h2>
+            <p style="color:var(--text-muted); font-size:13px; text-align:center; margin-top:10px;">Transmit a fast server-maintenance token via TON cryptocurrency blockchain structure directly to the master server architect node.</p>
+            
+            <div class="crypto-wallet-container">
+                <span style="font-family:'Orbitron'; font-size:10px; font-weight:700; color:var(--secondary-accent)">DESTINATION TON ADDRESS</span>
+                <div class="crypto-address-string" id="target-ton-wallet-node">UQCvCMmfwJugAgxbMjmUrHI4goe2boXykQwNCDOWcwi8_fGT</div>
+            </div>
+
+            <div style="display:flex; gap:10px;">
+                <button class="hightech-cyber-btn" style="flex:1;" onclick="AppEngine.Modals.copyWalletAddress()">
+                    <i class="fas fa-copy"></i> COPY WALLET
+                </button>
+                <button class="hightech-cyber-btn hightech-cyber-btn-solid" style="flex:1;" onclick="AppEngine.Modals.simulateTONTransaction()">
+                    <i class="fas fa-bolt"></i> TEST SIMULATE
+                </button>
+            </div>
+
+            <div class="invoice-simulation-log" id="invoice-terminal-feed">
+                [SYSTEM]: Awaiting target execution command sequence...
+            </div>
         </div>
     </div>
 
-    <div id="toast-container"></div>
+    <!-- INTERACTIVE LIGHTBOX SYSTEM -->
+    <div id="portal-lightbox" onclick="AppEngine.Modals.closeLightbox()">
+        <div class="lightbox-content-box">
+            <img src="" id="lightbox-img-render-node" alt="High Resolution Grid Extract">
+        </div>
+    </div>
 
+    <!-- LIVE RUNTIME FEED MESSENGER DOCK -->
+    <div id="toast-nexus-dock"></div>
+
+    <!-- PERSISTENT LIVE DEV TERMINAL LOG LAYER -->
+    <div class="system-log-terminal-panel">
+        <div class="terminal-header">
+            <div><i class="fas fa-terminal"></i> CORE LIVE DIAGNOSTIC SYSTEM LOG TRACKER</div>
+            <div id="terminal-clock-node">00:00:00</div>
+        </div>
+        <div class="terminal-stream-feed" id="terminal-logs-render-space">
+            <!-- Dynamic runtime console logs inject smoothly right here -->
+        </div>
+    </div>
+
+
+    <!-- ==========================================================================
+       9. ARCHITECTURAL MAIN APP ENGINE JAVASCRIPT MICROCODE LAYER
+       ========================================================================== -->
     <script>
-        // --- A. THEME MANAGEMENT (Dark / Light Mode) ---
-        const themeToggleBtn = document.getElementById('themeToggle');
-        const rootElement = document.documentElement;
-        
-        // Check saved theme
-        if (localStorage.getItem('tokyoTheme') === 'light') {
-            rootElement.setAttribute('data-theme', 'light');
-            themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
-        }
+        /**
+         * NEO TOKYO MAIN APPLICATION HUB ORCHESTRATOR
+         * Entire ecosystem state machine bundled inside single clean object encapsulation.
+         */
+        const AppEngine = {
+            state: {
+                totalLoaded: 0,
+                mutexLocksCount: 0,
+                activeCategory: 'all',
+                bookmarkedItems: JSON.parse(localStorage.getItem('nexus_bookmarks')) || [],
+                activeTheme: localStorage.getItem('nexus_theme_strata') || 'cyber-neon',
+                fpsCounter: 60,
+                pipelinePointer: 0
+            },
 
-        themeToggleBtn.addEventListener('click', () => {
-            const currentTheme = rootElement.getAttribute('data-theme');
-            if (currentTheme === 'dark') {
-                rootElement.setAttribute('data-theme', 'light');
-                themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
-                localStorage.setItem('tokyoTheme', 'light');
-                showToast('Light Theme Activated');
-            } else {
-                rootElement.setAttribute('data-theme', 'dark');
-                themeToggleBtn.innerHTML = '<i class="fas fa-moon"></i>';
-                localStorage.setItem('tokyoTheme', 'dark');
-                showToast('Dark Theme Activated');
-            }
-        });
+            /**
+             * Runtime Global Logger Mechanism
+             */
+            Logger: {
+                logSpace: null,
+                init() {
+                    this.logSpace = document.getElementById('terminal-logs-render-space');
+                    setInterval(() => {
+                        const clk = new Date();
+                        document.getElementById('terminal-clock-node').innerText = clk.toTimeString().split(' ')[0];
+                    }, 1000);
+                    this.push("Kernel core systems initialized successfully. Core operational.");
+                },
+                push(msgText, level = "INFO") {
+                    const lineNode = document.createElement('div');
+                    const ts = new Date().toISOString().slice(11, 19);
+                    lineNode.innerHTML = `[${ts}] [SYSTEM_${level}]: -> ${msgText}`;
+                    if(this.logSpace) {
+                        this.logSpace.appendChild(lineNode);
+                        this.logSpace.scrollTop = this.logSpace.scrollHeight;
+                    }
+                }
+            },
 
-        // --- B. AUTHENTICATION LOGIC (Login / Signup) ---
-        function checkAuth() {
-            const user = localStorage.getItem('tokyoActiveUser');
-            if (user) {
-                document.getElementById('auth-buttons').style.display = 'none';
-                document.getElementById('user-profile').style.display = 'flex';
-                document.getElementById('username-display').innerText = user;
-            } else {
-                document.getElementById('auth-buttons').style.display = 'flex';
-                document.getElementById('user-profile').style.display = 'none';
-            }
-        }
+            /**
+             * Theme Modulation Controller Subsystem
+             */
+            Themes: {
+                init() {
+                    document.documentElement.setAttribute('data-theme', AppEngine.state.activeTheme);
+                    const matchedBtn = document.querySelector(`[data-theme-id="${AppEngine.state.activeTheme}"]`);
+                    if(matchedBtn) {
+                        document.querySelectorAll('.theme-select-btn').forEach(b => b.classList.remove('is-active'));
+                        matchedBtn.classList.add('is-active');
+                    }
+                    AppEngine.Logger.push(`Theme interface mapped to stratum: ${AppEngine.state.activeTheme.toUpperCase()}`);
+                },
+                switchTheme(buttonNode) {
+                    const themeId = buttonNode.getAttribute('data-theme-id');
+                    AppEngine.state.activeTheme = themeId;
+                    localStorage.setItem('nexus_theme_strata', themeId);
+                    document.documentElement.setAttribute('data-theme', themeId);
+                    
+                    document.querySelectorAll('.theme-select-btn').forEach(b => b.classList.remove('is-active'));
+                    buttonNode.classList.add('is-active');
+                    
+                    AppEngine.Toast.show(`Visual configuration modified to: ${themeId.toUpperCase()}`);
+                    AppEngine.Logger.push(`Environment configuration mutated safely to: [${themeId}]`);
+                }
+            },
 
-        function handleLogin(e) {
-            e.preventDefault();
-            const username = document.getElementById('loginUser').value;
-            localStorage.setItem('tokyoActiveUser', username);
-            closeModal('loginModal');
-            checkAuth();
-            showToast(`Welcome back, ${username}. Uplink secured.`);
-            document.getElementById('loginForm').reset();
-        }
+            /**
+             * Local Vault Storage Interface System
+             */
+            Storage: {
+                init() {
+                    document.getElementById('hud-saved-count').innerText = AppEngine.state.bookmarkedItems.length;
+                    AppEngine.Logger.push(`Storage Vault read finished. Cached entries parsed: ${AppEngine.state.bookmarkedItems.length}`);
+                },
+                toggleBookmark(assetPath, cardId, uiButton) {
+                    const idx = AppEngine.state.bookmarkedItems.indexOf(assetPath);
+                    if(idx === -1) {
+                        AppEngine.state.bookmarkedItems.push(assetPath);
+                        uiButton.classList.add('is-saved');
+                        uiButton.innerHTML = '<i class="fas fa-bookmark"></i>';
+                        AppEngine.Toast.show("Sector target coordinates logged to storage vaults.");
+                        AppEngine.Logger.push(`Target sequence asset logged to volatile storage arrays.`);
+                    } else {
+                        AppEngine.state.bookmarkedItems.splice(idx, 1);
+                        uiButton.classList.remove('is-saved');
+                        uiButton.innerHTML = '<i class="far fa-bookmark"></i>';
+                        AppEngine.Toast.show("Sector coordinates scrubbed from index registries.");
+                        AppEngine.Logger.push(`Target validation key purged from storage vectors.`);
+                    }
+                    localStorage.setItem('nexus_bookmarks', JSON.stringify(AppEngine.state.bookmarkedItems));
+                    document.getElementById('hud-saved-count').innerText = AppEngine.state.bookmarkedItems.length;
+                },
+                clearBookmarks() {
+                    AppEngine.state.bookmarkedItems = [];
+                    localStorage.removeItem('nexus_bookmarks');
+                    document.getElementById('hud-saved-count').innerText = 0;
+                    document.querySelectorAll('.card-action-btn.is-saved').forEach(btn => {
+                        btn.classList.remove('is-saved');
+                        btn.innerHTML = '<i class="far fa-bookmark"></i>';
+                    });
+                    AppEngine.Toast.show("Local storage vault wiped completely clean.");
+                    AppEngine.Logger.push("Storage array master purge sequence executed.", "WARN");
+                }
+            },
 
-        function handleSignup(e) {
-            e.preventDefault();
-            const username = document.getElementById('signupUser').value;
-            localStorage.setItem('tokyoActiveUser', username);
-            closeModal('signupModal');
-            checkAuth();
-            showToast(`Identity ${username} registered successfully.`);
-            document.getElementById('signupForm').reset();
-        }
+            /**
+             * Interface Sidebar Sliding Draw Engine
+             */
+            Sidebar: {
+                toggle(openFlag) {
+                    const sb = document.getElementById('engine-sidebar');
+                    if(openFlag) sb.classList.add('is-open');
+                    else sb.classList.remove('is-open');
+                    AppEngine.Logger.push(`Sidebar layout visualization altered state to: ${openFlag}`);
+                }
+            },
 
-        function logout() {
-            localStorage.removeItem('tokyoActiveUser');
-            checkAuth();
-            showToast('Connection Terminated. Logged out.');
-        }
+            /**
+             * Multi Modal Controller Component Block
+             */
+            Modals: {
+                toggle(modalId, activeState) {
+                    const targetModal = document.getElementById(modalId);
+                    if(activeState) targetModal.classList.add('is-active');
+                    else targetModal.classList.remove('is-active');
+                    AppEngine.Logger.push(`Modal window overlay tracking id [${modalId}] state mapped: ${activeState}`);
+                },
+                copyWalletAddress() {
+                    const targetString = document.getElementById('target-ton-wallet-node').innerText;
+                    navigator.clipboard.writeText(targetString).then(() => {
+                        AppEngine.Toast.show("TON target node sequence mapped to machine clipboard.");
+                        AppEngine.Logger.push("Crypto network recipient data chunk copied.");
+                    }).catch(() => {
+                        AppEngine.Logger.push("Clipboard write operations rejected by browser security sandbox.", "ERROR");
+                    });
+                },
+                simulateTONTransaction() {
+                    const streamLog = document.getElementById('invoice-terminal-feed');
+                    streamLog.innerHTML += `<br>[${new Date().toLocaleTimeString()}]: Initiating RPC pipeline handshake to TON wallet matrix...`;
+                    
+                    setTimeout(() => {
+                        const mockHash = Array.from({length:16}, () => Math.floor(Math.random()*16).toString(16)).join('');
+                        streamLog.innerHTML += `<br><span style="color:var(--secondary-accent)">[SUCCESS]: Transaction Simulation Broadcast OK. TxHash: 0x${mockHash}...</span>`;
+                        streamLog.scrollTop = streamLog.scrollHeight;
+                        AppEngine.Logger.push("TON Blockchain remote endpoint simulation loop closed perfectly.");
+                    }, 1200);
+                },
+                launchLightbox(imageSrcPath) {
+                    const lbNode = document.getElementById('portal-lightbox');
+                    const imgNode = document.getElementById('lightbox-img-render-node');
+                    imgNode.src = imageSrcPath;
+                    lbNode.classList.add('is-active');
+                    AppEngine.Logger.push(`Lightbox view frame portal instantiated for image source pointer.`);
+                },
+                closeLightbox() {
+                    document.getElementById('portal-lightbox').classList.remove('is-active');
+                }
+            },
 
-        // Modal Utility Functions
-        function openModal(id) { document.getElementById(id).classList.add('active'); }
-        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-        function switchModal(closeId, openId) { closeModal(closeId); openModal(openId); }
-        
-        // Close modal on outside click
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal-overlay')) {
-                event.target.classList.remove('active');
-            }
-        }
+            /**
+             * Toast Feedback Messenger Interface Layer
+             */
+            Toast: {
+                show(messageString) {
+                    const dock = document.getElementById('toast-nexus-dock');
+                    const toast = document.createElement('div');
+                    toast.className = 'nexus-toast';
+                    toast.innerHTML = `<i class="fas fa-bolt" style="color:var(--secondary-accent); margin-right:8px;"></i> ${messageString}`;
+                    dock.appendChild(toast);
+                    setTimeout(() => { toast.remove(); }, 3000);
+                }
+            },
 
-        // --- C. LAG-FREE INFINITE IMAGE GENERATOR (The Magic) ---
-        const grid = document.getElementById('gallery-grid');
-        let imageCount = 0;
-        const BATCH_SIZE = 30; // Loads 30 high-res images per scroll
-        
-        // Strict Future Architecture Keywords
-        const keywords = ['tokyo,cyberpunk,architecture', 'neon,city,future', 'scifi,building,tokyo', 'night,street,japan', 'dystopian,cityscape'];
-
-        function generateUniqueId() { return Math.floor(Math.random() * 90000) + 10000; }
-
-        function loadImages() {
-            // Using DocumentFragment prevents reflow/lag when appending thousands of items
-            const fragment = document.createDocumentFragment();
-
-            for (let i = 0; i < BATCH_SIZE; i++) {
-                imageCount++;
-                const word = keywords[Math.floor(Math.random() * keywords.length)];
-                const sysId = `SEC-${generateUniqueId()}`;
+            /**
+             * Non-Redundant Ultra Stream Pipeline Image Extraction Engine Matrix
+             */
+            Pipeline: {
+                deduplicationSet: new Set(),
+                fallbackPool: ['cyberpunk,tokyo', 'neon,city,future', 'scifi,tokyo,night', 'synthwave,cyberpunk', 'futuristic,megastructure'],
                 
-                // Masonry logic for dynamic sizing
-                let cardClass = 'photo-card';
-                const rand = Math.random();
-                if (rand > 0.8) cardClass += ' tall';
-                else if (rand > 0.6) cardClass += ' wide';
+                init() {
+                    AppEngine.Logger.push("Infinite streaming intersection observer nodes deployed.");
+                },
 
-                const imgUrl = `https://loremflickr.com/800/600/${word}?lock=${imageCount + Math.floor(Math.random() * 10000)}`;
+                setCategory(categoryKeyword, elementButtonNode) {
+                    if (AppEngine.state.activeCategory === categoryKeyword) return;
+                    AppEngine.state.activeCategory = categoryKeyword;
+                    
+                    document.querySelectorAll('.filter-node-btn').forEach(b => b.classList.remove('is-active'));
+                    elementButtonNode.classList.add('is-active');
+                    
+                    document.getElementById('main-quantum-photo-grid').innerHTML = '';
+                    AppEngine.Logger.push(`Data sector focus changed. Flushing render grids. Switching target filters to: ${categoryKeyword.toUpperCase()}`);
+                    
+                    this.interceptAndRenderGridBatch();
+                },
 
-                const card = document.createElement('div');
-                card.className = cardClass;
-                card.innerHTML = `
-                    <div class="img-wrapper">
-                        <img src="${imgUrl}" alt="Tokyo Future" class="grid-img" loading="lazy">
-                        <div class="overlay-ui">
-                            <div class="card-actions">
-                                <button class="action-btn" onclick="toggleSave(this)" title="Save to local database">
-                                    <i class="far fa-heart"></i>
-                                </button>
-                                <button class="action-btn" onclick="copyLink('${sysId}')" title="Copy Sector ID">
-                                    <i class="fas fa-link"></i>
-                                </button>
+                adjustGridLayout(columnRangeValue) {
+                    const grid = document.getElementById('main-quantum-photo-grid');
+                    const label = document.getElementById('slider-cols-label');
+                    if (columnRangeValue == '1') {
+                        grid.style.gridTemplateColumns = '1fr';
+                        label.innerText = 'GRID COLS STRUCT: MONO';
+                    } else {
+                        grid.style.gridTemplateColumns = `repeat(auto-fill, minmax(${450 - (columnRangeValue * 40)}px, 1fr))`;
+                        label.innerText = `GRID COLS STRUCT: LEVEL ${columnRangeValue}`;
+                    }
+                    AppEngine.Logger.push(`Viewport responsive layout grid distribution reconfigured dynamically to level [${columnRangeValue}].`);
+                },
+
+                toggleFXPanel(btnElement) {
+                    const cardNode = btnElement.closest('.quantum-photo-card');
+                    const fxPanel = cardNode.querySelector('.photo-fx-tweaker-hud');
+                    fxPanel.classList.toggle('is-visible');
+                },
+
+                applyLiveFXFilters(sliderElement, filterTypeString) {
+                    const cardNode = sliderElement.closest('.quantum-photo-card');
+                    const imageElement = cardNode.querySelector('.target-render-photo');
+                    
+                    let bVal = cardNode.querySelector('.slider-fx-brightness').value;
+                    let cVal = cardNode.querySelector('.slider-fx-contrast').value;
+                    let blVal = cardNode.querySelector('.slider-fx-blur').value;
+                    let hVal = cardNode.querySelector('.slider-fx-hue').value;
+                    
+                    imageElement.style.filter = `brightness(${bVal}%) contrast(${cVal}%) blur(${blVal}px) hue-rotate(${hVal}deg)`;
+                },
+
+                interceptAndRenderGridBatch() {
+                    const fragmentMatrix = document.createDocumentFragment();
+                    const currentConfiguredBatchSize = parseInt(document.getElementById('batch-size-slider').value) || 16;
+                    
+                    AppEngine.Logger.push(`Interception pipeline parsing network streams. Extracting chunk batch size: ${currentConfiguredBatchSize}`);
+
+                    for(let loopIdx = 0; loopIdx < currentConfiguredBatchSize; loopIdx++) {
+                        AppEngine.state.pipelinePointer++;
+                        AppEngine.state.totalLoaded++;
+
+                        let selectedSeedKeyword = AppEngine.state.activeCategory;
+                        if(selectedSeedKeyword === 'all') {
+                            selectedSeedKeyword = this.fallbackPool[AppEngine.state.pipelinePointer % this.fallbackPool.length];
+                        }
+
+                        // Unique deterministic coordinate calculation logic locks out multi-render matching collisions
+                        const cryptographicOffsetLockValue = 45000 + (AppEngine.state.pipelinePointer * 37);
+                        const endpointResolutionPath = `https://loremflickr.com/800/1000/${selectedSeedKeyword}?lock=${cryptographicOffsetLockValue}`;
+
+                        if(this.deduplicationSet.has(endpointResolutionPath)) {
+                            AppEngine.state.mutexLocksCount++;
+                            document.getElementById('hud-mutex-locks').innerText = AppEngine.state.mutexLocksCount;
+                            continue;
+                        }
+                        this.deduplicationSet.add(endpointResolutionPath);
+
+                        const structuralNodeCodeString = `NEXUS-TK-${Math.floor(10000 + Math.random() * 89999)}`;
+                        const newCardGridWrapperNode = document.createElement('div');
+                        newCardGridWrapperNode.className = 'quantum-photo-card';
+                        
+                        const savedStateStatusClass = AppEngine.state.bookmarkedItems.includes(endpointResolutionPath) ? 'is-saved' : '';
+                        const savedIconStatusClass = AppEngine.state.bookmarkedItems.includes(endpointResolutionPath) ? 'fas' : 'far';
+
+                        newCardGridWrapperNode.innerHTML = `
+                            <div class="media-viewport">
+                                <div class="shimmer-skeleton-mask" id="shimmer-node-${AppEngine.state.pipelinePointer}"></div>
+                                <img src="${endpointResolutionPath}" class="target-render-photo" alt="Tokyo Intercept Asset" onload="AppEngine.Pipeline.clearSkeletonLoader(${AppEngine.state.pipelinePointer})">
+                                
+                                <div class="card-hud-overlay">
+                                    <div class="card-hud-upper">
+                                        <div class="card-hud-badge">${structuralNodeCodeString}</div>
+                                        <div class="card-action-deck">
+                                            <button class="card-action-btn" onclick="AppEngine.Pipeline.toggleFXPanel(this)" title="Toggle Matrix FX Panel">
+                                                <i class="fas fa-sliders-h"></i>
+                                            </button>
+                                            <button class="card-action-btn" onclick="AppEngine.Modals.launchLightbox('${endpointResolutionPath}')" title="Maximize View Matrix">
+                                                <i class="fas fa-expand"></i>
+                                            </button>
+                                            <button class="card-action-btn ${savedStateStatusClass}" onclick="AppEngine.Storage.toggleBookmark('${endpointResolutionPath}', ${AppEngine.state.pipelinePointer}, this)" title="Log Matrix File to Vault">
+                                                <i class="${savedIconStatusClass} fa-bookmark"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Interactive Realtime Graphic Tweaker Adjustment Bars -->
+                                    <div class="photo-fx-tweaker-hud">
+                                        <div class="fx-slider-row">
+                                            <span>BRIGHT</span>
+                                            <input type="range" class="slider-fx-brightness" min="50" max="200" value="100" oninput="AppEngine.Pipeline.applyLiveFXFilters(this, 'bright')">
+                                        </div>
+                                        <div class="fx-slider-row">
+                                            <span>CONTRAST</span>
+                                            <input type="range" class="slider-fx-contrast" min="50" max="200" value="100" oninput="AppEngine.Pipeline.applyLiveFXFilters(this, 'contrast')">
+                                        </div>
+                                        <div class="fx-slider-row">
+                                            <span>BLUR</span>
+                                            <input type="range" class="slider-fx-blur" min="0" max="10" value="0" oninput="AppEngine.Pipeline.applyLiveFXFilters(this, 'blur')">
+                                        </div>
+                                        <div class="fx-slider-row">
+                                            <span>HUE</span>
+                                            <input type="range" class="slider-fx-hue" min="0" max="360" value="0" oninput="AppEngine.Pipeline.applyLiveFXFilters(this, 'hue')">
+                                        </div>
+                                    </div>
+
+                                    <div class="card-hud-lower">
+                                        <h3>GRID ZONE // METROPOLIS</h3>
+                                        <p><i class="fas fa-satellite-dish"></i> BROADCAST LAYER: STREAM_DYNAMICS</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="card-info">
-                                <h3 class="card-title">TOKYO // ${sysId}</h3>
-                                <p class="card-desc">Architecture / Grid View</p>
-                                <button class="download-full" onclick="window.open('${imgUrl}', '_blank')">
-                                    <i class="fas fa-expand"></i> VIEW RAW DATA
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                fragment.appendChild(card);
+                        `;
+                        fragmentMatrix.appendChild(newCardGridWrapperNode);
+                    }
+
+                    requestAnimationFrame(() => {
+                        document.getElementById('main-quantum-photo-grid').appendChild(fragmentMatrix);
+                        document.getElementById('hud-total-assets').innerText = AppEngine.state.totalLoaded;
+                    });
+                },
+
+                clearSkeletonLoader(pointerIndexId) {
+                    const skeletonTargetMask = document.getElementById(`shimmer-node-${pointerIndexId}`);
+                    if(skeletonTargetMask) {
+                        const targetImageNode = skeletonTargetMask.nextElementSibling;
+                        if(targetImageNode) targetImageNode.style.opacity = '1';
+                        skeletonTargetMask.remove();
+                    }
+                }
+            },
+
+            /**
+             * Precision Diagnostic Performance Metric Management Loop
+             */
+            Diagnostics: {
+                frameCount: 0,
+                lastTimestamp: performance.now(),
+                init() {
+                    const loop = () => {
+                        this.frameCount++;
+                        const now = performance.now();
+                        if(now >= this.lastTimestamp + 1000) {
+                            AppEngine.state.fpsCounter = (this.frameCount * 1000) / (now - this.lastTimestamp);
+                            document.getElementById('hud-fps-counter').innerText = `${AppEngine.state.fpsCounter.toFixed(1)} FPS`;
+                            this.frameCount = 0;
+                            this.lastTimestamp = now;
+                        }
+                        requestAnimationFrame(loop);
+                    };
+                    requestAnimationFrame(loop);
+                    AppEngine.Logger.push("Hardware frame verification clock engine link active.");
+                }
+            },
+
+            /**
+             * Framework Entry Point Initializer Method
+             */
+            boot() {
+                this.Logger.init();
+                this.Themes.init();
+                this.Storage.init();
+                this.Pipeline.init();
+                this.Diagnostics.init();
+                
+                // Infinite Scroll Observer Setup Configuration
+                const streamObserverSentinel = document.getElementById('infinite-pipeline-sentinel');
+                const observerStrategyInstance = new IntersectionObserver((entriesCollection) => {
+                    if(entriesCollection[0].isIntersecting) {
+                        setTimeout(() => { AppEngine.Pipeline.interceptAndRenderGridBatch(); }, 100);
+                    }
+                }, { rootMargin: '1200px', threshold: 0.01 });
+                
+                observerStrategyInstance.observe(streamObserverSentinel);
+                this.Logger.push("Global Framework Application context active. System running optimized.");
             }
-            grid.appendChild(fragment);
-        }
-
-        // --- D. INTERACTION & NOTIFICATION SYSTEM ---
-        function toggleSave(btn) {
-            btn.classList.toggle('saved');
-            const icon = btn.querySelector('i');
-            if (btn.classList.contains('saved')) {
-                icon.className = 'fas fa-heart';
-                showToast('Image cached to personal drive.');
-            } else {
-                icon.className = 'far fa-heart';
-                showToast('Image removed from cache.');
-            }
-        }
-
-        function copyLink(id) {
-            navigator.clipboard.writeText(`Sector Data: ${id}`);
-            showToast(`Sector ${id} copied to clipboard.`);
-        }
-
-        function showToast(message) {
-            const container = document.getElementById('toast-container');
-            const toast = document.createElement('div');
-            toast.className = 'toast';
-            toast.innerHTML = `<i class="fas fa-check-circle" style="color:var(--accent-main)"></i> <span>${message}</span>`;
-            container.appendChild(toast);
-            setTimeout(() => toast.remove(), 3300);
-        }
-
-        // --- E. INTERSECTION OBSERVER (For Unlimited Scrolling without lagging) ---
-        // This triggers loadImages() ONLY when the user scrolls near the bottom
-        const scrollTarget = document.getElementById('scroll-target');
-        const observer = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting) {
-                // Set a tiny timeout to simulate network fetching and give DOM time to breathe
-                setTimeout(loadImages, 300);
-            }
-        }, { rootMargin: '1200px' }); // 1200px pre-loads before user even hits the bottom!
-
-        // --- BOOT SEQUENCE ---
-        window.onload = () => {
-            checkAuth();
-            observer.observe(scrollTarget); // Starts the infinite loop
         };
 
+        // Trigger ecosystem bootstrap array allocation mapping once viewport thread unlocks safely
+        window.addEventListener('DOMContentLoaded', () => { AppEngine.boot(); });
     </script>
 </body>
 </html>
